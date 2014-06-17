@@ -2,7 +2,7 @@
 function lang($phrase){
     static $lang = array(
 
-		'DASHBOARD_TITLE' => 'Dashboard',
+	'DASHBOARD_TITLE' => 'Dashboard',
         'DASHBOARD_ticket_stats' => 'Stats applications',
         'DASHBOARD_ticket_in_desc' => 'Incoming free tickets that you can take',
         'DASHBOARD_ticket_in' => ' incoming tickets',
