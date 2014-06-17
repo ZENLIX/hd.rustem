@@ -1,6 +1,11 @@
 <?php
 include("functions.inc.php");
 /*
+  
+  000
+  
+  
+   
 5 0 * * * /usr/bin/php5 -f /var/www/hd_prod/4cron.php > /var/www/hd_prod/4cron.log 2>&1
 */
 $results = mysql_query("SELECT id, ok_by, ok_date,date_create
