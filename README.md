@@ -3,4 +3,4 @@ hd.rustem
 
 Helpdesk system
 
-TODO: Desription 
+TODO: Desription, please.
