@@ -114,7 +114,7 @@
   <div class="panel-body">
     
     <div id="spinner" class="well well-large well-transparent lead">
-                <center><?=lang('MSG_no_records');?></center>
+                <center><i class="fa fa-spinner fa-spin icon-2x"></i> <?=lang('LIST_loading');?> ...</center>
     </div>
             
     <div id="dashboard_t"></div>
