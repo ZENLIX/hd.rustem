@@ -860,6 +860,7 @@ var result="";
 	                $('[data-toggle="tooltip"]').tooltip({container: 'body', html:true});
                 }
                 });
+                $('#spinner').show();
                                                $.ajax({
                 type: "POST",
                 url: "actions.php",
@@ -867,6 +868,7 @@ var result="";
                 success: function(html){
                 
 	                $('#dashboard_t').html(html);
+	                $('#spinner').hide();
 	                $('[data-toggle="tooltip"]').tooltip('hide');
 	                $('[data-toggle="tooltip"]').tooltip({container: 'body', html:true});
                 }
@@ -1018,12 +1020,14 @@ $.ajax({
 	                //$('[data-toggle="tooltip"]').tooltip({container: 'body', html:true});
                 }
                 });
+                $('#spinner').show();
                                $.ajax({
                 type: "POST",
                 url: "actions.php",
                 data: "mode=dashboard_t",
                 success: function(html){
 	                $('#dashboard_t').html(html);
+	                $('#spinner').hide();
 	                //$('[data-toggle="tooltip"]').tooltip('hide');
 	                $('[data-toggle="tooltip"]').tooltip({container: 'body', html:true});
                 }

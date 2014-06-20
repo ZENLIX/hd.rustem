@@ -113,7 +113,10 @@
   <div class="panel-heading"><a href="list.php?in"><i class="fa fa-list-alt"></i> <?=lang('DASHBOARD_last_in');?></a></div>
   <div class="panel-body">
     
-    
+    <div id="spinner" class="well well-large well-transparent lead">
+                <center><?=lang('MSG_no_records');?></center>
+    </div>
+            
     <div id="dashboard_t"></div>
     
     
