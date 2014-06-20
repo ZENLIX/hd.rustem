@@ -2,11 +2,13 @@ hd.rustem
 =========
 http://hd.rustem.com.ua/
 =======
-Helpdesk system based on php+mysql, jquery+css
+Helpdesk system, based on php+mysql, jquery+css.
 
-=> How to install? 
-Download files
-Extract to web-folder
-Find DB/HD.db.sql & import to MySQL-database
-Find functions.inc.php and edit connect-config to DB.
-Go to web with login/pass: system/1234
+<h4>How to install? </h4>
+<ol>
+<li>Download files</li>
+<li>Extract to web-folder</li>
+<li>Find DB/HD.db.sql & import to MySQL-database</li>
+<li>Find functions.inc.php and edit connect-config to DB</li>
+<li>Go to web with login/pass: system/1234</li>
+</ol>
