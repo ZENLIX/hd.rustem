@@ -1,11 +1,5 @@
 hd.rustem
 =========
-
-<<<<<<< HEAD
-helpdesk system
 http://hd.rustem.com.ua/
 =======
-Helpdesk system
-
-TODO: Desription 
->>>>>>> vladi/master
+Helpdesk system based on php+mysql, jquery+css
