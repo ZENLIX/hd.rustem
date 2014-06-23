@@ -1968,7 +1968,7 @@ $('#summernote').summernote({
 
         $.ajax({
             type: "POST",
-            url: "actions.php",
+            url: "../actions.php",
             data: "mode=units_del"+
                 "&id="+$(this).attr('value'),
             success: function(html) {
@@ -2006,7 +2006,7 @@ $('#summernote').summernote({
 
         $.ajax({
             type: "POST",
-            url: "actions.php",
+            url: "../actions.php",
             data: "mode=units_add"+
                 "&text="+$("#units_text").val(),
             success: function(html) {
@@ -2023,7 +2023,7 @@ $('#summernote').summernote({
 
         $.ajax({
             type: "POST",
-            url: "actions.php",
+            url: "../actions.php",
             data: "mode=subj_del"+
                 "&id="+$(this).attr('value'),
             success: function(html) {
@@ -2040,7 +2040,7 @@ $('#summernote').summernote({
 
         $.ajax({
             type: "POST",
-            url: "actions.php",
+            url: "../actions.php",
             data: "mode=subj_add"+
                 "&text="+$("#subj_text").val(),
             success: function(html) {
@@ -2058,7 +2058,7 @@ $('#summernote').summernote({
 
         $.ajax({
             type: "POST",
-            url: "actions.php",
+            url: "../actions.php",
             data: "mode=deps_del"+
                 "&id="+$(this).attr('value'),
             success: function(html) {
@@ -2073,7 +2073,7 @@ $('#summernote').summernote({
 
         $.ajax({
             type: "POST",
-            url: "actions.php",
+            url: "../actions.php",
             data: "mode=deps_add"+
                 "&text="+$("#deps_text").val(),
             success: function(html) {
@@ -2090,7 +2090,7 @@ $('#summernote').summernote({
 
         $.ajax({
             type: "POST",
-            url: "actions.php",
+            url: "../actions.php",
             data: "mode=posada_add"+
                 "&text="+$("#posada_text").val(),
             success: function(html) {
@@ -2105,7 +2105,7 @@ $('#summernote').summernote({
 
         $.ajax({
             type: "POST",
-            url: "actions.php",
+            url: "../actions.php",
             data: "mode=posada_del"+
                 "&id="+$(this).attr('value'),
             success: function(html) {

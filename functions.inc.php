@@ -1,26 +1,8 @@
 <?php
 
 ///////////////////////////////////////////////////////////////////////////
-$host 		= "localhost"; 		// Host name
-$username 	= "root"; 			// Mysql username
-$password 	= ""; 				// Mysql password
-$db_name 	= "hd_prod"; 			// Mysql password
-
-$title_header			="СИСТЕМА ЗАЯВОК";					//System Name
-$admin_password			='1234';							//admin def:1234
-$lang					='ru';								//system language
-$CONF['hostname']		='http://localhost/web/HD.rustem-2.01beta/';	//path
-$CONF['mail']			='hd@hd.local';						//email
-$CONF['days2arch']		=3;									//days to arch
-$CONF['name_of_firm']	="IT корпорация";					//Name of Organization
-
+include_once('conf.php');
 ///////////////////////////////////////////////////////////////////////////
-
-
-
-
-
-
 date_default_timezone_set('Europe/Kiev');
 $connection = mysql_connect($host, $username, $password) or die ("Error: Kunne ikke koble til databasen");
 mysql_select_db($db_name, $connection);

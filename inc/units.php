@@ -1,11 +1,11 @@
 <?php
 session_start();
-include("functions.inc.php");
+include("../functions.inc.php");
 
 if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
 if (validate_admin($_SESSION['helpdesk_user_id'])) {
-   include("inc/head.inc.php");
-   include("inc/navbar.inc.php");
+   include("../inc/head.inc.php");
+   include("../inc/navbar.inc.php");
    
   
 
@@ -20,12 +20,12 @@ padding: 3px;
 <div class="container">
 <div class="page-header" style="margin-top: -15px;">
 <div class="row">
-         <div class="col-md-6"> <h3><i class="fa fa-male"></i> <?=lang('POSADA_title');?></h3></div><div class="col-md-6"> 
+         <div class="col-md-6"> <h3><i class="fa fa-building-o"></i> <?=lang('UNITS_title');?></h3></div><div class="col-md-6"> 
          
          <h4> <div class="input-group">
-      <input type="text" class="form-control input-sm ui-autocomplete-input" id="posada_text" placeholder="<?=lang('POSADA_name');?>" autocomplete="off">
+      <input type="text" class="form-control input-sm ui-autocomplete-input" id="units_text" placeholder="<?=lang('UNITS_name');?>" autocomplete="off">
       <span class="input-group-btn">
-        <button id="posada_add" class="btn btn-default btn-sm" type="submit"><?=lang('POSADA_add');?></button>
+        <button id="units_add" class="btn btn-default btn-sm" type="submit"><?=lang('UNITS_add');?></button>
       </span>
     </div></h4></div>
          
@@ -33,14 +33,14 @@ padding: 3px;
  </div>
         
 
-<div class="row" id="content_posada">
+<div class="row" id="content_units">
 
       
       
       
 <?php 
 	
-		$results = mysql_query("select id, name from posada;");
+		$results = mysql_query("select id, name from units;");
 	
 	
 	
@@ -54,8 +54,8 @@ padding: 3px;
         <thead>
           <tr>
           	<th><center>ID</center></th>
-            <th><center><?=lang('POSADA_n');?></center></th>
-            <th><center><?=lang('POSADA_action');?></center></th>
+            <th><center><?=lang('UNITS_n');?></center></th>
+            <th><center><?=lang('UNITS_action');?></center></th>
           </tr>
         </thead>
 		<tbody>		
@@ -65,7 +65,7 @@ padding: 3px;
 		
 		<td><small><center><?=$row['id'];?></center></small></td>
 		<td><small><?=$row['name'];?></small></td>
-<td><small><center><button id="posada_del" type="button" class="btn btn-danger btn-xs" value="<?=$row['id'];?>">del</button></center></small></td>
+<td><small><center><button id="units_del" type="button" class="btn btn-danger btn-xs" value="<?=$row['id'];?>">del</button></center></small></td>
 		</tr>
 				<?php } ?>
 		
@@ -88,13 +88,13 @@ padding: 3px;
 <br>
 </div>
 <?php
- include("inc/footer.inc.php");
+ include("../inc/footer.inc.php");
 ?>
 
 <?php
 	}
 	}
 else {
-    include 'auth.php';
+    include '../auth.php';
 }
 ?>

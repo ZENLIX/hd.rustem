@@ -1,0 +1,16 @@
+<?php
+
+$host 		= "localhost"; 		// Host name
+$username 	= "root"; 			// Mysql username
+$password 	= ""; 				// Mysql password
+$db_name 	= "hd_prod"; 			// Mysql password
+
+$title_header			="СИСТЕМА ЗАЯВОК";					//System Name
+$admin_password			='1234';							//admin def:1234
+$lang					='ru';								//system language
+$CONF['hostname']		='http://localhost/web/HD.rustem/';	//path
+$CONF['mail']			='hd@hd.local';						//email
+$CONF['days2arch']		=3;									//days to arch
+$CONF['name_of_firm']	="IT корпорация";					//Name of Organization
+
+?>

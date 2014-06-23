@@ -1,11 +1,11 @@
 <?php
 session_start();
-include("functions.inc.php");
+include("../functions.inc.php");
 
 if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
 if (validate_admin($_SESSION['helpdesk_user_id'])) {
-   include("inc/head.inc.php");
-   include("inc/navbar.inc.php");
+   include("../inc/head.inc.php");
+   include("../inc/navbar.inc.php");
    
   
 
@@ -17,21 +17,15 @@ padding: 3px;
 </style>
 
 
-
-
-
-
-
-
 <div class="container">
 <div class="page-header" style="margin-top: -15px;">
 <div class="row">
-         <div class="col-md-6"> <h3><i class="fa fa-tags"></i> <?=lang('SUBJ_title');?></h3></div><div class="col-md-6"> 
+         <div class="col-md-6"> <h3><i class="fa fa-sitemap"></i> <?=lang('DEPS_title');?></h3></div><div class="col-md-6"> 
          
          <h4> <div class="input-group">
-      <input type="text" class="form-control input-sm ui-autocomplete-input" id="subj_text" placeholder="<?=lang('SUBJ_name');?>" autocomplete="off">
+      <input type="text" class="form-control input-sm ui-autocomplete-input" id="deps_text" placeholder="<?=lang('DEPS_name');?>" autocomplete="off">
       <span class="input-group-btn">
-        <button id="subj_add" class="btn btn-default btn-sm" type="submit"><?=lang('SUBJ_add');?></button>
+        <button id="deps_add" class="btn btn-default btn-sm" type="submit"><?=lang('DEPS_add');?></button>
       </span>
     </div></h4></div>
          
@@ -39,14 +33,14 @@ padding: 3px;
  </div>
         
 
-<div class="row" id="content_subj">
+<div class="row" id="content_deps">
 
       
       
       
 <?php 
 	
-		$results = mysql_query("select id, name from subj;");
+		$results = mysql_query("select id, name from deps where id!='0';");
 	
 	
 	
@@ -60,8 +54,8 @@ padding: 3px;
         <thead>
           <tr>
           	<th><center>ID</center></th>
-            <th><center><?=lang('SUBJ_n');?></center></th>
-            <th><center><?=lang('SUBJ_action');?></center></th>
+            <th><center><?=lang('DEPS_n');?></center></th>
+            <th><center><?=lang('DEPS_action');?></center></th>
           </tr>
         </thead>
 		<tbody>		
@@ -70,8 +64,8 @@ padding: 3px;
 		
 		
 		<td><small><center><?=$row['id'];?></center></small></td>
-		<td><small id="small_<?=$row['id'];?>"><?=$row['name'];?></small></td>
-<td><small><center><button id="subj_del" type="button" class="btn btn-danger btn-xs" value="<?=$row['id'];?>">del</button></center></small></td>
+		<td><small><?=$row['name'];?></small></td>
+<td><small><center><button id="deps_del" type="button" class="btn btn-danger btn-xs" value="<?=$row['id'];?>">del</button></center></small></td>
 		</tr>
 				<?php } ?>
 		
@@ -94,13 +88,13 @@ padding: 3px;
 <br>
 </div>
 <?php
- include("inc/footer.inc.php");
+ include("../inc/footer.inc.php");
 ?>
 
 <?php
 	}
 	}
 else {
-    include 'auth.php';
+    include '../auth.php';
 }
 ?>
