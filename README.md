@@ -2,8 +2,10 @@ hd.rustem
 =========
 <small>http://hd.rustem.com.ua/</small>
 =======
-Helpdesk system, based on php+mysql, jquery+css.
-
+HELPDESK. Система заявок
+Веб-система, для организации учёта выполнения задач между структурными подразделениями и работниками организации.
+<hr>
+<img src="http://hd.rustem.com.ua/111.001.jpg">
 <h4>How to install? </h4>
 <ol>
 <li>Download files</li>
