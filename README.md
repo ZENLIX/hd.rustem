@@ -1,6 +1,6 @@
 hd.rustem
 =========
-http://hd.rustem.com.ua/
+<small>http://hd.rustem.com.ua/</small>
 =======
 Helpdesk system, based on php+mysql, jquery+css.
 
