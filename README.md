@@ -10,8 +10,8 @@ hd.rustem
 <li>Скачать файлы</li>
 <li>Распаковать в каталог веб-сервера</li>
 <li>Найти HD.db.sql и импортировать в БД MySQL</li>
-<li>Найти functions.inc.php и в нём поправить данные подключения к БД</li>
+<li>Найти conf.php и в нём поправить данные подключения к БД</li>
 <li>Зайти по вебу, используя логин/пароль: system/1234</li>
 </ul>
 
-Demo-доступ (demo:demo) [<a href="demo/">log In</a>]
+Demo-доступ (demo:demo) [<a href="http://hd.rustem.com.ua/demo/">log In</a>]
