@@ -6,11 +6,12 @@ hd.rustem
 <img src="http://hd.rustem.com.ua/111.001.jpg">
 
 <h4>Как установить?</h4>
-	        	        <ul>
-		        	        <li>Скачать файлы</li>
-		        	        <li>Распаковать в каталог веб-сервера</li>
-		        	        <li>Найти HD.db.sql и импортировать в БД MySQL</li>
-		        	        <li>Найти functions.inc.php и в нём поправить данные подключения к БД</li>
-		        	        <li>Зайти по вебу, используя логин/пароль: system/1234</li>
-	        	        </ul>
-<li>Demo-доступ (demo:demo) [<a href="demo/">log In</a>]</li>
+<ul>
+<li>Скачать файлы</li>
+<li>Распаковать в каталог веб-сервера</li>
+<li>Найти HD.db.sql и импортировать в БД MySQL</li>
+<li>Найти functions.inc.php и в нём поправить данные подключения к БД</li>
+<li>Зайти по вебу, используя логин/пароль: system/1234</li>
+</ul>
+
+Demo-доступ (demo:demo) [<a href="demo/">log In</a>]
