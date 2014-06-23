@@ -134,6 +134,10 @@ print($r);
   
 
 <?php
+if (mysql_num_rows($res) == 0) {
+			echo lang('empty');
+		}
+		if (mysql_num_rows($res) <> 0) {
 		while ($row = mysql_fetch_assoc($res)) {
 		
 		
@@ -146,7 +150,7 @@ print($r);
 			<?php
 		}
 		?></table><?php
-		
+		}
 		}
 		
 		if ($mode == "save_notes") {
