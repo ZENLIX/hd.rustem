@@ -9,6 +9,6 @@ Helpdesk system, based on php+mysql, jquery+css.
 <li>Download files</li>
 <li>Extract to web-folder</li>
 <li>Find DB/HD.db.sql & import to MySQL-database</li>
-<li>Find functions.inc.php and edit connect-config to DB</li>
+<li>Find conf.php and edit connect-config to DB</li>
 <li>Go to web with login/pass: system/1234</li>
 </ol>
