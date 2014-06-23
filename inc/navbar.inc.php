@@ -43,7 +43,7 @@ if ($newt == 0) {
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="index.php"><img src="<?=$CONF['hostname']?>/img/logo.png"> система заявок</a>
+        <a class="navbar-brand" href="index.php"><img src="<?=$CONF['hostname']?>/img/logo.png"> <?=$CONF['name_of_firm']?></a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->

@@ -52,51 +52,7 @@ var result="";
 
 
 
-    /*$("#fio").change(function() {
-     $("#user_login").val('');
-     $("#user_info").hide();
-     $("#status_action").val('add');
-     $('#fio').popover('hide');
-     $('#for_fio').removeClass('has-error');
-     $('#for_fio').addClass('has-success');
-     //$("#alert_add").hide().fadeIn(500);
-     $.ajax({
-     type: "POST",
-     url: "client.inc.php",
-     data: "new_client_info="+$("#fio").val(),
-     success: function(html) {
-     $("#alert_add").hide().html(html).fadeIn(500);
-     $('#username').editable({
-     inputclass: 'input-sm',
-     emptytext: 'пусто'
-     });
-     $('#new_login').editable({
-     inputclass: 'input-sm',
-     emptytext: 'пусто'
-     });$('#new_posada').editable({
-     inputclass: 'input-sm',
-     emptytext: 'пусто'
-     });
-     $('#new_unit').editable({
-     inputclass: 'input-sm',
-     emptytext: 'пусто'
-     });
-     $('#new_tel').editable({
-     inputclass: 'input-sm',
-     emptytext: 'пусто'
-     });
-     $('#new_adr').editable({
-     inputclass: 'input-sm',
-     emptytext: 'пусто'
-     });
-     $('#new_mail').editable({
-     inputclass: 'input-sm',
-     emptytext: 'пусто'
-     });
-     }
-     });
-     });*/
-    $("#fio").autocomplete({
+        $("#fio").autocomplete({
         max: 10,
         minLength: 2,
         source: "json.php?fio",

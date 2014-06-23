@@ -5,7 +5,7 @@ $username 	= "root"; 			// Mysql username
 $password 	= ""; 				// Mysql password
 $db_name 	= "hd_prod"; 			// Mysql password
 
-$title_header			="СИСТЕМА ЗАЯВОК";					//System Name
+$title_header			="helpdesk";					//System Name
 $admin_password			='1234';							//admin def:1234
 $lang					='ru';								//system language
 $CONF['hostname']		='http://localhost/web/HD.rustem/';	//path
