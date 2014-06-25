@@ -13,5 +13,3 @@ hd.rustem
 <li>Найти conf.php и в нём поправить данные подключения к БД</li>
 <li>Зайти по вебу, используя логин/пароль: system/1234</li>
 </ul>
-
-Demo-доступ (demo:demo) [<a href="http://hd.rustem.com.ua/demo/">log In</a>]
