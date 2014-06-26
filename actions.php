@@ -2845,7 +2845,6 @@ values ('edit_msg', now(), '$unow', '$pk'); ";
         if ($mode == "add_comment") {
 
             $user_comment=mysql_real_escape_string($_POST['user']);
-            $text_comment=mysql_real_escape_string($_POST['textmsg']);
             $tid_comment=mysql_real_escape_string($_POST['tid']);
 
 
