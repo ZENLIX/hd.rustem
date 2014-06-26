@@ -17,7 +17,7 @@ $rq=0;
 if (isset($_POST['login']) && isset($_POST['password']))
 {
     $rq=1;
-    $req_url=mysql_real_escape_string($_POST['req_url']);
+    $req_url=$_POST['req_url'];
     $rm=mysql_real_escape_string($_POST['remember_me']);
 //echo $rm;
     $login = mysql_real_escape_string($_POST['login']);
@@ -65,6 +65,7 @@ if (isset($_GET['logout'])) {
     setcookie('authhash_code', "");
     unset($_COOKIE['authhash_uid']);
     unset($_COOKIE['authhash_code']);
+    //session_regenerate_id();
     header("Location: ".$CONF['hostname']);
     //setcookie('id', '', 0, "/");
     //setcookie('ps', '', 0, "/");
