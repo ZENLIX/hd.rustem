@@ -913,11 +913,11 @@ function get_client_info($id) {
             </tr>
             <tr>
                 <td style=" width: 30px; "><small><?=lang('WORKER_posada');?>:</small></td>
-                <td><small><a href="#" id="edit_posada" data-type="select" data-source="/json.php?posada" data-pk="1" data-title="Вкажіть посаду"><?=$posada?></a></small></td>
+                <td><small><a href="#" id="edit_posada" data-type="select" data-source="/json.php?posada" data-pk="1" data-title="<?=lang('WORKER_posada');?>"><?=$posada?></a></small></td>
             </tr>
             <tr>
                 <td style=" width: 30px; "><small><?=lang('WORKER_unit');?>:</small></td>
-                <td><small><a href="#" id="edit_unit" data-type="select" data-source="/json.php?units" data-pk="1" data-title="Вкажіть підрозділ"><?php echo $pod; ?></a></small></td>
+                <td><small><a href="#" id="edit_unit" data-type="select" data-source="/json.php?units" data-pk="1" data-title="<?=lang('NEW_unit');?>"><?php echo $pod; ?></a></small></td>
             </tr>
 
             <tr>

@@ -50,11 +50,11 @@ if (isset($_POST['new_client_info'])) {
                     </tr>
                     <tr>
                         <td style=" width: 30px; "><small><?=lang('WORKER_posada');?>:</small></td>
-                        <td><small><a href="#" id="new_posada"  data-type="select" data-source="<?=$CONF['hostname'];?>/json.php?posada" data-pk="1" data-title="Вкажіть посаду"></a></small></td>
+                        <td><small><a href="#" id="new_posada"  data-type="select" data-source="<?=$CONF['hostname'];?>/json.php?posada" data-pk="1" data-title="<?=lang('WORKER_posada');?>"></a></small></td>
                     </tr>
                     <tr>
                         <td style=" width: 30px; "><small><?=lang('WORKER_unit');?>:</small></td>
-                        <td><small><a href="#" id="new_unit" data-type="select" data-source="<?=$CONF['hostname'];?>/json.php?units" data-pk="1" data-title="Вкажіть підрозділ"></a></small></td>
+                        <td><small><a href="#" id="new_unit" data-type="select" data-source="<?=$CONF['hostname'];?>/json.php?units" data-pk="1" data-title="<?=lang('NEW_unit');?>"></a></small></td>
                     </tr>
 
                     <tr>
