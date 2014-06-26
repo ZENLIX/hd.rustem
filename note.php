@@ -7,7 +7,7 @@ include("functions.inc.php");
    //include("inc/navbar.inc.php");
    
   if (isset($_GET['h'])) {
-$h=$_GET['h'];
+$h=mysql_real_escape_string($_GET['h']);
 
 
 $query="select hashname, message from notes where hashname='$h';";

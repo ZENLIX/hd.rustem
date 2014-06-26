@@ -3,7 +3,7 @@ error_reporting(E_ALL ^ E_NOTICE);
 error_reporting(0);
 if (isset($_POST['get_client_info'])) {
 
-    $client_id=$_POST['get_client_info'];
+    $client_id=mysql_real_escape_string($_POST['get_client_info']);
 
 
 
@@ -14,8 +14,8 @@ if (isset($_POST['get_client_info'])) {
 
 }
 if (isset($_POST['new_client_info'])) {
-    $fio=$_POST['new_client_info'];
-    $u_l=$_POST['new_client_login'];
+    $fio=mysql_real_escape_string($_POST['new_client_info']);
+    $u_l=mysql_real_escape_string($_POST['new_client_login']);
     include("functions.inc.php");
     ?>
 

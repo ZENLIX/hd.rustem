@@ -3,7 +3,7 @@ session_start();
 include("functions.inc.php");
 if ( isset($_POST['mode']) ) {
 
-    $mode=$_POST['mode'];
+    $mode=mysql_real_escape_string($_POST['mode']);
 
 if ($mode == "get_host_conf") {
 
@@ -11,14 +11,14 @@ print($CONF['hostname']);
 }
 
 if ($mode == "get_lang_param") {
-$p=$_POST['param'];
+$p=mysql_real_escape_string($_POST['param']);
 $r=lang($p);
 print($r);
 }
 
 
     if ($mode == "activate_login") {
-        $mailadr=$_POST['mailadress'];
+        $mailadr=mysql_real_escape_string($_POST['mailadress']);
         $query="SELECT id, fio,login,status FROM users where email='$mailadr';";
         $res = mysql_query($query) or die(mysql_error());
 
@@ -154,7 +154,7 @@ if (mysql_num_rows($res) == 0) {
 		}
 		
 		if ($mode == "save_notes") {
-		$noteid=$_POST['hn'];
+		$noteid=mysql_real_escape_string($_POST['hn']);
 		$message=mysql_real_escape_string($_POST['msg']);
 		$message = str_replace("\r\n", "\n", $message);
 		$message = str_replace("\r", "\n", $message);
@@ -165,7 +165,7 @@ if (mysql_num_rows($res) == 0) {
 		}
 		
 				if ($mode == "get_first_note") {
-		$noteid=$_POST['hn'];
+		$noteid=mysql_real_escape_string($_POST['hn']);
 		$uid=$_SESSION['helpdesk_user_id'];
 		$query="select hashname, message from notes where user_id='$uid' order by dt DESC limit 1";
         //mysql_query($query);
@@ -188,7 +188,7 @@ if (mysql_num_rows($res) == 0) {
 		
 		
 		if ($mode == "get_notes") {
-		$noteid=$_POST['hn'];
+		$noteid=mysql_real_escape_string($_POST['hn']);
 		$query="select hashname, message from notes where hashname='$noteid'";
         //mysql_query($query);
         $res = mysql_query($query) or die(mysql_error());
@@ -211,7 +211,7 @@ if (mysql_num_rows($res) == 0) {
 		*/
 		
 		if ($mode == "del_notes") {
-		$noteid=$_POST['nid'];
+		$noteid=mysql_real_escape_string($_POST['nid']);
 		$query="delete from notes where hashname='$noteid'";
         mysql_query($query);
 		}
@@ -228,9 +228,9 @@ if (mysql_num_rows($res) == 0) {
 
 
         if ($mode == "get_report") {
-            $id=$_POST['id'];
-            $s=$_POST['s'];
-            $e=$_POST['e'];
+            $id=mysql_real_escape_string($_POST['id']);
+            $s=mysql_real_escape_string($_POST['s']);
+            $e=mysql_real_escape_string($_POST['e']);
 
 
 
@@ -603,7 +603,7 @@ if (mysql_num_rows($res) == 0) {
 
 
         if ($mode == "get_unit_id") {
-            $uid=$_POST['uid'];
+            $uid=mysql_real_escape_string($_POST['uid']);
 
 
             $u=unit_of_user($uid);
@@ -649,8 +649,8 @@ if ($outt == 0) {
 print json_encode($results);
 }
         if ($mode == "check_update_one") {
-            $lu=$_POST['last_update'];
-            $ticket_id=$_POST['id'];
+            $lu=mysql_real_escape_string($_POST['last_update']);
+            $ticket_id=mysql_real_escape_string($_POST['id']);
             $query="SELECT last_update,hash_name FROM tickets where id='$ticket_id';";
             $res = mysql_query($query) or die(mysql_error());
             $fio= mysql_fetch_assoc( $res );
@@ -677,7 +677,7 @@ print json_encode($results);
         
         
         if ($mode == "edit_helper") {
-        $hn=$_POST['hn'];
+        $hn=mysql_real_escape_string($_POST['hn']);
         
         $query="select id, user_init_id, unit_to_id, dt, title, message, hashname
 							from helper
@@ -869,7 +869,7 @@ if ($val== $row['value']) {$opt_sel="selected";}
         }
         
         if ($mode == "find_help") {
-        $t=$_POST['t'];
+        $t=mysql_real_escape_string($_POST['t']);
         $user_id=id_of_user($_SESSION['helpdesk_user_login']);
         $unit_user=unit_of_user($user_id);
         $priv_val=priv_status($user_id);
@@ -934,7 +934,7 @@ $results = mysql_query("SELECT
         }
         
         if ($mode == "del_help") {
-        $hn=$_POST['hn'];
+        $hn=mysql_real_escape_string($_POST['hn']);
         $query_del_ticket_log = "delete from helper where hashname='$hn';";
         mysql_query ( $query_del_ticket_log )or die(mysql_error());
         
@@ -1017,9 +1017,9 @@ $results = mysql_query("SELECT
         }
         ///////
                 if ($mode == "do_save_help") {
-        $u=$_POST['u'];
+        $u=mysql_real_escape_string($_POST['u']);
         $beats = implode(',', $u);
-        $hn=$_POST['hn'];
+        $hn=mysql_real_escape_string($_POST['hn']);
         
         $t=mysql_real_escape_string($_POST['t']);
         $user_id_z=$_SESSION['helpdesk_user_id'];
@@ -1038,7 +1038,7 @@ $results = mysql_query("SELECT
         }
         
         if ($mode == "do_create_help") {
-        $u=$_POST['u'];
+        $u=mysql_real_escape_string($_POST['u']);
         $beats = implode(',', $u);
         
         
@@ -1593,9 +1593,9 @@ $results = mysql_query("SELECT
 		
 		
         if ($mode == "check_update") {
-            $pm=$_POST['type'];//in|out|arch|all
+            $pm=mysql_real_escape_string($_POST['type']);//in|out|arch|all
             $uid=$_SESSION['helpdesk_user_id'];
-            $lu=$_POST['last_update'];
+            $lu=mysql_real_escape_string($_POST['last_update']);
 
             $current_ticket_update=get_last_ticket($pm,$uid);
 
@@ -1607,10 +1607,10 @@ $results = mysql_query("SELECT
 
 
         if ($mode == "list_ticket_update") {
-            $pm=$_POST['type'];//in|out|arch
+            $pm=mysql_real_escape_string($_POST['type']);//in|out|arch
             $uid=$_SESSION['helpdesk_user_id'];
-            $lu=$_POST['last_update'];
-            $nlu=$_POST['new_last_update'];
+            $lu=mysql_real_escape_string($_POST['last_update']);
+            $nlu=mysql_real_escape_string($_POST['new_last_update']);
             $unit_user=unit_of_user($uid);
             $priv_val=priv_status($uid);
 
@@ -1796,7 +1796,7 @@ $results = mysql_query("SELECT
         */
         if ($mode == "find_worker") {
 
-            $fio=$_POST['fio'];
+            $fio=mysql_real_escape_string($_POST['fio']);
             $query="SELECT id,fio,tel,unit_desc,adr,tel_ext,email,login, posada, email FROM clients where fio like '%" . $fio . "%';";
             $res = mysql_query($query) or die(mysql_error());
             $fio= mysql_fetch_assoc( $res );
@@ -1956,7 +1956,7 @@ $results = mysql_query("SELECT
         }
 
         if ($mode == "aprove_yes") {
-            $id=$_POST['id'];
+            $id=mysql_real_escape_string($_POST['id']);
 
             $clientquery="SELECT id,fio,tel,unit_desc,adr ,email,login, posada, email,client_id FROM approved_info where id='$id';";
             $resclient = mysql_query($clientquery) or die(mysql_error());
@@ -1983,7 +1983,7 @@ $results = mysql_query("SELECT
 //echo $query_update_client;
         }
         if ($mode == "aprove_no") {
-            $id=$_POST['id'];
+            $id=mysql_real_escape_string($_POST['id']);
             $query_add_ticket_log = "delete from approved_info where id='$id';";
             mysql_query ( $query_add_ticket_log )or die(mysql_error());
 
@@ -1991,9 +1991,9 @@ $results = mysql_query("SELECT
 
 
         if ($mode == "edit_profile_main") {
-            $l=$_POST['login'];
-            $m=$_POST['mail'];
-            $id=$_POST['id'];
+            $l=mysql_real_escape_string($_POST['login']);
+            $m=mysql_real_escape_string($_POST['mail']);
+            $id=mysql_real_escape_string($_POST['id']);
 
 // Проверка логіна сімволи і к-во
 // проверка email
@@ -2030,10 +2030,10 @@ $results = mysql_query("SELECT
 
 
         if ($mode == "edit_profile_pass") {
-            $p_old=md5($_POST['old_pass']);
-            $p_new=md5($_POST['new_pass']);
-            $p_new2=md5($_POST['new_pass2']);
-            $id=$_POST['id'];
+            $p_old=md5(mysql_real_escape_string($_POST['old_pass']));
+            $p_new=md5(mysql_real_escape_string($_POST['new_pass']));
+            $p_new2=md5(mysql_real_escape_string($_POST['new_pass2']));
+            $id=mysql_real_escape_string($_POST['id']);
 
 //echo $p_old." ".$p_new." ".$p_new2;
 
@@ -2098,7 +2098,7 @@ $results = mysql_query("SELECT
 
 
         if ($mode == "subj_del") {
-            $id=$_POST['id'];
+            $id=mysql_real_escape_string($_POST['id']);
             $q="delete from subj where id='$id';";
             mysql_query ( $q )or die(mysql_error());
 
@@ -2174,7 +2174,7 @@ $results = mysql_query("SELECT
 
         }
                 if ($mode == "deps_del") {
-            $id=$_POST['id'];
+            $id=mysql_real_escape_string($_POST['id']);
             $q="delete from deps where id='$id';";
             mysql_query ( $q )or die(mysql_error());
 
@@ -2215,7 +2215,7 @@ $results = mysql_query("SELECT
         
                 if ($mode == "subj_edit") {
             $v=mysql_real_escape_string($_POST['v']);
-            $sid=$_POST['id'];
+            $sid=mysql_real_escape_string($_POST['id']);
             
             $q="update subj set name='$v' where id='$sid';";
             mysql_query ( $q )or die(mysql_error());
@@ -2336,7 +2336,7 @@ $results = mysql_query("SELECT
         }
 
         if ($mode == "posada_del") {
-            $id=$_POST['id'];
+            $id=mysql_real_escape_string($_POST['id']);
             $q="delete from posada where id='$id';";
             mysql_query ( $q )or die(mysql_error());
 //echo($q);
@@ -2414,7 +2414,7 @@ $results = mysql_query("SELECT
 
         }
         if ($mode == "units_del") {
-            $id=$_POST['id'];
+            $id=mysql_real_escape_string($_POST['id']);
             $q="delete from units where id='$id';";
             mysql_query ( $q )or die(mysql_error());
 //echo($q);
@@ -2453,12 +2453,12 @@ $results = mysql_query("SELECT
         }
         if ($mode == "send_zapit_add") {
             $pib=mysql_real_escape_string($_POST['pib']);
-            $login=$_POST['login'];
+            $login=mysql_real_escape_string($_POST['login']);
             $posada=mysql_real_escape_string($_POST['posada']);
             $pid=mysql_real_escape_string($_POST['pid']);
-            $tel=$_POST['tel'];
+            $tel=mysql_real_escape_string($_POST['tel']);
             $adr=mysql_real_escape_string($_POST['adr']);
-            $mail=$_POST['mail'];
+            $mail=mysql_real_escape_string($_POST['mail']);
             //$uf=$_SESSION['helpdesk_user_id'];
             //$id=$_POST['id_client'];
 
@@ -2475,14 +2475,14 @@ VALUES ('$pib', '$tel', '$login', '$pid', '$adr', '$mail',  '$posada');";
         
                 if ($mode == "send_zapit_edit_ok") {
             $pib=mysql_real_escape_string($_POST['pib']);
-            $login=$_POST['login'];
+            $login=mysql_real_escape_string($_POST['login']);
             $posada=mysql_real_escape_string($_POST['posada']);
             $pid=mysql_real_escape_string($_POST['pid']);
-            $tel=$_POST['tel'];
+            $tel=mysql_real_escape_string($_POST['tel']);
             $adr=mysql_real_escape_string($_POST['adr']);
-            $mail=$_POST['mail'];
+            $mail=mysql_real_escape_string($_POST['mail']);
             //$uf=$_SESSION['helpdesk_user_id'];
-            $id=$_POST['id_client'];
+            $id=mysql_real_escape_string($_POST['id_client']);
 
             $query_add_ticket_log = "update clients set
 fio='$pib', tel='$tel', login='$login', unit_desc='$pid', adr='$adr', email='$mail', posada='$posada' where id = '$id';";
@@ -2497,14 +2497,14 @@ fio='$pib', tel='$tel', login='$login', unit_desc='$pid', adr='$adr', email='$ma
         
         if ($mode == "send_zapit_edit") {
             $pib=mysql_real_escape_string($_POST['pib']);
-            $login=$_POST['login'];
+            $login=mysql_real_escape_string($_POST['login']);
             $posada=mysql_real_escape_string($_POST['posada']);
             $pid=mysql_real_escape_string($_POST['pid']);
-            $tel=$_POST['tel'];
+            $tel=mysql_real_escape_string($_POST['tel']);
             $adr=mysql_real_escape_string($_POST['adr']);
-            $mail=$_POST['mail'];
+            $mail=mysql_real_escape_string($_POST['mail']);
             $uf=$_SESSION['helpdesk_user_id'];
-            $id=$_POST['id_client'];
+            $id=mysql_real_escape_string($_POST['id_client']);
 
             $query_add_ticket_log = "insert into approved_info
 (client_id, fio, tel, login, unit_desc, adr, email, posada, user_from, date_app)
@@ -2519,8 +2519,8 @@ VALUES ('$id', '$pib', '$tel', '$login', '$pid', '$adr', '$mail',  '$posada', '$
 
 
         if ($mode == "arch_now") {
-            $user=$_POST['user'];
-            $tid=$_POST['tid'];
+            $user=mysql_real_escape_string($_POST['user']);
+            $tid=mysql_real_escape_string($_POST['tid']);
 
             $clientquery="SELECT arch FROM tickets where id='$tid';";
             $resclient = mysql_query($clientquery) or die(mysql_error());
@@ -2542,8 +2542,8 @@ values ('arch', now(), '$unow', '$tid'); ";
         }
 
         if ($mode == "del_now") {
-            $user=$_POST['user'];
-            $tid=$_POST['tid'];
+            $user=mysql_real_escape_string($_POST['user']);
+            $tid=mysql_real_escape_string($_POST['tid']);
 
             $query_update_ticket= "delete from tickets where id='$tid'";
             mysql_query ( $query_update_ticket )or die(mysql_error());
@@ -2554,8 +2554,8 @@ values ('arch', now(), '$unow', '$tid'); ";
         }
 
         if ($mode == "status_no_ok") {
-            $user=$_POST['user'];
-            $tid=$_POST['tid'];
+            $user=mysql_real_escape_string($_POST['user']);
+            $tid=mysql_real_escape_string($_POST['tid']);
 
 
 
@@ -2604,8 +2604,8 @@ values ('ok', now(), '$unow', '$tid'); ";
         }
         if ($mode == "status_ok") {
 
-            $user=$_POST['user'];
-            $tid=$_POST['tid'];
+            $user=mysql_real_escape_string($_POST['user']);
+            $tid=mysql_real_escape_string($_POST['tid']);
 
 
             $clientquery="SELECT status, ok_by, user_init_id FROM tickets where id='$tid';";
@@ -2649,8 +2649,8 @@ values ('no_ok', now(), '$unow', '$tid'); ";
         }
 
         if ($mode == "lock") {
-            $user=$_POST['user'];
-            $tid=$_POST['tid'];
+            $user=mysql_real_escape_string($_POST['user']);
+            $tid=mysql_real_escape_string($_POST['tid']);
 //проверить если уже lock_by != $user
 
 
@@ -2700,7 +2700,7 @@ values ('lock', now(), '$unow', '$tid'); ";
         }
         if ($mode == "unlock") {
 //$user=$_POST['user'];
-            $tid=$_POST['tid'];
+            $tid=mysql_real_escape_string($_POST['tid']);
 
 
 
@@ -2723,9 +2723,9 @@ values ('unlock', now(), '$unow', '$tid'); ";
         if ($mode == "update_to") {
 
 
-            $tid=$_POST['ticket_id'];
-            $to=$_POST['to'];
-            $tou=$_POST['tou'];
+            $tid=mysql_real_escape_string($_POST['ticket_id']);
+            $to=mysql_real_escape_string($_POST['to']);
+            $tou=mysql_real_escape_string($_POST['tou']);
 
 //echo "refer";
             $query_update_ticket= "update tickets set unit_id='$to', user_to_id='$tou', lock_by='0', last_update=now() where id='$tid'";
@@ -2762,14 +2762,14 @@ values ('refer', now(), '$unow', '$tou', '$tid', '$to'); ";
 
 
         if ($mode == "add_user") {
-            $fio=$_POST['fio'];
-            $login=$_POST['login'];
-            $pass=md5($_POST['pass']);
+            $fio=mysql_real_escape_string($_POST['fio']);
+            $login=mysql_real_escape_string($_POST['login']);
+            $pass=md5(mysql_real_escape_string($_POST['pass']));
 //$unit[]=$_POST['unit'];
-            $priv=$_POST['priv'];
-            $mail=$_POST['mail'];
+            $priv=mysql_real_escape_string($_POST['priv']);
+            $mail=mysql_real_escape_string($_POST['mail']);
             $hidden=array();
-            $hidden = $_POST['unit']; //get the values from the keeporder
+            $hidden = mysql_real_escape_string($_POST['unit']); //get the values from the keeporder
             print_r($hidden);
 
 
@@ -2783,8 +2783,8 @@ mysql_query ( $query_add_ticket_log )or die(mysql_error());
 
 
         if ($mode == "edit_ticket_subj") {
-            $v=$_POST['value'];
-            $pk=$_POST['pk'];
+            $v=mysql_real_escape_string($_POST['value']);
+            $pk=mysql_real_escape_string($_POST['pk']);
             $query_add_ticket_log = "update tickets set subj='$v', last_edit=now(), last_update=now() where id='$pk';";
             mysql_query ( $query_add_ticket_log )or die(mysql_error());
 
@@ -2799,8 +2799,8 @@ values ('edit_subj', now(), '$unow', '$pk'); ";
         }
 
         if ($mode == "edit_ticket_msg") {
-            $v=$_POST['value'];
-            $pk=$_POST['pk'];
+            $v=mysql_real_escape_string($_POST['value']);
+            $pk=mysql_real_escape_string($_POST['pk']);
             $query_add_ticket_log = "update tickets set msg='$v', last_edit=now(), last_update=now() where id='$pk';";
             mysql_query ( $query_add_ticket_log )or die(mysql_error());
 
@@ -2813,7 +2813,7 @@ values ('edit_msg', now(), '$unow', '$pk'); ";
         if ($mode == "view_comment") {
 
 
-            $tid_comment=$_POST['tid'];
+            $tid_comment=mysql_real_escape_string($_POST['tid']);
 
 
 
@@ -2843,9 +2843,9 @@ values ('edit_msg', now(), '$unow', '$pk'); ";
 
         if ($mode == "add_comment") {
 
-            $user_comment=$_POST['user'];
+            $user_comment=mysql_real_escape_string($_POST['user']);
             $text_comment=mysql_real_escape_string($_POST['textmsg']);
-            $tid_comment=$_POST['tid'];
+            $tid_comment=mysql_real_escape_string($_POST['tid']);
 
 
             $query_add_comment = "INSERT INTO comments (t_id, user_id, comment_text, dt)
@@ -2891,14 +2891,14 @@ values ('comment', now(), '$user_comment', '$tid_comment'); ";
         }
 
         if ($mode == "edit_user") {
-            $fio=$_POST['fio'];
-            $login=$_POST['login'];
+            $fio=mysql_real_escape_string($_POST['fio']);
+            $login=mysql_real_escape_string($_POST['login']);
 
-            $unit=$_POST['unit'];
-            $priv=$_POST['priv'];
-            $status=$_POST['status'];
-            $usid=$_POST['idu'];
-            $mail=$_POST['mail'];
+            $unit=mysql_real_escape_string($_POST['unit']);
+            $priv=mysql_real_escape_string($_POST['priv']);
+            $status=mysql_real_escape_string($_POST['status']);
+            $usid=mysql_real_escape_string($_POST['idu']);
+            $mail=mysql_real_escape_string($_POST['mail']);
 
 
             if (strlen($_POST['pass'])>1) { $p="pass='".md5($_POST['pass'])."',"; }
@@ -2922,27 +2922,27 @@ mysql_query ( $query_add_ticket_log )or die(mysql_error());
 }
 
         if ($mode == "add_ticket") {
-            $type=$_POST['type_add'];
+            $type=mysql_real_escape_string($_POST['type_add']);
             ///////////
-            $user_init_id=$_POST['user_init_id'];
-            $user_to_id=$_POST['user_do'];
+            $user_init_id=mysql_real_escape_string($_POST['user_init_id']);
+            $user_to_id=mysql_real_escape_string($_POST['user_do']);
             $subj=mysql_real_escape_string($_POST['subj']);
             $msg=mysql_real_escape_string($_POST['msg']);
             $status='0';
-            $unit_id=$_POST['unit_id'];
-            $prio=$_POST['prio'];
+            $unit_id=mysql_real_escape_string($_POST['unit_id']);
+            $prio=mysql_real_escape_string($_POST['prio']);
             ///////////
             $client_fio=mysql_real_escape_string($_POST['fio']);
-            $client_tel=$_POST['tel'];
+            $client_tel=mysql_real_escape_string($_POST['tel']);
             $client_login=mysql_real_escape_string($_POST['login']);
             $unit_desc=mysql_real_escape_string($_POST['pod']);
 
             $client_adr=mysql_real_escape_string($_POST['adr']);
             //$client_tel=$_POST['tel'];
-            $client_mail=$_POST['mail'];
+            $client_mail=mysql_real_escape_string($_POST['mail']);
             $client_posada=mysql_real_escape_string($_POST['posada']);
 
-            $client_id_param=$_POST['client_id_param'];
+            $client_id_param=mysql_real_escape_string($_POST['client_id_param']);
 
             if ($client_fio == "пусто") {$client_fio="";}
             if ($client_tel == "пусто") {$client_tel="";}
@@ -2959,7 +2959,7 @@ mysql_query ( $query_add_ticket_log )or die(mysql_error());
                 $res1 = mysql_query($queryid) or die(mysql_error());
                 $max= mysql_fetch_array( $res1 );
                 $max_id=$max[0]+1;
-                $hashname=$_POST['hashname'];
+                $hashname=mysql_real_escape_string($_POST['hashname']);
                 $query_add_client= "insert into clients
 (id, fio, tel, login, unit_desc, adr, email, posada)
 VALUES ('$max_id', '$client_fio', '$client_tel', '$client_login', '$unit_desc', '$client_adr',  '$client_mail', '$client_posada')";
@@ -3015,7 +3015,7 @@ values ('create', now(), '$unow', '$max_id_res_ticket', '$user_to_id', '$unit_id
             }
             if ($type == "edit") {
 
-                $hashname=$_POST['hashname'];
+                $hashname=mysql_real_escape_string($_POST['hashname']);
                 $query_add_client= "update clients set tel='$client_tel', login='$client_login', unit_desc='$unit_desc', adr='$client_adr', email='$client_mail', posada='$client_posada' where id='$client_id_param'";
                 mysql_query ( $query_add_client )or die(mysql_error());
 //echo $query_add_client;		

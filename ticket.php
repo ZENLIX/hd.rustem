@@ -10,7 +10,7 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
     include("inc/head.inc.php");
     include("inc/navbar.inc.php");
 
-    $hn=$_GET['hash'];
+    $hn=mysql_real_escape_string($_GET['hash']);
     $query = "				SELECT 
 							id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, comment, last_edit, is_read, lock_by, ok_by, arch, ok_date, prio, last_update
 							from tickets

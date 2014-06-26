@@ -208,7 +208,7 @@ if (isset($_GET['ok'])) {
 }
 
 if ($_POST['menu'] == 'list' ) {
-$page=$_POST['page'];
+$page=mysql_real_escape_string($_POST['page']);
 $perpage='10';
 
 $start_pos = ($page - 1) * $perpage;
@@ -233,7 +233,7 @@ $start_pos = ($page - 1) * $perpage;
         <?php
     //include("../dbconnect.inc.php");
     if (isset($_POST['t'])) {
-    $t=$_POST['t'];
+    $t=mysql_real_escape_string($_POST['t']);
 	    $results = mysql_query("SELECT id, fio, login, tel, unit_desc, adr, email, posada from clients where ((fio like '%" . $t . "%') or (login like '%" . $t . "%')) limit $start_pos, $perpage;");
     }
     if (!isset($_POST['t'])) {
@@ -266,7 +266,7 @@ $start_pos = ($page - 1) * $perpage;
 }
 if ($_POST['menu'] == 'edit' ) {
 //echo $_POST['id'];
-$usid=$_GET['edit'];
+$usid=mysql_real_escape_string($_GET['edit']);
    $query = "SELECT id, fio, tel, login, unit_desc, adr, email, posada from clients where id='$usid'; ";
     $sql = mysql_query($query) or die(mysql_error());
     if (mysql_num_rows($sql) == 1) {

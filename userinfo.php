@@ -7,7 +7,7 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
    include("inc/head.inc.php");
    include("inc/navbar.inc.php");
    
-$user_id=$_GET["user"];
+$user_id=mysql_real_escape_string($_GET["user"]);
 
 
 

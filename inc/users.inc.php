@@ -192,7 +192,7 @@ if ($_POST['menu'] == 'list' ) {
 }
 if ($_POST['menu'] == 'edit' ) {
 //echo $_POST['id'];
-$usid=$_POST['id'];
+$usid=mysql_real_escape_string($_POST['id']);
    $query = "SELECT fio, pass, login, status, priv, unit,email from users where id='$usid'; ";
     $sql = mysql_query($query) or die(mysql_error());
     if (mysql_num_rows($sql) == 1) {
