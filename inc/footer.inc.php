@@ -30,7 +30,6 @@
 
 <script src="<?=$CONF['hostname']?>/js/moment.min.js"></script>
 <script src="<?=$CONF['hostname']?>/js/daterangepicker.js"></script>
-<script src="<?=$CONF['hostname']?>/editor/redactor/redactor.min.js"></script>
 <script src="<?=$CONF['hostname']?>/js/summernote.min.js"></script>
 <script src="<?=$CONF['hostname']?>/js/summernote-uk-UA.js"></script>
 <script src="<?=$CONF['hostname']?>/js/jquery.titlealert.js"></script>
