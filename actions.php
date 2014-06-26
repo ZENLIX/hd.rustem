@@ -219,7 +219,7 @@ if (mysql_num_rows($res) == 0) {
 		if ($mode == "create_notes") {
 		$uid=$_SESSION['helpdesk_user_id'];
 		$hn=md5(time());
-		$query="insert into notes (message, hashname, user_id, dt) values ('Новий запис', '$hn', '$uid', now());";
+		$query="insert into notes (message, hashname, user_id, dt) values ('new record', '$hn', '$uid', now());";
         mysql_query($query)or die(mysql_error());
         echo $hn;
 		}
@@ -1029,7 +1029,7 @@ $results = mysql_query("SELECT
 		$message = str_replace("\r\n", "\n", $message);
 		$message = str_replace("\r", "\n", $message);
 		$message = str_replace("&nbsp;", " ", $message);
-		
+		//$message = defender_xss($message);
 		
 		$query="update helper set user_init_id='$user_id_z', unit_to_id='$beats', dt=now(), title='$t', message='$message' where
 		hashname='$hn';";
@@ -1050,6 +1050,7 @@ $results = mysql_query("SELECT
 		$message = str_replace("\r\n", "\n", $message);
 		$message = str_replace("\r", "\n", $message);
 		$message = str_replace("&nbsp;", " ", $message);
+		//$message = defender_xss($message);
 		$query="insert into helper (hashname, user_init_id,unit_to_id, dt, title,message) values 
 		('$hn','$user_id_z','$beats', now(), '$t','$message');";
         mysql_query($query)or die(mysql_error());

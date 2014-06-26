@@ -84,7 +84,13 @@ function nameshort($name) {
 }
 
 
-
+function defender_xss($arr){
+    $filter = array("<", ">");  
+     foreach($arr as $num=>$xss){
+        $arr[$num]=str_replace ($filter, "|", $xss);
+     }
+       return $arr;
+} 
 
 function mailtoactivate($login, $mail, $pass) {
 global $CONF;
