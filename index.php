@@ -3,12 +3,26 @@ session_start();
 
 //include("dbconnect.inc.php");
 include("functions.inc.php");
-include("inc/head.inc.php");
-?>
 
 
 
-<?php
+
+if (isset($_GET['logout'])) {
+    session_destroy();
+    unset($_SESSION);
+    session_unset();
+    setcookie('authhash_uid', "");
+    setcookie('authhash_code', "");
+    unset($_COOKIE['authhash_uid']);
+    unset($_COOKIE['authhash_code']);
+    //session_regenerate_id();
+    header("Location: ".$CONF['hostname']);
+    //setcookie('id', '', 0, "/");
+    //setcookie('ps', '', 0, "/");
+    // ТУТ УДАЛИТЬ КУКИ
+
+
+}
 
 
 
@@ -54,26 +68,6 @@ if (isset($_POST['login']) && isset($_POST['password']))
     }
 }
 
-
-
-
-if (isset($_GET['logout'])) {
-    session_destroy();
-    unset($_SESSION);
-    session_unset();
-    setcookie('authhash_uid', "");
-    setcookie('authhash_code', "");
-    unset($_COOKIE['authhash_uid']);
-    unset($_COOKIE['authhash_code']);
-    //session_regenerate_id();
-    header("Location: ".$CONF['hostname']);
-    //setcookie('id', '', 0, "/");
-    //setcookie('ps', '', 0, "/");
-    // ТУТ УДАЛИТЬ КУКИ
-
-
-}
-
 //if (isset($_SESSION['code']) ) { 
 if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
 $url = parse_url($CONF['hostname']);
@@ -88,6 +82,7 @@ $url = parse_url($CONF['hostname']);
 
 }
 else {
+    include("inc/head.inc.php");
     include 'auth.php';
 }
 ?>
