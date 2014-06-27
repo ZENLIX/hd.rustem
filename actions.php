@@ -676,6 +676,36 @@ print json_encode($results);
         }
         
         
+        
+        if ($mode == "get_users_list") {
+        $idzz=mysql_real_escape_string($_POST['unit']);
+        
+        $qstring = "SELECT fio, id, unit FROM users;";
+        $result = mysql_query($qstring);//query the database for entries containing the term
+		//while ($row = mysql_fetch_array($result,MYSQL_ASSOC))//loop through the retrieved values
+		while ($row = mysql_fetch_assoc($result)) 
+        {
+        $un=$row['fio'];
+        $ud=(int)$row['id'];
+        $u=explode(",",$row['unit']);
+		
+		if (in_array($idzz, $u)) {
+			$results[] = array(
+                'name' => $un,
+                'co' => $ud
+            );
+
+
+            
+		}
+		
+		
+
+        }
+
+        print json_encode($results);
+        }
+        
         if ($mode == "edit_helper") {
         $hn=mysql_real_escape_string($_POST['hn']);
         

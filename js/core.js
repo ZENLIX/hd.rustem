@@ -196,16 +196,49 @@ var result="";
 
     });
 
-
+function createuserslist(unit_id) {
+	//ajax 
+	//alert(unit_id);
+	
+	$.ajax({
+                            type: "POST",
+                            url: "actions.php",
+                            data: "mode=get_users_list"+
+                                "&unit="+unit_id,
+                            dataType: "json",
+                            success: function(html){
+                            $('select#users_do').empty();
+                                if (html) {
+                                    $.each(html, function(i, item) {
+	                                    $('select#users_do')
+										.append($("<option></option>")
+										.attr("value",item.co)
+										.text(item.name));
+	                                    //item.name item.co
+	                                    
+                                    });
+                                    }
+                                    $('select#users_do').trigger('chosen:updated');
+                                    }
+                                    
+                                    });
+	
+	
+	
+	
+}
 
 
     $("select#to").change(function() {
-
+		var i=$('select#to').val();
         if ( $('select#to').val() != 0 ){
 
             $('#for_to').popover('hide');
             $('#for_to').removeClass('has-error');
             $('#for_to').addClass('has-success');
+            
+            createuserslist(i);
+            
         }
         else {
 
