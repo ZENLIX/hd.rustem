@@ -2876,7 +2876,7 @@ values ('edit_msg', now(), '$unow', '$pk'); ";
 
             $user_comment=mysql_real_escape_string($_POST['user']);
             $tid_comment=mysql_real_escape_string($_POST['tid']);
-
+			$text_comment=mysql_real_escape_string($_POST['textmsg']);
 
             $query_add_comment = "INSERT INTO comments (t_id, user_id, comment_text, dt)
 values ('$tid_comment', '$user_comment', '$text_comment', now()); ";
