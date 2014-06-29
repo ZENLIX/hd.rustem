@@ -17,10 +17,9 @@
 	$host 		= "localhost"; 		// Host name
 	$username 	= "root"; 			// Mysql username
 	$password 	= ""; 				// Mysql password
-	$db_name 	= ""; 		// Mysql password
-	//$db_name 	= "ka";
-	
-	$connection = mysql_connect($host, $username, $password) or die ("Error: Kunne ikke koble til databasen");
+	$db_name 	= "hd_prod"; 		// Mysql password
+
+	$connection = mysql_connect($host, $username, $password) or die ("Error SQL connection");
 	mysql_select_db($db_name, $connection);
 	mysql_query('SET NAMES utf8');
 
@@ -67,19 +66,17 @@ if ($ds) {
 		
 		
 		
-		$ds2=ldap_connect("10.0.0.1"); // IP AD-server
-		if ($ds2) {
-			$r2=ldap_bind($ds2,'user@domain.local','password'); //auth info
+		if ($ds) {
 			$n=str_replace(',', '\,', $n);
-			$sr2=ldap_search($ds2,
+			$sr2=ldap_search($ds,
 				"ou=".$n.", ou=Users, ou=ORganization, dc=domain, dc=local",
 				'(&(objectcategory=Person)(!(UserAccountControl:1.2.840.113556.1.4.804:=2)))');
-			//echo "Всего в подразделении " . ldap_count_entries($ds2, $sr2) . "";
-			ldap_sort($ds2, $sr2, 'cn');
-			$info2 = ldap_get_entries($ds2, $sr2);
+			//echo "Всего в подразделении " . ldap_count_entries($ds, $sr2) . "";
+			ldap_sort($ds, $sr2, 'cn');
+			$info2 = ldap_get_entries($ds, $sr2);
 			if ($info2["count"] > 0) {
 			echo "<h2>".$podrazd."</h2>";
-			echo "<p class='text-muted'><small>Всего в подразделении " . ldap_count_entries($ds2, $sr2) . "</small></p>";
+			echo "<p class='text-muted'><small>Всего в подразделении " . ldap_count_entries($ds, $sr2) . "</small></p>";
 			$total=$total+ldap_count_entries($ds2, $sr2);
 			?><table class='table table-hover table-condensed table-bordered'>
 			<thead>
@@ -114,7 +111,7 @@ if ($ds) {
 	//$query_add_client= "insert into us_tmp (sid, login) VALUES ('$sid', '$usr_login')";
 	//mysql_query ( $query_add_client );	
 				/*
-$query_add_client= "insert into users
+$query_add_client= "insert into clients
 								(login, full_name, email, unit_desc)
 								VALUES
 								('$usr_login', '$fio', '$mail', '$podrazd')";
@@ -133,12 +130,11 @@ mysql_query ( $query_add_client );
 				<td><?=$info2[$m]['mail'][0]?></td>
 				</tr>
 				</tbody>
-				<?
+				<?php
 				}
-			ldap_close($ds2);
-			echo "
+			?>
 			</table>
-			<hr>";
+			<hr><?php
 			}
 		}
 
