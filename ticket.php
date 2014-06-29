@@ -675,7 +675,7 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
                                         <?php while ($rews = mysql_fetch_assoc($rew)) { ?>
                                             <tr>
                                                 <td style="width:200px;"><center><strong><?=nameshort(name_of_user_ret($rews['user_id']));?></strong><br><small class="text-muted"><?=dt_format($rews['dt'])?></small></center></td>
-                                                <td><?=strip_tags($rews['comment_text'])?></td>
+                                                <td><?=xss_clean($rews['comment_text'])?></td>
 
                                             </tr>
                                         <?php } ?>

@@ -2860,7 +2860,7 @@ values ('edit_msg', now(), '$unow', '$pk'); ";
                     <?php while ($rews = mysql_fetch_assoc($rew)) { ?>
                         <tr>
                             <td style="width:200px;"><center><strong><?=name_of_user($rews['user_id'])?></strong><br><small class="text-muted"><?=dt_format($rews['dt'])?></small></center></td>
-                            <td><?=strip_tags($rews['comment_text'])?></td>
+                            <td><?=xss_clean($rews['comment_text'])?></td>
 
                         </tr>
                     <?php } ?>
@@ -2908,7 +2908,7 @@ values ('comment', now(), '$user_comment', '$tid_comment'); ";
                     <?php while ($rews = mysql_fetch_assoc($rew)) { ?>
                         <tr>
                             <td style="width:200px;"><center><strong><?=name_of_user($rews['user_id'])?></strong><br><small class="text-muted"><?=dt_format($rews['dt'])?></small></center></td>
-                            <td><?=strip_tags($rews['comment_text'])?></td>
+                            <td><?=xss_clean($rews['comment_text'])?></td>
 
                         </tr>
                     <?php } ?>
