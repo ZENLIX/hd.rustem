@@ -27,3 +27,21 @@ hd.rustem
 <li>Дизайнер интерфейса (bootstrap 3)</li>
 <li>Security-программист, для залатывания известных дыр</li>
 </ul>
+
+<h4>Ссылки и обсуждения</h4>
+<ul>
+<li>http://habrahabr.ru/post/227277/</li>
+<li>http://hd.rustem.com.ua/</li>
+</ul>
+
+
+<h4>Благодарности за вклад в проект</h4>
+<ul>
+<li>http://habrahabr.ru/post/227277/</li>
+<li>http://hd.rustem.com.ua/</li>
+</ul>
+
+<h4>Вопросы по внедрению и разработке ($)</h4>
+<ul>
+<li>Skype: rustem_ck</li>
+</ul>
