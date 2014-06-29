@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Hd.rustem : helpdesk system" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Hd.rustem</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/rustem-art/hd.rustem">View on GitHub</a>
+
+          <h1 id="project_title">Hd.rustem</h1>
+          <h2 id="project_tagline">helpdesk system</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/rustem-art/hd.rustem/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/rustem-art/hd.rustem/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a name="hdrustem" class="anchor" href="#hdrustem"><span class="octicon octicon-link"></span></a>hd.rustem</h1>
+
+<p>HELPDESK веб-система, для организации учёта выполнения задач (заявок) между структурными подразделениями и пользователями или клиентами организации.
+<img src="http://hd.rustem.com.ua/hd_screen/1.png"></p>
+
+<h4>
+<a name="%D0%A4%D1%83%D0%BD%D0%BA%D1%86%D0%B8%D0%BE%D0%BD%D0%B0%D0%BB" class="anchor" href="#%D0%A4%D1%83%D0%BD%D0%BA%D1%86%D0%B8%D0%BE%D0%BD%D0%B0%D0%BB"><span class="octicon octicon-link"></span></a>Функционал</h4>
+
+<ul>
+<li>Многоуровневая система прав пользователей</li>
+<li>JQuery-ориентированая структура интерфейса</li>
+<li>Возможность регистрации в системе из «белого списка» e-mail адресов</li>
+<li>Извещение о новых заявках по e-mail, sms, и другим системам</li>
+<li>Пользовательские настройки</li>
+<li>Поддержка языков: Украинский, Русский, Английский</li>
+<li>Всплывающие сообщения о событиях с заявками (как в VK)</li>
+<li>Центр знаний — раздел для файлов документации, инструкций и хелпов со структурой прав</li>
+<li>Блокнот — личный блокнот пользователя с возможностью делиться ссылкой</li>
+<li>Статистика заявок</li>
+<li>«Умное» создание заявок по номеру, ФИО, логину клиента</li>
+<li>Приоритеты заявок</li>
+<li>Комментарии и чат в заявке</li>
+<li>Полное логирование всех действий всеми пользователями заявки</li>
+<li>И другое...</li>
+</ul><h4>
+<a name="%D0%9A%D0%B0%D0%BA-%D1%83%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%B8%D1%82%D1%8C" class="anchor" href="#%D0%9A%D0%B0%D0%BA-%D1%83%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%B8%D1%82%D1%8C"><span class="octicon octicon-link"></span></a>Как установить?</h4>
+
+<ul>
+<li>Скачать файлы</li>
+<li>Распаковать в каталог веб-сервера</li>
+<li>Найти HD.db.sql и импортировать в БД MySQL</li>
+<li>Найти conf.php и в нём поправить данные подключения к БД</li>
+<li>Зайти по вебу, используя логин/пароль: system/1234</li>
+</ul><h4>
+<a name="%D0%9A%D0%B0%D0%BA%D0%B8%D0%B5-%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F" class="anchor" href="#%D0%9A%D0%B0%D0%BA%D0%B8%D0%B5-%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F"><span class="octicon octicon-link"></span></a>Какие требования?</h4>
+
+<ul>
+<li>UNIX-like OS</li>
+<li>Apache, PHP, MySQL</li>
+<li>Access to cron (для переноса заявок в архив)</li>
+<li>Access to mail (для отправки писем)</li>
+</ul><h4>
+<a name="%D0%9D%D1%83%D0%B6%D0%BD%D1%8B-%D0%B2-%D0%BA%D0%BE%D0%BC%D0%B0%D0%BD%D0%B4%D1%83" class="anchor" href="#%D0%9D%D1%83%D0%B6%D0%BD%D1%8B-%D0%B2-%D0%BA%D0%BE%D0%BC%D0%B0%D0%BD%D0%B4%D1%83"><span class="octicon octicon-link"></span></a>Нужны в команду</h4>
+
+<ul>
+<li>Дизайнер интерфейса (bootstrap 3)</li>
+<li>Security-программист, для залатывания известных дыр</li>
+</ul><h4>
+<a name="%D0%A1%D1%81%D1%8B%D0%BB%D0%BA%D0%B8-%D0%B8-%D0%BE%D0%B1%D1%81%D1%83%D0%B6%D0%B4%D0%B5%D0%BD%D0%B8%D1%8F" class="anchor" href="#%D0%A1%D1%81%D1%8B%D0%BB%D0%BA%D0%B8-%D0%B8-%D0%BE%D0%B1%D1%81%D1%83%D0%B6%D0%B4%D0%B5%D0%BD%D0%B8%D1%8F"><span class="octicon octicon-link"></span></a>Ссылки и обсуждения</h4>
+
+<ul>
+<li>http://habrahabr.ru/post/227277/</li>
+<li>http://hd.rustem.com.ua/</li>
+</ul><h4>
+<a name="%D0%91%D0%BB%D0%B0%D0%B3%D0%BE%D0%B4%D0%B0%D1%80%D0%BD%D0%BE%D1%81%D1%82%D0%B8-%D0%B7%D0%B0-%D0%B2%D0%BA%D0%BB%D0%B0%D0%B4-%D0%B2-%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82" class="anchor" href="#%D0%91%D0%BB%D0%B0%D0%B3%D0%BE%D0%B4%D0%B0%D1%80%D0%BD%D0%BE%D1%81%D1%82%D0%B8-%D0%B7%D0%B0-%D0%B2%D0%BA%D0%BB%D0%B0%D0%B4-%D0%B2-%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82"><span class="octicon octicon-link"></span></a>Благодарности за вклад в проект</h4>
+
+<ul>
+<li><a href="https://github.com/Vaflan">Vaflan</a></li>
+<li><a href="https://github.com/insp63">insp63</a></li>
+</ul><h4>
+<a name="%D0%92%D0%BE%D0%BF%D1%80%D0%BE%D1%81%D1%8B-%D0%BF%D0%BE-%D0%B2%D0%BD%D0%B5%D0%B4%D1%80%D0%B5%D0%BD%D0%B8%D1%8E-%D0%B8-%D1%80%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B5-" class="anchor" href="#%D0%92%D0%BE%D0%BF%D1%80%D0%BE%D1%81%D1%8B-%D0%BF%D0%BE-%D0%B2%D0%BD%D0%B5%D0%B4%D1%80%D0%B5%D0%BD%D0%B8%D1%8E-%D0%B8-%D1%80%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B5-"><span class="octicon octicon-link"></span></a>Вопросы по внедрению и разработке ($)</h4>
+
+<ul>
+<li>Skype: rustem_ck</li>
+</ul>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Hd.rustem maintained by <a href="https://github.com/rustem-art">rustem-art</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
