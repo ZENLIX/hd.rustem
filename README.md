@@ -37,8 +37,8 @@ hd.rustem
 
 <h4>Благодарности за вклад в проект</h4>
 <ul>
-<li>http://habrahabr.ru/post/227277/</li>
-<li>http://hd.rustem.com.ua/</li>
+<li><a href='https://github.com/Vaflan'>Vaflan</a></li>
+<li><a href='https://github.com/insp63'>insp63</a></li>
 </ul>
 
 <h4>Вопросы по внедрению и разработке ($)</h4>
