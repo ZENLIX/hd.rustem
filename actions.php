@@ -2802,7 +2802,7 @@ values ('refer', now(), '$unow', '$tou', '$tid', '$to'); ";
             $hidden=array();
             $hidden = mysql_real_escape_string($_POST['unit']); //get the values from the keeporder
             print_r($hidden);
-
+			$unit=mysql_real_escape_string($_POST['unit']);
 
             $query_add_ticket_log = "INSERT INTO users (fio, login, pass, status, priv, unit, email)
 values ('$fio', '$login', '$pass', '1', '$priv', '$unit', '$mail'); ";
