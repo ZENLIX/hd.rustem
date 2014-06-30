@@ -1196,24 +1196,32 @@ global $dbConnection;
 }
 
 function get_who_last_action_ticket($ticket_id) {
-    $query="select init_user_id from ticket_log where ticket_id='$ticket_id' order by date_op DESC limit 1;";
-    $res = mysql_query($query) or die(mysql_error());
-    $fio= mysql_fetch_assoc( $res );
+    global $dbConnection;
+
+    $stmt = $dbConnection->prepare('select init_user_id from ticket_log where ticket_id=:ticket_id order by date_op DESC limit 1');
+	$stmt->execute(array(':ticket_id' => $ticket_id));
+	$fio = $stmt->fetch(PDO::FETCH_ASSOC);
+	
     $r=$fio['init_user_id'];
     return $r;
 }
 
 function get_last_action_type($ticket_id) {
-    $query="select date_op, msg, init_user_id, to_user_id, to_unit_id from ticket_log where ticket_id='$ticket_id' order by date_op DESC limit 1;";
-    $res = mysql_query($query) or die(mysql_error());
-    $fio= mysql_fetch_assoc( $res );
+    global $dbConnection;
+ 
+    $stmt = $dbConnection->prepare('select date_op, msg, init_user_id, to_user_id, to_unit_id from ticket_log where ticket_id=:ticket_id order by date_op DESC limit 1');
+	$stmt->execute(array(':ticket_id' => $ticket_id));
+	$fio = $stmt->fetch(PDO::FETCH_ASSOC);
+    
     $r=$fio['msg'];
     return $r;
 }
 function get_last_action_ticket($ticket_id) {
-    $query="select date_op, msg, init_user_id, to_user_id, to_unit_id from ticket_log where ticket_id='$ticket_id' order by date_op DESC limit 1;";
-    $res = mysql_query($query) or die(mysql_error());
-    $fio= mysql_fetch_assoc( $res );
+global $dbConnection;
+ 
+    $stmt = $dbConnection->prepare('select date_op, msg, init_user_id, to_user_id, to_unit_id from ticket_log where ticket_id=:ticket_id order by date_op DESC limit 1');
+	$stmt->execute(array(':ticket_id' => $ticket_id));
+	$fio = $stmt->fetch(PDO::FETCH_ASSOC);
     $r=$fio['msg'];
     $uss=nameshort(name_of_user_ret($fio['init_user_id']));
     $uss_to=nameshort(name_of_user_ret($fio['to_user_id']));
@@ -1232,6 +1240,11 @@ function get_last_action_ticket($ticket_id) {
 }
 
 function get_last_ticket($menu, $id) {
+global $dbConnection;
+ 
+
+	
+	
     if ($menu == "all") {
         $unit_user=unit_of_user($id);
         $priv_val=priv_status($id);
@@ -1240,9 +1253,14 @@ function get_last_ticket($menu, $id) {
         $units = "'". implode("', '", $units) ."'";
 
         if ($priv_val == "0") {
-            $queryid = "SELECT max(last_update) from tickets where unit_id IN (".$units.") or user_init_id='$id';";
-            $res1 = mysql_query($queryid) or die(mysql_error());
-            $max= mysql_fetch_array( $res1 );
+
+            
+                $stmt = $dbConnection->prepare('SELECT max(last_update) from tickets where unit_id IN (:units) or user_init_id=:id');
+	$stmt->execute(array(':units' => $units, ':id' => $id));
+	$max = $stmt->fetch(PDO::FETCH_NUM);
+            
+            
+            
             $max_id=$max[0];
             //echo $max_id;
         }
@@ -1251,18 +1269,26 @@ function get_last_ticket($menu, $id) {
         else if ($priv_val == "1") {
 
 
-            $queryid = "SELECT max(last_update) from tickets where ((user_to_id='$id') or (user_to_id='0' and unit_id IN (".$units."))) or user_init_id='$id'";
-            $res1 = mysql_query($queryid) or die(mysql_error());
-            $max= mysql_fetch_array( $res1 );
+
+            
+            
+            
+            
+          $stmt = $dbConnection->prepare("SELECT max(last_update) from tickets where ((user_to_id=:id) or (user_to_id='0' and unit_id IN (:units))) or user_init_id=:id");
+	$stmt->execute(array(':units' => $units, ':id' => $id));
+	$max = $stmt->fetch(PDO::FETCH_NUM);
             $max_id=$max[0];
 
 
             //$count="1";
         }
         else if ($priv_val == "2") {
-            $queryid = "SELECT max(last_update) from tickets;";
-            $res1 = mysql_query($queryid) or die(mysql_error());
-            $max= mysql_fetch_array( $res1 );
+
+            
+    $stmt = $dbConnection->prepare("SELECT max(last_update) from tickets");
+	$stmt->execute();
+	$max = $stmt->fetch(PDO::FETCH_NUM);
+            
             $max_id=$max[0];
             //echo $max_id;
         }
@@ -1276,9 +1302,12 @@ function get_last_ticket($menu, $id) {
         $units = explode(",", $unit_user);
         $units = "'". implode("', '", $units) ."'";
         if ($priv_val == "0") {
-            $queryid = "SELECT max(last_update) from tickets where unit_id IN (".$units.") and arch='0'";
-            $res1 = mysql_query($queryid) or die(mysql_error());
-            $max= mysql_fetch_array( $res1 );
+
+            
+    $stmt = $dbConnection->prepare("SELECT max(last_update) from tickets where unit_id IN (:units) and arch='0'");
+	$stmt->execute(array(':units' => $units));
+	$max = $stmt->fetch(PDO::FETCH_NUM);
+            
             $max_id=$max[0];
             //echo $max_id;
         }
@@ -1287,18 +1316,25 @@ function get_last_ticket($menu, $id) {
         else if ($priv_val == "1") {
 
 
-            $queryid = "SELECT max(last_update) from tickets where ((user_to_id='$id' and arch='0') or (user_to_id='0' and unit_id IN (".$units.") and arch='0'))";
-            $res1 = mysql_query($queryid) or die(mysql_error());
-            $max= mysql_fetch_array( $res1 );
+
+            
+            
+            $stmt = $dbConnection->prepare("SELECT max(last_update) from tickets where ((user_to_id=:id and arch='0') or (user_to_id='0' and unit_id IN (:units) and arch='0'))");
+	$stmt->execute(array(':units' => $units));
+	$max = $stmt->fetch(PDO::FETCH_NUM);
+            
+            
             $max_id=$max[0];
 
 
             //$count="1";
         }
         else if ($priv_val == "2") {
-            $queryid = "SELECT max(last_update) from tickets where arch='0'";
-            $res1 = mysql_query($queryid) or die(mysql_error());
-            $max= mysql_fetch_array( $res1 );
+
+            
+            $stmt = $dbConnection->prepare("SELECT max(last_update) from tickets where arch='0'");
+	$stmt->execute();
+	$max = $stmt->fetch(PDO::FETCH_NUM);
             $max_id=$max[0];
             //echo $max_id;
         }
@@ -1311,9 +1347,15 @@ function get_last_ticket($menu, $id) {
         //$count = mysql_num_rows(mysql_query("select * from tickets where user_init_id='$id' and arch='0'"));
 
 
-        $queryid = "SELECT max(last_update) from tickets where user_init_id='$id' and arch='0'";
-        $res1 = mysql_query($queryid) or die(mysql_error());
-        $max= mysql_fetch_array( $res1 );
+
+        
+        
+        
+    $stmt = $dbConnection->prepare("SELECT max(last_update) from tickets where user_init_id=:id and arch='0'");
+	$stmt->execute(array(':id' => $id));
+	$max = $stmt->fetch(PDO::FETCH_NUM);
+	
+	
         $max_id=$max[0];
     }
     if ($menu == "arch") {
@@ -1329,9 +1371,10 @@ function get_last_ticket($menu, $id) {
             //$count = mysql_num_rows(mysql_query("SELECT * from tickets where unit_id='$unit_user'  and arch='1'"));
 
 
-            $queryid = "SELECT max(last_update) from tickets where unit_id IN (".$units.")  and arch='1'";
-            $res1 = mysql_query($queryid) or die(mysql_error());
-            $max= mysql_fetch_array( $res1 );
+            
+                $stmt = $dbConnection->prepare("SELECT max(last_update) from tickets where unit_id IN (:units)  and arch='1'");
+	$stmt->execute(array(':units' => $units));
+	$max = $stmt->fetch(PDO::FETCH_NUM);
             $max_id=$max[0];
 
 
@@ -1345,10 +1388,13 @@ function get_last_ticket($menu, $id) {
 
 
 
-            $queryid = "SELECT max(last_update) from tickets where (user_to_id='$id' and unit_id IN (".$units.") and arch='1') or
-							(user_to_id='0' and unit_id IN (".$units.") and arch='1')";
-            $res1 = mysql_query($queryid) or die(mysql_error());
-            $max= mysql_fetch_array( $res1 );
+            
+            
+                            $stmt = $dbConnection->prepare("SELECT max(last_update) from tickets where (user_to_id=:id and unit_id IN (:units) and arch='1') or
+							(user_to_id='0' and unit_id IN (:units:) and arch='1')");
+	$stmt->execute(array(':units' => $units, ':id' => $id));
+	$max = $stmt->fetch(PDO::FETCH_NUM);
+            
             $max_id=$max[0];
 
 
@@ -1358,9 +1404,11 @@ function get_last_ticket($menu, $id) {
             //$count = mysql_num_rows(mysql_query("SELECT * from tickets where unit_id='$unit_user'  and arch='1'"));
 
 
-            $queryid = "SELECT max(last_update) from tickets where arch='1'";
-            $res1 = mysql_query($queryid) or die(mysql_error());
-            $max= mysql_fetch_array( $res1 );
+            
+            $stmt = $dbConnection->prepare("SELECT max(last_update) from tickets where arch='1'");
+	$stmt->execute();
+	$max = $stmt->fetch(PDO::FETCH_NUM);
+	
             $max_id=$max[0];
 
 
@@ -1393,18 +1441,45 @@ function get_last_ticket($menu, $id) {
 
 
 function get_total_tickets_out() {
-	$uid=$_SESSION['helpdesk_user_id'];
-	$count = mysql_num_rows(mysql_query("SELECT * from tickets where user_init_id='$uid';"));
+
+global $dbConnection;
+$uid=$_SESSION['helpdesk_user_id'];
+$res = $dbConnection->prepare('SELECT * from tickets where user_init_id=:uid');
+$res->execute(array(':uid' => $uid));
+$count = $res->fetchColumn();
+if ($res->fetchColumn() > 0){ $count = $res->fetchColumn();} else {$count=0;}
+
+
+
+	
+	//$count = mysql_num_rows(mysql_query("SELECT * from tickets where user_init_id='$uid';"));
 	return $count;
 }
 function get_total_tickets_lock() {
+global $dbConnection;
 	$uid=$_SESSION['helpdesk_user_id'];
-	$count = mysql_num_rows(mysql_query("SELECT * from tickets where lock_by='$uid' and status='0';"));
+	
+	
+$res = $dbConnection->prepare("SELECT * from tickets where lock_by=:uid and status='0'");
+$res->execute(array(':uid' => $uid));
+if ($res->fetchColumn() > 0){ $count = $res->fetchColumn();} else {$count=0;}
+	
+	//$count = mysql_num_rows(mysql_query("SELECT * from tickets where lock_by='$uid' and status='0';"));
 	return $count;
 }
 function get_total_tickets_ok() {
-	$uid=$_SESSION['helpdesk_user_id'];
-	$count = mysql_num_rows(mysql_query("SELECT * from tickets where ok_by='$uid';"));
+global $dbConnection;
+
+$uid=$_SESSION['helpdesk_user_id'];
+$res = $dbConnection->prepare("SELECT * from tickets where ok_by=:uid");
+$res->execute(array(':uid' => $uid));
+if ($res->fetchColumn() > 0){ $count = $res->fetchColumn();} else {$count=0;}
+	
+
+
+
+	//$uid=$_SESSION['helpdesk_user_id'];
+	//$count = mysql_num_rows(mysql_query("SELECT * from tickets where ok_by='$uid';"));
 	return $count;
 }
 function get_total_tickets_out_and_success() {
