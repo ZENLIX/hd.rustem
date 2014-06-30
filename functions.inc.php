@@ -904,6 +904,7 @@ function get_w_by_id($id) {
 
 
 function get_client_info($id) {
+	global $CONF;
     //include("../dbconnect.inc.php");
     $query="SELECT fio,tel,unit_desc,adr,tel_ext,email,login, posada, email FROM clients where id='$id'";
     $res = mysql_query($query) or die(mysql_error());
