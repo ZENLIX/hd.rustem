@@ -2845,31 +2845,9 @@ values ('edit_msg', now(), '$unow', '$pk'); ";
 
 
             $tid_comment=mysql_real_escape_string($_POST['tid']);
-
-
-
-            $rew = mysql_query("SELECT user_id, comment_text, dt from comments
-							 where
-							t_id='$tid_comment';
-							");
-
-            if(mysql_num_rows($rew)>0) {
-                ?>
-                <table class="table">
-                    <tbody>
-                    <?php while ($rews = mysql_fetch_assoc($rew)) { ?>
-                        <tr>
-                            <td style="width:200px;"><center><strong><?=name_of_user($rews['user_id'])?></strong><br><small class="text-muted"><?=dt_format($rews['dt'])?></small></center></td>
-                            <td><?=xss_clean($rews['comment_text'])?></td>
-
-                        </tr>
-                    <?php } ?>
-
-
-                    </tbody>
-                </table>
-            <?php
-            }
+			view_comment($tid_comment);
+                        
+            
         }
 
         if ($mode == "add_comment") {
@@ -2896,28 +2874,7 @@ values ('comment', now(), '$user_comment', '$tid_comment'); ";
 
 
 
-            $rew = mysql_query("SELECT user_id, comment_text, dt from comments
-							 where
-							t_id='$tid_comment';
-							");
-
-            if(mysql_num_rows($rew)>0) {
-                ?>
-                <table class="table">
-                    <tbody>
-                    <?php while ($rews = mysql_fetch_assoc($rew)) { ?>
-                        <tr>
-                            <td style="width:200px;"><center><strong><?=name_of_user($rews['user_id'])?></strong><br><small class="text-muted"><?=dt_format($rews['dt'])?></small></center></td>
-                            <td><?=xss_clean($rews['comment_text'])?></td>
-
-                        </tr>
-                    <?php } ?>
-
-
-                    </tbody>
-                </table>
-            <?php
-            }
+            view_comment($tid_comment);
         }
 
         if ($mode == "edit_user") {

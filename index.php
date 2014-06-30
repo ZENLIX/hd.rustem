@@ -36,13 +36,19 @@ if (isset($_POST['login']) && isset($_POST['password']))
 //echo $rm;
     $login = mysql_real_escape_string($_POST['login']);
     $password = md5($_POST['password']);
+    /*
     $query = "	SELECT `id`, `login`, `fio`
     			FROM `users`
             	WHERE `login`='{$login}' AND `pass`='{$password}' and `status`='1'
             	LIMIT 1";
     $sql = mysql_query($query) or die(mysql_error());
-    if (mysql_num_rows($sql) == 1) {
-        $row = mysql_fetch_assoc($sql);
+    */
+    $stmt = $dbConnection->prepare('SELECT id,login,fio from users where login=:login AND pass=:pass AND status=1');
+    $stmt->execute(array(':login' => $login, ':pass' => $password));
+    
+    
+    if ($stmt -> rowCount() == 1) {
+    	$row = $stmt->fetch(PDO::FETCH_ASSOC);
 
 
 

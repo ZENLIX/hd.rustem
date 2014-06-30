@@ -6,6 +6,14 @@ include_once('conf.php');
 date_default_timezone_set('Europe/Kiev');
 $connection = mysql_connect($host, $username, $password) or die ("Error: Kunne ikke koble til databasen");
 mysql_select_db($db_name, $connection);
+
+
+$dbConnection = new PDO('mysql:dbname='.$db_name.';host='.$host.';charset=utf8', $username, $password);
+$dbConnection->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+$dbConnection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+
+
 mysql_query('SET NAMES utf8');
 
 error_reporting(E_ALL ^ E_NOTICE);
@@ -232,6 +240,7 @@ EOBODY;
 
 function send_mail_to($type,$tid) {
 global $CONF;
+global $dbConnection;
     $mfrom_name="Система заявок";
     $mfrom_mail=$CONF['mail'];
     $headers  = 'MIME-Version: 1.0' . "\r\n";
@@ -247,10 +256,16 @@ global $CONF;
 
     if ($type == "new_all") {
 
-
+/*
         $queryid_ticket="SELECT user_init_id,user_to_id,date_create,subj,msg, client_id, unit_id, status, hash_name, prio,last_update FROM tickets where id='$tid'";
         $res1_ticket = mysql_query($queryid_ticket) or die(mysql_error());
         $max_id_ticket= mysql_fetch_assoc( $res1_ticket );
+*/
+        
+        $stmt = $dbConnection->prepare('SELECT user_init_id,user_to_id,date_create,subj,msg, client_id, unit_id, status, hash_name, prio,last_update FROM tickets where id=:tid');
+        $stmt->execute(array(':tid' => $tid));
+        $max_id_ticket = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
         $unit_id=$max_id_ticket['unit_id'];
         $client_id=$max_id_ticket['user_to_id'];
         $user_init_id=$max_id_ticket['user_init_id'];
@@ -699,22 +714,47 @@ function get_val_by_key($key) {
 }
 
 function validate_admin($user_id) {
-    $query = "	SELECT is_admin
-    			FROM `users`
-            	WHERE `id`='{$user_id}'
-            	LIMIT 1";
-    $sql = mysql_query($query) or die(mysql_error());
-    $row = mysql_fetch_assoc($sql);
-    $admin=$row['is_admin'];
+global $dbConnection;
+
+$stmt = $dbConnection->prepare('SELECT is_admin from users where id=:user_id LIMIT 1');
+$stmt->execute(array(':user_id' => $user_id));
+$row = $stmt->fetch(PDO::FETCH_ASSOC);
+$admin=$row['is_admin'];
 
     if ($admin == "8") {return true;}
     else {return false;}
 
 }
 
+
+function view_comment($tid) {
+	global $dbConnection;
+	?>
+	<table class="table ">
+                                        <tbody>
+                                        <?php 
+        $stmt = $dbConnection->prepare('SELECT user_id, comment_text, dt from comments where t_id=:tid');
+        $stmt->execute(array(':tid' => $tid));
+                                        while ($rews = $stmt->fetch(PDO::FETCH_ASSOC)) { ?>
+                                            <tr>
+                                                <td style="width:200px;"><center><strong><?=nameshort(name_of_user_ret($rews['user_id']));?></strong><br><small class="text-muted"><?=dt_format($rews['dt'])?></small></center></td>
+                                                <td><?=xss_clean($rews['comment_text'])?></td>
+
+                                            </tr>
+                                        <?php } ?>
+
+
+                                        </tbody>
+                                    </table>
+
+	<?php
+	
+}
+
+
 function validate_user($user_id, $input) {
 
-
+global $dbConnection;
 
     if (!isset($_SESSION['code'])) {
 
@@ -740,26 +780,45 @@ function validate_user($user_id, $input) {
 //$input
 
 
-    $query = "	SELECT `pass`, login, fio
-    			FROM `users`
-            	WHERE `id`='{$user_id}'
-            	LIMIT 1";
-    $sql = mysql_query($query) or die(mysql_error());
-    if (mysql_num_rows($sql) == 1) {
-        $row = mysql_fetch_assoc($sql);
+
+    
+    
+$stmt = $dbConnection->prepare('SELECT pass,login,fio from users where id=:user_id LIMIT 1');
+    $stmt->execute(array(':user_id' => $user_id));
+    
+    
+    if ($stmt -> rowCount() == 1) {
+    	$row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    
+    
+    
+    
+    
+    
+        //$row = mysql_fetch_assoc($sql);
         $dbpass=md5($row['pass']);
         $_SESSION['helpdesk_user_login'] = $row['login'];
         $_SESSION['helpdesk_user_fio'] = $row['fio'];
-        $_SESSION['helpdesk_sort_prio'] == "none";
+        //$_SESSION['helpdesk_sort_prio'] == "none";
         if ($dbpass == $input) { return true;}
         else { return false;}
     }
 }
 
 function get_ticket_id_by_hash($in) {
+/*
 	$q_total="select id from tickets where hash_name='$in'";
     $res_total = mysql_query($q_total) or die(mysql_error());
     $total_ticket= mysql_fetch_assoc( $res_total );
+*/
+    global $dbConnection;
+
+$stmt = $dbConnection->prepare('select id from tickets where hash_name=:in');
+$stmt->execute(array(':in' => $in));
+$total_ticket = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+    
     $tt=$total_ticket['id'];
     return $tt;
 }
@@ -769,9 +828,13 @@ function get_ticket_id_by_hash($in) {
 
 
 function get_client_info_ticket($id) {
-    $query="SELECT fio,tel,unit_desc,adr,tel_ext,email,login,posada FROM clients where id='$id'";
-    $res = mysql_query($query) or die(mysql_error());
-    $fio= mysql_fetch_assoc( $res );
+global $dbConnection;
+$stmt = $dbConnection->prepare('SELECT fio,tel,unit_desc,adr,tel_ext,email,login,posada FROM clients where id=:id');
+$stmt->execute(array(':id' => $id));
+$fio = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+    
+    
     $fio_user=$fio['fio'];
     $loginf=$fio['login'];
     $tel_user=$fio['tel'];
@@ -782,13 +845,26 @@ function get_client_info_ticket($id) {
     $posada=$fio['posada'];
     $email=$fio['email'];
 
-    $q_total="select count(id) as t1 from tickets where client_id='$id'";
+    /*$q_total="select count(id) as t1 from tickets where client_id='$id'";
     $res_total = mysql_query($q_total) or die(mysql_error());
-    $total_ticket= mysql_fetch_assoc( $res_total );
+    $total_ticket= mysql_fetch_assoc( $res_total );*/
+    
+    $stmt = $dbConnection->prepare('select count(id) as t1 from tickets where client_id=:id');
+	$stmt->execute(array(':id' => $id));
+	$total_ticket = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+    
     $tt=$total_ticket['t1'];
-    $q_last="select max(date_create) as dc from tickets where client_id='$id'";
+    
+    /*$q_last="select max(date_create) as dc from tickets where client_id='$id'";
     $res_last=mysql_query($q_last) or die(mysql_error());
-    $last_ticket=mysql_fetch_assoc( $res_last );
+    $last_ticket=mysql_fetch_assoc( $res_last );*/
+    
+    $stmt = $dbConnection->prepare('select max(date_create) as dc from tickets where client_id=:id');
+	$stmt->execute(array(':id' => $id));
+	$last_ticket = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+    
     $lt=$last_ticket['dc'];
 
     $uid=$_SESSION['helpdesk_user_id'];
@@ -862,15 +938,24 @@ function get_client_info_ticket($id) {
 }
 
 function get_unit_name_return($input) {
+global $dbConnection;
+
+
+
     //include("../dbconnect.inc.php");
     //if ($input == "0") { echo "личный доступ"; }
     $u=explode(",", $input);
-
     foreach ($u as $val) {
 
-    $query="SELECT name FROM deps where id='$val'";
+    /*$query="SELECT name FROM deps where id='$val'";
     $rest = mysql_query($query) or die(mysql_error());
-    $dep= mysql_fetch_assoc( $rest );
+    $dep= mysql_fetch_assoc( $rest );*/
+    
+    $stmt = $dbConnection->prepare('SELECT name FROM deps where id=:val');
+	$stmt->execute(array(':val' => $val));
+	$dep = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    
     $res.=$dep['name'];
     $res.="<br>";
     }
@@ -905,10 +990,19 @@ function get_w_by_id($id) {
 
 function get_client_info($id) {
 	global $CONF;
+	global $dbConnection;
+	
     //include("../dbconnect.inc.php");
-    $query="SELECT fio,tel,unit_desc,adr,tel_ext,email,login, posada, email FROM clients where id='$id'";
+    /*$query="SELECT fio,tel,unit_desc,adr,tel_ext,email,login, posada, email FROM clients where id='$id'";
     $res = mysql_query($query) or die(mysql_error());
-    $fio= mysql_fetch_assoc( $res );
+    $fio= mysql_fetch_assoc( $res );*/
+    
+    $stmt = $dbConnection->prepare('SELECT fio,tel,unit_desc,adr,tel_ext,email,login, posada, email FROM clients where id=:id');
+	$stmt->execute(array(':id' => $id));
+	$fio = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+    
+    
     $fio_user=$fio['fio'];
     $loginf=$fio['login'];
     $tel_user=$fio['tel'];
@@ -919,13 +1013,24 @@ function get_client_info($id) {
     $posada=$fio['posada'];
 
 
-    $q_total="select count(id) as t1 from tickets where client_id='$id'";
+    /*$q_total="select count(id) as t1 from tickets where client_id='$id'";
     $res_total = mysql_query($q_total) or die(mysql_error());
-    $total_ticket= mysql_fetch_assoc( $res_total );
-    $tt=$total_ticket['t1'];
-    $q_last="select max(date_create) as dc from tickets where client_id='$id'";
+    $total_ticket= mysql_fetch_assoc( $res_total );*/
+    
+    $stmt = $dbConnection->prepare('select count(id) as t1 from tickets where client_id=:id');
+	$stmt->execute(array(':id' => $id));
+	$total_ticket = $stmt->fetch(PDO::FETCH_ASSOC);
+	$tt=$total_ticket['t1'];
+	
+	
+    /*$q_last="select max(date_create) as dc from tickets where client_id='$id'";
     $res_last=mysql_query($q_last) or die(mysql_error());
-    $last_ticket=mysql_fetch_assoc( $res_last );
+    $last_ticket=mysql_fetch_assoc( $res_last );*/
+    
+    $stmt = $dbConnection->prepare('select max(date_create) as dc from tickets where client_id=:id');
+	$stmt->execute(array(':id' => $id));
+	$last_ticket = $stmt->fetch(PDO::FETCH_ASSOC);
+    
     $lt=$last_ticket['dc'];
     $uid=$_SESSION['helpdesk_user_id'];
     $priv_val=priv_status($uid);
@@ -990,17 +1095,28 @@ function get_client_info($id) {
 }
 function client_unit($input) {
     //include("../dbconnect.inc.php");
-    $query="SELECT unit_desc FROM clients where id='$input'";
+    global $dbConnection;
+    
+    /*$query="SELECT unit_desc FROM clients where id='$input'";
     $res = mysql_query($query) or die(mysql_error());
     $fio= mysql_fetch_assoc( $res );
+    */
+    
+    $stmt = $dbConnection->prepare('SELECT unit_desc FROM clients where id=:input');
+	$stmt->execute(array(':input' => $input));
+	$fio = $stmt->fetch(PDO::FETCH_ASSOC);
+	
+	
     echo($fio['unit_desc']);
 
 }
 function id_of_user($input) {
     //include("../dbconnect.inc.php");
-    $query="SELECT id FROM users where login='$input'";
-    $res = mysql_query($query) or die(mysql_error());
-    $id= mysql_fetch_assoc( $res );
+    global $dbConnection;
+    $stmt = $dbConnection->prepare('SELECT id FROM users where login=:input');
+	$stmt->execute(array(':input' => $input));
+	$id = $stmt->fetch(PDO::FETCH_ASSOC);
+	
     return ($id['id']);
 }
 
@@ -1011,15 +1127,21 @@ function id_of_user($input) {
 
 function priv_status($input) {
     //include("../dbconnect.inc.php");
-    $query="SELECT priv FROM users where id='$input'";
-    $res = mysql_query($query) or die(mysql_error());
-    $id= mysql_fetch_assoc( $res );
+    global $dbConnection;
+
+    
+    $stmt = $dbConnection->prepare('SELECT priv FROM users where id=:input');
+	$stmt->execute(array(':input' => $input));
+	$id = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+    
     return ($id['priv']);
 }
 
 
 function get_last_ticket_new($id)
 {
+global $dbConnection;
     $unit_user=unit_of_user($id);
     $priv_val=priv_status($id);
     $units = explode(",", $unit_user);
@@ -1027,9 +1149,12 @@ function get_last_ticket_new($id)
 
 
     if ($priv_val == "0") {
-        $queryid = "SELECT max(last_update) from tickets where unit_id IN (".$units.") or user_init_id='$id';";
-        $res1 = mysql_query($queryid) or die(mysql_error());
-        $max= mysql_fetch_array( $res1 );
+            
+    $stmt = $dbConnection->prepare('SELECT max(last_update) from tickets where unit_id IN (:units) or user_init_id=:id');
+	$stmt->execute(array(':units' => $units, ':id' => $id));
+	$max = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        
         $max_id=$max[0];
         //echo $max_id;
     }
@@ -1038,9 +1163,14 @@ function get_last_ticket_new($id)
     else if ($priv_val == "1") {
 
 
-        $queryid = "SELECT max(last_update) from tickets where ((user_to_id='$id') or (user_to_id='0' and unit_id IN (".$units.")) or (user_init_id='$id'))";
-        $res1 = mysql_query($queryid) or die(mysql_error());
-        $max= mysql_fetch_array( $res1 );
+
+        
+    $stmt = $dbConnection->prepare("SELECT max(last_update) from tickets where ((user_to_id=:id) or (user_to_id='0' and unit_id IN (:units)) or (user_init_id=:id))");
+	$stmt->execute(array(':units' => $units, ':id' => $id));
+	$max = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        
+        
         $max_id=$max[0];
 
 
@@ -1050,9 +1180,13 @@ function get_last_ticket_new($id)
     else if ($priv_val == "2") {
 
 
-        $queryid = "SELECT max(last_update) from tickets;";
-        $res1 = mysql_query($queryid) or die(mysql_error());
-        $max= mysql_fetch_array( $res1 );
+                
+        
+    $stmt = $dbConnection->prepare("SELECT max(last_update) from tickets;");
+	$stmt->execute();
+	$max = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        
         $max_id=$max[0];
 
 

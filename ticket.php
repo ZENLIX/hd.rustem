@@ -655,12 +655,15 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
             <!-- Tab panes -->
             <div class="tab-content">
                 <div class="tab-pane fade in active" id="home"><?php
-
+/*
                     $rew = mysql_query("SELECT user_id, comment_text, dt from comments
 							 where
 							t_id='$tid';
 							");
-
+*/
+        //$stmt = $dbConnection->prepare('SELECT user_id, comment_text, dt from comments where t_id=:tid');
+        //$stmt->execute(array(':tid' => $tid));
+       // $rew = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                     ?>
                     <div class="col-md-12" style=" padding-left: 0px; padding-right: 0px; ">
@@ -670,20 +673,8 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
                             <div class="panel-body">
 
                                 <div id="comment_content">
-                                    <table class="table ">
-                                        <tbody>
-                                        <?php while ($rews = mysql_fetch_assoc($rew)) { ?>
-                                            <tr>
-                                                <td style="width:200px;"><center><strong><?=nameshort(name_of_user_ret($rews['user_id']));?></strong><br><small class="text-muted"><?=dt_format($rews['dt'])?></small></center></td>
-                                                <td><?=xss_clean($rews['comment_text'])?></td>
-
-                                            </tr>
-                                        <?php } ?>
-
-
-                                        </tbody>
-                                    </table>
-                                </div>
+                                    <?=view_comment($tid);?>
+                                                                    </div>
 
 
 
