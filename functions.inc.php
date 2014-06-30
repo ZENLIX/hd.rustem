@@ -1152,7 +1152,7 @@ global $dbConnection;
             
     $stmt = $dbConnection->prepare('SELECT max(last_update) from tickets where unit_id IN (:units) or user_init_id=:id');
 	$stmt->execute(array(':units' => $units, ':id' => $id));
-	$max = $stmt->fetch(PDO::FETCH_ASSOC);
+	$max = $stmt->fetch(PDO::FETCH_NUM);
         
         
         $max_id=$max[0];
@@ -1167,7 +1167,7 @@ global $dbConnection;
         
     $stmt = $dbConnection->prepare("SELECT max(last_update) from tickets where ((user_to_id=:id) or (user_to_id='0' and unit_id IN (:units)) or (user_init_id=:id))");
 	$stmt->execute(array(':units' => $units, ':id' => $id));
-	$max = $stmt->fetch(PDO::FETCH_ASSOC);
+	$max = $stmt->fetch(PDO::FETCH_NUM);
         
         
         
@@ -1184,7 +1184,7 @@ global $dbConnection;
         
     $stmt = $dbConnection->prepare("SELECT max(last_update) from tickets;");
 	$stmt->execute();
-	$max = $stmt->fetch(PDO::FETCH_ASSOC);
+	$max = $stmt->fetch(PDO::FETCH_NUM);
         
         
         $max_id=$max[0];
