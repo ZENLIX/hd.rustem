@@ -7,7 +7,7 @@
             padding: 3px;
         }
     </style>
-<div class="container">
+    <div class="container">
 <div class="page-header" style="margin-top: -15px;">
 <h3><i class="fa fa-tachometer"></i> <?=lang('DASHBOARD_TITLE');?></h3>
 </div>

@@ -1161,14 +1161,14 @@ global $dbConnection;
 
 
     else if ($priv_val == "1") {
-
-
-
-        
-    $stmt = $dbConnection->prepare("SELECT max(last_update) from tickets where ((user_to_id=:id) or (user_to_id='0' and unit_id IN (:units)) or (user_init_id=:id))");
-	$stmt->execute(array(':units' => $units, ':id' => $id));
+            /*$queryid = "SELECT max(last_update) from tickets where ((user_to_id='$id') or (user_to_id='0' and unit_id IN (".$units."))) or user_init_id='$id'";
+            $res1 = mysql_query($queryid) or die(mysql_error());
+            $max= mysql_fetch_array( $res1 );
+ */
+    $stmt = $dbConnection->prepare("SELECT max(last_update) from tickets where ((user_to_id=:id) or (user_to_id=:tid and unit_id IN (:units))) or user_init_id=:id2");
+	$stmt->execute(array(':units' => $units, ':id' => $id, ':tid' => '0', ':id2' => $id));
 	$max = $stmt->fetch(PDO::FETCH_NUM);
-        
+       
         
         
         $max_id=$max[0];
@@ -1271,12 +1271,12 @@ global $dbConnection;
 
 
             
-            
-            
-            
-          $stmt = $dbConnection->prepare("SELECT max(last_update) from tickets where ((user_to_id=:id) or (user_to_id='0' and unit_id IN (:units))) or user_init_id=:id");
-	$stmt->execute(array(':units' => $units, ':id' => $id));
+            $stmt = $dbConnection->prepare("SELECT max(last_update) from tickets where ((user_to_id=:id) or (user_to_id=:tid and unit_id IN (:units))) or user_init_id=:id2");
+	$stmt->execute(array(':units' => $units, ':id' => $id, ':tid' => '0', ':id2' => $id));
 	$max = $stmt->fetch(PDO::FETCH_NUM);
+            
+            
+          
             $max_id=$max[0];
 
 
