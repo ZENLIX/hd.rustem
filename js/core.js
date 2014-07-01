@@ -237,7 +237,8 @@ function createuserslist(unit_id) {
             $('#for_to').removeClass('has-error');
             $('#for_to').addClass('has-success');
             
-            createuserslist(i);
+            //createuserslist(i);
+            //PROBLEM!
             
         }
         else {

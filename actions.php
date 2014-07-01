@@ -1605,9 +1605,19 @@ $results = mysql_query("SELECT
 		
 		
 
-		
+		if (empty($results)) {
+			?>
+			            <div id="" class="well well-large well-transparent lead">
+                <center>
+                    <?=lang('MSG_no_records');?>
+                </center>
+            </div>
+			<?php
+		}
+		else {
 		//print_r ($results);
 				    ?><table class="table table-hover" style="margin-bottom: 0px;" id=""> <?php
+				    
 		foreach ($results as $arr) {
 		?>
 		
@@ -1617,7 +1627,7 @@ $results = mysql_query("SELECT
 		//echo $arr['name']."<br>";
 		}
 		?></table><?php
-		
+		}
 		
 		}
 		
