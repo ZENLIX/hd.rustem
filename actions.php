@@ -1661,7 +1661,7 @@ $results = mysql_query("SELECT
 			//$t_lang=
 
             if ($priv_val == "0") {
-                $queryid = "SELECT id, hash_name, last_update from tickets where (unit_id IN (".$units.") or user_init_id='$id') and last_update > '$lu';";
+                $queryid = "SELECT id, hash_name, last_update from tickets where (unit_id IN (".$units.") or user_init_id='$uid') and last_update > '$lu';";
                 $res1 = mysql_query($queryid) or die(mysql_error());
 
                 while ($rews = mysql_fetch_assoc($res1)) {
