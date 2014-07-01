@@ -937,6 +937,33 @@ $fio = $stmt->fetch(PDO::FETCH_ASSOC);
 <?php
 }
 
+function get_unit_name_return4news($input) {
+global $dbConnection;
+
+
+
+    //include("../dbconnect.inc.php");
+    //if ($input == "0") { echo "личный доступ"; }
+    $u=explode(",", $input);
+    foreach ($u as $val) {
+
+    /*$query="SELECT name FROM deps where id='$val'";
+    $rest = mysql_query($query) or die(mysql_error());
+    $dep= mysql_fetch_assoc( $rest );*/
+    
+    $stmt = $dbConnection->prepare('SELECT name FROM deps where id=:val');
+	$stmt->execute(array(':val' => $val));
+	$dep = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    
+    $res=$dep['name'];
+    
+    }
+    //else { echo "не определено";}
+    return $res;
+}
+
+
 function get_unit_name_return($input) {
 global $dbConnection;
 
@@ -1250,7 +1277,7 @@ global $dbConnection;
     $r=$fio['msg'];
     $uss=nameshort(name_of_user_ret($fio['init_user_id']));
     $uss_to=nameshort(name_of_user_ret($fio['to_user_id']));
-    $unit_to=get_unit_name_return($fio['to_unit_id']);
+    $unit_to=get_unit_name_return4news($fio['to_unit_id']);
     if ($r=='refer') {$red='<i class=\'fa fa-long-arrow-right\'></i> '.lang('TICKET_ACTION_refer').' '.$uss.' '.lang('TICKET_ACTION_refer_to').' '.$unit_to.' '.$uss_to;}
     if ($r=='ok') {$red='<i class=\'fa fa-check-circle-o\'></i> '.lang('TICKET_ACTION_ok').' '.$uss;}
     if ($r=='no_ok') {$red='<i class=\'fa fa-circle-o\'></i> '.lang('TICKET_ACTION_nook').' '.$uss;}
