@@ -1533,7 +1533,7 @@ $results = mysql_query("SELECT
 
 
             if ($priv_val == "0") {
-                $queryid = "SELECT id, hash_name, last_update from tickets where (unit_id IN (".$units.") or user_init_id='$id') order by last_update DESC limit 5;";
+                $queryid = "SELECT id, hash_name, last_update from tickets where (unit_id IN (".$units.") or user_init_id='$uid') order by last_update DESC limit 5;";
                 $res1 = mysql_query($queryid) or die(mysql_error());
 
                 while ($rews = mysql_fetch_assoc($res1)) {
