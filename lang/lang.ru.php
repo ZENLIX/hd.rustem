@@ -51,7 +51,7 @@ function lang($phrase){
  'LIST_arch'=>'Архив',
  'LIST_loading'=>'Идет загрузка',
  'CREATE_ACC_success'=>'Ваша учетная запись успешно активирована ! <br> На Вашу электронную почту отправлено логин и пароль.',
- 
+ 'msg_created_new_user' => 'Будет создан новый пользователь',
  'CREATE_ACC_already'=>'Ваша учетная запись уже активирована.',
  'CREATE_ACC_error'=>'Не найдено пользователя с таким электронным адресом.',
  'MAIN_TITLE'=>'СИСТЕМА ЗАЯВОК',
@@ -158,7 +158,7 @@ function lang($phrase){
 'TICKET_t_from'=>'С',
 'TICKET_t_was_create'=>'Была создана',
 'TICKET_t_to'=>'Кому',
-'TICKET_t_last_edit'=>'Последнее редактирование',
+'TICKET_t_last_edit'=>'Редактировалось',
 'TICKET_t_worker'=>'Пользователь',
 'TICKET_t_last_up'=>'Последнее обновление',
 'TICKET_t_status'=>'Статус',
