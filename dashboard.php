@@ -78,6 +78,17 @@
         ?>
 <table class="table table-hover" style="margin-bottom: 0px;" id="">
 <?php
+if(mysql_num_rows($results)==0) {
+?>
+<div id="" class="well well-large well-transparent lead">
+                <center>
+                    <?=lang('MSG_no_records');?>
+                </center>
+            </div>
+<?php
+}
+if(mysql_num_rows($results)>0) {
+
         while ($row = mysql_fetch_assoc($results)) {
         $unit2id = explode(",", $row['unit_to_id']);
         $diff = array_intersect($units, $unit2id);
@@ -102,6 +113,7 @@
         <tr><td><small><i class="fa fa-file-text-o"></i> </small><a href="helper.php?h=<?=$row['hashname'];?>"><small><?=cutstr_help2_ret($row['title']);?></small></a></td><td><small style="float:right;" class="text-muted">(<?=lang('DASHBOARD_author');?>: <?=nameshort(name_of_user_ret($row['user_init_id']));?>)</small></td></tr>
 
         <?php }
+        }
         }?>
 </table>
   </div>
