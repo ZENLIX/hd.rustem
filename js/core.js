@@ -71,8 +71,8 @@ var result="";
             //alert('ok');
             $.ajax({
                 type: "POST",
-                url: "client.inc.php",
-                data: "get_client_info=" + ui.item.value,
+                url: "actions.php",
+                data: "mode=get_client_from_new_t&get_client_info=" + ui.item.value,
                 success: function(html) {
                     $("#user_info").hide().html(html).fadeIn(500);
                     $('#edit_login').editable({
@@ -123,8 +123,8 @@ var result="";
                     //$("#alert_add").hide().fadeIn(500);
                     $.ajax({
                         type: "POST",
-                        url: "client.inc.php",
-                        data: "new_client_info="+$("#fio").val(),
+                        url: "actions.php",
+                        data: "mode=get_client_from_new_t&new_client_info="+$("#fio").val(),
                         success: function(html) {
                             $("#alert_add").hide().html(html).fadeIn(500);
                             $('#username').editable({
@@ -219,6 +219,7 @@ function createuserslist(unit_id) {
                                     });
                                     }
                                     $('select#users_do').trigger('chosen:updated');
+                                    //alert($('select#users_do').val());
                                     }
                                     
                                     });
@@ -237,7 +238,7 @@ function createuserslist(unit_id) {
             $('#for_to').removeClass('has-error');
             $('#for_to').addClass('has-success');
             
-            //createuserslist(i);
+            createuserslist(i);
             //PROBLEM!
             
         }
@@ -2525,7 +2526,7 @@ var lang_unlock= get_lang_param('JS_unlock');
         //alert(to);
 
 
-
+//alert($("#users_do").val());
 
         var error_code=0;
 
