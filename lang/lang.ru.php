@@ -230,7 +230,6 @@ function lang($phrase){
 'TICKET_ACTION_unlock'=>'разблокирована пользователем',
 'TICKET_ACTION_create'=>'создана пользователем',
 'TICKET_ACTION_edit'=>'изменено пользователем',
-'TICKET_ACTION_edit'=>'изменено пользователем',
 'TICKET_ACTION_comment'=>'прокомментировано пользователем',
 'TICKET_ACTION_arch'=>'заявка перенесена в архив',
 
