@@ -508,7 +508,7 @@ EOBODY;
         while ($row = mysql_fetch_assoc($results)) {
             if (!is_null($row['email'])) {
                 $to      = $row['email'];
-                $subject = lang('TICKET_name').' #'.$tid." (personal)";
+                $subject = lang('TICKET_name').' #'.$tid." (".lang('t_LIST_person').")";
                 $message =<<<EOBODY
 <div style="background: #ffffff; border: 1px solid gray; border-radius: 6px; font-family: Arial,Helvetica,sans-serif; font-size: 12px; margin: 9px 17px 13px 17px; padding: 11px;">
 <p style="font-family: Arial, Helvetica, sans-serif; font-size:18px; text-align:center;">{$MAIL_new}!</p>
