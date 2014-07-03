@@ -86,13 +86,14 @@ if ($outt == 0) {
 
 
             <div class="row">
-                <div class="col-md-4"><h3><i class="fa fa-list-alt"></i> <?=lang('LIST_title');?></h3><span class="text-muted"><small><em><?=$text;?></em></small></span></div>
+                <div class="col-md-3"><h3><i class="fa fa-list-alt"></i> <?=lang('LIST_title');?></h3><span class="text-muted"><small><em><?=$text;?></em></small></span></div>
                 <div class="col-md-3" style="padding-top:20px;">
                     <small class="text-muted"><span class="label label-success">&nbsp;</span> - <?=lang('LIST_ok_t');?> </small><br>
                     <small class="text-muted"><span class="label label-warning">&nbsp;</span> - <?=lang('LIST_lock_t_i');?> </small>
                 </div>
-                <div class="col-md-2" style="padding-top:20px; ">
-                    <small class="text-muted"><span class="label label-default">&nbsp;</span> - <?=lang('LIST_lock_t');?> </small>
+                <div class="col-md-3" style="padding-top:20px; ">
+                    <small class="text-muted"><span class="label label-default">&nbsp;</span> - <?=lang('LIST_lock_t');?> </small><br>
+                    &nbsp;#<small class="text-muted"> - <?=lang('LIST_lock_n');?> </small>
                 </div>
 
                 <div class="col-md-3" style="padding-top:20px;">
