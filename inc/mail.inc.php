@@ -138,7 +138,7 @@ global $dbConnection;
 	$MAIL_2link=lang('MAIL_2link');
 	$MAIL_info=lang('MAIL_info');
 	$MAIL_created=lang('MAIL_created');
-	$MAIL_to=lang('MAIL_');
+	$MAIL_to=lang('MAIL_to');
 	$MAIL_prio=lang('MAIL_prio');
 	$MAIL_worker=lang('MAIL_worker');
 	$MAIL_msg=lang('MAIL_msg');
