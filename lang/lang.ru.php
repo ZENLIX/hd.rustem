@@ -404,11 +404,7 @@ function lang($phrase){
 'MAIL_msg' => 'Сообщение',
 'MAIL_subj' => 'Тема',
 'MAIL_text' => 'Текст',
-'t_list_a_p_norm' => 'Средний приоритет',
-'t_list_a_p_low' => 'Низкий приоритет',
-'t_list_a_p_high' => 'Высокий приоритет',
-'t_list_a_all' => 'Всем с ',
-'t_LIST_worker' => 'сотруднику',
+'t_LIST_worker_to' => 'сотруднику',
 't_LIST_person' => 'персонально',
 ''=>''
 
