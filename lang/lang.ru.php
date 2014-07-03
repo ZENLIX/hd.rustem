@@ -75,7 +75,7 @@ function lang($phrase){
 't_LIST_create'=>'Создан',
 't_LIST_ago'=>'Прошло',
 't_LIST_init'=>'Автор',
-'t_LIST_to'=>'Кому',
+'t_LIST_to'=>'Исполнитель',
 't_LIST_status'=>'Статус',
 't_LIST_action'=>'Действие',
 
@@ -156,9 +156,9 @@ function lang($phrase){
 'TICKET_action_nook'=>'Не выполнено',
 'TICKET_msg_updated'=>'Заявка была обновлена​​.',
 
-'TICKET_t_from'=>'С',
+'TICKET_t_from'=>'Автор',
 'TICKET_t_was_create'=>'Была создана',
-'TICKET_t_to'=>'Кому',
+'TICKET_t_to'=>'Исполнитель',
 'TICKET_t_last_edit'=>'Редактировалось',
 'TICKET_t_worker'=>'Пользователь',
 'TICKET_t_last_up'=>'Последнее обновление',
