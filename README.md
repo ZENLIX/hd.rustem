@@ -55,6 +55,7 @@ HELPDESK веб-система, для организации учёта вып�
 
 <h4>Благодарности за вклад в проект</h4>
 <ul>
+<li><a href='https://github.com/dima-bzz'>dima-bzz</a></li>
 <li><a href='https://github.com/Vaflan'>Vaflan</a></li>
 <li><a href='https://github.com/insp63'>insp63</a></li>
 </ul>
