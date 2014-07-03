@@ -363,7 +363,7 @@ $qstring = "SELECT email, unit,login FROM users where status='1' and (priv='0' |
 								 if (!is_null($qrow['email'])) {
 								 //echo $qrow['login'];
                 $to      = $qrow['email'];
-                $subject = lang('TICKET_name').' #'.$tid." (".lang('t_LIST_worker').")";
+                $subject = lang('TICKET_name').' #'.$tid." (".lang('t_LIST_worker_to').")";
                 $message =<<<EOBODY
 <div style="background: #ffffff; border: 1px solid gray; border-radius: 6px; font-family: Arial,Helvetica,sans-serif; font-size: 12px; margin: 9px 17px 13px 17px; padding: 11px;">
 <p style="font-family: Arial, Helvetica, sans-serif; font-size:18px; text-align:center;">{$MAIL_new}!</p>
