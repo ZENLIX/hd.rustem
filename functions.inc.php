@@ -1340,6 +1340,57 @@ if ($lang == "ua") {
         "th" => "ое"
     );
     }
+    
+        else if ($lang == "en") {
+    $translate = array(
+        "am" => "am",
+        "pm" => "pm",
+        "AM" => "AM",
+        "PM" => "PM",
+        "Monday" => "Monday",
+        "Mon" => "Mon",
+        "Tuesday" => "Tuesday",
+        "Tue" => "Tue",
+        "Wednesday" => "Wednesday",
+        "Wed" => "Wed",
+        "Thursday" => "Thursday",
+        "Thu" => "Thu",
+        "Friday" => "Friday",
+        "Fri" => "Fri",
+        "Saturday" => "Saturday",
+        "Sat" => "Sat",
+        "Sunday" => "Sunday",
+        "Sun" => "Sun",
+        "January" => "January",
+        "Jan" => "Jan",
+        "February" => "February",
+        "Feb" => "Feb",
+        "March" => "March",
+        "Mar" => "Mar",
+        "April" => "April",
+        "Apr" => "Apr",
+        "May" => "May",
+        "May" => "May",
+        "June" => "June",
+        "Jun" => "Jun",
+        "July" => "July",
+        "Jul" => "Jul",
+        "August" => "August",
+        "Aug" => "Aug",
+        "September" => "September",
+        "Sep" => "Sep",
+        "October" => "October",
+        "Oct" => "Oct",
+        "November" => "November",
+        "Nov" => "Nov",
+        "December" => "December",
+        "Dec" => "Dec",
+        "st" => "st",
+        "nd" => "nd",
+        "rd" => "rd",
+        "th" => "th"
+    );
+    }
     // если передали дату, то переводим ее
     if (func_num_args() > 1) {
         $timestamp = func_get_arg(1);
@@ -1514,6 +1565,59 @@ else if ($lang == "ru") {
 
     }
 }
+else if ($lang == "en") {
+
+
+    foreach ($tokens as $unit => $text) {
+        if ($time < $unit) continue;
+        $numberOfUnits = floor($time / $unit);
+        //substr($numberOfUnits, -1)
+        if ($text=='міс') {
+            if ($numberOfUnits == "1") {$text="month";}
+            if (($numberOfUnits >= "2") && ($numberOfUnits <= "4")) {$text="month";} //3,4
+            if ($numberOfUnits > "4") {$text="month";}
+        }
+
+        if ($text=='тижд') {
+            if (substr($numberOfUnits, -1) == "1") {$text="week";}
+            if ((substr($numberOfUnits, -1) >= "2") && (substr($numberOfUnits, -1) <= "4")) {$text="weeks";} //3,4
+            if (substr($numberOfUnits, -1) > "4") {$text="weeks";}
+        }
+
+        if ($text=='дн') {
+            if (substr($numberOfUnits, -1) == "1") {$text="day";}
+            if ((substr($numberOfUnits, -1) >= "2") && (substr($numberOfUnits, -1) <= "4")) {$text="days";} //3,4
+            if (substr($numberOfUnits, -1) > "4") {$text="days";}
+        }
+
+        if ($text=='год') {
+            if (substr($numberOfUnits, -1) == "1") {$text="hour";}
+            if ((substr($numberOfUnits, -1) >= "2") && (substr($numberOfUnits, -1) <= "4")) {$text="hours";} //3,4
+            if (substr($numberOfUnits, -1) > "4") {$text="hours";}
+        }
+
+
+        if ($text=='хв') {
+            if (substr($numberOfUnits, -1) == "1") {$text="minute";}
+            if ((substr($numberOfUnits, -1) >= "2") && (substr($numberOfUnits, -1) <= "4")) {$text="minutes";} //3,4
+            if (substr($numberOfUnits, -1) > "4") {$text="minutes";}
+        }
+
+        if ($text=='сек') {
+            if (substr($numberOfUnits, -1) == "1") {$text="second";}
+            if ((substr($numberOfUnits, -1) >= "2") && (substr($numberOfUnits, -1) <= "4")) {$text="seconds";} //3,4
+            if (substr($numberOfUnits, -1) > "4") {$text="seconds";}
+        }
+
+
+
+        return $numberOfUnits.' '.$text.(($numberOfUnits>1)?'':'');
+
+
+        //return $time;
+
+    }
+}
 }
 
 
@@ -1587,7 +1691,59 @@ if ($lang == "ua") {
 
     }
 
+else if ($lang == "en") {
 
+
+    foreach ($tokens as $unit => $text) {
+        if ($time < $unit) continue;
+        $numberOfUnits = floor($time / $unit);
+        //substr($numberOfUnits, -1)
+        if ($text=='міс') {
+            if ($numberOfUnits == "1") {$text="month";}
+            if (($numberOfUnits >= "2") && ($numberOfUnits <= "4")) {$text="month";} //3,4
+            if ($numberOfUnits > "4") {$text="month";}
+        }
+
+        if ($text=='тижд') {
+            if (substr($numberOfUnits, -1) == "1") {$text="week";}
+            if ((substr($numberOfUnits, -1) >= "2") && (substr($numberOfUnits, -1) <= "4")) {$text="weeks";} //3,4
+            if (substr($numberOfUnits, -1) > "4") {$text="weeks";}
+        }
+
+        if ($text=='дн') {
+            if (substr($numberOfUnits, -1) == "1") {$text="day";}
+            if ((substr($numberOfUnits, -1) >= "2") && (substr($numberOfUnits, -1) <= "4")) {$text="days";} //3,4
+            if (substr($numberOfUnits, -1) > "4") {$text="days";}
+        }
+
+        if ($text=='год') {
+            if (substr($numberOfUnits, -1) == "1") {$text="hour";}
+            if ((substr($numberOfUnits, -1) >= "2") && (substr($numberOfUnits, -1) <= "4")) {$text="hours";} //3,4
+            if (substr($numberOfUnits, -1) > "4") {$text="hours";}
+        }
+
+
+        if ($text=='хв') {
+            if (substr($numberOfUnits, -1) == "1") {$text="minute";}
+            if ((substr($numberOfUnits, -1) >= "2") && (substr($numberOfUnits, -1) <= "4")) {$text="minutes";} //3,4
+            if (substr($numberOfUnits, -1) > "4") {$text="minutes";}
+        }
+
+        if ($text=='сек') {
+            if (substr($numberOfUnits, -1) == "1") {$text="second";}
+            if ((substr($numberOfUnits, -1) >= "2") && (substr($numberOfUnits, -1) <= "4")) {$text="seconds";} //3,4
+            if (substr($numberOfUnits, -1) > "4") {$text="seconds";}
+        }
+
+
+
+        return $numberOfUnits.' '.$text.(($numberOfUnits>1)?'':'');
+
+
+        //return $time;
+
+    }
+}
 else if ($lang == "ru") {
 
 

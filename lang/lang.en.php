@@ -1,393 +1,459 @@
-<?php
-function lang($phrase){
-    static $lang = array(
+<?php 
+function lang ($phrase) {
+	static $lang = array (
+	'DASHBOARD_TITLE' => 'Dashboard',
+	'DASHBOARD_ticket_stats' => 'Statistics Tickets',
+	'DASHBOARD_ticket_in_desc' => 'Incoming free Ticket that you can take',
+	'DASHBOARD_ticket_in' => 'incoming requests',
+'DASHBOARD_ticket_lock' => 'blocked me',
+'DASHBOARD_ticket_lock_desc' => 'Ticket with which you are working',
+'DASHBOARD_ticket_out' => 'outgoing ticket',
+'DASHBOARD_ticket_out_desc' => 'Tickets you have created and have remained unfulfilled',
+'DASHBOARD_last_news' => 'Recent changes',
+'DASHBOARD_last_help' => 'Last of the Knowledge Center',
+'DASHBOARD_author' => 'Author',
+'DASHBOARD_last_in' => 'Last inbound claims',
+'NEW_title' => 'Create a new request',
+'NEW_ok' => 'The Ticket was successfully created!',
+'NEW_ok_1' => 'You can',
+'NEW_ok_2' => 'share link',
+'NEW_ok_3' => 'on request',
+'NEW_from' => 'From',
+'NEW_from_desc' => 'Your name or username of the user who asked for help',
+'NEW_fio' => 'name or user login',
+'NEW_fio_desc' => 'Please fill this field',
+'NEW_to' => 'To',
+'NEW_to_desc' => 'Artist Tickets - or an entire department, or optionally a specific employee.',
+'NEW_to_unit' => 'Department',
+'NEW_to_unit_desc' => 'Specify the destination or department employee',
+'NEW_to_user' => 'Artist',
+'NEW_prio' => 'Priority',
+'NEW_prio_low' => 'Low',
+'NEW_prio_norm' => 'Average',
+'NEW_prio_high' => 'High',
+'NEW_prio_high_desc' => 'will be used SMS-information',
+'NEW_subj' => 'Subject',
+'NEW_subj_msg' => 'Specify the subject of the Ticket',
+'NEW_subj_det' => 'Title ticket',
+'NEW_MSG' => 'text',
+'NEW_MSG_msg' => 'Please provide details are ticket',
+'NEW_MSG_ph' => 'The essence of the ticket',
+'NEW_button_create' => 'New Ticket',
+'NEW_button_reset' => 'Clear Fields',
+'LIST_title' => 'List of orders',
+'LIST_ok_t' => 'Ticket is made',
+'LIST_lock_t_i' => 'Ticket with which you are working',
+'LIST_lock_t' => 'Ticket with which the work',
+'LIST_lock_n' => 'Ticket number',
+'LIST_find_ph' => 'Enter # or ticket subject',
+'LIST_find_button' => 'Search',
+'LIST_in' => 'Inbox',
+'LIST_out' => 'Outgoing',
+'LIST_arch' => 'Archive',
+'LIST_loading' => 'Loading',
+'CREATE_ACC_success' =>' Your account has been successfully activated! <br> to your email sent to your login and password. ',
+'msg_created_new_user' => 'This will create a new user',
+'CREATE_ACC_already' => 'Your account has been activated.',
+'CREATE_ACC_error' => 'User with this email address is not found.',
+'MAIN_TITLE' => 'Ticket System',
+'AUTH_USER' => 'Authorization',
+'login' => 'Login',
+'pass' => 'Password',
+'remember_me' => 'Remember me',
+'error_auth' => 'Error. <br> Check username and password. ',
+'first_in_auth' => 'The first input and activation',
+'user_auth' => 'User activation',
+'work_mail' => 'your desktop e-mail', 
+'action_auth' => 'Activate',
+'log_in' => 'Login',
+'work_mail_ph' => 'Enter your work e-mail (e-mail).', 
+'NOTES_single' => 'Record ...',
+'t_LIST_prio' => 'Priority',
+'t_LIST_subj' => 'Subject', 
+// <? = Lang ('t_LIST_prio'); 
+'t_LIST_worker' => 'User',
+'t_LIST_create' => 'Created',
+'t_LIST_ago' => 'passed',
+'t_LIST_init' => 'Author',
+'t_LIST_to' => 'Artist' 
+,'t_LIST_status' => 'Status' 
+,'t_LIST_action' => 'Action' 
+,'t_list_a_nook' => 'mark is formed' 
+,'t_list_a_unlock' => 'unlock' 
+,'t_list_a_lock' => 'block' 
+,'t_list_a_ok' => 'execute' 
+,'t_list_a_all' => 'All' 
+,'t_list_a_user_ok' => 'Completed' 
+,'t_list_a_date_ok' => 'Done' 
+,'t_list_a_p_norm' => 'medium priority' 
+,'t_list_a_p_low' => 'low priority' 
+,'t_list_a_p_high' => 'high priority' 
+,'t_list_a_oko' => 'satisfied' 
+,'t_list_a_arch' => 'archive' 
+,'t_list_a_lock_i' => 'I work' 
+,'t_list_a_lock_u' => 'works' 
+,'t_list_a_hold' => 'expectations of action' 
+,'t_list_a_ok_no' => 'yes / no' 
 
-		'DASHBOARD_TITLE' => 'Dashboard',
-        'DASHBOARD_ticket_stats' => 'Stats applications',
-        'DASHBOARD_ticket_in_desc' => 'Incoming free tickets that you can take',
-        'DASHBOARD_ticket_in' => ' incoming tickets',
-        'DASHBOARD_ticket_lock' => 'blocked me',
-        'DASHBOARD_ticket_lock_desc' => 'Tickets, you work',
-        'DASHBOARD_ticket_out' => 'initial tickets',
-        'DASHBOARD_ticket_out_desc' => 'Заявки, які створені Вами та залишились не виконаними',
-        'DASHBOARD_last_news' => 'Останні зміни',
-        'DASHBOARD_last_help' => 'Останнє з Центру Знань',
-        'DASHBOARD_author' => 'Автор',
-        'DASHBOARD_last_in' => 'Останні вхідні заявки',
-        'NEW_title' => 'Створення нової заявки',
-        'NEW_ok' => 'Заявка успішно створена!',
-        'NEW_ok_1' => 'Ви можете',
-        'NEW_ok_2' => 'поділитися посиланням',
-        'NEW_ok_3' => 'на заявку',
-        'NEW_from' => 'Від кого',
-        'NEW_from_desc' => 'ПІБ або логін користувача, який звернувся за допомогою',
-        'NEW_fio' => 'ПІБ або логін користувача',
-        'NEW_fio_desc' => 'Заповніть це поле',
-        'NEW_to' => 'Кому',
-        'NEW_to_desc' => 'Виконувач заявки - або весь відділ, або опціонально конкретного працівника.',
-        'NEW_to_unit' => 'Підрозділ',
-        'NEW_to_unit_desc' => 'Вкажіть відділ призначення або працівника',
-        'NEW_to_user' => 'Виконавець',
-        'NEW_prio' => 'Пріорітет',
-        'NEW_prio_low' => 'Низький',
-        'NEW_prio_norm' => 'Середній',
-        'NEW_prio_high' => 'Високий',
-        'NEW_prio_high_desc' => 'Буде задіяно SMS-інформування',
-        'NEW_subj' => 'Тема',
-        'NEW_subj_msg' => 'Вкажіть тему заявки',
-        'NEW_subj_det' => 'Тема заявки',
-        'NEW_MSG' => 'Текст',
-        'NEW_MSG_msg' => 'Вкажіть детально суть заявки',
-        'NEW_MSG_ph' => 'Суть заявки',
-        'NEW_button_create' => 'Створити заявку',
-        'NEW_button_reset' => 'Очистити поля',
-        'LIST_title' => 'Список заявок',
-        'LIST_ok_t' => 'виконана заявка',
-        'LIST_lock_t_i' => 'заявка, з якою Ви працюєте',
-        'LIST_lock_t' => 'заявка, з якою працюють',
-        'LIST_find_ph' => 'Введіть # або тему заявки',
-        'LIST_find_button' => 'Пошук',
-        'LIST_in' => 'Вхідні',
-        'LIST_out' => 'Вихідні',
-        'LIST_arch' => 'Архів',
-        'LIST_loading' => 'Йде завантаження',
-        'CREATE_ACC_success' => 'Ваш обліковий запис успішно активовано!<br> На Вашу електронну пошту відіслано логін та пароль.',
-        
-        'CREATE_ACC_already' => 'Ваш обліковий запис вже активовано.',
-        'CREATE_ACC_error' => 'Не знайдено користувача з таким електронним адресом.',
-        'MAIN_TITLE' => 'СИСТЕМА ЗАЯВОК',
-        'AUTH_USER' => 'Авторизація користувача',
-        'login' => 'Логін',
-        'pass' => 'Пароль',
-        'remember_me' => 'Запам\'ятати мене',
-        'error_auth' => 'Помилка авторизації.<br> Перевірте логін та пароль.',
-        'first_in_auth' => 'Перший вхід та активація',
-		'user_auth' => 'Активація користувача',
-		'work_mail' => 'Ваш робочий e-mail',
-		'action_auth' => 'Активувати',
-		'log_in' => 'Увійти',
-		'work_mail_ph' => 'Вкажіть Вашу робочу елeктронну пошту (e-mail).',
-'NOTES_single' => 'Запис...',
-'t_LIST_prio' => 'Прiорiтет',
-'t_LIST_subj' => 'Тема',
-//<?=lang('t_LIST_prio');
-'t_LIST_worker' => 'Користувач',
-'t_LIST_create' => 'Створено',
-'t_LIST_ago' => 'Минуло',
-'t_LIST_init' => 'Ініціатор',
-'t_LIST_to' => 'Кому',
-'t_LIST_status' => 'Статус',
-'t_LIST_action' => 'Дія',
-
-'t_list_a_nook' => 'відмітити, як не виконано',
-'t_list_a_unlock' => 'розблокувати',
-'t_list_a_lock' => 'заблокувати',
-'t_list_a_ok' => 'виконати',
-'t_list_a_all' => 'Всім',
-'t_list_a_user_ok' => 'Виконав',
-'t_list_a_date_ok' => 'Виконано',
-'t_list_a_p_norm' => 'Середній прiорiтет',
-'t_list_a_p_low' => 'Низький прiорiтет',
-'t_list_a_p_high' => 'Високий прiорiтет',
-'t_list_a_oko' => 'виконано',
-'t_list_a_arch' => 'в архіві',
-'t_list_a_lock_i' => 'працюю я',
-'t_list_a_lock_u' => 'працює',
-'t_list_a_hold' => 'очікування дії',
-'t_list_a_ok_no' => 'Виконано/не виконано',
-
-'HELP_desc' => 'Опис проблеми',
-'HELP_do' => 'Рішення',
-'HELP_save' => 'Зберегти',
-'HELP_back' => 'Назад',
-'HELP_all' => 'Всі',
-'HELP_create' => 'Створити',
-'MSG_no_records' => 'Немає записів',
-'TICKET_name' => 'Заявка',
-
-
-
-'WORKER_TITLE' => 'Інформація про користувача',
-'WORKER_fio' => 'ПІБ',
-'WORKER_login' => 'Логін',
-'WORKER_posada' => 'Посада',
-'WORKER_unit' => 'Підрозділ',
-'WORKER_tel' => 'Тел',
-'WORKER_tel_full' => 'Телефон',
-'WORKER_room' => 'Кабінет',
-'WORKER_mail' => 'E-mail',
-'WORKER_total' => 'Заявок',
-'WORKER_last' => 'Остання',
-'WORKER_edit_info' => 'Зміна інформації',
-'WORKER_send_approve' => 'Відправити запит на зміну',
-
-'PROFILE_msg_ok' => 'Інформацію успішно змінено.',
-'PROFILE_msg_error' => 'Логін або e-mail мають не корректний формат.',
-'PROFILE_msg_pass_err' => 'Старий пароль не вірний.',
-'PROFILE_msg_pass_err2' => 'Нові паролі не співпадають.',
-'PROFILE_msg_pass_err3' => 'Пароль повинен бути не менше 4 символів.',
-'PROFILE_msg_pass_ok' => 'Пароль успішно змінено. Вам потрібно <a href=\'index.php\'>зайти заново в систему</a>.',
-'PROFILE_msg_te' => 'Помилка',
-
-'TABLE_name' => 'Назва',
-'TABLE_action' => 'Дія',
-'PROFILE_msg_send' => 'Запит на зміну інформації про користувача відіслано. Зміни відбудуться тільки після перевірки адміністратором.',
-
-'TICKET_msg_OK' => 'Заявка виконана',
-'TICKET_msg_OK_error' => 'Не можливе виконання. Заявка вже виконана користувачем',
-'TICKET_msg_unOK' => 'Заявка не виконана',
-'TICKET_msg_unOK_error' => 'Не можливе не виконання',
-'TICKET_msg_lock' => 'Заявку заблоковано',
-'TICKET_msg_lock_error' => 'Не можливо заблокувати заявку. З нею працює',
-'TICKET_msg_unlock' => 'Заявку розблоковано',
-'TICKET_msg_refer' => 'Заявку переадресовано',
-'empty' => 'пусто',
-'t_list_a_top' => 'ТОП 10 результатів пошуку',
-
-
-'TICKET_status_arch' => 'заявка в архіві',
-'TICKET_status_ok' => 'заявка виконана користувачем',
-'TICKET_status_lock' => 'с заявкою працює',
-'TICKET_status_new' => 'нова заявка, очікування дії',
-
-'TICKET_action_unlock' => 'Розблокувати',
-'TICKET_action_lock' => 'Заблокувати',
-'TICKET_action_ok' => 'Виконано',
-'TICKET_action_nook' => 'Не виконано',
-'TICKET_msg_updated' => 'Заявку було оновлено.',
-
-'TICKET_t_from' => 'Від',
-'TICKET_t_was_create' => 'Було створено',
-'TICKET_t_to' => 'Кому',
-'TICKET_t_last_edit' => 'Останнє редагування',
-'TICKET_t_worker' => 'Користувач',
-'TICKET_t_last_up' => 'Останнє оновлення',
-'TICKET_t_status' => 'Статус',
-'TICKET_t_prio' => 'Пріорітет',
-'TICKET_t_subj' => 'Тема',
-'TICKET_t_refer' => 'Переадресувати',
-'TICKET_t_refer_to' => 'Переадресувати на',
-'TICKET_t_opt' => 'опціонально',
-'TICKET_t_in_arch' => 'Заявка знаходиться в архіві.',
-'TICKET_t_ok' => 'Заявку успішно виконано користувачем',
-'TICKET_t_ok_1' => 'Через деякий час заявка перейде в архів.',
-'TICKET_t_lock' => 'На даний час с заявкою працює користувач',
-'TICKET_t_lock_1' => 'Тому Ви не можете працювати с заявкою.',
-'TICKET_t_lock_i' => 'На даний час Ви працюєте с заявкою. Для того, щоб інші могли працювати, розблокуйте її.',
-'TICKET_t_comment' => 'Коментарі',
-'TICKET_t_history' => 'Історія змін',
-'TICKET_t_your_comment' => 'Ваш коментар',
-'TICKET_t_det_ticket' => 'Вкажіть детально суть заявки',
-'TICKET_t_comm_ph' => 'Коментар до заявки',
-'TICKET_t_send' => 'Відправити',
-'TICKET_t_date' => 'Дата',
-'TICKET_t_init' => 'Ініціатор',
-'TICKET_t_action' => 'Дія',
-'TICKET_t_desc' => 'Опис',
-'TICKET_t_a_refer' => 'заявку переадресовано на',
-'TICKET_t_a_arch' => 'заявку перенесено в архів',
-'TICKET_t_a_ok' => 'заявку відмічено як виконано',
-'TICKET_t_a_nook' => 'заявку відмічено як не виконано',
-'TICKET_t_a_lock' => 'заявку заблоковано',
-'TICKET_t_a_unlock' => 'заявку розблоковано',
-'TICKET_t_a_create' => 'заявку було створено',
-'TICKET_t_a_e_text' => 'в заявці було змінено повідомлення',
-'TICKET_t_a_e_subj' => 'в заявці було змінено тему',
-'TICKET_t_a_com' => 'заявку було прокоментовано',
-'TICKET_t_no' => 'Немає такої заявки',
-
-'CLIENTS_name' => 'Користувачі',
-'CLIENTS_find' => 'Знайти',
-'CLIENTS_find_me' => 'Скористайтеся пошуком для редагування інформації...',
-
-
-'NAVBAR_tickets' => 'Заявки',
-'NAVBAR_create_ticket' => 'Створити заявку',
-'NAVBAR_list_ticket' => 'Список заявок',
-'NAVBAR_workers' => 'Користувачі',
-'NAVBAR_helper' => 'Центр знань',
-'NAVBAR_notes' => 'Блокнот',
-'NAVBAR_admin' => 'Адміністрування',
-'NAVBAR_users' => 'Користувачі системи',
-'NAVBAR_deps' => 'Відділи',
-'NAVBAR_approve' => 'Підтвердження',
-'NAVBAR_all_tickets' => 'Всі заявки',
-'NAVBAR_reports' => 'Звіти',
-'NAVBAR_db' => 'Довідники',
-'NAVBAR_posads' => 'Посади',
-'NAVBAR_units' => 'Управління',
-'NAVBAR_subjs' => 'Теми заявок',
-'NAVBAR_profile' => 'Профіль',
-'NAVBAR_help' => 'Допомога',
-'NAVBAR_logout' => 'Вийти',
+,'HELP_desc' => 'Description of the problem' 
+,'HELP_do' => 'Solution' 
+,'HELP_save' => 'Save' 
+,'HELP_back' => 'Back' 
+,'HELP_all' => 'All' 
+,'HELP_create' => 'Create' 
+,'MSG_no_records' => 'No entries' 
+,'TICKET_name' => 'Ticket' 
 
 
 
-'TICKET_ACTION_refer' => 'переадресовано користувачем',
-'TICKET_ACTION_refer_to' => 'на',
-'TICKET_ACTION_ok' => 'виконано користувачем',
-'TICKET_ACTION_nook' => 'не виконано користувачем',
-'TICKET_ACTION_lock' => 'заблоковано користувачем',
-'TICKET_ACTION_unlock' => 'розблоковано користувачем',
-'TICKET_ACTION_create' => 'створено користувачем',
-'TICKET_ACTION_edit' => 'редактовано користувачем',
-'TICKET_ACTION_edit' => 'редактовано користувачем',
-'TICKET_ACTION_comment' => 'прокоментовано користувачем',
-'TICKET_ACTION_arch' => 'заявку перенесено в архів',
+,'WORKER_TITLE' => 'About' 
+,'WORKER_fio' => 'Name' 
+,'WORKER_login' => 'Login' 
+,'WORKER_posada' => 'Post' 
+,'WORKER_unit' => 'Category' 
+,'WORKER_tel' => 'Phone' 
+,'WORKER_tel_full' => 'Telephone' 
+,'WORKER_room' => 'account' 
+,'WORKER_mail' => 'E-mail' 
+,'WORKER_total' => 'Tickets' 
+,'WORKER_last' => 'Last' 
+,'WORKER_edit_info' => 'Edit Information' 
+,'WORKER_send_approve' => 'Send a request to change' 
+
+,'PROFILE_msg_ok' => 'Data successfully updated.' 
+,'PROFILE_msg_error' => 'Username or e-mail does not have the correct format.' 
+,'PROFILE_msg_pass_err' => 'Old password is incorrect.' 
+,'PROFILE_msg_pass_err2' => 'New passwords do not match.' 
+,'PROFILE_msg_pass_err3' => 'Password must be at least 4 characters.' 
+,'PROFILE_msg_pass_ok' => 'Password successfully changed. Need <a href=\'index.php\'> log in again </ a>. ' 
+,'PROFILE_msg_te' => 'Error' 
+
+,'TABLE_name' => 'Name' 
+,'TABLE_action' => 'Action' 
+,'PROFILE_msg_send' => 'request to change the user information has been sent. Changes will be implemented only after validation. '
+
+,'TICKET_msg_OK' => 'Ticket is made' 
+,'TICKET_msg_OK_error' => 'can not be performed. Ticket has already been performed by the user '
+,'TICKET_msg_unOK' => 'Request failed' 
+,'TICKET_msg_unOK_error' => 'Can not' 
+,'TICKET_msg_lock' => 'Ticket locked' 
+,'TICKET_msg_lock_error' => 'Unable to lock the Ticket. With her works' 
+,'TICKET_msg_unlock' => 'Ticket unlocked' 
+,'TICKET_msg_refer' => 'Ticket redirected' 
+,'empty' => 'empty' 
+,'t_list_a_top' => 'TOP 10 search results' 
 
 
-'HELPER_title' => 'Центр знань',
-'HELPER_back' => 'назад',
-'HELPER_pub' => 'Опублікував',
-'HELPER_date' => 'Дата',
-'HELPER_find' => 'Знайти',
-'HELPER_create' => 'створити новий запис',
-'HELPER_desc' => 'Опис проблеми або питання...',
+,'TICKET_status_arch' => 'Ticket in the archive' 
+,'TICKET_status_ok' => 'Ticket is performed by the user' 
+,'TICKET_status_lock' => 'work with the Ticket' 
+,'TICKET_status_new' => 'new order, waiting action' 
+
+,'TICKET_action_unlock' => 'Restore' 
+,'TICKET_action_lock' => 'Block' 
+,'TICKET_action_ok' => 'Done' 
+,'TICKET_action_nook' => 'not satisfied' 
+,'TICKET_msg_updated' => 'The Ticket has been updated.' 
+
+,'TICKET_t_from' => 'Author' 
+,'TICKET_t_was_create' => 'has been created' 
+,'TICKET_t_to' => 'Artist' 
+,'TICKET_t_last_edit' => 'Revised' 
+,'TICKET_t_worker' => 'User' 
+,'TICKET_t_last_up' => 'Last update' 
+,'TICKET_t_status' => 'Status' 
+,'TICKET_t_prio' => 'Priority' 
+,'TICKET_t_subj' => 'Subject' 
+,'TICKET_t_refer' => 'Forwarding' 
+,'TICKET_t_refer_to' => 'Redirecting to' 
+,'TICKET_t_opt' => 'optional' 
+,'TICKET_t_in_arch' => 'Ticket stored in the archive.' 
+,'TICKET_t_ok' => 'Ticket is successful the user' 
+,'TICKET_t_ok_1' => 'After some time, the Ticket will go to the archives.' 
+,'TICKET_t_lock' => 'At the moment the user is working with the Ticket' 
+,'TICKET_t_lock_1' => 'So you can not work with the Ticket.' 
+,'TICKET_t_lock_i' => 'You are currently working with the Ticket. In order for others to work and release it. '
+,'TICKET_t_comment' => 'Comments' 
+,'TICKET_t_history' => 'Change History' 
+,'TICKET_t_your_comment' => 'Your comments' 
+,'TICKET_t_det_ticket' => 'Please provide details are ticket' 
+,'TICKET_t_comm_ph' => 'Comment to the Ticket' 
+,'TICKET_t_send' => 'Send' 
+,'TICKET_t_date' => 'Date' 
+,'TICKET_t_init' => 'Author' 
+,'TICKET_t_action' => 'Action' 
+,'TICKET_t_desc' => 'Description'
+,'TICKET_t_a_refer' => 'Ticket is redirected to' 
+,'TICKET_t_a_arch' => 'Ticket is moved to the archive' 
+,'TICKET_t_a_ok' => 'Ticket marked as done' 
+,'TICKET_t_a_nook' => 'Ticket is marked as failed' 
+,'TICKET_t_a_lock' => 'Ticket locked' 
+,'TICKET_t_a_unlock' => 'Ticket unlocked' 
+,'TICKET_t_a_create' => 'Ticket was made' 
+,'TICKET_t_a_e_text' => 'in the Ticket has been changed message' 
+,'TICKET_t_a_e_subj' => 'in the Ticket has been modified theme' 
+,'TICKET_t_a_com' => 'Ticket was commented' 
+,'TICKET_t_no' => 'No such Ticket' 
+
+,'CLIENTS_name' => 'People' 
+,'CLIENTS_find' => 'Find' 
+,'CLIENTS_find_me' => 'Please search for editing information ...' 
 
 
-'NOTES_title' => 'Персональний блокнот',
-'NOTES_link' => 'Посилання на запис',
-'NOTES_create' => 'створити новий запис',
-'NOTES_cr' => 'Створіть новий запис або оберіть...',
-
-
-'P_title' => 'Редагування інформації',
-'P_main' => 'Загальна інформація',
-'P_login' => 'Логін',
-'P_mail' => 'E-mail',
-'P_mail_desc' => 'Використовується виключно для сповіщення.',
-'P_edit' => 'Редагувати',
-'P_passedit' => 'Зміна пароля',
-'P_pass_old' => 'Старий пароль',
-'P_pass_old2' => 'Пароль старий',
-'P_pass_new' => 'Новий пароль',
-'P_pass_new2' => 'Пароль новий',
-'P_pass_new_re' => 'Повторіть новий пароль',
-'P_pass_new_re2' => 'Пароль новий (повторно)',
-'P_do_edit_pass' => 'Змінити пароль',
-
-'JS_not_found' => 'Не знайдено...',
-'JS_ticket' => 'Заявку',
-'JS_up' => 'Оновлено!',
-'JS_save' => 'Зберегти',
-'JS_pub' => 'Поділитись',
-'JS_del' => 'Дійсно бажаєте видалити?',
-'JS_create' => 'Створіть новий запис або оберіть...',
-'JS_low' => 'Низький',
-'JS_norm' => 'Середній',
-'JS_high' => 'Високий',
-'JS_unit' => 'Заповніть поле підрозділ',
-'JS_probl' => 'Заповніть поле опис проблеми',
-'JS_ok' => 'Виконано',
-'JS_no_ok' => 'Не виконано',
-'JS_unlock' => 'Розблокувати',
-'JS_lock' => 'Заблокувати',
-
-
-'USERS_title' => 'Користувачі',
-'USERS_create' => 'Створити користувача',
-'USERS_list' => 'Список користувачів',
-
-'USERS_msg_add' => 'Користувача успішно додано!',
-'USERS_new' => 'Новий користувач',
-'USERS_fio' => 'ПІБ',
-'USERS_fio_full' => 'Прізвіще, ім\'я та по-батькові',
-'USERS_login' => 'Логін',
-'USERS_pass' => 'Пароль',
-'USERS_mail' => 'E-mail',
-'USERS_units' => 'Відділи',
-'USERS_unit' => 'Відділ',
-'USERS_nach1' => 'Начальник управління',
-'USERS_nach1_desc' => 'Буде видно всі заявки.',
-'USERS_nach' => 'Начальник відділу',
-'USERS_nach_desc' => 'Буде видно всі заявки, адресовані до обраного відділу, а також адресовані всім користувачам відділу.',
-'USERS_wo' => 'Працівник',
-'USERS_wo_desc' => 'Буде видно всі заявки, адресовані на відділ та користувачу. Заявки іншим користувачам відділу буде не видно.',
-'USERS_make_create' => 'Створити користувача',
-
-'USERS_uid' => 'UID',
-'USERS_privs' => 'Привілеї',
-'USERS_p_1' => 'Нач. відділу',
-'USERS_p_2' => 'Працівник',
-'USERS_p_3' => 'Нач. управління',
-'USERS_msg_edit_ok' => 'Користувача успішно відредаговано!',
-'USERS_make_edit' => 'Редагування користувача',
-'USERS_acc' => 'Аккаунт',
-'USERS_not_active' => 'Не активовано',
-'USERS_active' => 'Активовано',
-'USERS_editable' => 'Редагувати користувача',
-
-'DEPS_title' => 'Відділи',
-'DEPS_name' => 'Назва відділу',
-'DEPS_add' => 'Додати',
-'DEPS_n' => 'Назва',
-'DEPS_action' => 'Дія',
-
-
-'APPROVE_title' => 'Підтвердження зміни інформації',
-'APPROVE_info' => 'Інфо',
-'APPROVE_fio' => 'ПІБ',
-'APPROVE_login' => 'Логін',
-'APPROVE_posada' => 'Посада',
-'APPROVE_unit' => 'Підрозділ',
-'APPROVE_tel' => 'Тел',
-'APPROVE_adr' => 'Адреса',
-'APPROVE_mail' => 'Mail',
-'APPROVE_app' => 'Підтвердити?',
-'APPROVE_orig' => 'Оригінал',
-'APPROVE_yes' => 'Так',
-'APPROVE_no' => 'Ні',
-'APPROVE_want' => 'хоче змінити на',
-
-
-'POSADA_title' => 'Посади',
-'POSADA_name' => 'Назва посади',
-'POSADA_add' => 'Додати',
-'POSADA_n' => 'Назва',
-'POSADA_action' => 'Дія',
-
-
-'UNITS_title' => 'Управління системи',
-'UNITS_name' => 'Назва управління',
-'UNITS_add' => 'Додати',
-'UNITS_n' => 'Назва',
-'UNITS_action' => 'Дія',
-
-
-'SUBJ_title' => 'Теми заявок',
-'SUBJ_name' => 'Назва теми',
-'SUBJ_add' => 'Додати',
-'SUBJ_n' => 'Назва',
-'SUBJ_action' => 'Дія',
-
-
-'STATS_TITLE' => 'Статистика користувача',
-'STATS_in' => 'Вхідні  заявки',
-'STATS_out' => 'Вихідні заявки',
-'STATS_new' => 'Нові',
-'STATS_lock' => 'З якими працюю',
-'STATS_ok' => 'Виконано мною',
-'STATS_nook' => 'Не виконані',
-'STATS_create' => 'Створено мною',
-'STATS_lock_o' => 'Працюють',
-'STATS_ok_o' => 'Виконано',
-'STATS_help1' => '<li>Нові - заявки, які адресовані Вам або Вашому відділу і Ви можете їх виконати.</li>	<li>Заблоковані - заявки, над якими Ви працюєте.</li> <li>Виконані - заявки, які Ви вже виконали (через деякий час перейдуть в архів та зникнуть за графіку)</li>',
-'STATS_help2' => '<li>Не виконані - заявки, які Ви створили, але їх ще ніхто не виконав.</li><li>Заблоковані - заявки, над якими хтось працює.</li><li>Виконані - заявки, які Ви створили та їх виконали</li>',
-'STATS_in_now' => 'Вхідні заявки на даний час',
-'STATS_t' => 'Заявок',
-'STATS_t_ok' => 'Виконані',
-'STATS_t_free' => 'Вільні',
-'STATS_out_all' => 'Вихідні заявки за весь період',
-'STATS_t_lock' => 'З якими працюють',
+,'NAVBAR_tickets' => 'Tickets' 
+,'NAVBAR_create_ticket' => 'New Ticket' 
+,'NAVBAR_list_ticket' => 'List of orders' 
+,'NAVBAR_workers' => 'People' 
+,'NAVBAR_helper' => 'Knowledge Centre' 
+,'NAVBAR_notes' => 'Notebook' 
+,'NAVBAR_admin' => 'Administration' 
+,'NAVBAR_users' => 'system users' 
+,'NAVBAR_deps' => 'Departments' 
+,'NAVBAR_approve' => 'Confirm' 
+,'NAVBAR_all_tickets' => 'All Tickets' 
+,'NAVBAR_reports' => 'Reports' 
+,'NAVBAR_db' => 'Directories' 
+,'NAVBAR_posads' => 'Posts' 
+,'NAVBAR_units' => 'Manage' 
+,'NAVBAR_subjs' => 'Topics Tickets' 
+,'NAVBAR_profile' => 'Profile' 
+,'NAVBAR_help' => 'Help' 
+,'NAVBAR_logout' => 'Exit' 
 
 
 
-'DASHBOARD_def_msg' => ', вітаємо Вас в системі заявок!</strong></center><br>Рекомендуємо Вам ознайомитись з <a href=\'help.php\' class=\'alert-link\'> </i> інструкцією</a> по роботі
-  з системою.<br> Або <a href=\'new.php\' class=\'alert-link\'>створіть нову заявку</a> прямо зараз!',
-  
-'msg_creted_new_user' => 'Буде створено нового користувача.'
+,'TICKET_ACTION_refer' => 'redirect the user' 
+,'TICKET_ACTION_refer_to' => 'on' 
+,'TICKET_ACTION_ok' => 'performed by the user' 
+,'TICKET_ACTION_nook' => 'not performed by the user' 
+,'TICKET_ACTION_lock' => 'user locked' 
+,'TICKET_ACTION_unlock' => 'unblock' 
+,'TICKET_ACTION_create' => 'user-created' 
+,'TICKET_ACTION_edit' => 'changed by the user' 
+,'TICKET_ACTION_comment' => 'user commented' 
+,'TICKET_ACTION_arch' => 'Ticket is moved to the archive' 
 
-            );
-    return $lang[$phrase];
-}
+
+,'HELPER_title' => 'Knowledge Centre' 
+,'HELPER_back' => 'back' 
+,'HELPER_pub' => 'Published' 
+,'HELPER_date' => 'Date' 
+,'HELPER_find' => 'Find' 
+,'HELPER_create' => 'create a new record' 
+,'HELPER_desc' => 'Description of the issue or issues ...' 
+
+
+,'NOTES_title' => 'Personal Favorites' 
+,'NOTES_link' => 'Link to Record' 
+,'NOTES_create' => 'create a new record' 
+,'NOTES_cr' => 'Add New or select ...' 
+
+
+,'P_title' => 'Edit Information' 
+,'P_main' => 'General Information' 
+,'P_login' => 'Login' 
+,'P_mail' => 'E-mail' 
+,'P_mail_desc' => 'is used exclusively for the notice.' 
+,'P_edit' => 'Edit' 
+,'P_passedit' => 'Change Password' 
+,'P_pass_old' => 'Old password' 
+,'P_pass_old2' => 'Password old' 
+,'P_pass_new' => 'New Password' 
+,'P_pass_new2' => 'new password' 
+,'P_pass_new_re' => 'Confirm new password' 
+,'P_pass_new_re2' => 'new Password (again)' 
+,'P_do_edit_pass' => 'Change Password' 
+
+,'JS_not_found' => 'Not found ...' 
+,'JS_ticket' => 'Ticket' 
+,'JS_up' => 'Updated!' 
+,'JS_save' => 'Save' 
+,'JS_pub' => 'Post' 
+,'JS_del' => 'Do you really want to delete?' 
+,'JS_create' => 'Add New or select ...' 
+,'JS_low' => 'Low' 
+,'JS_norm' => 'Average' 
+,'JS_high' => 'High' 
+,'JS_unit' => 'Please fill in the unit' 
+,'JS_probl' => 'Please fill in the description of the problem' 
+,'JS_ok' => 'Done' 
+,'JS_no_ok' => 'not satisfied' 
+,'JS_unlock' => 'Restore' 
+,'JS_lock' => 'Block' 
+
+
+,'USERS_title' => 'People' 
+,'USERS_create' => 'Create User' 
+,'USERS_list' => 'People' 
+
+,'USERS_msg_add' => 'User added successfully!' 
+,'USERS_new' => 'New user' 
+,'USERS_fio' => 'Name' 
+,'USERS_fio_full' => 'surname, name and patronymic' 
+,'USERS_login' => 'Login' 
+,'USERS_pass' => 'Password' 
+,'USERS_mail' => 'E-mail' 
+,'USERS_units' => 'Departments' 
+,'USERS_unit' => 'Department' 
+,'USERS_nach1' => 'Head' 
+,'USERS_nach1_desc' => 'Will see all Tickets.' 
+,'USERS_nach' => 'Head of Department' 
+,'USERS_nach_desc' => 'Will see all Tickets addressed in selected departments, as well as addressing all the users of the department.' 
+,'USERS_wo' => 'Employee' 
+,'USERS_wo_desc' => 'Will see all Tickets, addressed to the department and user. Other users of the Ticket will not be seen. '
+,'USERS_make_create' => 'Create User' 
+
+,'USERS_uid' => 'UID' 
+,'USERS_privs' => 'Privilege' 
+,'USERS_p_1' => 'Setup. Department '
+,'USERS_p_2' => 'Employee' 
+,'USERS_p_3' => 'Setup. management '
+,'USERS_msg_edit_ok' => 'User data successfully edited!' 
+,'USERS_make_edit' => 'Edit user data' 
+,'USERS_acc' => 'Account' 
+,'USERS_not_active' => 'Off' 
+,'USERS_active' => 'Enabled' 
+,'USERS_editable' => 'Edit user data' 
+,'DEPS_title' => 'Departments' 
+,'DEPS_name' => 'Department Name' 
+,'DEPS_add' => 'Add' 
+,'DEPS_n' => 'Name' 
+,'DEPS_action' => 'Action' 
+,'APPROVE_title' => 'Confirm the change of information' 
+,'APPROVE_info' => 'Information' 
+,'APPROVE_fio' => 'Name' 
+,'APPROVE_login' => 'Login' 
+,'APPROVE_posada' => 'Post' 
+,'APPROVE_unit' => 'Category' 
+,'APPROVE_tel' => 'Phone' 
+,'APPROVE_adr' => 'Address' 
+,'APPROVE_mail' => 'E-mail' 
+,'APPROVE_app' => 'Confirm?' 
+,'APPROVE_orig' => 'Original' 
+,'APPROVE_yes' => 'Yes' 
+,'APPROVE_no' => 'No' 
+,'APPROVE_want' => 'want to change' 
+
+
+,'POSADA_title' => 'Posts' 
+,'POSADA_name' => 'Post Title' 
+,'POSADA_add' => 'Add' 
+,'POSADA_n' => 'Name' 
+,'POSADA_action' => 'Action' 
+
+
+,'UNITS_title' => 'Control System' 
+,'UNITS_name' => 'Name of Control' 
+,'UNITS_add' => 'Add' 
+,'UNITS_n' => 'Name' 
+,'UNITS_action' => 'Action' 
+
+
+,'SUBJ_title' => 'Topics Tickets' 
+,'SUBJ_name' => 'Topic Title' 
+,'SUBJ_add' => 'Add' 
+,'SUBJ_n' => 'Name' 
+,'SUBJ_action' => 'Action' 
+
+
+,'STATS_TITLE' => 'User statistics' 
+,'STATS_in' => 'Incoming ticket' 
+,'STATS_out' => 'Outgoing ticket' 
+,'STATS_new' => 'New' 
+,'STATS_lock' => 'with which to work' 
+,'STATS_ok' => 'Achieved me' 
+,'STATS_nook' => 'not made​​' 
+,'STATS_create' => 'Created by Me' 
+,'STATS_lock_o' => 'Work' 
+,'STATS_ok_o' => 'Done' 
+,'STATS_help1' => '<li> new - requests that are addressed to you or your department and you can meet them. </ li> <li> Blocked - Ticket you are working on. </ li> <li> Fulfilled - requests that you have already completed (after a while go into the archive and disappear on schedule) </ li> '
+,'STATS_help2' => '<li> not made ​​- requests that you have created, but no one has yet performed. </ li> <li> Blocked - orders, over which someone works. </ li> <li> Fulfilled - requests that you have created and executed </ li> ' 
+,'STATS_in_now' => 'Inbox Ticket now' 
+,'STATS_t' => 'Tickets' 
+,'STATS_t_ok' => 'Completed' 
+,'STATS_t_free' => 'Free' 
+,'STATS_out_all' => 'Outgoing Tickets for the entire period' 
+,'STATS_t_lock' => 'with which to work', 
+
+
+
+'DASHBOARD_def_msg' => ', welcome to the Ticket system </ strong> </ center> <br> recommend you see <a href=\'help.php\' class=\'alert-link\'> </ i > Directions </ a> at work system. <br> <a href=\'new.php\'class=\'alert-link\'> Or create a new Ticket </ a> right now! ',
+
+'msg_creted_new_user' => 'new user will be wound up.'
+
+
+,'MAIL_active' => 'Account activated' 
+,'MAIL_adr' => 'Address' 
+,'MAIL_active_u' => 'The user account is activated' 
+,'MAIL_cong' => 'Welcome to Ticket System' 
+,'MAIL_data' => 'data' 
+,'MAIL_name' => 'System Tickets' 
+,'MAIL_new' => 'NEW ORDER' 
+,'MAIL_code' => 'Request Code' 
+,'MAIL_2link' => 'Go to page Ticket' 
+,'MAIL_info' => 'Information' 
+,'MAIL_created' => 'Ticket created' 
+,'MAIL_to' => 'To' 
+,'MAIL_prio' => 'Priority' 
+,'MAIL_worker' => 'Employee' 
+,'MAIL_msg' => 'Message' 
+,'MAIL_subj' => 'Subject' 
+,'MAIL_text' => 'text' 
+,'t_LIST_worker_to' => 'employee' 
+,'t_LIST_person' => 'personal' 
+
+,'HELP_title' => 'How to work with the Tickets' 
+,'HELP_new' => 'Create Ticket' 
+,'HELP_review' => 'View Ticket' 
+,'HELP_edit_user' => 'Change the user information' 
+,'HELP_new_text' => '<p> To create an Ticket, you must fill out the required fields. 
+                                 </ p> 
+                                 <ol> 
+                                     <li> <strong> From </ strong> - You need to start typing part of the surname, first name or username. If such employee is already in the system, then you will automatically be prompted to select from the list. If it is not - it will be created. In the right part of the page, you can optionally specify the contact details for the person. Typically a contact telephone number, e. </ Li> 
+                                     <li> <strong> Who </ strong> - specifies department. Be sure to specify the department, as well as optional artist. If you specify only the department, then the Ticket will see all employees of the department. If you specify more and performer, then the Ticket will only see artist and the head of his department. </ Li> 
+                                     <li> <strong> Priority </ strong> - specifies the priority of the Ticket. The general list Ticket can be seen by certain marks. </ Li> 
+                                     <li> <strong> Subject </ strong> - briefly stated theme of the Ticket. </ li> 
+                                     <li> <strong> Message </ strong> - specifies in detail the essence of the Ticket. </ li> 
+                                 </ ol> ', 
+'HELP_review_text' => '<p> you are three "directory", "Inbox", "Outbox", "archive". Details are below. 
+                                 </ p> 
+                                 <ul> 
+                                     <li> <strong> Inbox </ strong> - This directory contains all Ticket directly targeting you or your department. 
+If you are an user - you only see Tickets targeting the entire department or directly to you. (requests addressed to you and the department). 
+If you are an head of the department - you can see all your Tickets department (addressed to you, the users, and department). 
+                                     </ li> 
+                                     <li> <strong> Outgoing </ strong> - This directory contains all the Tickets that you have created. You can view the status of your Tickets created. 
+                                     </ li> 
+                                     <li> <strong> Archive </ strong> - This directory contains all Tickets that have been made​​, and some time later moved to the archive. They go to the archive automatically. 
+                                     </ li> 
+                                 </ ul> 
+                                 <p> 
+                                     The list of Tickets having different colors, in order to see their status. If the Ticket is black color - it will not be read. Blue - expect action. Yellow - blocked you. Gray - blocked by the user. Green - the Ticket is made. 
+                                 </ p> 
+                                 <center> 
+                                 <img src="img/help3.png" class="img-responsive"> 
+                                 </ center> 
+                                 <p> 
+                                     <strong> Once you or your department received a new Ticket </ strong>, you need to see it by clicking on the topic and decide: 
+                                 <ul> 
+                                     <li> <strong> Diversion to another department / or user </ strong> - If the Ticket is not in your jurisdiction, you can transfer the Ticket to another department or person. 
+                                     </ li> 
+                                     <li> <strong> Block it </ strong> - for all to see that you are working at this time with the Ticket, and other users can not do anything with the Ticket except the department head. 
+                                     <li> <strong> Run it </ strong> - means a request fulfilled and after a while it gets to the archive </ li> 
+
+                                         </ ul> 
+                                     </ li> 
+                                 </ ul> 
+                                 </ p> 
+                                 <p> 
+                                     Also you can comment on the proposal. 
+                                 </ p> ', 
+'HELP_edit_user_text' => '<p> Sometimes you need to add information about the user or change it. 
+To do this, there is a section - Members. Locate the user that you need and change the data. After that, they will be tested by the system administrator and change. 
+                                 </ p> ', 
+
+''=>''
+);
+return $lang[$phrase]; 
+} 
 ?>
