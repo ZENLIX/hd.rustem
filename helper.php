@@ -86,7 +86,7 @@ else if (!isset($_GET['h'])) {
      <div class="row" id="content_notes" style="padding-bottom: 25px;">
 
 
-<div class="col-md-10 col-md-offset-1" id="help_content">
+<div class="col-md-12" id="help_content">
 	
 	
 </div>
