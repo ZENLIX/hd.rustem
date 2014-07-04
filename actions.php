@@ -1076,11 +1076,13 @@ $results = mysql_query("SELECT
 							");
 if(mysql_num_rows($results)==0) {
 ?>
-<div id="" class="well well-large well-transparent lead">
-                <center>
-                    <?=lang('MSG_no_records');?>
-                </center>
-            </div>
+<div class="jumbotron">
+  <p>                </p><center><?=lang('MSG_no_records');?></center><p></p>
+  
+</div>
+
+
+
 <?php
 }
 if(mysql_num_rows($results)>0) {
