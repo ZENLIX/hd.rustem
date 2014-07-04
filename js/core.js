@@ -2380,6 +2380,7 @@ var lang_unlock= get_lang_param('JS_unlock');
         event.preventDefault();
         var to=$("select#t_to").val();
         var tou=$("select#t_users_do").val();
+        var tom=$("#msg1").val();
         //alert(to);
         var error_code=0;
         if (to == '0') {
@@ -2401,7 +2402,8 @@ var lang_unlock= get_lang_param('JS_unlock');
                 data: "mode=update_to"+
                     "&ticket_id="+pp+
                     "&to="+to+
-                    "&tou="+tou,
+                    "&tou="+tou+
+                    "&tom="+tom,
                 success: function(html){
                     $("#ccc").hide().html(html).fadeIn(500);
                     window.location = "list.php?in";
