@@ -38,6 +38,7 @@ function lang($phrase){
  'NEW_MSG'=>'Текст',
  'NEW_MSG_msg'=>'Укажите подробно суть заявки',
  'NEW_MSG_ph'=>'Суть заявки',
+ 'NEW_MSG_ph_1'=>'Если нужно дополните сообщение информацией',
  'NEW_button_create'=>'Создать заявку',
  'NEW_button_reset'=>'Очистить поля',
  'LIST_title'=>'Список заявок',
