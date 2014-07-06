@@ -2870,9 +2870,10 @@ values ('unlock', now(), '$unow', '$tid'); ";
             $tid=mysql_real_escape_string($_POST['ticket_id']);
             $to=mysql_real_escape_string($_POST['to']);
             $tou=mysql_real_escape_string($_POST['tou']);
+            $tom=mysql_real_escape_string($_POST['tom']);
 
 //echo "refer";
-            $query_update_ticket= "update tickets set unit_id='$to', user_to_id='$tou', lock_by='0', last_update=now() where id='$tid'";
+            $query_update_ticket= "update tickets set unit_id='$to', user_to_id='$tou', msg=concat(msg,'<br>','$tom'), lock_by='0', last_update=now() where id='$tid'";
             mysql_query ( $query_update_ticket )or die(mysql_error());
 //echo $query_update_ticket;
 
