@@ -528,6 +528,9 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
                 <div class="col-sm-1" style="">
                     <button id="ref_ticket" value="<?=$tid?>" type="button" class="btn btn-default btn-sm" <?=$lock_disabled?>><i class="fa fa-check"></i></button>
                 </div>
+		<div class="col-md-12" style="">
+            <textarea placeholder="<?=lang('NEW_MSG_ph_1');?>" class="form-control input-sm animated" name="msg1" id="msg1" rows="3"></textarea>
+            	</div>
 
             </div>
 
