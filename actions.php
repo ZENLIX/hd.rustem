@@ -2871,9 +2871,9 @@ values ('unlock', now(), '$unow', '$tid'); ";
             $to=mysql_real_escape_string($_POST['to']);
             $tou=mysql_real_escape_string($_POST['tou']);
             $tom=mysql_real_escape_string($_POST['tom']);
-
+			$x_refer_comment='<small class=\"text-muted\">'.nameshort(name_of_user_ret($_SESSION['helpdesk_user_id'])).' '.lang('REFER_comment_add').' ('.date(' d.m.Y h:i:s').'):</small> '.mysql_real_escape_string($_POST['tom']);
 //echo "refer";
-            $query_update_ticket= "update tickets set unit_id='$to', user_to_id='$tou', msg=concat(msg,'<br>','$tom'), lock_by='0', last_update=now() where id='$tid'";
+            $query_update_ticket= "update tickets set unit_id='$to', user_to_id='$tou', msg=concat(msg,'<br>','$x_refer_comment'), lock_by='0', last_update=now() where id='$tid'";
             mysql_query ( $query_update_ticket )or die(mysql_error());
 //echo $query_update_ticket;
 
