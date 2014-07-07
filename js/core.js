@@ -120,7 +120,7 @@ var result="";
                     $('#fio').popover('hide');
                     $('#for_fio').removeClass('has-error');
                     $('#for_fio').addClass('has-success');
-                    //$("#alert_add").hide().fadeIn(500);
+
                     $.ajax({
                         type: "POST",
                         url: "actions.php",
@@ -2523,6 +2523,7 @@ var lang_unlock= get_lang_param('JS_unlock');
 	fileName:"myfile"
 	});
 	*/
+	var lang_dd= get_lang_param('TICKET_file_upload_msg');
 	var uploadObj = $("#fileuploader").uploadFile({
 url:"upload.php",
 multiple:true,
@@ -2531,7 +2532,7 @@ fileName:"myfile",
 formData: {"hashname":$("#hashname").val()},
 maxFileSize:5000000,
 showStatusAfterSuccess:false,
-dragDropStr: "<span><b>drag & drop files</b></span>",
+dragDropStr: "<span><b>"+lang_dd+"</b></span>",
 abortStr:"abort",
 cancelStr:"cancel",
 doneStr:"done"

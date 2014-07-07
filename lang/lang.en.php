@@ -454,6 +454,7 @@ To do this, there is a section - Members. Locate the user that you need and chan
 
 ''=>''
 );
-return $lang[$phrase]; 
+return isset($lang[$phrase]) ? $lang[$phrase] : 'undefined';
+//return $lang[$phrase]; 
 } 
 ?>

@@ -458,9 +458,11 @@ function lang($phrase){
 Для этого существует раздел - Пользователи. Найдите того пользователя, который вам нужен и измените данные. После чего, они пройдут проверку администратором системы и изменятся.
                                 </p>',
 'REFER_comment_add'=>'дополнил',
+'TICKET_file_upload'=>'выбрать файл',
+'TICKET_file_upload_msg'=>'Вы можете перенести файлы сюда',
 ''=>''
 
             );
-    return $lang[$phrase];
+    return isset($lang[$phrase]) ? $lang[$phrase] : 'undefined';
 }
 ?>

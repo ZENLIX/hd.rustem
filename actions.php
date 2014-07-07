@@ -2142,13 +2142,9 @@ if(mysql_num_rows($results)>0) {
 // Проверка логіна сімволи і к-во
 // проверка email
             $ec=0;
-            if (!validate_alphanumeric_underscore($l)) {
-                $ec=1;
-            }
-
-
-            if (!validate_email($m)) {$ec=1;}
-
+            if (!validate_alphanumeric_underscore($l)) { $ec=1;}
+			if (!validate_email($m)) {$ec=1;}
+			if (!validate_exist_mail($m)) {$ec=1;}
 
 
             if ($ec == 0) {

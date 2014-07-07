@@ -421,6 +421,6 @@ function lang($phrase){
 '' => '',
 '' => ''
     );
-    return $lang[$phrase];
+    return isset($lang[$phrase]) ? $lang[$phrase] : 'undefined';
 }
 ?>

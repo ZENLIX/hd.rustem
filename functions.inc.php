@@ -56,6 +56,14 @@ function generateRandomString($length = 5) {
     return $randomString;
 }
 
+function validate_exist_mail($str) {
+	$re = mysql_num_rows(mysql_query("SELECT email from users where email='$str';"));
+	if ($re > 0) {$r=false;}
+	else if ($re <= 0) {$r=true;}
+
+	return $r;
+}
+
 function validate_email($str)
 {
     return preg_match('/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/',$str);
