@@ -2871,7 +2871,7 @@ values ('unlock', now(), '$unow', '$tid'); ";
             $to=mysql_real_escape_string($_POST['to']);
             $tou=mysql_real_escape_string($_POST['tou']);
             $tom=mysql_real_escape_string($_POST['tom']);
-			$x_refer_comment='<small class=\"text-muted\">'.nameshort(name_of_user_ret($_SESSION['helpdesk_user_id'])).' '.lang('REFER_comment_add').' ('.date(' d.m.Y h:i:s').'):</small> '.mysql_real_escape_string($_POST['tom']);
+			$x_refer_comment='<small class=\"text-muted\">'.nameshort(name_of_user_ret($_SESSION['helpdesk_user_id'])).' '.lang('REFER_comment_add').' ('.date(' d.m.Y h:i:s').'):</small> '.strip_tags(xss_clean(mysql_real_escape_string($_POST['tom'])));
 //echo "refer";
             $query_update_ticket= "update tickets set unit_id='$to', user_to_id='$tou', msg=concat(msg,'<br>','$x_refer_comment'), lock_by='0', last_update=now() where id='$tid'";
             mysql_query ( $query_update_ticket )or die(mysql_error());
@@ -2968,7 +2968,7 @@ values ('edit_msg', now(), '$unow', '$pk'); ";
 
             $user_comment=mysql_real_escape_string($_POST['user']);
             $tid_comment=mysql_real_escape_string($_POST['tid']);
-			$text_comment=mysql_real_escape_string($_POST['textmsg']);
+			$text_comment=strip_tags(xss_clean(mysql_real_escape_string($_POST['textmsg'])));
 
             $query_add_comment = "INSERT INTO comments (t_id, user_id, comment_text, dt)
 values ('$tid_comment', '$user_comment', '$text_comment', now()); ";
@@ -3027,21 +3027,21 @@ mysql_query ( $query_add_ticket_log )or die(mysql_error());
             ///////////
             $user_init_id=mysql_real_escape_string($_POST['user_init_id']);
             $user_to_id=mysql_real_escape_string($_POST['user_do']);
-            $subj=mysql_real_escape_string($_POST['subj']);
-            $msg=mysql_real_escape_string($_POST['msg']);
+            $subj=strip_tags(xss_clean(mysql_real_escape_string($_POST['subj'])));
+            $msg=strip_tags(xss_clean(mysql_real_escape_string($_POST['msg'])));
             $status='0';
             $unit_id=mysql_real_escape_string($_POST['unit_id']);
             $prio=mysql_real_escape_string($_POST['prio']);
             ///////////
-            $client_fio=mysql_real_escape_string($_POST['fio']);
-            $client_tel=mysql_real_escape_string($_POST['tel']);
-            $client_login=mysql_real_escape_string($_POST['login']);
-            $unit_desc=mysql_real_escape_string($_POST['pod']);
+            $client_fio=strip_tags(xss_clean(mysql_real_escape_string($_POST['fio'])));
+            $client_tel=strip_tags(xss_clean(mysql_real_escape_string($_POST['tel'])));
+            $client_login=strip_tags(xss_clean(mysql_real_escape_string($_POST['login'])));
+            $unit_desc=strip_tags(xss_clean(mysql_real_escape_string($_POST['pod'])));
 
-            $client_adr=mysql_real_escape_string($_POST['adr']);
+            $client_adr=strip_tags(xss_clean(mysql_real_escape_string($_POST['adr'])));
             //$client_tel=$_POST['tel'];
-            $client_mail=mysql_real_escape_string($_POST['mail']);
-            $client_posada=mysql_real_escape_string($_POST['posada']);
+            $client_mail=strip_tags(xss_clean(mysql_real_escape_string($_POST['mail'])));
+            $client_posada=strip_tags(xss_clean(mysql_real_escape_string($_POST['posada'])));
 
             $client_id_param=mysql_real_escape_string($_POST['client_id_param']);
 
