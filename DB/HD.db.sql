@@ -309,6 +309,8 @@ CREATE TABLE `users` (
   `unit` varchar(11) DEFAULT NULL,
   `is_admin` int(4) NOT NULL DEFAULT '0',
   `email` varchar(128) DEFAULT NULL,
+  `messages` varchar(2048) DEFAULT NULL,
+  `lang` varchar(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 

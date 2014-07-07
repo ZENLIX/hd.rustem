@@ -2138,7 +2138,7 @@ if(mysql_num_rows($results)>0) {
             $l=mysql_real_escape_string($_POST['login']);
             $m=mysql_real_escape_string($_POST['mail']);
             $id=mysql_real_escape_string($_POST['id']);
-
+			$langu=mysql_real_escape_string($_POST['lang']);
 // Проверка логіна сімволи і к-во
 // проверка email
             $ec=0;
@@ -2148,7 +2148,7 @@ if(mysql_num_rows($results)>0) {
 
 
             if ($ec == 0) {
-                $query_update_ticket= "update users set login='$l', email='$m' where id='$id'";
+                $query_update_ticket= "update users set login='$l', email='$m', lang='$langu' where id='$id'";
                 mysql_query ( $query_update_ticket )or die(mysql_error());
 
 
@@ -2174,7 +2174,7 @@ if(mysql_num_rows($results)>0) {
             $p_new=md5(mysql_real_escape_string($_POST['new_pass']));
             $p_new2=md5(mysql_real_escape_string($_POST['new_pass2']));
             $id=mysql_real_escape_string($_POST['id']);
-
+			
 //echo $p_old." ".$p_new." ".$p_new2;
 
 
@@ -2909,13 +2909,15 @@ values ('refer', now(), '$unow', '$tou', '$tid', '$to'); ";
 //$unit[]=$_POST['unit'];
             $priv=mysql_real_escape_string($_POST['priv']);
             $mail=mysql_real_escape_string($_POST['mail']);
+            $mess=mysql_real_escape_string($_POST['mess']);
+            $lang=mysql_real_escape_string($_POST['lang']);
             $hidden=array();
             $hidden = mysql_real_escape_string($_POST['unit']); //get the values from the keeporder
             print_r($hidden);
 			$unit=mysql_real_escape_string($_POST['unit']);
 
-            $query_add_ticket_log = "INSERT INTO users (fio, login, pass, status, priv, unit, email)
-values ('$fio', '$login', '$pass', '1', '$priv', '$unit', '$mail'); ";
+            $query_add_ticket_log = "INSERT INTO users (fio, login, pass, status, priv, unit, email, messages, lang)
+values ('$fio', '$login', '$pass', '1', '$priv', '$unit', '$mail', '$mess', '$lang'); ";
 
 
 //echo $query_add_ticket_log;
@@ -2996,12 +2998,12 @@ values ('comment', now(), '$user_comment', '$tid_comment'); ";
             $status=mysql_real_escape_string($_POST['status']);
             $usid=mysql_real_escape_string($_POST['idu']);
             $mail=mysql_real_escape_string($_POST['mail']);
-
-
+			$mess=mysql_real_escape_string($_POST['mess']);
+			$lang=mysql_real_escape_string($_POST['lang']);
             if (strlen($_POST['pass'])>1) { $p="pass='".md5($_POST['pass'])."',"; }
             else { $p=""; }
 
-            $query_add_ticket_log = "update users set fio='$fio', login='$login', ".$p." status='$status', priv='$priv', unit='$unit', email='$mail' where id='$usid';";
+            $query_add_ticket_log = "update users set fio='$fio', login='$login', ".$p." status='$status', priv='$priv', unit='$unit', email='$mail', messages='$mess', lang='$lang' where id='$usid';";
 
 
 //echo $query_add_ticket_log;

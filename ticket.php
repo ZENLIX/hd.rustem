@@ -249,7 +249,7 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
 			<hr style="margin:0px;">
 			<div class="row" style="padding:10px;">
 			<div class="col-md-3">
-			<center><small><strong>Додаткові файли:</strong></small></center>
+			<center><small><strong><?=lang('TICKET_file_list')?>:</strong></small></center>
 			</div>
 			<div class="col-md-9">
 						<ul>

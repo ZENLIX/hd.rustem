@@ -257,7 +257,7 @@ if ($CONF['fix_ticket_subj'] == false) {
     <div class="controls">
     <div class="form-group">
     
-    <label for="" class="col-sm-2 control-label"><small>Добавить файл:</small></label>
+    <label for="" class="col-sm-2 control-label"><small><?=lang('TICKET_file_add');?>:</small></label>
 
     <div class="col-sm-10">
         <div id="fileuploader"><?=lang('TICKET_file_upload');?></div>

@@ -382,8 +382,7 @@ function lang($phrase){
 
 
 
-'DASHBOARD_def_msg'=>', приветствуем Вас в системе заявок </strong> </center> <br> Рекомендуем Вам посмотреть <a href=\'help.php\' class=\'alert-link\'> </i> инструкции </a> по работе
-  с системой. <br> Или <a href=\'new.php\'class=\'alert-link\'> создайте новую заявку </a> прямо сейчас!',
+'DASHBOARD_def_msg'=>', приветствуем Вас в системе заявок! </strong> </center> <br> Рекомендуем Вам посмотреть <a href=\'help.php\' class=\'alert-link\'> </i> инструкции </a> по работе с системой. <br> Или <a href=\'new.php\'class=\'alert-link\'> создайте новую заявку </a> прямо сейчас!',
 
 'msg_creted_new_user' => 'Будет заведен новый пользователь.',
 
@@ -460,6 +459,9 @@ function lang($phrase){
 'REFER_comment_add'=>'дополнил',
 'TICKET_file_upload'=>'выбрать файл',
 'TICKET_file_upload_msg'=>'Вы можете перенести файлы сюда',
+'TICKET_file_add'=>'Добавить файл',
+'TICKET_file_list'=>'Прикреплённые файлы',
+'SYSTEM_lang'=>'Язык',
 ''=>''
 
             );

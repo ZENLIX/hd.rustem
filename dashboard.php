@@ -17,7 +17,8 @@
 
 <div class="alert alert-info alert-dismissable">
   
-  <center><strong><?=get_myname();?><?=lang('DASHBOARD_def_msg');?>
+<?=get_myname().get_dashboard_msg();?>
+
 </div>
 
 </div>

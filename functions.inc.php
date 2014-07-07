@@ -21,9 +21,19 @@ error_reporting(E_ALL ^ E_NOTICE);
 error_reporting(0);
 include_once('inc/mail.inc.php');
 
+function get_user_lang(){
+			$mid=$_SESSION['helpdesk_user_id'];
+	        $queryid = "SELECT lang from users where id='$mid'";
+            $res1 = mysql_query($queryid) or die(mysql_error());
+            $max= mysql_fetch_array( $res1 );
+            $max_id=$max[0];
+            $length = strlen(utf8_decode($max_id));
+            if (($length < 1) || $max_id==0) {$ress='ru';} else {$ress=$max_id;}
+            return $ress;
+}
 
 
-
+$lang=get_user_lang();
 switch ($lang) {
   case 'ua':
   $lang_file = 'lang.ua.php';
@@ -57,7 +67,8 @@ function generateRandomString($length = 5) {
 }
 
 function validate_exist_mail($str) {
-	$re = mysql_num_rows(mysql_query("SELECT email from users where email='$str';"));
+	$uid=$_SESSION['helpdesk_user_id'];
+	$re = mysql_num_rows(mysql_query("SELECT email from users where email='$str' and id != '$uid';"));
 	if ($re > 0) {$r=false;}
 	else if ($re <= 0) {$r=true;}
 
@@ -1096,6 +1107,17 @@ $count=$count[0];
 	return $count;
 }
 
+
+function get_dashboard_msg(){
+			$mid=$_SESSION['helpdesk_user_id'];
+	        $queryid = "SELECT messages from users where id='$mid'";
+            $res1 = mysql_query($queryid) or die(mysql_error());
+            $max= mysql_fetch_array( $res1 );
+            $max_id=$max[0];
+            $length = strlen(utf8_decode($max_id));
+            if ($length < 1) {$ress=lang('DASHBOARD_def_msg');} else {$ress=$max_id;}
+            return $ress;
+}
 function get_myname(){
 	$uid=$_SESSION['helpdesk_user_id'];
 	

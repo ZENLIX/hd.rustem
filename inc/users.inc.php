@@ -53,6 +53,22 @@ if (isset($_GET['ok'])) {
   </div>
   
   
+  
+      <div class="form-group">
+    <label for="lang" class="col-sm-2 control-label"><?=lang('SYSTEM_lang');?></label>
+        <div class="col-sm-10">
+    <select data-placeholder="<?=lang('SYSTEM_lang');?>" class="chosen-select form-control input-sm" id="lang" name="lang">
+                    <option value="0"></option>
+                    
+                        <option value="en">English</option>
+                        <option value="ru">Русский</option>
+                        <option value="ua">Українська</option>
+</select>
+        </div>
+  </div>
+  
+  
+  
   <div class="form-group">
   <label for="my-select" class="col-sm-2 control-label"><?=lang('USERS_units');?></label>
   <div class="col-sm-10">
@@ -99,6 +115,15 @@ if (isset($_GET['ok'])) {
     
         </div>
   </div-->
+      <div class="form-group">
+    <label for="mess" class="col-sm-2 control-label"><?=lang('MAIL_msg');?></label>
+        <div class="col-sm-10">
+        <textarea placeholder="<?=lang('');?>" class="form-control input-sm animated" name="mess" id="mess" rows="3"></textarea>
+        
+
+        </div>
+  </div>
+  
   
   
 <div class="radio col-sm-4">
@@ -193,7 +218,7 @@ if ($_POST['menu'] == 'list' ) {
 if ($_POST['menu'] == 'edit' ) {
 //echo $_POST['id'];
 $usid=mysql_real_escape_string($_POST['id']);
-   $query = "SELECT fio, pass, login, status, priv, unit,email from users where id='$usid'; ";
+   $query = "SELECT fio, pass, login, status, priv, unit,email,messages,lang from users where id='$usid'; ";
     $sql = mysql_query($query) or die(mysql_error());
     if (mysql_num_rows($sql) == 1) {
 	    $row = mysql_fetch_assoc($sql);
@@ -205,6 +230,12 @@ $status=$row['status'];
 $priv=$row['priv'];
 $unit=$row['unit'];
 $email=$row['email'];
+$messages=$row['messages'];
+$langu=$row['lang'];
+
+if ($langu == "en") 	 {$status_lang_en="selected";}
+else if ($langu == "ru") {$status_lang_ru="selected";}
+else if ($langu == "ua") {$status_lang_ua="selected";}
 
 if ($status == "0") {$status_lock="selected";}
 if ($status == "1") {$status_unlock="selected";}
@@ -260,7 +291,18 @@ if (isset($_GET['ok'])) {
         </div>
   </div>
   
-  
+        <div class="form-group">
+    <label for="lang" class="col-sm-2 control-label"><?=lang('SYSTEM_lang');?></label>
+        <div class="col-sm-10">
+    <select data-placeholder="<?=lang('SYSTEM_lang');?>" class="chosen-select form-control input-sm" id="lang" name="lang">
+                    <option value="0"></option>
+                    
+                        <option <?=$status_lang_en;?> value="en">English</option>
+                        <option <?=$status_lang_ru;?> value="ru">Русский</option>
+                        <option <?=$status_lang_ua;?> value="ua">Українська</option>
+</select>
+        </div>
+  </div>
   
     <div class="form-group">
   <label for="my-select" class="col-sm-2 control-label"><?=lang('USERS_units');?></label>
@@ -311,7 +353,14 @@ if ($val== $row['value']) {$opt_sel="selected";}
     
         </div>
   </div-->
-  
+        <div class="form-group">
+    <label for="mess" class="col-sm-2 control-label"><?=lang('MAIL_msg');?></label>
+        <div class="col-sm-10">
+        <textarea placeholder="<?=lang('');?>" class="form-control input-sm animated" name="mess" id="mess" rows="3"><?=$messages;?></textarea>
+        
+
+        </div>
+  </div>
   
 <div class="radio col-sm-4">
   <label>

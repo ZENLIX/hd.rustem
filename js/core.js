@@ -1613,6 +1613,7 @@ $('#summernote').summernote({
             data: "mode=edit_profile_main"+
                 "&login="+$("#login").val()+
                 "&mail="+$("#mail").val()+
+                "&lang="+$("select#lang").val()+
                 "&id="+$("#edit_profile_main").attr('value'),
             success: function(html) {
                 //alert(html);
@@ -1841,6 +1842,8 @@ $('body').on('click', 'button#send_zapit_add', function(event) {
                 "&pass="+$("#exampleInputPassword1").val()+
                 "&unit="+$("#my-select").val()+
                 "&priv="+$("input[type=radio][name=optionsRadios]:checked").val()+
+                "&mess="+$("textarea#mess").val()+
+                "&lang="+$('select#lang').val()+
                 "&mail="+$("#mail").val(),
             success: function(html) {
                 //alert(html);
@@ -2074,6 +2077,8 @@ $("input#fio_find_admin").keyup(function() {
                 "&unit="+$("#my-select").val()+
                 "&priv="+$("input[type=radio][name=optionsRadios]:checked").val()+
                 "&status="+$("#lock").val()+
+                "&mess="+$("textarea#mess").val()+
+                "&lang="+$('select#lang').val()+
                 "&mail="+$("#mail").val()+
                 "&idu="+usid,
             success: function(html) {

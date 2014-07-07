@@ -18,7 +18,7 @@ padding: 3px;
 <input type="hidden" id="main_last_new_ticket" value="<?=get_last_ticket_new($_SESSION['helpdesk_user_id']);?>">
 <?php
 $usid=$_SESSION['helpdesk_user_id'];
-$query = "SELECT fio, pass, login, status, priv, unit,email from users where id='$usid'; ";
+$query = "SELECT fio, pass, login, status, priv, unit,email, lang from users where id='$usid'; ";
     $sql = mysql_query($query) or die(mysql_error());
     if (mysql_num_rows($sql) == 1) {
 	    $row = mysql_fetch_assoc($sql);
@@ -27,6 +27,14 @@ $query = "SELECT fio, pass, login, status, priv, unit,email from users where id=
 $login=$row['login'];
 $pass=$row['pass'];
 $email=$row['email'];
+
+$langu=$row['lang'];
+
+if ($langu == "en") 	 {$status_lang_en="selected";}
+else if ($langu == "ru") {$status_lang_ru="selected";}
+else if ($langu == "ua") {$status_lang_ua="selected";}
+
+
 }
 
 ?>
@@ -62,6 +70,22 @@ $email=$row['email'];
     <p class="help-block"><small><?=lang('P_mail_desc');?></small></p>
         </div>
   </div>
+  
+  
+          <div class="form-group">
+    <label for="lang" class="col-sm-4 control-label"><?=lang('SYSTEM_lang');?></label>
+        <div class="col-sm-8">
+    <select data-placeholder="<?=lang('SYSTEM_lang');?>" class="chosen-select form-control input-sm" id="lang" name="lang">
+                    <option value="0"></option>
+                    
+                        <option <?=$status_lang_en;?> value="en">English</option>
+                        <option <?=$status_lang_ru;?> value="ru">Русский</option>
+                        <option <?=$status_lang_ua;?> value="ua">Українська</option>
+</select>
+        </div>
+  </div>
+  
+  
     <div class="col-md-offset-3 col-md-6">
 <center>
     <button type="submit" id="edit_profile_main" value="<?=$usid?>" class="btn btn-success"><i class="fa fa-pencil"></i> <?=lang('P_edit');?></button>
