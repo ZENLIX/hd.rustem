@@ -2518,6 +2518,28 @@ var lang_unlock= get_lang_param('JS_unlock');
 
     });
 
+/*$("#fileuploader").uploadFile({
+	url:"YOUR_FILE_UPLOAD_URL",
+	fileName:"myfile"
+	});
+	*/
+	var uploadObj = $("#fileuploader").uploadFile({
+url:"upload.php",
+multiple:true,
+autoSubmit:false,
+fileName:"myfile",
+formData: {"hashname":$("#hashname").val()},
+maxFileSize:5000000,
+showStatusAfterSuccess:false,
+dragDropStr: "<span><b>drag & drop files</b></span>",
+abortStr:"abort",
+cancelStr:"cancel",
+doneStr:"done"
+
+});
+
+
+
 
     $('body').on('click', 'button#enter_ticket', function(event) {
         event.preventDefault();
@@ -2578,12 +2600,13 @@ var lang_unlock= get_lang_param('JS_unlock');
             }
             if (status_action =='add') {
 
-
+				uploadObj.startUpload();
 
 
 
                 $.ajax({
                     type: "POST",
+                    async: false,
                     url: "actions.php",
                     data: "mode=add_ticket"+
                         "&type_add=add"+
@@ -2604,6 +2627,7 @@ var lang_unlock= get_lang_param('JS_unlock');
                         "&hashname="+$("#hashname").val(),
                     success: function(html) {
                         //alert(html);
+                        
                         window.location = "new.php?ok&h="+html;
 
                     }
@@ -2616,8 +2640,10 @@ var lang_unlock= get_lang_param('JS_unlock');
 
 
             if (status_action =='edit') {
+            uploadObj.startUpload();
                 $.ajax({
                     type: "POST",
+                    async: false,
                     url: "actions.php",
                     data: "mode=add_ticket"+
                         "&type_add=edit"+
@@ -2638,6 +2664,7 @@ var lang_unlock= get_lang_param('JS_unlock');
                         "&hashname="+$("#hashname").val(),
                     success: function(html) {
                         //alert(html);
+                        
                         window.location = "new.php?ok&h="+html;
                         //alert(html);
                     }

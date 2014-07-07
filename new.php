@@ -251,34 +251,21 @@ if ($CONF['fix_ticket_subj'] == false) {
         </div>
         <div class="help-block"></div></div></div>
 
-<!--div class="control-group">
+
+<?php if ($CONF['file_uploads'] == true) { ?>
+<div class="control-group">
     <div class="controls">
-        <div class="form-group" id="files">
-        	<label for="file" class="col-sm-2 control-label"><small>Файли:</small></label>
-            <div class="col-sm-4">
-	            
-	                <span class="btn btn-xs btn-default fileinput-button">
-        <i class="glyphicon glyphicon-plus"></i>
-        <span>Додати файли...</span>
-        
-        <input id="fileupload" type="file" name="files[]" multiple>
-		</span>
-            </div>
-            
-            <div class="col-sm-6">
+    <div class="form-group">
+    
+    <label for="" class="col-sm-2 control-label"><small>Добавить файл:</small></label>
 
-    
-    <small style="text-muted">Макс. 20 Мб, до 5 файлів</small>
-    
-            </div>
-            <div class="col-sm-2"></div>
-            <div class="col-sm-10">
-            <div id="files_list"></div>
-            </div>
-        </div>
+    <div class="col-sm-10">
+        <div id="fileuploader">Upload</div>
     </div>
-</div-->
-
+    </div>
+</div>
+</div>
+<?php } ?>
 
 <div class="col-md-2"></div>
 <div class="col-md-10">
