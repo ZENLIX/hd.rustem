@@ -127,18 +127,27 @@ print($r);
 
 		if ($mode == "get_list_notes") {
 		$userid=$_SESSION['helpdesk_user_id'];
-		$query="SELECT id, hashname, message from notes where user_id='$userid' order by dt DESC";
-            $res = mysql_query($query) or die(mysql_error());
+		
+		
+		$stmt = $dbConnection->prepare('SELECT id, hashname, message from notes where user_id=:userid order by dt DESC');
+	$stmt->execute(array(':userid' => $userid));
+	$res = $stmt->fetchAll();
+		
+		
+		
+		//$query="SELECT id, hashname, message from notes where user_id='$userid' order by dt DESC";
+        //  $res = mysql_query($query) or die(mysql_error());
 ?>
     <table class="table table-hover" style="margin-bottom: 0px;" id="table_list">
   
 
 <?php
-if (mysql_num_rows($res) == 0) {
+if (empty($res)) {
 			echo lang('empty');
 		}
-		if (mysql_num_rows($res) <> 0) {
-		while ($row = mysql_fetch_assoc($res)) {
+else if (!empty($res)) {
+		//while ($row = mysql_fetch_assoc($res)) 
+		foreach($res as $row) {
 		
 		
 		$t_msg=cutstr_ret(strip_tags($row['message']));
@@ -159,26 +168,44 @@ if (mysql_num_rows($res) == 0) {
 		$message = str_replace("\r\n", "\n", $message);
 		$message = str_replace("\r", "\n", $message);
 		$message = str_replace("&nbsp;", " ", $message);
-		$query="update notes set message='$message', dt=now() where hashname='$noteid'";
-		mysql_query($query)or die(mysql_error());
+		
+		
+		
+		//$query="update notes set message='$message', dt=now() where hashname='$noteid'";
+		//mysql_query($query)or die(mysql_error());
+		
+		$stmt = $dbConnection->prepare('update notes set message=:message, dt=now() where hashname=:noteid');
+		$stmt->execute(array(':message' => $message, ':noteid' => $noteid));
+
+		
 		print_r ($_POST['msg']);
 		}
 		
-				if ($mode == "get_first_note") {
+	
+	
+	if ($mode == "get_first_note") {
 		$noteid=mysql_real_escape_string($_POST['hn']);
 		$uid=$_SESSION['helpdesk_user_id'];
-		$query="select hashname, message from notes where user_id='$uid' order by dt DESC limit 1";
+		
+		
+		
+		//$query="select hashname, message from notes where user_id='$uid' order by dt DESC limit 1";
+		$stmt = $dbConnection->prepare('select hashname, message from notes where user_id=:uid order by dt DESC limit 1');
+		$stmt->execute(array(':uid' => $uid));
+		
         //mysql_query($query);
+        $res = $stmt->fetchAll();
+        //$res = mysql_query($query) or die(mysql_error());
         
-        $res = mysql_query($query) or die(mysql_error());
-        if (mysql_num_rows($res) == 0) {
-        
+        //if (mysql_num_rows($res) == 0) {
+        if (empty($res)) {
         echo "no";
         
         }
-        if (mysql_num_rows($res) > 0) {
-        while ($row = mysql_fetch_assoc($res)) {
-
+        else if (!empty($res)) {
+        //if (mysql_num_rows($res) > 0) {
+        //while ($row = mysql_fetch_assoc($res)) {
+			foreach($res as $row) {
         echo $row['message'];
         }
         }
@@ -189,15 +216,18 @@ if (mysql_num_rows($res) == 0) {
 		
 		if ($mode == "get_notes") {
 		$noteid=mysql_real_escape_string($_POST['hn']);
-		$query="select hashname, message from notes where hashname='$noteid'";
+		
+		$stmt = $dbConnection->prepare('select hashname, message from notes where hashname=:noteid');
+		$stmt->execute(array(':noteid' => $noteid));
+		$res = $stmt->fetchAll();
+		
+		//$query="select hashname, message from notes where hashname='$noteid'";
         //mysql_query($query);
-        $res = mysql_query($query) or die(mysql_error());
-        while ($row = mysql_fetch_assoc($res)) {
-
+        //$res = mysql_query($query) or die(mysql_error());
+        //while ($row = mysql_fetch_assoc($res)) {
+		foreach($res as $row) {
         echo $row['message'];
-        ?>
-        	
-        <?php
+
         }
 		}
 		/*
@@ -212,15 +242,21 @@ if (mysql_num_rows($res) == 0) {
 		
 		if ($mode == "del_notes") {
 		$noteid=mysql_real_escape_string($_POST['nid']);
-		$query="delete from notes where hashname='$noteid'";
-        mysql_query($query);
+		$stmt = $dbConnection->prepare('delete from notes where hashname=:noteid');
+		$stmt->execute(array(':noteid' => $noteid));
+
+		//$query="delete from notes where hashname='$noteid'";
+        //mysql_query($query);
 		}
 		
 		if ($mode == "create_notes") {
 		$uid=$_SESSION['helpdesk_user_id'];
 		$hn=md5(time());
-		$query="insert into notes (message, hashname, user_id, dt) values ('new record', '$hn', '$uid', now());";
-        mysql_query($query)or die(mysql_error());
+		$stmt = $dbConnection->prepare('insert into notes (message, hashname, user_id, dt) values (:nr, :hn, :uid, now())');
+		$stmt->execute(array(':nr' => 'new record', ':hn'=> $hn, ':uid'=>$uid));
+
+		//$query="insert into notes (message, hashname, user_id, dt) values ('new record', '$hn', '$uid', now());";
+        //mysql_query($query)or die(mysql_error());
         echo $hn;
 		}
 		
@@ -313,7 +349,7 @@ if (isset($_POST['new_client_info'])) {
 
 
 
-
+////////////////////////////////////////////////////////////////////////////////////////////////////
         if ($mode == "get_report") {
             $id=mysql_real_escape_string($_POST['id']);
             $s=mysql_real_escape_string($_POST['s']);
@@ -686,7 +722,9 @@ if (isset($_POST['new_client_info'])) {
         
         }
 
-
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
         if ($mode == "get_unit_id") {
@@ -738,9 +776,16 @@ print json_encode($results);
         if ($mode == "check_update_one") {
             $lu=mysql_real_escape_string($_POST['last_update']);
             $ticket_id=mysql_real_escape_string($_POST['id']);
-            $query="SELECT last_update,hash_name FROM tickets where id='$ticket_id';";
+            
+            /*$query="SELECT last_update,hash_name FROM tickets where id='$ticket_id';";
             $res = mysql_query($query) or die(mysql_error());
             $fio= mysql_fetch_assoc( $res );
+            */
+    
+    $stmt = $dbConnection->prepare('SELECT last_update,hash_name FROM tickets where id=:ticket_id');
+	$stmt->execute(array(':ticket_id' => $ticket_id));
+	$fio = $stmt->fetch(PDO::FETCH_ASSOC);
+            
             $db_lu=$fio['last_update'];
             $db_hn=$fio['hash_name'];
             $at=get_last_action_type($ticket_id);
@@ -767,15 +812,21 @@ print json_encode($results);
         if ($mode == "get_users_list") {
         $idzz=mysql_real_escape_string($_POST['unit']);
         
-        $qstring = "SELECT fio, id, unit FROM users;";
-        $result = mysql_query($qstring);//query the database for entries containing the term
-		//while ($row = mysql_fetch_array($result,MYSQL_ASSOC))//loop through the retrieved values
+        //$qstring = "SELECT fio, id, unit FROM users;";
+        //$result = mysql_query($qstring);
+    
+    $stmt = $dbConnection->prepare('SELECT fio, id, unit FROM users');
+	$stmt->execute();
+	$result = $stmt->fetchAll();
+		
+		
 		$results[] = array(
                 'name' => '',
                 'co' => '0'
             );
-		while ($row = mysql_fetch_assoc($result)) 
-        {
+            foreach($result as $row) {
+		//while ($row = mysql_fetch_assoc($result)) {
+		
         $un=$row['fio'];
         $ud=(int)$row['id'];
         $u=explode(",",$row['unit']);
@@ -800,13 +851,19 @@ print json_encode($results);
         if ($mode == "edit_helper") {
         $hn=mysql_real_escape_string($_POST['hn']);
         
-        $query="select id, user_init_id, unit_to_id, dt, title, message, hashname
+       /* $query="select id, user_init_id, unit_to_id, dt, title, message, hashname
 							from helper
 							where hashname='$hn';";
     $res = mysql_query($query) or die(mysql_error());
     $fio= mysql_fetch_assoc( $res );
+    */
     
     
+    $stmt = $dbConnection->prepare('select id, user_init_id, unit_to_id, dt, title, message, hashname from helper where hashname=:hn');
+	$stmt->execute(array(':hn' => $hn));
+	$fio = $stmt->fetch(PDO::FETCH_ASSOC);
+	
+	
     $u=$fio['unit_to_id'];
     
 
@@ -822,11 +879,17 @@ print json_encode($results);
             <select data-placeholder="<?=lang('NEW_to_unit');?>" class="chosen-select form-control" id="u" name="unit_id" multiple>
                 <?php
   						$u=explode(",", $u);
-                        $qstring = "SELECT name as label, id as value FROM deps;";
-                        $result = mysql_query($qstring);//query the database for entries containing the term
+                        //$qstring = "SELECT name as label, id as value FROM deps;";
+                        //$result = mysql_query($qstring);//query the database for entries containing the term
 
-                        while ($row = mysql_fetch_array($result,MYSQL_ASSOC))//loop through the retrieved values
-                        {
+						$stmt = $dbConnection->prepare('SELECT name as label, id as value FROM deps');
+						$stmt->execute();
+						$result = $stmt->fetchAll();
+
+
+
+                       // while ($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
+                        foreach($result as $row) {
 //echo($row['label']);
                             $row['label']=$row['label'];
                             $row['value']=(int)$row['value'];
@@ -916,11 +979,19 @@ if ($val== $row['value']) {$opt_sel="selected";}
             <select style="height: 34px;" data-placeholder="<?=lang('NEW_to_unit');?>" class="chosen-select form-control" id="u" name="unit_id" multiple>
                 <option value="0"><?=lang('HELP_all');?></option>
                 <?php
-                        $qstring = "SELECT name as label, id as value FROM deps where id !='0' ;";
-                        $result = mysql_query($qstring);//query the database for entries containing the term
+                        //$qstring = "SELECT name as label, id as value FROM deps where id !='0' ;";
+                        //$result = mysql_query($qstring);//query the database for entries containing the term
 
-                        while ($row = mysql_fetch_array($result,MYSQL_ASSOC))//loop through the retrieved values
-                        {
+
+
+
+						$stmt = $dbConnection->prepare('SELECT name as label, id as value FROM deps where id !=:n');
+						$stmt->execute(array(':n' => '0'));
+						$result = $stmt->fetchAll();
+						foreach($result as $row) {
+                        
+                        
+                        //while ($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
 //echo($row['label']);
                             $row['label']=$row['label'];
                             $row['value']=(int)$row['value'];
@@ -999,12 +1070,26 @@ if ($val== $row['value']) {$opt_sel="selected";}
         //$units = "'". implode("', '", $units) ."'";
         array_push($units,"0");
 
-$results = mysql_query("SELECT 
+/*$results = mysql_query("SELECT 
 							id, user_init_id, unit_to_id, dt, title, message, hashname
 							from helper where title like '%" . $t . "%' or message like '%" . $t . "%'
 							order by dt desc
 							");
-        while ($row = mysql_fetch_assoc($results)) {
+							*/
+        //while ($row = mysql_fetch_assoc($results)) {
+        
+        
+        $stmt = $dbConnection->prepare("SELECT 
+							id, user_init_id, unit_to_id, dt, title, message, hashname
+							from helper where title like :t or message like :t2
+							order by dt desc");
+						$stmt->execute(array(':t' => '%'.$t.'%',':t2' => '%'.$t.'%'));
+						$result = $stmt->fetchAll();
+						foreach($result as $row) {
+        
+        
+        
+        
         
         $unit2id = explode(",", $row['unit_to_id']);
 
@@ -1056,8 +1141,12 @@ $results = mysql_query("SELECT
         
         if ($mode == "del_help") {
         $hn=mysql_real_escape_string($_POST['hn']);
-        $query_del_ticket_log = "delete from helper where hashname='$hn';";
-        mysql_query ( $query_del_ticket_log )or die(mysql_error());
+        
+    $stmt = $dbConnection->prepare('delete from helper where hashname=:hn');
+	$stmt->execute(array(':hn' => $hn));
+	
+        //$query_del_ticket_log = "delete from helper where hashname='$hn';";
+        //mysql_query ( $query_del_ticket_log )or die(mysql_error());
         
         }
         
@@ -1069,12 +1158,24 @@ $results = mysql_query("SELECT
 
         $units = explode(",", $unit_user);
         array_push($units,"0");
-        $results = mysql_query("SELECT 
+        
+        
+        
+        $stmt = $dbConnection->prepare('SELECT 
 							id, user_init_id, unit_to_id, dt, title, message, hashname
 							from helper
-							order by dt desc
-							");
-if(mysql_num_rows($results)==0) {
+							order by dt desc');
+						$stmt->execute();
+						$result = $stmt->fetchAll();
+						//foreach($result as $row) {
+                        
+                        
+if(empty($result)) {
+
+
+
+
+
 ?>
 <div class="jumbotron">
   <p>                </p><center><?=lang('MSG_no_records');?></center><p></p>
@@ -1085,9 +1186,9 @@ if(mysql_num_rows($results)==0) {
 
 <?php
 }
-if(mysql_num_rows($results)>0) {
-        while ($row = mysql_fetch_assoc($results)) {
-        
+else if(!empty($result)) {
+        //while ($row = mysql_fetch_assoc($results)) {
+        foreach($result as $row) {
         $unit2id = explode(",", $row['unit_to_id']);
         //print_r($units);
         //echo"<br>";
@@ -1150,7 +1251,7 @@ if(mysql_num_rows($results)>0) {
         }
         ///////
                 if ($mode == "do_save_help") {
-        $u=mysql_real_escape_string($_POST['u']);
+        $u=$_POST['u'];
         $beats = implode(',', $u);
         $hn=mysql_real_escape_string($_POST['hn']);
         
@@ -1164,14 +1265,17 @@ if(mysql_num_rows($results)>0) {
 		$message = str_replace("&nbsp;", " ", $message);
 		//$message = defender_xss($message);
 		
-		$query="update helper set user_init_id='$user_id_z', unit_to_id='$beats', dt=now(), title='$t', message='$message' where
-		hashname='$hn';";
-        mysql_query($query)or die(mysql_error());
+		//$query="update helper set user_init_id='$user_id_z', unit_to_id='$beats', dt=now(), title='$t', message='$message' where hashname='$hn';";
+        //mysql_query($query)or die(mysql_error());
+        
+    $stmt = $dbConnection->prepare('update helper set user_init_id=:user_id_z, unit_to_id=:beats, dt=now(), title=:t, message=:message where hashname=:hn');
+	$stmt->execute(array(':hn' => $hn, ':user_id_z'=>$user_id_z, ':beats'=>$beats, ':t'=>$t, ':message'=>$message));
+        
         //echo $query;
         }
         
         if ($mode == "do_create_help") {
-        $u=mysql_real_escape_string($_POST['u']);
+        $u=$_POST['u'];
         $beats = implode(',', $u);
         
         
@@ -1184,9 +1288,19 @@ if(mysql_num_rows($results)>0) {
 		$message = str_replace("\r", "\n", $message);
 		$message = str_replace("&nbsp;", " ", $message);
 		//$message = defender_xss($message);
-		$query="insert into helper (hashname, user_init_id,unit_to_id, dt, title,message) values 
-		('$hn','$user_id_z','$beats', now(), '$t','$message');";
-        mysql_query($query)or die(mysql_error());
+		
+		//$query="insert into helper (hashname, user_init_id,unit_to_id, dt, title,message) values 
+		//('$hn','$user_id_z','$beats', now(), '$t','$message');";
+        //mysql_query($query)or die(mysql_error());
+        
+         $stmt = $dbConnection->prepare('insert into helper (hashname, user_init_id,unit_to_id, dt, title,message) values 
+		(:hn,:user_id_z,:beats, now(), :t,:message)');
+		 $stmt->execute(array(':hn' => $hn, ':user_id_z'=>$user_id_z, ':beats'=>$beats, ':t'=>$t, ':message'=>$message));
+      
+        
+        
+        
+        
         //echo $beats;
         }
         
@@ -1208,7 +1322,7 @@ if(mysql_num_rows($results)>0) {
         order by ok_by asc, prio desc, id desc
         */
         $units = explode(",", $unit_user);
-        $units = "'". implode("', '", $units) ."'";
+        $units = implode("', '", $units);
 
 
 
@@ -1253,6 +1367,7 @@ if(mysql_num_rows($results)>0) {
 
 
         if ($priv_val == 0) {
+        /*
             $results = mysql_query("SELECT 
 							id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read, lock_by, ok_by, prio, last_update
 							from tickets
@@ -1260,9 +1375,25 @@ if(mysql_num_rows($results)>0) {
 							order by ok_by asc, prio desc, id desc
 							limit $start_pos, $perpage
 							");
+		*/
+							
+	$stmt = $dbConnection->prepare('SELECT 
+							id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read, lock_by, ok_by, prio, last_update
+							from tickets
+							where unit_id IN (:units)  and arch=:n
+							order by ok_by asc, prio desc, id desc
+							limit :start_pos, :perpage');
+	$stmt->execute(array(':n' => '0', ':units'=>$units, ':start_pos'=>$start_pos, ':perpage'=>$perpage));
+	$results = $stmt->fetchAll();
+							
+							
+							
+							
+							
+							
         }
         else if ($priv_val == 1) {
-            $results = mysql_query("SELECT 
+            /*$results = mysql_query("SELECT 
 							id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read, lock_by, ok_by, prio, last_update
 							from tickets
 							where ((user_to_id='$user_id' and arch='0') or
@@ -1270,15 +1401,43 @@ if(mysql_num_rows($results)>0) {
 							order by ok_by asc, prio desc, id desc
 							limit $start_pos, $perpage
 							");
+							*/
+							
+							
+	$stmt = $dbConnection->prepare('SELECT 
+							id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read, lock_by, ok_by, prio, last_update
+							from tickets
+							where ((user_to_id=:user_id and arch=:n) or
+							(user_to_id=:n1 and unit_id IN (:units) and arch=:n2))
+							order by ok_by asc, prio desc, id desc
+							limit :start_pos, :perpage');
+	$stmt->execute(array(':n' => '0', ':units'=>$units, ':start_pos'=>$start_pos, ':perpage'=>$perpage, ':user_id'=>$user_id,':n1' => '0',':n2' => '0'));
+	$results = $stmt->fetchAll();
+	
+	
+							
         }
         else if ($priv_val == 2) {
-            $results = mysql_query("SELECT 
+            /*$results = mysql_query("SELECT 
 							id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read, lock_by, ok_by, prio, last_update
 							from tickets
 							where arch='0'
 							order by ok_by asc, prio desc, id desc
 							limit $start_pos, $perpage
 							");
+							*/
+							
+								$stmt = $dbConnection->prepare('SELECT 
+							id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read, lock_by, ok_by, prio, last_update
+							from tickets
+							where arch=:n
+							order by ok_by asc, prio desc, id desc
+							limit :start_pos, :perpage');
+	$stmt->execute(array(':n' => '0',':start_pos'=>$start_pos, ':perpage'=>$perpage));
+	$results = $stmt->fetchAll();
+							
+							
+							
         }
 
 
@@ -1329,7 +1488,13 @@ if(mysql_num_rows($results)>0) {
 
             <?php
             //if (mysql_num_rows($results) > 0) {
-            while ($row = mysql_fetch_assoc($results)) {
+            
+            
+
+        foreach($results as $row) {
+            
+            
+            //while ($row = mysql_fetch_assoc($results)) {
 
                 $lb=$row['lock_by'];
                 $ob=$row['ok_by'];
@@ -1632,14 +1797,21 @@ if(mysql_num_rows($results)>0) {
 
 
             $units = explode(",", $unit_user);
-            $units = "'". implode("', '", $units) ."'";
+            $units = implode("', '", $units);
 
 
             if ($priv_val == "0") {
-                $queryid = "SELECT id, hash_name, last_update from tickets where (unit_id IN (".$units.") or user_init_id='$uid') order by last_update DESC limit 5;";
+            
+                $stmt = $dbConnection->prepare('SELECT id, hash_name, last_update from tickets where (unit_id IN (:units) or user_init_id=:uid) order by last_update DESC limit 5');
+	$stmt->execute(array(':units' => $units, ':uid'=>$uid));
+	$res1 = $stmt->fetchAll();
+            
+            
+                /*$queryid = "SELECT id, hash_name, last_update from tickets where (unit_id IN (".$units.") or user_init_id='$uid') order by last_update DESC limit 5;";
                 $res1 = mysql_query($queryid) or die(mysql_error());
-
-                while ($rews = mysql_fetch_assoc($res1)) {
+*/
+				foreach($res1 as $rews) {
+                //while ($rews = mysql_fetch_assoc($res1)) {
 
                     $at=get_last_action_ticket($rews['id']);
 
@@ -1659,12 +1831,21 @@ if(mysql_num_rows($results)>0) {
 
             else if ($priv_val == "1") {
 
-
-                $queryid = "SELECT id, hash_name, last_update from tickets where (
+                $stmt = $dbConnection->prepare('SELECT id, hash_name, last_update from tickets where (
+	((user_to_id=:uid) or (user_to_id=:n and unit_id IN (:units)))
+	or user_init_id=:uid2) order by last_update DESC limit 5');
+	$stmt->execute(array(':units' => $units, ':uid'=>$uid, ':n'=>'0', ':uid2'=>$uid));
+	$res1 = $stmt->fetchAll();
+	
+	
+	
+                /*$queryid = "SELECT id, hash_name, last_update from tickets where (
 	((user_to_id='$uid') or (user_to_id='0' and unit_id IN (".$units.")))
 	or user_init_id='$uid') order by last_update DESC limit 5;";
                 $res1 = mysql_query($queryid) or die(mysql_error());
-                while ($rews = mysql_fetch_assoc($res1)) {
+                */
+                foreach($res1 as $rews) {
+                //while ($rews = mysql_fetch_assoc($res1)) {
 
                     $at=get_last_action_ticket($rews['id']);
                     $who_action=get_who_last_action_ticket($rews['id']);
@@ -1685,10 +1866,18 @@ if(mysql_num_rows($results)>0) {
             else if ($priv_val == "2") {
 
 
-                $queryid = "SELECT id, hash_name, last_update from tickets order by last_update DESC limit 5;";
-                $res1 = mysql_query($queryid) or die(mysql_error());
-                while ($rews = mysql_fetch_assoc($res1)) {
+                $stmt = $dbConnection->prepare('SELECT id, hash_name, last_update from tickets order by last_update DESC limit 5');
+	$stmt->execute();
+	$res1 = $stmt->fetchAll();
+	
+	
 
+                /*$queryid = "SELECT id, hash_name, last_update from tickets order by last_update DESC limit 5;";
+                $res1 = mysql_query($queryid) or die(mysql_error());
+                */
+                
+                //while ($rews = mysql_fetch_assoc($res1)) {
+foreach($res1 as $rews) {
                     $at=get_last_action_ticket($rews['id']);
                     $who_action=get_who_last_action_ticket($rews['id']);
                     //if ($who_action <> $uid) {
