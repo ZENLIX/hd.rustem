@@ -6,8 +6,6 @@ $password 	= ""; 				// Mysql password
 $db_name 	= "hd_prod"; 			// Mysql password
 
 $title_header			="helpdesk";					//System Name
-$admin_password			='1234';							//admin def:1234
-
 $CONF['hostname']		='http://localhost/web/HD.rustem/';	//path
 $CONF['mail']			='hd@hd.local';						//email
 $CONF['days2arch']		=3;									//days to arch
