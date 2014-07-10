@@ -11,11 +11,18 @@ if ($_SESSION['helpdesk_user_id']) {
 if (isset($_GET['h'])) {
 
 $h=mysql_real_escape_string($_GET['h']);
-$query="select id, user_init_id, unit_to_id, dt, title, message, hashname
+/*$query="select id, user_init_id, unit_to_id, dt, title, message, hashname
 							from helper
 							where hashname='$h';";
     $res = mysql_query($query) or die(mysql_error());
-    $fio= mysql_fetch_assoc( $res );
+    $fio= mysql_fetch_assoc( $res );*/
+    
+    
+    
+    $stmt = $dbConnection->prepare('select id, user_init_id, unit_to_id, dt, title, message, hashname
+							from helper where hashname=:h');
+	$stmt->execute(array(':h' => $h));
+	$fio = $stmt->fetch(PDO::FETCH_ASSOC);
     //echo($fio['fio']);
 
 

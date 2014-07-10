@@ -70,16 +70,25 @@
         //$units = "'". implode("', '", $units) ."'";
         array_push($units,"0");
         
-        $results = mysql_query("SELECT 
+        /*$results = mysql_query("SELECT 
 							id, user_init_id, unit_to_id, dt, title, message, hashname
 							from helper
 							order by dt desc
 							limit 5
-							");
+							");*/
+							
+	$stmt = $dbConnection->prepare('SELECT 
+							id, user_init_id, unit_to_id, dt, title, message, hashname
+							from helper
+							order by dt desc
+							limit 5');
+	$stmt->execute();
+	$result = $stmt->fetchAll();
         ?>
 <table class="table table-hover" style="margin-bottom: 0px;" id="">
 <?php
-if(mysql_num_rows($results)==0) {
+//if(mysql_num_rows($results)==0) {
+if(empty($result)) {
 ?>
 <div id="" class="well well-large well-transparent lead">
                 <center>
@@ -88,9 +97,11 @@ if(mysql_num_rows($results)==0) {
             </div>
 <?php
 }
-if(mysql_num_rows($results)>0) {
+//if(mysql_num_rows($results)>0) {
+else if(!empty($result)) {
+        foreach($result as $row) {
 
-        while ($row = mysql_fetch_assoc($results)) {
+        //while ($row = mysql_fetch_assoc($results)) {
         $unit2id = explode(",", $row['unit_to_id']);
         $diff = array_intersect($units, $unit2id);
         if ($priv_val == 1) {

@@ -39,13 +39,31 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
 
                 <?php
 
-                $results = mysql_query("select id, fio, tel, login, unit_desc, adr, email, posada, user_from, date_app, client_id from
-								approved_info;");
-                while ($row = mysql_fetch_assoc($results)) {
+                /*$results = mysql_query("select id, fio, tel, login, unit_desc, adr, email, posada, user_from, date_app, client_id from approved_info;");
+                while ($row = mysql_fetch_assoc($results)) {*/
+                
+                
+                
+                
+                $stmt = $dbConnection->prepare('select id, fio, tel, login, unit_desc, adr, email, posada, user_from, date_app, client_id from approved_info');
+			$stmt->execute();
+			$res1 = $stmt->fetchAll();
+			foreach($res1 as $row) {
+
+
+
+
 
                     $tmp_id=$row['client_id'];
-                    $results2 = mysql_query("select fio, tel, login, unit_desc, adr, email, posada from clients where id='$tmp_id';");
+                    
+                        $stmt = $dbConnection->prepare('select fio, tel, login, unit_desc, adr, email, posada from clients where id=:tmp_id');
+	$stmt->execute(array(':tmp_id' => $tmp_id));
+	$info = $stmt->fetch(PDO::FETCH_ASSOC);
+	
+	
+                    /*$results2 = mysql_query("select fio, tel, login, unit_desc, adr, email, posada from clients where id='$tmp_id';");
                     $info= mysql_fetch_assoc( $results2 );
+                    */
 
 
                     ?>

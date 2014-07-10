@@ -1949,15 +1949,21 @@ foreach($res1 as $rews) {
 
 
             $units = explode(",", $unit_user);
-            $units = "'". implode("', '", $units) ."'";
+            $units = implode("', '", $units);
 			//$t_lang=
 
             if ($priv_val == "0") {
+    $stmt = $dbConnection->prepare('SELECT id, hash_name, last_update from tickets where (unit_id IN (:units) or user_init_id=:uid) and last_update > :lu');
+	$stmt->execute(array(':units' => $units, ':uid'=>$uid, ':lu'=>$lu));
+	$res1 = $stmt->fetchAll();
+	foreach($res1 as $rews) {
+	
+            /*
                 $queryid = "SELECT id, hash_name, last_update from tickets where (unit_id IN (".$units.") or user_init_id='$uid') and last_update > '$lu';";
                 $res1 = mysql_query($queryid) or die(mysql_error());
 
                 while ($rews = mysql_fetch_assoc($res1)) {
-
+*/
                     $at=get_last_action_ticket($rews['id']);
 
                     $who_action=get_who_last_action_ticket($rews['id']);
@@ -1979,13 +1985,20 @@ foreach($res1 as $rews) {
 
             else if ($priv_val == "1") {
 
-
-                $queryid = "SELECT id, hash_name, last_update from tickets where (
+    $stmt = $dbConnection->prepare('SELECT id, hash_name, last_update from tickets where (
+	((user_to_id=:uid) or (user_to_id=:n and unit_id IN (:units)))
+	or user_init_id=:uid2) and last_update > :lu');
+	$stmt->execute(array(':units' => $units, ':uid'=>$uid, ':lu'=>$lu, ':uid2'=>$uid, ':n'=>'0'));
+	$res1 = $stmt->fetchAll();
+	foreach($res1 as $rews) {
+	
+	
+                /*$queryid = "SELECT id, hash_name, last_update from tickets where (
 	((user_to_id='$uid') or (user_to_id='0' and unit_id IN (".$units.")))
 	or user_init_id='$uid') and last_update > '$lu';";
                 $res1 = mysql_query($queryid) or die(mysql_error());
                 while ($rews = mysql_fetch_assoc($res1)) {
-
+*/
                     $at=get_last_action_ticket($rews['id']);
                     $who_action=get_who_last_action_ticket($rews['id']);
                     if ($who_action <> $uid) {
@@ -2007,10 +2020,16 @@ foreach($res1 as $rews) {
             }
             else if ($priv_val == "2") {
 
-
-                $queryid = "SELECT id, hash_name, last_update from tickets where last_update > '$lu';";
+    $stmt = $dbConnection->prepare('SELECT id, hash_name, last_update from tickets where last_update > :lu');
+	$stmt->execute(array(':lu'=>$lu));
+	$res1 = $stmt->fetchAll();
+	foreach($res1 as $rews) {
+	
+	
+                /*$queryid = "SELECT id, hash_name, last_update from tickets where last_update > '$lu';";
                 $res1 = mysql_query($queryid) or die(mysql_error());
                 while ($rews = mysql_fetch_assoc($res1)) {
+                */
 
                     $at=get_last_action_ticket($rews['id']);
                     $who_action=get_who_last_action_ticket($rews['id']);
@@ -2130,9 +2149,21 @@ foreach($res1 as $rews) {
         if ($mode == "find_worker") {
 
             $fio=mysql_real_escape_string($_POST['fio']);
-            $query="SELECT id,fio,tel,unit_desc,adr,tel_ext,email,login, posada, email FROM clients where fio like '%" . $fio . "%';";
+            
+            $stmt = $dbConnection->prepare('SELECT id,fio,tel,unit_desc,adr,tel_ext,email,login, posada, email FROM clients where fio like :fio');
+			$stmt->execute(array(':fio' => '%'.$fio.'%'));
+			$fio = $stmt->fetch(PDO::FETCH_ASSOC);
+
+
+
+           /* $query="SELECT id,fio,tel,unit_desc,adr,tel_ext,email,login, posada, email FROM clients where fio like '%" . $fio . "%';";
             $res = mysql_query($query) or die(mysql_error());
             $fio= mysql_fetch_assoc( $res );
+            */
+            
+            
+            
+            
             $fio_user=$fio['fio'];
             $loginf=$fio['login'];
             $tel_user=$fio['tel'];
@@ -2143,13 +2174,30 @@ foreach($res1 as $rews) {
             $posada=$fio['posada'];
             $id=$fio['id'];
 
+            /*
             $q_total="select count(id) as t1 from tickets where client_id='$id'";
             $res_total = mysql_query($q_total) or die(mysql_error());
             $total_ticket= mysql_fetch_assoc( $res_total );
+            */
+            
+            $stmt = $dbConnection->prepare('select count(id) as t1 from tickets where client_id=:id');
+			$stmt->execute(array(':id' => $id));
+			$total_ticket = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+            
             $tt=$total_ticket['t1'];
-            $q_last="select max(date_create) as dc from tickets where client_id='$id'";
+            
+            
+            /*$q_last="select max(date_create) as dc from tickets where client_id='$id'";
             $res_last=mysql_query($q_last) or die(mysql_error());
-            $last_ticket=mysql_fetch_assoc( $res_last );
+            $last_ticket=mysql_fetch_assoc( $res_last );*/
+            
+            $stmt = $dbConnection->prepare('select max(date_create) as dc from tickets where client_id=:id');
+			$stmt->execute(array(':id' => $id));
+			$last_ticket = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+            
+            
             $lt=$last_ticket['dc'];
             ?>
 
@@ -2291,9 +2339,15 @@ foreach($res1 as $rews) {
         if ($mode == "aprove_yes") {
             $id=mysql_real_escape_string($_POST['id']);
 
-            $clientquery="SELECT id,fio,tel,unit_desc,adr ,email,login, posada, email,client_id FROM approved_info where id='$id';";
+            /*$clientquery="SELECT id,fio,tel,unit_desc,adr ,email,login, posada, email,client_id FROM approved_info where id='$id';";
             $resclient = mysql_query($clientquery) or die(mysql_error());
-            $fio= mysql_fetch_assoc( $resclient );
+            $fio= mysql_fetch_assoc( $resclient );*/
+            
+            
+            $stmt = $dbConnection->prepare('SELECT id,fio,tel,unit_desc,adr ,email,login, posada, email,client_id FROM approved_info where id=:id');
+			$stmt->execute(array(':id' => $id));
+			$fio = $stmt->fetch(PDO::FETCH_ASSOC);
+            
 
             $qfio=mysql_real_escape_string($fio['fio']);
             $qlogin=mysql_real_escape_string($fio['login']);
@@ -2308,17 +2362,34 @@ foreach($res1 as $rews) {
 
 
 
-            $query_update_client= "update clients set fio='$qfio', tel='$tel', login='$qlogin', unit_desc='$qpod',
+            /*$query_update_client= "update clients set fio='$qfio', tel='$tel', login='$qlogin', unit_desc='$qpod',
 						adr='$adr', email='$email', posada='$posada' where id='$cid'";
-            mysql_query ( $query_update_client )or die(mysql_error());
-            $query_del_ticket_log = "delete from approved_info where id='$id';";
-            mysql_query ( $query_del_ticket_log )or die(mysql_error());
+            mysql_query ( $query_update_client )or die(mysql_error());*/
+            
+            $stmt = $dbConnection->prepare('update clients set fio=:qfio, tel=:tel, login=:qlogin, unit_desc=:qpod,
+						adr=:adr, email=:email, posada=:posada where id=:cid');
+			$stmt->execute(array(':qfio' => $qfio, ':tel' => $tel,':qlogin' => $qlogin,':qpod' => $qpod,':adr' => $adr,':email' => $email, ':posada' => $posada, ':cid' => $cid));
+            
+            
+            
+            
+            
+            /*$query_del_ticket_log = "delete from approved_info where id='$id';";
+            mysql_query ( $query_del_ticket_log )or die(mysql_error());*/
+            
+            $stmt = $dbConnection->prepare('delete from approved_info where id=:id');
+			$stmt->execute(array(':id' => $id));
+            
 //echo $query_update_client;
         }
         if ($mode == "aprove_no") {
             $id=mysql_real_escape_string($_POST['id']);
-            $query_add_ticket_log = "delete from approved_info where id='$id';";
-            mysql_query ( $query_add_ticket_log )or die(mysql_error());
+            
+            /*$query_add_ticket_log = "delete from approved_info where id='$id';";
+            mysql_query ( $query_add_ticket_log )or die(mysql_error());*/
+            
+            $stmt = $dbConnection->prepare('delete from approved_info where id=:id');
+			$stmt->execute(array(':id' => $id));
 
         }
 
@@ -2337,9 +2408,11 @@ foreach($res1 as $rews) {
 
 
             if ($ec == 0) {
-                $query_update_ticket= "update users set login='$l', email='$m', lang='$langu' where id='$id'";
-                mysql_query ( $query_update_ticket )or die(mysql_error());
-
+                /*$query_update_ticket= "update users set login='$l', email='$m', lang='$langu' where id='$id'";
+                mysql_query ( $query_update_ticket )or die(mysql_error());*/
+           
+            $stmt = $dbConnection->prepare('update users set login=:l, email=:m, lang=:langu where id=:id');
+			$stmt->execute(array(':id' => $id,':l' => $l,':m' => $m,':langu' => $langu));
 
 
                 ?>
@@ -2369,9 +2442,16 @@ foreach($res1 as $rews) {
 
 
 
-            $q_total="select pass from users where id='$id'";
+            /*$q_total="select pass from users where id='$id'";
             $res_total = mysql_query($q_total) or die(mysql_error());
-            $total_ticket= mysql_fetch_assoc( $res_total );
+            $total_ticket= mysql_fetch_assoc( $res_total );*/
+            
+            
+            $stmt = $dbConnection->prepare('select pass from users where id=:id');
+			$stmt->execute(array(':id' => $id));
+			$total_ticket = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+            
             $pass_orig=$total_ticket['pass'];
 
             $ec=0;
@@ -2395,8 +2475,13 @@ foreach($res1 as $rews) {
 
 
             if ($ec == 0) {
-                $query_update_ticket= "update users set pass='$p_new' where id='$id';";
-                mysql_query ( $query_update_ticket )or die(mysql_error());
+                /*$query_update_ticket= "update users set pass='$p_new' where id='$id';";
+                mysql_query ( $query_update_ticket )or die(mysql_error());*/
+                
+                
+            $stmt = $dbConnection->prepare('update users set pass=:p_new where id=:id');
+			$stmt->execute(array(':id' => $id,':p_new' => $p_new));
+                
                 session_destroy();
                 unset($_SESSION);
                 session_unset();
@@ -2428,10 +2513,20 @@ foreach($res1 as $rews) {
 
         if ($mode == "subj_del") {
             $id=mysql_real_escape_string($_POST['id']);
-            $q="delete from subj where id='$id';";
-            mysql_query ( $q )or die(mysql_error());
+            
+            /*$q="delete from subj where id='$id';";
+            mysql_query ( $q )or die(mysql_error());*/
+            
+            $stmt = $dbConnection->prepare('delete from subj where id=:id');
+			$stmt->execute(array(':id' => $id));
 
-            $results = mysql_query("select id, name from subj;");
+            //$results = mysql_query("select id, name from subj;");
+    
+    
+    $stmt = $dbConnection->prepare('select id, name from subj');
+	$stmt->execute();
+	$res1 = $stmt->fetchAll();
+	
             ?>
 
 
@@ -2445,7 +2540,10 @@ foreach($res1 as $rews) {
                 </tr>
                 </thead>
                 <tbody>
-                <?php while ($row = mysql_fetch_assoc($results)) {?>
+                <?php 
+                foreach($res1 as $row) {
+                //while ($row = mysql_fetch_assoc($results)) {
+                ?>
                     <tr id="tr_<?=$row['id'];?>">
 
 
@@ -2466,10 +2564,20 @@ foreach($res1 as $rews) {
         }
         if ($mode == "deps_add") {
             $t=mysql_real_escape_string($_POST['text']);
-            $q="insert into deps (name) values ('$t');";
+            /*$q="insert into deps (name) values ('$t');";
             mysql_query ( $q )or die(mysql_error());
+            */
 
-            $results = mysql_query("select id, name from deps where id!='0';");
+			$stmt = $dbConnection->prepare('insert into deps (name) values (:t)');
+			$stmt->execute(array(':t' => $t));
+
+
+
+            //$results = mysql_query("select id, name from deps where id!='0';");
+    
+    $stmt = $dbConnection->prepare('select id, name from deps where id!=:n');
+	$stmt->execute(array(':n' => '0'));
+	$res1 = $stmt->fetchAll();
             ?>
 
 
@@ -2483,7 +2591,11 @@ foreach($res1 as $rews) {
                 </tr>
                 </thead>
                 <tbody>
-                <?php while ($row = mysql_fetch_assoc($results)) {?>
+                <?php 
+                //while ($row = mysql_fetch_assoc($results)) {
+	                foreach($res1 as $row) {
+	                
+                ?>
                     <tr id="tr_<?=$row['id'];?>">
 
 
@@ -2504,10 +2616,16 @@ foreach($res1 as $rews) {
         }
                 if ($mode == "deps_del") {
             $id=mysql_real_escape_string($_POST['id']);
-            $q="delete from deps where id='$id';";
-            mysql_query ( $q )or die(mysql_error());
-
-            $results = mysql_query("select id, name from deps where id!='0';");
+            /*$q="delete from deps where id='$id';";
+            mysql_query ( $q )or die(mysql_error());*/
+			$stmt = $dbConnection->prepare('delete from deps where id=:id');
+			$stmt->execute(array(':id' => $id));
+            
+            //$results = mysql_query("select id, name from deps where id!='0';");
+            
+            $stmt = $dbConnection->prepare('select id, name from deps where id!=:n');
+			$stmt->execute(array(':n' => '0'));
+			$res1 = $stmt->fetchAll();
             ?>
 
 
@@ -2521,7 +2639,10 @@ foreach($res1 as $rews) {
                 </tr>
                 </thead>
                 <tbody>
-                <?php while ($row = mysql_fetch_assoc($results)) {?>
+                <?php 
+                //while ($row = mysql_fetch_assoc($results)) {
+	                foreach($res1 as $row) {
+                ?>
                     <tr id="tr_<?=$row['id'];?>">
 
 
@@ -2546,10 +2667,17 @@ foreach($res1 as $rews) {
             $v=mysql_real_escape_string($_POST['v']);
             $sid=mysql_real_escape_string($_POST['id']);
             
-            $q="update subj set name='$v' where id='$sid';";
-            mysql_query ( $q )or die(mysql_error());
+            /*$q="update subj set name='$v' where id='$sid';";
+            mysql_query ( $q )or die(mysql_error());*/
+            
+            $stmt = $dbConnection->prepare('update subj set name=:v where id=:sid');
+			$stmt->execute(array(':sid' => $sid,':v' => $v));
 
-            $results = mysql_query("select id, name from subj;");
+            //$results = mysql_query("select id, name from subj;");
+           
+            $stmt = $dbConnection->prepare('select id, name from subj');
+			$stmt->execute();
+			$res1 = $stmt->fetchAll();
             ?>
 
 
@@ -2563,7 +2691,11 @@ foreach($res1 as $rews) {
                 </tr>
                 </thead>
                 <tbody>
-                <?php while ($row = mysql_fetch_assoc($results)) {?>
+                <?php 
+                foreach($res1 as $row) {
+                //while ($row = mysql_fetch_assoc($results)) {
+	                
+                ?>
                     <tr id="tr_<?=$row['id'];?>">
 
 
@@ -2588,10 +2720,19 @@ foreach($res1 as $rews) {
         
         if ($mode == "subj_add") {
             $t=mysql_real_escape_string($_POST['text']);
-            $q="insert into subj (name) values ('$t');";
-            mysql_query ( $q )or die(mysql_error());
+            
+            /*$q="insert into subj (name) values ('$t');";
+            mysql_query ( $q )or die(mysql_error());*/
+			
+			$stmt = $dbConnection->prepare('insert into subj (name) values (:t)');
+			$stmt->execute(array(':t' => $t));
+			
+			
 
-            $results = mysql_query("select id, name from subj;");
+            //$results = mysql_query("select id, name from subj;");
+            $stmt = $dbConnection->prepare('select id, name from subj');
+			$stmt->execute();
+			$res1 = $stmt->fetchAll();
             ?>
 
 
@@ -2605,7 +2746,11 @@ foreach($res1 as $rews) {
                 </tr>
                 </thead>
                 <tbody>
-                <?php while ($row = mysql_fetch_assoc($results)) {?>
+                <?php 
+                foreach($res1 as $row) {
+                //while ($row = mysql_fetch_assoc($results)) {
+	                
+                ?>
                     <tr id="tr_<?=$row['id'];?>">
 
 
@@ -2627,10 +2772,21 @@ foreach($res1 as $rews) {
 
         if ($mode == "posada_add") {
             $t=mysql_real_escape_string($_POST['text']);
-            $q="insert into posada (name) values ('$t');";
+            /*$q="insert into posada (name) values ('$t');";
             mysql_query ( $q )or die(mysql_error());
 
             $results = mysql_query("select id, name from posada;");
+            */
+            
+            
+            $stmt = $dbConnection->prepare('insert into posada (name) values (:t)');
+			$stmt->execute(array(':t' => $t));
+
+            $stmt = $dbConnection->prepare('select id, name from posada');
+			$stmt->execute();
+			$res1 = $stmt->fetchAll();
+			
+			
             ?>
 
 
@@ -2644,7 +2800,11 @@ foreach($res1 as $rews) {
                 </tr>
                 </thead>
                 <tbody>
-                <?php while ($row = mysql_fetch_assoc($results)) {?>
+                <?php 
+                foreach($res1 as $row) {
+                //while ($row = mysql_fetch_assoc($results)) {
+	                
+                ?>
                     <tr id="tr_<?=$row['id'];?>">
 
 
@@ -2666,10 +2826,20 @@ foreach($res1 as $rews) {
 
         if ($mode == "posada_del") {
             $id=mysql_real_escape_string($_POST['id']);
-            $q="delete from posada where id='$id';";
+            
+            /*$q="delete from posada where id='$id';";
             mysql_query ( $q )or die(mysql_error());
 //echo($q);
             $results = mysql_query("select id, name from posada;");
+            */
+            
+            
+            $stmt = $dbConnection->prepare('delete from posada where id=:id');
+			$stmt->execute(array(':id' => $id));
+
+            $stmt = $dbConnection->prepare('select id, name from posada');
+			$stmt->execute();
+			$res1 = $stmt->fetchAll();
             ?>
 
 
@@ -2683,7 +2853,11 @@ foreach($res1 as $rews) {
                 </tr>
                 </thead>
                 <tbody>
-                <?php while ($row = mysql_fetch_assoc($results)) {?>
+                <?php 
+                foreach($res1 as $row) {
+                //while ($row = mysql_fetch_assoc($results)) {
+	                
+                ?>
                     <tr id="tr_<?=$row['id'];?>">
 
 
@@ -2706,10 +2880,20 @@ foreach($res1 as $rews) {
 
         if ($mode == "units_add") {
             $t=mysql_real_escape_string($_POST['text']);
+            
+            /*
             $q="insert into units (name) values ('$t');";
             mysql_query ( $q )or die(mysql_error());
 
             $results = mysql_query("select id, name from units;");
+            */
+            
+            $stmt = $dbConnection->prepare('insert into units (name) values (:t)');
+			$stmt->execute(array(':t' => $t));
+
+            $stmt = $dbConnection->prepare('select id, name from units');
+			$stmt->execute();
+			$res1 = $stmt->fetchAll();
             ?>
 
 
@@ -2723,7 +2907,11 @@ foreach($res1 as $rews) {
                 </tr>
                 </thead>
                 <tbody>
-                <?php while ($row = mysql_fetch_assoc($results)) {?>
+                <?php 
+                foreach($res1 as $row) {
+                //while ($row = mysql_fetch_assoc($results)) {
+	                
+                ?>
                     <tr id="tr_<?=$row['id'];?>">
 
 
@@ -2744,10 +2932,22 @@ foreach($res1 as $rews) {
         }
         if ($mode == "units_del") {
             $id=mysql_real_escape_string($_POST['id']);
-            $q="delete from units where id='$id';";
+            
+            /*$q="delete from units where id='$id';";
             mysql_query ( $q )or die(mysql_error());
 //echo($q);
             $results = mysql_query("select id, name from units;");
+            */
+            
+            
+            
+            $stmt = $dbConnection->prepare('delete from units where id=:id');
+			$stmt->execute(array(':id' => $id));
+
+            $stmt = $dbConnection->prepare('select id, name from units');
+			$stmt->execute();
+			$res1 = $stmt->fetchAll();
+            
             ?>
 
 
@@ -2761,7 +2961,11 @@ foreach($res1 as $rews) {
                 </tr>
                 </thead>
                 <tbody>
-                <?php while ($row = mysql_fetch_assoc($results)) {?>
+                <?php 
+                foreach($res1 as $row) {
+                //while ($row = mysql_fetch_assoc($results)) {
+	                
+                ?>
                     <tr id="tr_<?=$row['id'];?>">
 
 
@@ -2791,10 +2995,18 @@ foreach($res1 as $rews) {
             //$uf=$_SESSION['helpdesk_user_id'];
             //$id=$_POST['id_client'];
 
-            $query_add_ticket_log = "insert into clients
+            /*$query_add_ticket_log = "insert into clients
 (fio, tel, login, unit_desc, adr, email, posada)
 VALUES ('$pib', '$tel', '$login', '$pid', '$adr', '$mail',  '$posada');";
-            mysql_query ( $query_add_ticket_log )or die(mysql_error());
+            mysql_query ( $query_add_ticket_log )or die(mysql_error());*/
+            
+            
+            $stmt = $dbConnection->prepare('insert into clients
+			(fio, tel, login, unit_desc, adr, email, posada)
+			VALUES (:pib, :tel, :login, :pid, :adr, :mail,  :posada)');
+			$stmt->execute(array(':pib' => $pib,':tel' => $tel,':login' => $login,':pid' => $pid,':adr' => $adr,':mail' => $mail,':posada' => $posada));
+			
+			
             ?>
             <div class="alert alert-success">
                 <?=lang('PROFILE_msg_send');?>
@@ -2813,9 +3025,13 @@ VALUES ('$pib', '$tel', '$login', '$pid', '$adr', '$mail',  '$posada');";
             //$uf=$_SESSION['helpdesk_user_id'];
             $id=mysql_real_escape_string($_POST['id_client']);
 
-            $query_add_ticket_log = "update clients set
+            /*$query_add_ticket_log = "update clients set
 fio='$pib', tel='$tel', login='$login', unit_desc='$pid', adr='$adr', email='$mail', posada='$posada' where id = '$id';";
-            mysql_query ( $query_add_ticket_log )or die(mysql_error());
+            mysql_query ( $query_add_ticket_log )or die(mysql_error());*/
+            
+			$stmt = $dbConnection->prepare('update clients set
+fio=:pib, tel=:tel, login=:login, unit_desc=:pid, adr=:adr, email=:mail, posada=:posada where id = :id');
+			$stmt->execute(array(':pib' => $pib,':tel' => $tel,':login' => $login,':pid' => $pid,':adr' => $adr,':mail' => $mail,':posada' => $posada, ':id'=>$id));
             ?>
             <div class="alert alert-success">
                 <?=lang('PROFILE_msg_ok');?>
@@ -2835,10 +3051,18 @@ fio='$pib', tel='$tel', login='$login', unit_desc='$pid', adr='$adr', email='$ma
             $uf=$_SESSION['helpdesk_user_id'];
             $id=mysql_real_escape_string($_POST['id_client']);
 
-            $query_add_ticket_log = "insert into approved_info
+            /*$query_add_ticket_log = "insert into approved_info
 (client_id, fio, tel, login, unit_desc, adr, email, posada, user_from, date_app)
 VALUES ('$id', '$pib', '$tel', '$login', '$pid', '$adr', '$mail',  '$posada', '$uf', now())";
-            mysql_query ( $query_add_ticket_log )or die(mysql_error());
+            mysql_query ( $query_add_ticket_log )or die(mysql_error());*/
+            
+            
+            $stmt = $dbConnection->prepare('insert into approved_info
+(client_id, fio, tel, login, unit_desc, adr, email, posada, user_from, date_app)
+VALUES (:id, :pib, :tel, :login, :pid, :adr, :mail,  :posada, :uf, now())');
+			$stmt->execute(array(':pib' => $pib,':tel' => $tel,':login' => $login,':pid' => $pid,':adr' => $adr,':mail' => $mail,':posada' => $posada, ':uf'=>$uf));
+
+            
             ?>
             <div class="alert alert-success">
                 <?=lang('PROFILE_msg_send');?>
@@ -2851,25 +3075,45 @@ VALUES ('$id', '$pib', '$tel', '$login', '$pid', '$adr', '$mail',  '$posada', '$
             $user=mysql_real_escape_string($_POST['user']);
             $tid=mysql_real_escape_string($_POST['tid']);
 
-            $clientquery="SELECT arch FROM tickets where id='$tid';";
+            /*$clientquery="SELECT arch FROM tickets where id='$tid';";
             $resclient = mysql_query($clientquery) or die(mysql_error());
-            $fio= mysql_fetch_assoc( $resclient );
+            $fio= mysql_fetch_assoc( $resclient );*/
+            
+$stmt = $dbConnection->prepare('SELECT arch FROM tickets where id=:tid');
+$stmt->execute(array(':tid' => $tid));
+$fio = $stmt->fetch(PDO::FETCH_ASSOC);
 
             $s=$fio['arch'];
 
             if ($s == "0") {
-                $query_update_ticket= "update tickets set arch='1', last_update=now() where id='$tid'";
+                //$query_update_ticket= "update tickets set arch='1', last_update=now() where id='$tid'";
+                
+                $stmt = $dbConnection->prepare('update tickets set arch=:n1, last_update=now() where id=:tid');
+                $stmt->execute(array(':tid' => $tid,':n1' => '1'));
             }
             if ($s == "1") {
-                $query_update_ticket= "update tickets set arch='0', last_update=now() where id='$tid'";
+                //$query_update_ticket= "update tickets set arch='0', last_update=now() where id='$tid'";
+                $stmt = $dbConnection->prepare('update tickets set arch=:n1, last_update=now() where id=:tid');
+                $stmt->execute(array(':tid' => $tid,':n1' => '0'));
             }
-            mysql_query ( $query_update_ticket )or die(mysql_error());
+            //mysql_query ( $query_update_ticket )or die(mysql_error());
+            
+            
+            
+            
             $unow=$_SESSION['helpdesk_user_id'];
+            /*
             $query_atl = "INSERT INTO ticket_log (msg, date_op, init_user_id, ticket_id)
 values ('arch', now(), '$unow', '$tid'); ";
-            mysql_query ( $query_atl )or die(mysql_error());
+            mysql_query ( $query_atl )or die(mysql_error());*/
+            
+                $stmt = $dbConnection->prepare('INSERT INTO ticket_log (msg, date_op, init_user_id, ticket_id)
+values (:ar, now(), :unow, :tid');
+                $stmt->execute(array(':tid' => $tid,':unow' => $unow, ':ar'=>'arch'));
+                
+                
         }
-
+/*
         if ($mode == "del_now") {
             $user=mysql_real_escape_string($_POST['user']);
             $tid=mysql_real_escape_string($_POST['tid']);
@@ -2881,7 +3125,7 @@ values ('arch', now(), '$unow', '$tid'); ";
             $query_update_ticket= "delete from ticket_log where ticket_id='$tid'";
             mysql_query ( $query_update_ticket )or die(mysql_error());
         }
-
+*/
         if ($mode == "status_no_ok") {
             $user=mysql_real_escape_string($_POST['user']);
             $tid=mysql_real_escape_string($_POST['tid']);
@@ -2893,9 +3137,14 @@ values ('arch', now(), '$unow', '$tid'); ";
 
 
 
-            $clientquery="SELECT status, ok_by FROM tickets where id='$tid';";
+            /*$clientquery="SELECT status, ok_by FROM tickets where id='$tid';";
             $resclient = mysql_query($clientquery) or die(mysql_error());
-            $fio= mysql_fetch_assoc( $resclient );
+            $fio= mysql_fetch_assoc( $resclient );*/
+
+
+			$stmt = $dbConnection->prepare('SELECT status, ok_by FROM tickets where id=:tid');
+			$stmt->execute(array(':tid' => $tid));
+			$fio = $stmt->fetch(PDO::FETCH_ASSOC);
 
             $st=$fio['status'];
             $ob=$fio['ok_by'];
@@ -2905,14 +3154,23 @@ values ('arch', now(), '$unow', '$tid'); ";
 
 
             if ($st == "0") {
-                $query_update_ticket= "update tickets set ok_by='$user', status='1', ok_date=now(), last_update=now() where id='$tid'";
-                mysql_query ( $query_update_ticket )or die(mysql_error());
+                /*$query_update_ticket= "update tickets set ok_by='$user', status='1', ok_date=now(), last_update=now() where id='$tid'";
+                mysql_query ( $query_update_ticket )or die(mysql_error());*/
 
+			$stmt = $dbConnection->prepare('update tickets set ok_by=:user, status=:s, ok_date=now(), last_update=now() where id=:tid');
+			$stmt->execute(array(':s'=>'1',':tid' => $tid,':user'=>$user));
+			
 
                 $unow=$_SESSION['helpdesk_user_id'];
-                $query_atl = "INSERT INTO ticket_log (msg, date_op, init_user_id, ticket_id)
+                
+                
+                /*$query_atl = "INSERT INTO ticket_log (msg, date_op, init_user_id, ticket_id)
 values ('ok', now(), '$unow', '$tid'); ";
-                mysql_query ( $query_atl )or die(mysql_error());
+                mysql_query ( $query_atl )or die(mysql_error());*/
+                
+            $stmt = $dbConnection->prepare('INSERT INTO ticket_log (msg, date_op, init_user_id, ticket_id)
+values (:ok, now(), :unow, :tid');
+			$stmt->execute(array(':ok'=>'ok',':tid' => $tid,':unow'=>$unow));
 
                 ?>
 
@@ -2937,9 +3195,15 @@ values ('ok', now(), '$unow', '$tid'); ";
             $tid=mysql_real_escape_string($_POST['tid']);
 
 
-            $clientquery="SELECT status, ok_by, user_init_id FROM tickets where id='$tid';";
+            /*$clientquery="SELECT status, ok_by, user_init_id FROM tickets where id='$tid';";
             $resclient = mysql_query($clientquery) or die(mysql_error());
-            $fio= mysql_fetch_assoc( $resclient );
+            $fio= mysql_fetch_assoc( $resclient );*/
+            
+            $stmt = $dbConnection->prepare('SELECT status, ok_by, user_init_id FROM tickets where id=:tid');
+			$stmt->execute(array(':tid' => $tid));
+			$fio = $stmt->fetch(PDO::FETCH_ASSOC);
+			
+			
 
             $st=$fio['status'];
             $ob=$fio['ok_by'];
@@ -2955,12 +3219,24 @@ values ('ok', now(), '$unow', '$tid'); ";
 //////////////////////////////////////////////////////////////////////////////////////////
                 if ( ($ob == $user) || ($ps == "0") || ($ps == "2") || ($uinitd == $user)) {
 
-                    $query_update_ticket= "update tickets set ok_by='0', status='0', last_update=now() where id='$tid'";
+                    /*$query_update_ticket= "update tickets set ok_by='0', status='0', last_update=now() where id='$tid'";
                     mysql_query ( $query_update_ticket )or die(mysql_error());
+                    */
+                    
+                    $stmt = $dbConnection->prepare('update tickets set ok_by=:n, status=:n1, last_update=now() where id=:tid');
+					$stmt->execute(array(':tid' => $tid, ':n'=>'0',':n1'=>'0'));
+                    
+                    
+                    
                     $unow=$_SESSION['helpdesk_user_id'];
-                    $query_atl = "INSERT INTO ticket_log (msg, date_op, init_user_id, ticket_id)
+                    
+                    /*$query_atl = "INSERT INTO ticket_log (msg, date_op, init_user_id, ticket_id)
 values ('no_ok', now(), '$unow', '$tid'); ";
-                    mysql_query ( $query_atl )or die(mysql_error());
+                    mysql_query ( $query_atl )or die(mysql_error());*/
+                    
+                    $stmt = $dbConnection->prepare('INSERT INTO ticket_log (msg, date_op, init_user_id, ticket_id)
+values (:no_ok, now(), :unow, :tid');
+					$stmt->execute(array(':tid' => $tid, ':unow'=>$unow,':no_ok'=>'no_ok'));
                     ?>
 
                     <div class="alert alert-success"><i class="fa fa-check"></i> <?=lang('TICKET_msg_unOK');?></div>
@@ -2985,9 +3261,15 @@ values ('no_ok', now(), '$unow', '$tid'); ";
 
 
 
-            $clientquery="SELECT lock_by FROM tickets where id='$tid';";
+            /*$clientquery="SELECT lock_by FROM tickets where id='$tid';";
             $resclient = mysql_query($clientquery) or die(mysql_error());
-            $fio= mysql_fetch_assoc( $resclient );
+            $fio= mysql_fetch_assoc( $resclient );*/
+            
+            
+            $stmt = $dbConnection->prepare('SELECT lock_by FROM tickets where id=:tid');
+			$stmt->execute(array(':tid' => $tid));
+			$fio = $stmt->fetch(PDO::FETCH_ASSOC);
+			
 
 //$st=$fio['status'];
             $lb=$fio['lock_by'];
@@ -3001,12 +3283,22 @@ values ('no_ok', now(), '$unow', '$tid'); ";
 //if ( ($ob == $user) || ($ps == "0")) {
 
 
-                $query_update_ticket= "update tickets set lock_by='$user', last_update=now() where id='$tid'";
+                /*$query_update_ticket= "update tickets set lock_by='$user', last_update=now() where id='$tid'";
                 mysql_query ( $query_update_ticket )or die(mysql_error());
+                */
+                
+            $stmt = $dbConnection->prepare('update tickets set lock_by=:user, last_update=now() where id=:tid');
+			$stmt->execute(array(':tid' => $tid, ':user'=>$user));
+                
                 $unow=$_SESSION['helpdesk_user_id'];
-                $query_atl = "INSERT INTO ticket_log (msg, date_op, init_user_id, ticket_id)
+                
+                /*$query_atl = "INSERT INTO ticket_log (msg, date_op, init_user_id, ticket_id)
 values ('lock', now(), '$unow', '$tid'); ";
-                mysql_query ( $query_atl )or die(mysql_error());
+                mysql_query ( $query_atl )or die(mysql_error());*/
+            
+            $stmt = $dbConnection->prepare('INSERT INTO ticket_log (msg, date_op, init_user_id, ticket_id)
+values (:lock, now(), :unow, :tid');
+			$stmt->execute(array(':tid' => $tid, ':unow'=>$unow, ':lock'=>'lock'));
                 ?>
 
                 <div class="alert alert-success"><i class="fa fa-check"></i> <?=lang('TICKET_msg_lock');?></div>
@@ -3033,12 +3325,23 @@ values ('lock', now(), '$unow', '$tid'); ";
 
 
 
-            $query_update_ticket= "update tickets set lock_by='0', last_update=now() where id='$tid'";
-            mysql_query ( $query_update_ticket )or die(mysql_error());
+            /*$query_update_ticket= "update tickets set lock_by='0', last_update=now() where id='$tid'";
+            mysql_query ( $query_update_ticket )or die(mysql_error());*/
+            
+            $stmt = $dbConnection->prepare('update tickets set lock_by=:n, last_update=now() where id=:tid');
+			$stmt->execute(array(':tid' => $tid, ':n'=>'0'));
+            
+            
             $unow=$_SESSION['helpdesk_user_id'];
-            $query_atl = "INSERT INTO ticket_log (msg, date_op, init_user_id, ticket_id)
+            
+            
+            /*$query_atl = "INSERT INTO ticket_log (msg, date_op, init_user_id, ticket_id)
 values ('unlock', now(), '$unow', '$tid'); ";
-            mysql_query ( $query_atl )or die(mysql_error());
+            mysql_query ( $query_atl )or die(mysql_error());*/
+            
+            $stmt = $dbConnection->prepare('INSERT INTO ticket_log (msg, date_op, init_user_id, ticket_id)
+values (:unlock, now(), :unow, :tid');
+			$stmt->execute(array(':tid' => $tid, ':unow'=>$unow, ':unlock'=>'unlock'));
 
             ?>
 
@@ -3058,15 +3361,26 @@ values ('unlock', now(), '$unow', '$tid'); ";
             $tom=mysql_real_escape_string($_POST['tom']);
 			$x_refer_comment='<small class=\"text-muted\">'.nameshort(name_of_user_ret($_SESSION['helpdesk_user_id'])).' '.lang('REFER_comment_add').' ('.date(' d.m.Y h:i:s').'):</small> '.strip_tags(xss_clean(mysql_real_escape_string($_POST['tom'])));
 //echo "refer";
-            $query_update_ticket= "update tickets set unit_id='$to', user_to_id='$tou', msg=concat(msg,'<br>','$x_refer_comment'), lock_by='0', last_update=now() where id='$tid'";
-            mysql_query ( $query_update_ticket )or die(mysql_error());
+            /*$query_update_ticket= "update tickets set unit_id='$to', user_to_id='$tou', msg=concat(msg,'<br>','$x_refer_comment'), lock_by='0', last_update=now() where id='$tid'";
+            mysql_query ( $query_update_ticket )or die(mysql_error());*/
+            
+            $stmt = $dbConnection->prepare('update tickets set unit_id=:to, user_to_id=:tou, msg=concat(msg,:br,:x_refer_comment), lock_by=:n, last_update=now() where id=:tid');
+			$stmt->execute(array(':to'=>$to,':tou'=>$tou,':br'=>'<br>',':x_refer_comment'=>$x_refer_comment,':tid' => $tid, ':n'=>'0'));
+            
+            
+            
 //echo $query_update_ticket;
 
             $unow=$_SESSION['helpdesk_user_id'];
-            $query_add_ticket_log = "INSERT INTO ticket_log (msg, date_op, init_user_id, to_user_id, ticket_id, to_unit_id)
+            
+            /*$query_add_ticket_log = "INSERT INTO ticket_log (msg, date_op, init_user_id, to_user_id, ticket_id, to_unit_id)
 values ('refer', now(), '$unow', '$tou', '$tid', '$to'); ";
 //echo $query_add_ticket_log;
             mysql_query ( $query_add_ticket_log )or die(mysql_error());
+            */
+            
+            $stmt = $dbConnection->prepare('INSERT INTO ticket_log (msg, date_op, init_user_id, to_user_id, ticket_id, to_unit_id) values (:refer, now(), :unow, :tou, :tid, :to)');
+			$stmt->execute(array(':to'=>$to,':tou'=>$tou,':refer'=>'refer',':tid' => $tid, ':unow'=>$unow));
 
 
 
@@ -3105,41 +3419,68 @@ values ('refer', now(), '$unow', '$tou', '$tid', '$to'); ";
             print_r($hidden);
 			$unit=mysql_real_escape_string($_POST['unit']);
 
-            $query_add_ticket_log = "INSERT INTO users (fio, login, pass, status, priv, unit, email, messages, lang)
+            /*$query_add_ticket_log = "INSERT INTO users (fio, login, pass, status, priv, unit, email, messages, lang)
 values ('$fio', '$login', '$pass', '1', '$priv', '$unit', '$mail', '$mess', '$lang'); ";
+mysql_query ( $query_add_ticket_log )or die(mysql_error());*/
+
+ $stmt = $dbConnection->prepare('INSERT INTO users (fio, login, pass, status, priv, unit, email, messages, lang)
+values (:fio, :login, :pass, :one, :priv, :unit, :mail, :mess, :lang)');
+ $stmt->execute(array(':fio'=>$fio, ':login'=>$login, ':pass'=>$pass, ':one'=>'1', ':priv'=>$priv, ':unit'=>$unit, ':mail'=>$mail, ':mess'=>$mess, ':lang'=>$mess));
 
 
-//echo $query_add_ticket_log;
-mysql_query ( $query_add_ticket_log )or die(mysql_error());
+
+
         }
 
 
         if ($mode == "edit_ticket_subj") {
             $v=mysql_real_escape_string($_POST['value']);
             $pk=mysql_real_escape_string($_POST['pk']);
-            $query_add_ticket_log = "update tickets set subj='$v', last_edit=now(), last_update=now() where id='$pk';";
-            mysql_query ( $query_add_ticket_log )or die(mysql_error());
+            
+            /*$query_add_ticket_log = "update tickets set subj='$v', last_edit=now(), last_update=now() where id='$pk';";
+            mysql_query ( $query_add_ticket_log )or die(mysql_error());*/
 
-
+			 $stmt = $dbConnection->prepare('update tickets set subj=:v, last_edit=now(), last_update=now() where id=:pk');
+			 $stmt->execute(array(':v'=>$v, ':pk'=>$pk));
+ 
 
             $unow=$_SESSION['helpdesk_user_id'];
-            $query_atl = "INSERT INTO ticket_log (msg, date_op, init_user_id, ticket_id)
+            
+            /*$query_atl = "INSERT INTO ticket_log (msg, date_op, init_user_id, ticket_id)
 values ('edit_subj', now(), '$unow', '$pk'); ";
             mysql_query ( $query_atl )or die(mysql_error());
-
+            */
+            
+			 $stmt = $dbConnection->prepare('INSERT INTO ticket_log (msg, date_op, init_user_id, ticket_id)
+values (:edit_subj, now(), :unow, :pk');
+			 $stmt->execute(array(':edit_subj'=>'edit_subj', ':pk'=>$pk,':unow'=>$unow));
 
         }
 
         if ($mode == "edit_ticket_msg") {
             $v=mysql_real_escape_string($_POST['value']);
             $pk=mysql_real_escape_string($_POST['pk']);
-            $query_add_ticket_log = "update tickets set msg='$v', last_edit=now(), last_update=now() where id='$pk';";
+            
+            
+            /*$query_add_ticket_log = "update tickets set msg='$v', last_edit=now(), last_update=now() where id='$pk';";
             mysql_query ( $query_add_ticket_log )or die(mysql_error());
+            */
+            
+            
+            $stmt = $dbConnection->prepare('update tickets set msg=:v, last_edit=now(), last_update=now() where id=:pk');
+			$stmt->execute(array(':v'=>$v, ':pk'=>$pk));
 
             $unow=$_SESSION['helpdesk_user_id'];
-            $query_atl = "INSERT INTO ticket_log (msg, date_op, init_user_id, ticket_id)
+            
+            /*$query_atl = "INSERT INTO ticket_log (msg, date_op, init_user_id, ticket_id)
 values ('edit_msg', now(), '$unow', '$pk'); ";
-            mysql_query ( $query_atl )or die(mysql_error());
+            mysql_query ( $query_atl )or die(mysql_error());*/
+            
+            $stmt = $dbConnection->prepare('INSERT INTO ticket_log (msg, date_op, init_user_id, ticket_id)
+values (:edit_msg, now(), :unow, :pk');
+			$stmt->execute(array(':edit_msg'=>'edit_msg', ':pk'=>$pk,':unow'=>$unow));
+            
+            
         }
 
         if ($mode == "view_comment") {
@@ -3157,22 +3498,33 @@ values ('edit_msg', now(), '$unow', '$pk'); ";
             $tid_comment=mysql_real_escape_string($_POST['tid']);
 			$text_comment=strip_tags(xss_clean(mysql_real_escape_string($_POST['textmsg'])));
 
-            $query_add_comment = "INSERT INTO comments (t_id, user_id, comment_text, dt)
+            /*$query_add_comment = "INSERT INTO comments (t_id, user_id, comment_text, dt)
 values ('$tid_comment', '$user_comment', '$text_comment', now()); ";
+			mysql_query ( $query_add_comment )or die(mysql_error());*/
+			
+			
+			$stmt = $dbConnection->prepare('INSERT INTO comments (t_id, user_id, comment_text, dt)
+values (:tid_comment, :user_comment, :text_comment, now())');
+			$stmt->execute(array(':tid_comment'=>$tid_comment, ':user_comment'=>$user_comment,':text_comment'=>$text_comment));
+			
 
-//echo $query_add_ticket_log;
-            mysql_query ( $query_add_comment )or die(mysql_error());
-
-            $query_atl = "INSERT INTO ticket_log (msg, date_op, init_user_id, ticket_id)
+            /*$query_atl = "INSERT INTO ticket_log (msg, date_op, init_user_id, ticket_id)
 values ('comment', now(), '$user_comment', '$tid_comment'); ";
-            mysql_query ( $query_atl )or die(mysql_error());
+            mysql_query ( $query_atl )or die(mysql_error());*/
+            
+            $stmt = $dbConnection->prepare('INSERT INTO ticket_log (msg, date_op, init_user_id, ticket_id)
+values (:comment, now(), :user_comment, :tid_comment)');
+			$stmt->execute(array(':tid_comment'=>$tid_comment, ':user_comment'=>$user_comment,':comment'=>'comment'));
 
 
 //echo $query_add_comment;
 
-            $query_add_ticket_log = "update tickets set last_update=now() where id='$tid_comment';";
+           /* $query_add_ticket_log = "update tickets set last_update=now() where id='$tid_comment';";
             mysql_query ( $query_add_ticket_log )or die(mysql_error());
+            */
 
+            $stmt = $dbConnection->prepare('update tickets set last_update=now() where id=:tid_comment)');
+			$stmt->execute(array(':tid_comment'=>$tid_comment));
 
 
             view_comment($tid_comment);
@@ -3189,14 +3541,26 @@ values ('comment', now(), '$user_comment', '$tid_comment'); ";
             $mail=mysql_real_escape_string($_POST['mail']);
 			$mess=mysql_real_escape_string($_POST['mess']);
 			$lang=mysql_real_escape_string($_POST['lang']);
-            if (strlen($_POST['pass'])>1) { $p="pass='".md5($_POST['pass'])."',"; }
-            else { $p=""; }
+            if (strlen($_POST['pass'])>1) { 
+            $p=md5($_POST['pass']); 
+            $stmt = $dbConnection->prepare('update users set fio=:fio, login=:login,pass=:pass status=:status, priv=:priv, unit=:unit, email=:mail, messages=:mess, lang=:lang where id=:usid');
+			 $stmt->execute(array(':fio'=>$fio, ':login'=>$login, ':status'=>$status, ':priv'=>$priv, ':unit'=>$unit, ':mail'=>$mail, ':mess'=>$mess, ':lang'=>$mess, ':usid'=>$usid, ':pass'=>$pass));
 
-            $query_add_ticket_log = "update users set fio='$fio', login='$login', ".$p." status='$status', priv='$priv', unit='$unit', email='$mail', messages='$mess', lang='$lang' where id='$usid';";
+            }
+            else { $p=""; 
+	            $stmt = $dbConnection->prepare('update users set fio=:fio, login=:login, status=:status, priv=:priv, unit=:unit, email=:mail, messages=:mess, lang=:lang where id=:usid');
+			 $stmt->execute(array(':fio'=>$fio, ':login'=>$login, ':status'=>$status, ':priv'=>$priv, ':unit'=>$unit, ':mail'=>$mail, ':mess'=>$mess, ':lang'=>$mess, ':usid'=>$usid));
 
+            }
 
-//echo $query_add_ticket_log;
-            mysql_query ( $query_add_ticket_log )or die(mysql_error());
+            /*$query_add_ticket_log = "update users set fio='$fio', login='$login', ".$p." status='$status', priv='$priv', unit='$unit', email='$mail', messages='$mess', lang='$lang' where id='$usid';";
+			mysql_query ( $query_add_ticket_log )or die(mysql_error());
+			*/
+			
+			 
+ 
+ 
+ 
         }
 
 if ($mode == "upload_file") {
@@ -3204,8 +3568,15 @@ $name=$_POST['name'];
 $hn=$_POST['hn'];
 //$obj = json_decode($name);
 //$name=$obj->{'name'};
-$query_add_ticket_log = "insert into files (name, h_name) VALUES ('$name', '$hn')";
+/*$query_add_ticket_log = "insert into files (name, h_name) VALUES ('$name', '$hn')";
 mysql_query ( $query_add_ticket_log )or die(mysql_error());
+*/
+
+
+	         $stmt = $dbConnection->prepare('insert into files (name, h_name) VALUES (:name, :hn)');
+			 $stmt->execute(array(':name'=>$name, ':hn'=>$hn));
+			 
+			 
 //var_dump(json_decode($name));
 }
 
@@ -3243,35 +3614,69 @@ mysql_query ( $query_add_ticket_log )or die(mysql_error());
 
             if ($type == "add") {
 
-                $queryid="SELECT MAX(id) max_id FROM clients";
+                /*$queryid="SELECT MAX(id) max_id FROM clients";
                 $res1 = mysql_query($queryid) or die(mysql_error());
-                $max= mysql_fetch_array( $res1 );
+                $max= mysql_fetch_array( $res1 );*/
+                
+                
+                    $stmt = $dbConnection->prepare("SELECT MAX(id) max_id FROM clients");
+					$stmt->execute();
+					$max = $stmt->fetch(PDO::FETCH_NUM);
+                
                 $max_id=$max[0]+1;
                 $hashname=mysql_real_escape_string($_POST['hashname']);
-                $query_add_client= "insert into clients
+                
+                
+                /*$query_add_client= "insert into clients
 (id, fio, tel, login, unit_desc, adr, email, posada)
 VALUES ('$max_id', '$client_fio', '$client_tel', '$client_login', '$unit_desc', '$client_adr',  '$client_mail', '$client_posada')";
-                mysql_query ( $query_add_client )or die(mysql_error());
+                mysql_query ( $query_add_client )or die(mysql_error());*/
 
 
 
+			 $stmt = $dbConnection->prepare('insert into clients (id, fio, tel, login, unit_desc, adr, email, posada)
+VALUES (:max_id, :client_fio, :client_tel, :client_login, :unit_desc, :client_adr,  :client_mail, :client_posada)');
+			 $stmt->execute(array(':max_id'=>$max_id, ':client_fio'=>$client_fio, ':client_login'=>$client_login, ':unit_desc'=>$unit_desc, ':client_adr'=>$client_adr, ':client_mail'=>$client_mail, ':client_posada'=>$client_posada));
 
-                $queryid_ticket="SELECT MAX(id) max_id FROM tickets";
+
+                /*$queryid_ticket="SELECT MAX(id) max_id FROM tickets";
                 $res1_ticket = mysql_query($queryid_ticket) or die(mysql_error());
-                $max_id_ticket= mysql_fetch_array( $res1_ticket );
+                $max_id_ticket= mysql_fetch_array( $res1_ticket );*/
+                
+                    $stmt = $dbConnection->prepare("SELECT MAX(id) max_id FROM tickets");
+					$stmt->execute();
+					$max_id_ticket = $stmt->fetch(PDO::FETCH_NUM);
+                
+                
                 $max_id_res_ticket=$max_id_ticket[0]+1;
 
 
-                $query_add_ticket = "INSERT INTO tickets
+                /*$query_add_ticket = "INSERT INTO tickets
 								(id, user_init_id,user_to_id,date_create,subj,msg, client_id, unit_id, status, hash_name, prio, last_update) 
 								VALUES 
 								('$max_id_res_ticket', '$user_init_id','$user_to_id', now(),'$subj', '$msg','$max_id','$unit_id', '$status', '$hashname', '$prio', now())";
-                mysql_query ( $query_add_ticket ) or die(mysql_error());
+                mysql_query ( $query_add_ticket ) or die(mysql_error());*/
+                
+                $stmt = $dbConnection->prepare('INSERT INTO tickets
+								(id, user_init_id,user_to_id,date_create,subj,msg, client_id, unit_id, status, hash_name, prio, last_update) VALUES (:max_id_res_ticket, :user_init_id, :user_to_id, now(),:subj, :msg,:max_id,:unit_id, :status, :hashname, :prio, now())');
+			 $stmt->execute(array(':max_id_res_ticket'=>$max_id_res_ticket,':user_init_id'=>$user_init_id,':user_to_id'=>$user_to_id,':subj'=>$subj,':msg'=>$msg,':max_id'=>$max_id,':unit_id'=>$unit_id,':status'=>$status,':hashname'=>$hashname,':prio'=>$prio));
+                
+                
+                
+                
+                
 
-                $unow=$_SESSION['helpdesk_user_id'];
+                /*$unow=$_SESSION['helpdesk_user_id'];
                 $query_atl = "INSERT INTO ticket_log (msg, date_op, init_user_id, ticket_id, to_user_id, to_unit_id)
 values ('create', now(), '$unow', '$max_id_res_ticket', '$user_to_id', '$unit_id'); ";
-                mysql_query ( $query_atl )or die(mysql_error());
+                mysql_query ( $query_atl )or die(mysql_error());*/
+                
+                
+               $stmt = $dbConnection->prepare('INSERT INTO ticket_log (msg, date_op, init_user_id, ticket_id, to_user_id, to_unit_id) values (:create, now(), :unow, :max_id_res_ticket, :user_to_id, :unit_id)');
+			 
+			   $stmt->execute(array(':create'=>'create', ':unow'=>$unow,':max_id_res_ticket'=>$max_id_res_ticket,':user_to_id'=>$user_to_id,':unit_id'=>$unit_id));
+                
+                
                 //ОТПРАВКА ПИСЬМА
                 /*
                 Если задано Подразделение (ВСЕМ) - то письмо начальнику, всему подразделению
@@ -3304,28 +3709,59 @@ values ('create', now(), '$unow', '$max_id_res_ticket', '$user_to_id', '$unit_id
             if ($type == "edit") {
 
                 $hashname=mysql_real_escape_string($_POST['hashname']);
+                /*
                 $query_add_client= "update clients set tel='$client_tel', login='$client_login', unit_desc='$unit_desc', adr='$client_adr', email='$client_mail', posada='$client_posada' where id='$client_id_param'";
-                mysql_query ( $query_add_client )or die(mysql_error());
+                mysql_query ( $query_add_client )or die(mysql_error());*/
+                $stmt = $dbConnection->prepare('update clients set tel=:client_tel, login=:client_login, unit_desc=:unit_desc, adr=:client_adr, email=:client_mail, posada=:client_posada where id=:client_id_param');
+                
+			 $stmt->execute(array(':client_tel'=>$client_tel, ':client_login'=>$client_login, ':unit_desc'=>$unit_desc, ':client_adr'=>$client_adr, ':client_mail'=>$client_mail, ':client_posada'=>$client_posada, ':client_id_param'=>$client_id_param));
+                
+                
+                
 //echo $query_add_client;		
 
-                $queryid_ticket="SELECT MAX(id) max_id FROM tickets";
+                /*$queryid_ticket="SELECT MAX(id) max_id FROM tickets";
                 $res1_ticket = mysql_query($queryid_ticket) or die(mysql_error());
                 $max_id_ticket= mysql_fetch_array( $res1_ticket );
+                */
+                
+                
+                    $stmt = $dbConnection->prepare("SELECT MAX(id) max_id FROM tickets");
+					$stmt->execute();
+					$max_id_ticket = $stmt->fetch(PDO::FETCH_NUM);
+                
+                
                 $max_id_res_ticket=$max_id_ticket[0]+1;
 
 
-                $query_add_ticket = "INSERT INTO tickets
+                /*$query_add_ticket = "INSERT INTO tickets
 								(id, user_init_id,user_to_id,date_create,subj,msg, client_id, unit_id, status, hash_name, prio,last_update) 
 								VALUES 
 								('$max_id_res_ticket', '$user_init_id','$user_to_id', now(),'$subj', '$msg','$client_id_param','$unit_id', '$status', '$hashname', '$prio', now())";
                 mysql_query ( $query_add_ticket ) or die(mysql_error());
+                */
+                
+                $stmt = $dbConnection->prepare('INSERT INTO tickets
+								(id, user_init_id,user_to_id,date_create,subj,msg, client_id, unit_id, status, hash_name, prio, last_update) VALUES (:max_id_res_ticket, :user_init_id, :user_to_id, now(),:subj, :msg,:max_id,:unit_id, :status, :hashname, :prio, now())');
+			 $stmt->execute(array(':max_id_res_ticket'=>$max_id_res_ticket,':user_init_id'=>$user_init_id,':user_to_id'=>$user_to_id,':subj'=>$subj,':msg'=>$msg,':max_id'=>$client_id_param,':unit_id'=>$unit_id,':status'=>$status,':hashname'=>$hashname,':prio'=>$prio));
+                
+                
                 //echo $query_add_ticket;
                 $unow=$_SESSION['helpdesk_user_id'];
-                $query_atl = "INSERT INTO ticket_log (msg, date_op, init_user_id, ticket_id, to_user_id, to_unit_id)
+                
+                /*$query_atl = "INSERT INTO ticket_log (msg, date_op, init_user_id, ticket_id, to_user_id, to_unit_id)
 values ('create', now(), '$unow', '$max_id_res_ticket', '$user_to_id', '$unit_id'); ";
 
 
-                mysql_query ( $query_atl )or die(mysql_error());
+                mysql_query ( $query_atl )or die(mysql_error());*/
+                
+                
+               $stmt = $dbConnection->prepare('INSERT INTO ticket_log (msg, date_op, init_user_id, ticket_id, to_user_id, to_unit_id) values (:create, now(), :unow, :max_id_res_ticket, :user_to_id, :unit_id)');
+			 
+			   $stmt->execute(array(':create'=>'create', ':unow'=>$unow,':max_id_res_ticket'=>$max_id_res_ticket,':user_to_id'=>$user_to_id,':unit_id'=>$unit_id));
+                
+                
+                
                 if ($user_to_id == "0") {
                     send_mail_to('new_all',$max_id_res_ticket);
                     //echo "new_all";

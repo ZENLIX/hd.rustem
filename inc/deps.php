@@ -40,10 +40,12 @@ padding: 3px;
       
 <?php 
 	
-		$results = mysql_query("select id, name from deps where id!='0';");
+		//$results = mysql_query("select id, name from deps where id!='0';");
 	
 	
-	
+			$stmt = $dbConnection->prepare('select id, name from deps where id!=:n');
+			$stmt->execute(array(':n' => '0'));
+			$res1 = $stmt->fetchAll();
 	
 	
 ?>      
@@ -59,7 +61,10 @@ padding: 3px;
           </tr>
         </thead>
 		<tbody>		
-		<?php while ($row = mysql_fetch_assoc($results)) {?>
+		<?php 
+		//while ($row = mysql_fetch_assoc($results)) {
+			foreach($res1 as $row) {
+		?>
 		<tr id="tr_<?=$row['id'];?>">
 		
 		

@@ -2175,6 +2175,7 @@ $("input#fio_find_admin").keyup(function() {
         });
 
     });
+    /*
     $('body').on('click', 'button#action_del_time', function(event) {
         event.preventDefault();
         var tr_id = $(this).attr('value');
@@ -2196,7 +2197,7 @@ $("input#fio_find_admin").keyup(function() {
         });
 
     });
-
+*/
     $('body').on('click', 'button#action_list_lock', function(event) {
         event.preventDefault();
 

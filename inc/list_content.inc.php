@@ -19,13 +19,20 @@ if (isset($_POST['menu'])) {
         $start_pos = ($page - 1) * $perpage;
         $user_id=id_of_user($_SESSION['helpdesk_user_login']);
 
-        $results = mysql_query("SELECT 
+        /*$results = mysql_query("SELECT 
 							id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read,lock_by, ok_by, prio
 							from tickets
 							where user_init_id='$user_id' and arch='0'
 							order by id desc
 							limit $start_pos, $perpage
 							");
+							*/
+							
+		    $stmt = $dbConnection->prepare('SELECT id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read,lock_by, ok_by, prio from tickets where user_init_id=:user_id and arch=:n order by id desc limit :start_pos, :perpage');
+
+			$stmt->execute(array(':user_id' => $user_id, ':n'=>'0',':start_pos'=>$start_pos,':perpage'=>$perpage));
+			$res1 = $stmt->fetchAll();
+								
 
 
 
@@ -66,8 +73,8 @@ if (isset($_POST['menu'])) {
 
                 <?php
 
-                while ($row = mysql_fetch_assoc($results)) {
-
+                //while ($row = mysql_fetch_assoc($results)) {
+					foreach($res1 as $row) {
                     $lb=$row['lock_by'];
                     $ob=$row['ok_by'];
 
@@ -228,7 +235,7 @@ if (isset($_POST['menu'])) {
                             */
 
         $units = explode(",", $unit_user);
-        $units = "'". implode("', '", $units) ."'";
+        $units = implode("', '", $units);
         //print_r($units);
 
         //$units = "'". implode("', '", $units) ."'";
@@ -240,20 +247,52 @@ if (isset($_POST['menu'])) {
 
 
         if ($priv_val == 0) {
-            $results = mysql_query("SELECT 
+            /*$results = mysql_query("SELECT 
 							id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read, lock_by, ok_by, prio, last_update, arch
 							from tickets
 							where ((unit_id IN (".$units.") and arch='0') or (user_init_id='$user_id')) and (id='$z' or subj like '%" . $z . "%') limit 10
-							");
+							");*/
+							
+			$stmt = $dbConnection->prepare('SELECT 
+							id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read, lock_by, ok_by, prio, last_update, arch
+							from tickets
+							where ((unit_id IN (:units) and arch=:n) or (user_init_id=:user_id)) and (id=:z or subj like :z1) limit 10');
+
+			$stmt->execute(array(':units' => $units, ':n'=>'0',':user_id'=>$user_id,':z'=>$z,':z1'=>$z));
+			$res1 = $stmt->fetchAll();
+							
+							
+							
+							
+							
         }
         else if ($priv_val == 1) {
-            $results = mysql_query("SELECT 
+        
+        
+            /*$results = mysql_query("SELECT 
 							id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read, lock_by, ok_by, prio, last_update, arch
 							from tickets
 							where (((user_to_id='$user_id') or
 							(user_to_id='0' and unit_id IN (".$units.") )) or user_init_id='$user_id') and (id='$z' or subj like '%" . $z . "%')
 							limit 10
 							");
+							*/
+							
+										$stmt = $dbConnection->prepare('SELECT 
+							id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read, lock_by, ok_by, prio, last_update, arch
+							from tickets
+							where (((user_to_id=:user_id) or
+							(user_to_id=:n and unit_id IN (:units) )) or user_init_id=:user_id2) and (id=:z or subj like :z1)
+							limit 10');
+
+			$stmt->execute(array(':units' => $units, ':n'=>'0',':user_id'=>$user_id,':z'=>$z,':z1'=>$z,':user_id2'=>$user_id));
+			$res1 = $stmt->fetchAll();
+							
+							
+							
+							
+							
+							
         }
 
 
@@ -264,11 +303,27 @@ if (isset($_POST['menu'])) {
 							where id='$z' or subj like '%" . $z . "%'
 							limit 10
 							");
+							
+							
+			$stmt = $dbConnection->prepare('SELECT 
+							id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read, lock_by, ok_by, prio, last_update, arch
+							from tickets
+							where id=:z or subj like :z1
+							limit 10');
+
+			$stmt->execute(array(':z'=>$z,':z1'=>$z));
+			$res1 = $stmt->fetchAll();
+			
+			
+							
+							
+							
         }
 
 
-        $count_rows = mysql_numrows($results);
-        if ($count_rows == "0") {
+        //$count_rows = mysql_numrows($results);
+        //if ($count_rows == "0") {
+        if(empty($res1)) {
             ?>
             <div class="well well-large well-transparent lead">
                 <center>
@@ -279,7 +334,8 @@ if (isset($_POST['menu'])) {
         }
 
 
-        if ($count_rows <> "0") {
+        //if ($count_rows <> "0") {
+        else if(!empty($res1)) {
 
             ?>
             <center><small class="text-mutted"><em><?=lang('t_list_a_top')?></em></small></center>
@@ -299,7 +355,8 @@ if (isset($_POST['menu'])) {
             </thead>
             <tbody>
             <?php
-            while ($row = mysql_fetch_assoc($results)) {
+            //while ($row = mysql_fetch_assoc($results)) {
+            foreach($res1 as $row) {
                 $lb=$row['lock_by'];
                 $ob=$row['ok_by'];
                 $arch = $row['arch'];
