@@ -170,6 +170,11 @@ global $dbConnection;
         $stmt->execute(array(':tid' => $tid));
         $max_id_ticket = $stmt->fetchAll(PDO::FETCH_ASSOC);
         
+        
+        
+        
+        
+        
         $unit_id=$max_id_ticket['unit_id'];
         $client_id=$max_id_ticket['user_to_id'];
         $user_init_id=$max_id_ticket['user_init_id'];
@@ -207,11 +212,21 @@ global $dbConnection;
         select name from users where id 
         like '%" . $unit_id . "%'
         */
-       $qstring = "SELECT email, unit FROM users where status='1';";
-        $qresult = mysql_query($qstring);//query the database for entries containing the term
+       
+       /*$qstring = "SELECT email, unit FROM users where status='1';";
+       $qresult = mysql_query($qstring);
 
-                        while ($qrow = mysql_fetch_array($qresult,MYSQL_ASSOC))//loop through the retrieved values
-                        {
+       while ($qrow = mysql_fetch_array($qresult,MYSQL_ASSOC)) {
+       */
+                        
+                        
+        $stmt = $dbConnection->prepare('SELECT email, unit FROM users where status=:n');
+		$stmt->execute(array(':n'=>'1'));
+		$res1 = $stmt->fetchAll();                 
+        foreach($res1 as $qrow) {                
+                        
+                        
+                        
                         
                         $u=explode(",", $qrow['unit']);
                         
@@ -322,9 +337,20 @@ EOBODY;
     if ($type == "new_coord") {
 
 
-        $queryid_ticket="SELECT user_init_id,user_to_id,date_create,subj,msg, client_id, unit_id, status, hash_name, prio,last_update FROM tickets where id='$tid'";
+        /*$queryid_ticket="SELECT user_init_id,user_to_id,date_create,subj,msg, client_id, unit_id, status, hash_name, prio,last_update FROM tickets where id='$tid'";
         $res1_ticket = mysql_query($queryid_ticket) or die(mysql_error());
         $max_id_ticket= mysql_fetch_assoc( $res1_ticket );
+        */
+        
+		$stmt = $dbConnection->prepare('SELECT user_init_id,user_to_id,date_create,subj,msg, client_id, unit_id, status, hash_name, prio,last_update FROM tickets where id=:tid');
+	$stmt->execute(array(':tid' => $tid));
+	$max_id_ticket = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        
+        
+        
+        
+        
         $unit_id=$max_id_ticket['unit_id'];
         $client_id=$max_id_ticket['user_to_id'];
         $user_init_id=$max_id_ticket['user_init_id'];
@@ -348,11 +374,18 @@ EOBODY;
             $to_text=lang('t_list_a_all')." ".get_unit_name_return($unit_id);
         }
 /////////////////////////////////
-$qstring = "SELECT email, unit,login FROM users where status='1' and (priv='0' || priv='2');";
-        $qresult = mysql_query($qstring);//query the database for entries containing the term
-
-                        while ($qrow = mysql_fetch_array($qresult,MYSQL_ASSOC))//loop through the retrieved values
-                        {
+/*$qstring = "SELECT email, unit,login FROM users where status='1' and (priv='0' || priv='2');";
+$qresult = mysql_query($qstring);//query the database for entries containing the term
+while ($qrow = mysql_fetch_array($qresult,MYSQL_ASSOC)) {
+*/
+                        
+        $stmt = $dbConnection->prepare('SELECT email, unit,login FROM users where status=:n and (priv=:n1 || priv=:n2)');
+        
+		$stmt->execute(array(':n'=>'1',':n1'=>'0',':n2'=>'2'));
+		$res1 = $stmt->fetchAll();                 
+        foreach($res1 as $qrow) {                         
+                        
+                        
                         
                         $u=explode(",", $qrow['unit']);
                         
@@ -465,9 +498,19 @@ EOBODY;
     if ($type == "new_user") {
 
 
-        $queryid_ticket="SELECT user_init_id,user_to_id,date_create,subj,msg, client_id, unit_id, status, hash_name, prio,last_update FROM tickets where id='$tid'";
+        /*$queryid_ticket="SELECT user_init_id,user_to_id,date_create,subj,msg, client_id, unit_id, status, hash_name, prio,last_update FROM tickets where id='$tid'";
         $res1_ticket = mysql_query($queryid_ticket) or die(mysql_error());
         $max_id_ticket= mysql_fetch_assoc( $res1_ticket );
+        */
+        
+        
+        
+        $stmt = $dbConnection->prepare('SELECT user_init_id,user_to_id,date_create,subj,msg, client_id, unit_id, status, hash_name, prio,last_update FROM tickets where id=:tid');
+		$stmt->execute(array(':tid'=>$tid));
+		$max_id_ticket = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        
+        
         $unit_id=$max_id_ticket['unit_id'];
         $client_id=$max_id_ticket['user_to_id'];
         $user_init_id=$max_id_ticket['user_init_id'];
@@ -504,9 +547,23 @@ EOBODY;
 
 
 
-        $results = mysql_query("SELECT email from users where id='$client_id' and status='1';");
-        while ($row = mysql_fetch_assoc($results)) {
+        //$results = mysql_query("SELECT email from users where id='$client_id' and status='1';");
+        //while ($row = mysql_fetch_assoc($results)) {
+            
+        $stmt = $dbConnection->prepare('SELECT email from users where id=:client_id and status=:n');
+		$stmt->execute(array(':n'=>'1',':client_id'=>$client_id));
+		$res1 = $stmt->fetchAll();                 
+        foreach($res1 as $row) {     
+            
+            
+            
+            
             if (!is_null($row['email'])) {
+            
+            
+            
+            
+            
                 $to      = $row['email'];
                 $subject = lang('TICKET_name').' #'.$tid." (".lang('t_LIST_person').")";
                 $message =<<<EOBODY

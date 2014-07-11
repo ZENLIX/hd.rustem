@@ -70,11 +70,19 @@ if (isset($_GET['ok'])) {
                 <select name="posada" data-placeholder="<?=lang('WORKER_posada');?>" class="chosen-select form-control input-sm">
                     <option value="0"></option>
                     <?php
-                    $qstring = "SELECT name FROM posada order by name COLLATE utf8_unicode_ci ASC";
-                    $result = mysql_query($qstring);//query the database for entries containing the term
-
-                    while ($row = mysql_fetch_array($result,MYSQL_ASSOC))//loop through the retrieved values
-                    {
+                    /*$qstring = "SELECT name FROM posada order by name COLLATE utf8_unicode_ci ASC";
+                    $result = mysql_query($qstring);
+                    while ($row = mysql_fetch_array($result,MYSQL_ASSOC)){*/
+                    
+                    
+                    
+        $stmt = $dbConnection->prepare('SELECT name FROM posada order by name COLLATE utf8_unicode_ci ASC');
+		$stmt->execute();
+		$res1 = $stmt->fetchAll();                 
+		
+        foreach($res1 as $row) {
+                    
+                    
                         ?>
 
                         <option value="<?=$row['name']?>"><?=$row['name']?></option>
@@ -124,11 +132,18 @@ if (isset($_GET['ok'])) {
                 <select name="pid" data-placeholder="<?=lang('WORKER_unit');?>" class="chosen-select form-control input-sm">
                     <option value="0"></option>
                     <?php
-                    $qstring = "SELECT name FROM units order by name COLLATE utf8_unicode_ci ASC";
+                    /*$qstring = "SELECT name FROM units order by name COLLATE utf8_unicode_ci ASC";
                     $result = mysql_query($qstring);//query the database for entries containing the term
 
                     while ($row = mysql_fetch_array($result,MYSQL_ASSOC))//loop through the retrieved values
-                    {
+                    {*/
+                    
+                    
+                            $stmt = $dbConnection->prepare('SELECT name FROM units order by name COLLATE utf8_unicode_ci ASC');
+		$stmt->execute();
+		$res1 = $stmt->fetchAll();                 
+		
+        foreach($res1 as $row) {
                         ?>
 
                         <option value="<?=$row['name']?>"><?=$row['name']?></option>
@@ -234,12 +249,35 @@ $start_pos = ($page - 1) * $perpage;
     //include("../dbconnect.inc.php");
     if (isset($_POST['t'])) {
     $t=mysql_real_escape_string($_POST['t']);
-	    $results = mysql_query("SELECT id, fio, login, tel, unit_desc, adr, email, posada from clients where ((fio like '%" . $t . "%') or (login like '%" . $t . "%')) limit $start_pos, $perpage;");
+    
+    
+    
+	    //$results = mysql_query("SELECT id, fio, login, tel, unit_desc, adr, email, posada from clients where ((fio like '%" . $t . "%') or (login like '%" . $t . "%')) limit $start_pos, $perpage;");
+	    
+	    
+	    
+	        $stmt = $dbConnection->prepare('SELECT id, fio, login, tel, unit_desc, adr, email, posada from clients where ((fio like :t) or (login like :t2)) limit :start_pos, :perpage');
+			$stmt->execute(array(':t' => '%'.$t.'%',':t2' => '%'.$t.'%',':start_pos' => $start_pos, ':perpage'=>$perpage));
+			$res1 = $stmt->fetchAll();
+			//foreach($res1 as $row) {
+	    
+	    
+	    
+	    
     }
     if (!isset($_POST['t'])) {
-	$results = mysql_query("SELECT id, fio, login, tel, unit_desc, adr, email, posada from clients limit $start_pos, $perpage;");
+	//$results = mysql_query("SELECT id, fio, login, tel, unit_desc, adr, email, posada from clients limit $start_pos, $perpage;");
+		    
+		    
+		    $stmt = $dbConnection->prepare('SELECT id, fio, login, tel, unit_desc, adr, email, posada from clients limit :start_pos, :perpage');
+			$stmt->execute(array(':start_pos' => $start_pos, ':perpage'=>$perpage));
+			$res1 = $stmt->fetchAll();
+			
+			
+			
 	}
-	while ($row = mysql_fetch_assoc($results)) {
+	//while ($row = mysql_fetch_assoc($results)) {
+	foreach($res1 as $row) {
 	//$getunit=get_unit_name($row['priv']);
 	//$unit=get_unit_name_return($row['unit']);
 	//$statuss=$row['status'];
@@ -267,10 +305,24 @@ $start_pos = ($page - 1) * $perpage;
 if ($_POST['menu'] == 'edit' ) {
 //echo $_POST['id'];
 $usid=mysql_real_escape_string($_GET['edit']);
-   $query = "SELECT id, fio, tel, login, unit_desc, adr, email, posada from clients where id='$usid'; ";
+
+
+
+   /*$query = "SELECT id, fio, tel, login, unit_desc, adr, email, posada from clients where id='$usid'; ";
     $sql = mysql_query($query) or die(mysql_error());
-    if (mysql_num_rows($sql) == 1) {
+    	
+    	if (mysql_num_rows($sql) == 1) {
 	    $row = mysql_fetch_assoc($sql);
+	    */
+	    
+		    $stmt = $dbConnection->prepare('SELECT id, fio, tel, login, unit_desc, adr, email, posada from clients where id=:usid');
+			$stmt->execute(array(':usid'=>$usid));
+			$res1 = $stmt->fetchAll();
+			
+foreach($res1 as $row) {
+	    
+	    
+	    
 $fio_id=$row['id'];
 $fio=$row['fio'];
 $login=$row['login'];
@@ -344,11 +396,16 @@ if (isset($_GET['ok'])) {
                 <select name="posada" data-placeholder="<?=lang('WORKER_posada');?>" class="chosen-select form-control input-sm">
                     <option value="0"></option>
                     <?php
-                    $qstring = "SELECT name FROM posada order by name COLLATE utf8_unicode_ci ASC";
-                    $result = mysql_query($qstring);//query the database for entries containing the term
-
-                    while ($row = mysql_fetch_array($result,MYSQL_ASSOC))//loop through the retrieved values
-                    {
+                    /*$qstring = "SELECT name FROM posada order by name COLLATE utf8_unicode_ci ASC";
+                    $result = mysql_query($qstring);
+                    while ($row = mysql_fetch_array($result,MYSQL_ASSOC)){*/
+                    
+        $stmt = $dbConnection->prepare('SELECT name FROM posada order by name COLLATE utf8_unicode_ci ASC');
+		$stmt->execute();
+		$res1 = $stmt->fetchAll();                 
+        foreach($res1 as $row) {
+                    
+                    
                     $se="";
                     if ($posada == $row['name']) { $se="selected";}
                         ?>
@@ -400,11 +457,16 @@ if (isset($_GET['ok'])) {
                 <select name="pid" data-placeholder="<?=lang('WORKER_unit');?>" class="chosen-select form-control input-sm">
                     <option value="0"></option>
                     <?php
-                    $qstring = "SELECT name FROM units order by name COLLATE utf8_unicode_ci ASC";
-                    $result = mysql_query($qstring);//query the database for entries containing the term
-
-                    while ($row = mysql_fetch_array($result,MYSQL_ASSOC))//loop through the retrieved values
-                    {
+                    /*$qstring = "SELECT name FROM units order by name COLLATE utf8_unicode_ci ASC";
+                    $result = mysql_query($qstring);                    
+                    while ($row = mysql_fetch_array($result,MYSQL_ASSOC)){*/
+                    
+        $stmt = $dbConnection->prepare('SELECT name FROM units order by name COLLATE utf8_unicode_ci ASC');
+		$stmt->execute();
+		$res1 = $stmt->fetchAll();                 
+        foreach($res1 as $row) {
+                    
+                    
                     $se2="";
                     if ($unit_desc == $row['name']) { $se2="selected";}
                         ?>

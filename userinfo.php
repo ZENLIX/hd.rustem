@@ -37,7 +37,7 @@ $user_id=mysql_real_escape_string($_GET["user"]);
   <div class="col-md-8">
   
   <?php
-  
+  /*
   	$query = mysql_query("SELECT 
 							id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read,lock_by, ok_by, arch
 							from tickets
@@ -47,8 +47,19 @@ $user_id=mysql_real_escape_string($_GET["user"]);
 							//$sql = mysql_query($query) or die(mysql_error());
 							if (mysql_num_rows($query) > 0) {
 	    while ($row = mysql_fetch_assoc($query)) {
+	    */
 	    
 	    
+		$stmt = $dbConnection->prepare('SELECT 
+							id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read,lock_by, ok_by, arch
+							from tickets
+							where client_id=:user_id
+							order by id DESC');
+		$stmt->execute();
+		$res1 = $stmt->fetchAll();   
+		if (!empty($res1)) {
+		              
+        foreach($res1 as $row) {	    
 	    
 	    
 	    
@@ -111,12 +122,28 @@ if ($row['user_to_id'] == 0 ) {
   <?php 
 $tid=$row['id'];
 //echo $tid;
-	$re = mysql_query("SELECT 
+	/*$re = mysql_query("SELECT 
 							date_op, init_user_id, to_user_id, to_unit_id from ticket_log where
 							ticket_id='$tid';
 							");
 							
 							if(mysql_num_rows($re)>0) {
+							
+							*/
+							
+							
+							
+		$stmt = $dbConnection->prepare('SELECT 
+							date_op, init_user_id, to_user_id, to_unit_id from ticket_log where
+							ticket_id=:tid');
+		$stmt->execute();
+		$res1 = $stmt->fetchAll(array(':tid'=>$tid));   
+		if (!empty($res1)) {
+		              
+        						
+							
+							
+							
  ?>
 
 <div class="col-md-12">
@@ -139,7 +166,11 @@ $tid=$row['id'];
   </thead>
   
           <tbody>
-          <?php while ($rowd = mysql_fetch_assoc($re)) { ?>
+          <?php 
+          foreach($res1 as $rowd) {
+          //while ($rowd = mysql_fetch_assoc($re)) { 
+	          
+          ?>
           <tr>
           <td style="width: 100px;"><small><center><?=dt_format($rowd['date_op'])?></center></small></td>
               <td style=" width: 200px; "><small><center><?=name_of_user($rowd['init_user_id'])?></center></small></td>

@@ -34,9 +34,10 @@ if ((!in_array($_FILES["myfile"]["type"], $acceptable)) && (!empty($_FILES["myfi
  		move_uploaded_file($_FILES["myfile"]["tmp_name"],$output_dir.$fileName1);
  		
  		//sql insert
- 		$query="insert into files (name, h_name) values ('$fileName1','$hn');";
-        mysql_query($query)or die(mysql_error());
- 		
+ 		//$query="insert into files (name, h_name) values ('$fileName1','$hn');";
+        //mysql_query($query)or die(mysql_error());
+ 		$stmt = $dbConnection->prepare('insert into files (name, h_name) values (:fileName1,:hn)');
+		$stmt->execute(array(':fileName1'=>$fileName1, ':hn'=>$hn));
  		}
     	$ret[]= $fileName;
 	}

@@ -88,11 +88,17 @@ if (isset($_GET['ok'])) {
             <select data-placeholder="<?=lang('NEW_to_unit');?>" class="chosen-select form-control" id="to" name="unit_id">
                 <option value="0"></option>
                 <?php
-                        $qstring = "SELECT name as label, id as value FROM deps where id !='0' ;";
-                        $result = mysql_query($qstring);//query the database for entries containing the term
-
-                        while ($row = mysql_fetch_array($result,MYSQL_ASSOC))//loop through the retrieved values
-                        {
+                        /*$qstring = "SELECT name as label, id as value FROM deps where id !='0' ;";
+                        $result = mysql_query($qstring);//query the database for entries containing the 
+                        while ($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
+                        */
+                        
+        $stmt = $dbConnection->prepare('SELECT name as label, id as value FROM deps where id !=:n');
+		$stmt->execute(array(':n'=>'0'));
+		$res1 = $stmt->fetchAll();                 
+        foreach($res1 as $row) { 
+                        
+                        
 //echo($row['label']);
                             $row['label']=$row['label'];
                             $row['value']=(int)$row['value'];
@@ -120,11 +126,24 @@ if (isset($_GET['ok'])) {
             <select data-placeholder="<?=lang('NEW_to_user');?>" class="chosen-select form-control input-sm" id="users_do" name="unit_id">
                 <option value="0"></option>
                 <?php
-                $qstring = "SELECT fio as label, id as value FROM users where status='1' and login !='system' order by fio ASC;";
+                
+                
+               /* $qstring = "SELECT fio as label, id as value FROM users where status='1' and login !='system' order by fio ASC;";
                 $result = mysql_query($qstring);//query the database for entries containing the term
-
-                while ($row = mysql_fetch_array($result,MYSQL_ASSOC))//loop through the retrieved values
-                {
+				while ($row = mysql_fetch_array($result,MYSQL_ASSOC)){
+				*/
+                
+        $stmt = $dbConnection->prepare('SELECT fio as label, id as value FROM users where status=:n and login !=:system order by fio ASC');
+		$stmt->execute(array(':n'=>'1',':system'=>'system'));
+		$res1 = $stmt->fetchAll();                 
+        foreach($res1 as $row) {
+                
+                
+                
+                
+                
+                
+                
 //echo($row['label']);
                     $row['label']=$row['label'];
                     $row['value']=(int)$row['value'];
@@ -209,11 +228,18 @@ if ($CONF['fix_ticket_subj'] == false) {
                 <select data-placeholder="<?=lang('NEW_subj_det');?>" class="chosen-select form-control input-sm" id="subj" name="subj">
                     <option value="0"></option>
                     <?php
-                    $qstring = "SELECT name FROM subj order by name COLLATE utf8_unicode_ci ASC";
+                    /*$qstring = "SELECT name FROM subj order by name COLLATE utf8_unicode_ci ASC";
                     $result = mysql_query($qstring);//query the database for entries containing the term
-
-                    while ($row = mysql_fetch_array($result,MYSQL_ASSOC))//loop through the retrieved values
-                    {
+					while ($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
+					*/
+					
+					
+		$stmt = $dbConnection->prepare('SELECT name FROM subj order by name COLLATE utf8_unicode_ci ASC');
+		$stmt->execute();
+		$res1 = $stmt->fetchAll();                 
+        foreach($res1 as $row) {
+					
+					
                         ?>
 
                         <option value="<?=$row['name']?>"><?=$row['name']?></option>

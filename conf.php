@@ -1,9 +1,10 @@
 <?php
 
-$host 		= "localhost"; 		// Host name
-$username 	= "root"; 			// Mysql username
-$password 	= ""; 				// Mysql password
-$db_name 	= "hd_prod"; 			// Mysql password
+$CONF_DB['host'] 		= "127.0.0.1"; 		// Host name
+$CONF_DB['username'] 	= "root"; 			// Mysql username
+$CONF_DB['password'] 	= ""; 				// Mysql password
+$CONF_DB['db_name'] 	= "hd_prod"; 			// Mysql password
+
 
 $title_header			="helpdesk";					//System Name
 $CONF['hostname']		='http://localhost/web/HD.rustem/';	//path

@@ -11,14 +11,31 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
     include("inc/navbar.inc.php");
 
     $hn=mysql_real_escape_string($_GET['hash']);
-    $query = "				SELECT 
+    /*$query = "				SELECT 
 							id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, comment, last_edit, is_read, lock_by, ok_by, arch, ok_date, prio, last_update
 							from tickets
 							where hash_name='$hn' 
 							";
     $sql = mysql_query($query) or die(mysql_error());
     if (mysql_num_rows($sql) == 1) {
-        $row = mysql_fetch_assoc($sql);
+		$row = mysql_fetch_assoc($sql);*/
+        
+        
+     	$stmt = $dbConnection->prepare('SELECT 
+							id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, comment, last_edit, is_read, lock_by, ok_by, arch, ok_date, prio, last_update
+							from tickets
+							where hash_name=:hn');
+		$stmt->execute(array(':hn'=>$hn));
+		$res1 = $stmt->fetchAll();   
+        if (!empty($res1)) {
+        foreach($res1 as $row) {
+        //$row = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        
+        
+        
+        
+        
         $lock_by=$row['lock_by'];
         $ok_by=$row['ok_by'];
         $ok_date=$row['ok_date'];
@@ -241,9 +258,18 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
             
                 <?php
                //$h $_GET['hash']
-        $query="SELECT name FROM files where h_name='$hn';";
+        
+        /*$query="SELECT name FROM files where h_name='$hn';";
         $res = mysql_query($query) or die(mysql_error());
 		if(mysql_num_rows($res)>0) { 
+		*/
+		
+		
+		$stmt = $dbConnection->prepare('SELECT name FROM files where h_name=:hn');
+		$stmt->execute(array(':hn'=>$hn));
+		$res1 = $stmt->fetchAll();
+		if (!empty($res1)) {
+		
 			//$r= mysql_fetch_assoc( $res );
 			?>
 			<hr style="margin:0px;">
@@ -254,7 +280,8 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
 			<div class="col-md-9">
 						<ul>
 										<?php
-			while ($r = mysql_fetch_assoc($res)) {
+			//while ($r = mysql_fetch_assoc($res)) {
+			foreach($res1 as $r) {
 		?>
                  <li>
 	                 <small><a target="_blank" href='upload_files/<?=$r['name'];?>'><?=$r['name'];?></a></small>
@@ -470,11 +497,19 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
                     <select <?=$lock_disabled?> data-placeholder="<?=lang('NEW_to_unit');?>" class="chosen-select form-control input-sm" id="t_to" name="unit_id">
                         <option value="0"></option>
                                         <?php
-                        $qstring = "SELECT name as label, id as value FROM deps where id !='0' ;";
-                        $result = mysql_query($qstring);//query the database for entries containing the term
-
-                        while ($row = mysql_fetch_array($result,MYSQL_ASSOC))//loop through the retrieved values
-                        {
+                        /*$qstring = "SELECT name as label, id as value FROM deps where id !='0' ;";
+                        $result = mysql_query($qstring); 						
+                        while ($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
+                        */
+                        
+                        
+        $stmt = $dbConnection->prepare('SELECT name as label, id as value FROM deps where id !=:n');
+		$stmt->execute(array(':n'=>'0'));
+		$res1 = $stmt->fetchAll(); 
+        foreach($res1 as $row) {               
+                        
+                        
+                        
 //echo($row['label']);
                             $row['label']=$row['label'];
                             $row['value']=(int)$row['value'];
@@ -500,11 +535,21 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
                     <select <?=$lock_disabled?> data-placeholder="<?=lang('NEW_to_user');?>" class="chosen-select form-control input-sm" id="t_users_do" name="unit_id">
                         <option value="0"></option>
                         <?php
-                        $qstring = "SELECT fio as label, id as value FROM users where status='1' and login !='system' order by fio ASC;";
-                        $result = mysql_query($qstring);//query the database for entries containing the term
-
-                        while ($row = mysql_fetch_array($result,MYSQL_ASSOC))//loop through the retrieved values
-                        {
+                        
+                        /*$qstring = "SELECT fio as label, id as value FROM users where status='1' and login !='system' order by fio ASC;";
+                        $result = mysql_query($qstring);
+						while ($row = mysql_fetch_array($result,MYSQL_ASSOC)){
+						*/
+						
+						
+		$stmt = $dbConnection->prepare('SELECT fio as label, id as value FROM users where status=:n and login !=:system order by fio ASC');
+		$stmt->execute(array(':n'=>'1',':system'=>'system'));
+		$res1 = $stmt->fetchAll(); 
+        foreach($res1 as $row) { 
+						
+						
+						
+						
 //echo($row['label']);
                             $row['label']=$row['label'];
                             $row['value']=(int)$row['value'];
@@ -722,14 +767,27 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
                 <div class="tab-pane fade" id="profile"><?php
                     ///////////////////////////////
 
-
+/*
 
                     $re = mysql_query("SELECT msg,
 							date_op, init_user_id, to_user_id, to_unit_id from ticket_log where
 							ticket_id='$tid' order by date_op DESC;
 							");
+*/
 
-                    if(mysql_num_rows($re)>0) {
+
+		$stmt = $dbConnection->prepare('SELECT msg,
+							date_op, init_user_id, to_user_id, to_unit_id from ticket_log where
+							ticket_id=:tid order by date_op DESC');
+		$stmt->execute(array(':tid'=>$tid));
+		$re = $stmt->fetchAll(); 
+        
+        
+        
+        
+
+					
+                    if(!empty($re)) {
 
 
 
@@ -757,7 +815,9 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
                                         </thead>
 
                                         <tbody>
-                                        <?php while ($row = mysql_fetch_assoc($re)) {
+                                        <?php 
+                                        foreach($re as $row) { 
+                                        //while ($row = mysql_fetch_assoc($re)) {
 
 
 
@@ -829,6 +889,7 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
 
 
 
+    }
     }
     else {
         ?>

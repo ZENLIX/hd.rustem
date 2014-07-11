@@ -10,18 +10,23 @@ include("functions.inc.php");
 $h=mysql_real_escape_string($_GET['h']);
 
 
-$query="select hashname, message from notes where hashname='$h';";
-        //mysql_query($query);
+//$query="select hashname, message from notes where hashname='$h';";
+//$res = mysql_query($query) or die(mysql_error());
+
+
+		$stmt = $dbConnection->prepare('select hashname, message from notes where hashname=:h');
+		$stmt->execute(array(':h'=>$h));
+		$res1 = $stmt->fetchAll();                 
         
-        $res = mysql_query($query) or die(mysql_error());
-        if (mysql_num_rows($res) == 0) {
+
+        if (empty($res1)) {
         
         //echo "no";
         
         }
-        if (mysql_num_rows($res) > 0) {
-        while ($row = mysql_fetch_assoc($res)) {
-
+        else if (!empty($res1)) {
+        //while ($row = mysql_fetch_assoc($res)) {
+			foreach($res1 as $row) {
         $msg= $row['message'];
         }
         }

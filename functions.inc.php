@@ -1,31 +1,41 @@
 <?php
-
+//phpinfo();
 ///////////////////////////////////////////////////////////////////////////
 include_once('conf.php');
 
 ///////////////////////////////////////////////////////////////////////////
 date_default_timezone_set('Europe/Kiev');
-$connection = mysql_connect($host, $username, $password) or die ("Error: Kunne ikke koble til databasen");
-mysql_select_db($db_name, $connection);
+//$connection = mysql_connect($host, $username, $password) or die ("Error: Kunne ikke koble til databasen");
+//mysql_select_db($db_name, $connection);
 
 
-$dbConnection = new PDO('mysql:dbname='.$db_name.';host='.$host.';charset=utf8', $username, $password);
+//$dbConnection = new PDO('mysql:localhost;dbname=hd_prod;charset=utf8', 'root', '');
+$dbConnection = new PDO('mysql:host='.$CONF_DB['host'].';dbname='.$CONF_DB['db_name'].';charset=utf8', $CONF_DB['username'], $CONF_DB['password']);
+//mysql_select_db($db_name, $connection);
 $dbConnection->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 $dbConnection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+//$dbConnection->select_db( $db_name );
 
 
-
-mysql_query('SET NAMES utf8');
+//mysql_query('SET NAMES utf8');
 
 error_reporting(E_ALL ^ E_NOTICE);
 error_reporting(0);
 include_once('inc/mail.inc.php');
 
 function get_user_lang(){
+global $dbConnection;
 			$mid=$_SESSION['helpdesk_user_id'];
-	        $queryid = "SELECT lang from users where id='$mid'";
+			
+			
+	        /*$queryid = "SELECT lang from users where id='$mid'";
             $res1 = mysql_query($queryid) or die(mysql_error());
-            $max= mysql_fetch_array( $res1 );
+            $max= mysql_fetch_array( $res1 );*/
+            
+    $stmt = $dbConnection->prepare('SELECT lang from users where id=:mid');
+	$stmt->execute(array(':mid' => $mid));
+	$max = $stmt->fetch(PDO::FETCH_NUM);
+            
             $max_id=$max[0];
             $length = strlen(utf8_decode($max_id));
             if (($length < 1) || $max_id==0) {$ress='ru';} else {$ress=$max_id;}
@@ -1117,7 +1127,7 @@ $count=$count[0];
         }
         else if ($priv_val == "2") {
 
-            $count = mysql_num_rows(mysql_query("SELECT * from tickets where status='0' and lock_by='0';"));
+            //$count = mysql_num_rows(mysql_query("SELECT * from tickets where status='0' and lock_by='0';"));
 
 $res = $dbConnection->prepare("SELECT count(*) from tickets where status='0' and lock_by='0'");
 $res->execute();
@@ -1137,13 +1147,7 @@ global $dbConnection;
 	$stmt = $dbConnection->prepare('SELECT messages from users where id=:mid');
 	$stmt->execute(array(':mid' => $mid));
 	$max = $stmt->fetch(PDO::FETCH_ASSOC);
-	
-	
-	
-	        /*$queryid = "SELECT messages from users where id='$mid'";
-            $res1 = mysql_query($queryid) or die(mysql_error());
-            $max= mysql_fetch_array( $res1 );
-            */
+
             $max_id=$max[0];
             $length = strlen(utf8_decode($max_id));
             if ($length < 1) {$ress=lang('DASHBOARD_def_msg');} else {$ress=$max_id;}

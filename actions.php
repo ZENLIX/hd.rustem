@@ -3523,7 +3523,7 @@ values (:comment, now(), :user_comment, :tid_comment)');
             mysql_query ( $query_add_ticket_log )or die(mysql_error());
             */
 
-            $stmt = $dbConnection->prepare('update tickets set last_update=now() where id=:tid_comment)');
+            $stmt = $dbConnection->prepare('update tickets set last_update=now() where id=:tid_comment');
 			$stmt->execute(array(':tid_comment'=>$tid_comment));
 
 

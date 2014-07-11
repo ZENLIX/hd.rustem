@@ -40,8 +40,10 @@ padding: 3px;
       
 <?php 
 	
-		$results = mysql_query("select id, name from posada;");
-	
+		//$results = mysql_query("select id, name from posada;");
+		$stmt = $dbConnection->prepare('select id, name from posada');
+		$stmt->execute();
+		$res1 = $stmt->fetchAll(); 
 	
 	
 	
@@ -59,7 +61,10 @@ padding: 3px;
           </tr>
         </thead>
 		<tbody>		
-		<?php while ($row = mysql_fetch_assoc($results)) {?>
+		<?php 
+		//while ($row = mysql_fetch_assoc($results)) {
+			 foreach($res1 as $row) {
+		?>
 		<tr id="tr_<?=$row['id'];?>">
 		
 		

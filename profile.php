@@ -18,11 +18,22 @@ padding: 3px;
 <input type="hidden" id="main_last_new_ticket" value="<?=get_last_ticket_new($_SESSION['helpdesk_user_id']);?>">
 <?php
 $usid=$_SESSION['helpdesk_user_id'];
-$query = "SELECT fio, pass, login, status, priv, unit,email, lang from users where id='$usid'; ";
-    $sql = mysql_query($query) or die(mysql_error());
-    if (mysql_num_rows($sql) == 1) {
-	    $row = mysql_fetch_assoc($sql);
 
+//$query = "SELECT fio, pass, login, status, priv, unit,email, lang from users where id='$usid'; ";
+//    $sql = mysql_query($query) or die(mysql_error());
+    
+    
+    	$stmt = $dbConnection->prepare('SELECT fio, pass, login, status, priv, unit,email, lang from users where id=:usid');
+		$stmt->execute(array(':usid'=>$usid));
+		$res1 = $stmt->fetchAll(); 
+    
+    
+    
+    
+    
+		//if (mysql_num_rows($sql) == 1) {
+	    //$row = mysql_fetch_assoc($sql);
+foreach($res1 as $row) {
 
 $login=$row['login'];
 $pass=$row['pass'];

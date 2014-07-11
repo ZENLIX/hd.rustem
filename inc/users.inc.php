@@ -74,11 +74,24 @@ if (isset($_GET['ok'])) {
   <div class="col-sm-10">
   <select multiple="multiple" id="my-select" name="unit[]">
 <?php
-                        $qstring = "SELECT name as label, id as value FROM deps where id !='0' ;";
-                        $result = mysql_query($qstring);//query the database for entries containing the term
-
-                        while ($row = mysql_fetch_array($result,MYSQL_ASSOC))//loop through the retrieved values
-                        {
+                        /*$qstring = "SELECT name as label, id as value FROM deps where id !='0' ;";
+                        $result = mysql_query($qstring);
+                        while ($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
+                        */
+                        
+                        
+        $stmt = $dbConnection->prepare('SELECT name as label, id as value FROM deps where id !=:n');
+		$stmt->execute(array(':n'=>'0'));
+		$res1 = $stmt->fetchAll();                 
+        foreach($res1 as $row) {
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
 //echo($row['label']);
                             $row['label']=$row['label'];
                             $row['value']=(int)$row['value'];
@@ -187,9 +200,19 @@ if ($_POST['menu'] == 'list' ) {
         <tbody>
         <?php
     //include("../dbconnect.inc.php");
-	$results = mysql_query("SELECT id, fio, login, priv, unit, status from users;");
-	while ($row = mysql_fetch_assoc($results)) {
+	//$results = mysql_query("SELECT id, fio, login, priv, unit, status from users;");
+	//while ($row = mysql_fetch_assoc($results)) {
 	//$getunit=get_unit_name($row['priv']);
+	
+	
+	
+	    $stmt = $dbConnection->prepare('SELECT id, fio, login, priv, unit, status from users');
+		$stmt->execute();
+		$res1 = $stmt->fetchAll();                 
+        foreach($res1 as $row) {
+	
+	
+	
 	$unit=get_unit_name_return($row['unit']);
 	$statuss=$row['status'];
 	
@@ -218,10 +241,27 @@ if ($_POST['menu'] == 'list' ) {
 if ($_POST['menu'] == 'edit' ) {
 //echo $_POST['id'];
 $usid=mysql_real_escape_string($_POST['id']);
-   $query = "SELECT fio, pass, login, status, priv, unit,email,messages,lang from users where id='$usid'; ";
+   
+   
+   
+   
+  /* $query = "SELECT fio, pass, login, status, priv, unit,email,messages,lang from users where id='$usid'; ";
     $sql = mysql_query($query) or die(mysql_error());
-    if (mysql_num_rows($sql) == 1) {
-	    $row = mysql_fetch_assoc($sql);
+if (mysql_num_rows($sql) == 1) {
+$row = mysql_fetch_assoc($sql);
+*/
+
+
+
+	    $stmt = $dbConnection->prepare('SELECT fio, pass, login, status, priv, unit,email,messages,lang from users where id=:usid');
+		$stmt->execute(array(':usid'=>$usid));
+		$res1 = $stmt->fetchAll();                 
+		
+        foreach($res1 as $row) {
+
+
+
+
 
 $fio=$row['fio'];
 $login=$row['login'];
@@ -310,11 +350,20 @@ if (isset($_GET['ok'])) {
   <select multiple="multiple" id="my-select" name="unit[]">
 <?php
   						$u=explode(",", $unit);
-                        $qstring = "SELECT name as label, id as value FROM deps where id !='0' ;";
-                        $result = mysql_query($qstring);//query the database for entries containing the term
-
-                        while ($row = mysql_fetch_array($result,MYSQL_ASSOC))//loop through the retrieved values
-                        {
+                        
+                        
+                       /* $qstring = "SELECT name as label, id as value FROM deps where id !='0' ;";
+                        $result = mysql_query($qstring);
+                        while ($row = mysql_fetch_array($result,MYSQL_ASSOC)){*/
+                        
+        $stmt = $dbConnection->prepare('SELECT name as label, id as value FROM deps where id !=:n');
+		$stmt->execute(array(':n'=>'0'));
+		$res1 = $stmt->fetchAll();                 
+		
+        foreach($res1 as $row) {
+                        
+                        
+                        
 //echo($row['label']);
                             $row['label']=$row['label'];
                             $row['value']=(int)$row['value'];
