@@ -83,8 +83,9 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
 
         if ($row['is_read'] == "0") {
 
-            $q="update tickets set is_read='1' where id='$tid';";
-            mysql_query($q);
+
+$res = $dbConnection->prepare("update tickets set is_read=:n where id=:tid");
+$res->execute(array(':n' => '1', ':tid'=>$tid));
 
         }
 
