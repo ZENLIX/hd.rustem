@@ -373,6 +373,7 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
 
                 // ЗАявка не выполнена ИЛИ выполнена мной
                 if (($status_ok == 0) || (($status_ok == 1) && ($ok_by == $user_id)))
+                //|| ($row['user_init_id'] == $user_id) ???
                 {
                     //echo "ЗАявка не выполнена ИЛИ выполнена мной"."<br>";
 
@@ -417,7 +418,7 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
             //echo("user");
         }
 
-        //echo $lo;
+        //echo $ps;
 
 
 
