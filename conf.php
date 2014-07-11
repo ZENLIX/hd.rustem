@@ -1,5 +1,8 @@
 <?php
 
+
+
+
 $CONF_DB['host'] 		= "127.0.0.1"; 		// Host name
 $CONF_DB['username'] 	= "root"; 			// Mysql username
 $CONF_DB['password'] 	= ""; 				// Mysql password
@@ -20,4 +23,16 @@ $acceptable = array(
         'image/gif',
         'image/png'
     );
+
+/*
+http://malsup.github.io/jquery.form.js
+
+$CONF_DB = array (
+'host' 		=> 'localhost',
+'username'	=> 'root'
+);
+
+
+*/
+
 ?>
