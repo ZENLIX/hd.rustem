@@ -709,6 +709,7 @@ if (isset($_POST['menu'])) {
 							limit :start_pos, :perpage');
 
 			$stmt->execute(array(':units' => $units, ':n'=>'0',':n1'=>'0',':n2'=>'0',':start_pos'=>$start_pos,':perpage'=>$perpage));
+			$stmt->execute(array(':user_id'=>$user_id,':units' => $units, ':n'=>'0',':n1'=>'0',':n2'=>'0',':start_pos'=>$start_pos,':perpage'=>$perpage));
 			$res1 = $stmt->fetchAll();
 							
 							
