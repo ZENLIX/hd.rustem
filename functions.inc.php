@@ -1098,9 +1098,10 @@ global $dbConnection;
 	$unit_user=unit_of_user($uid);
     $priv_val=priv_status($uid);
     
-    $units = explode(",", $unit_user);
-    $units = implode("', '", $units);
-	
+    $units = $unit_user;
+    //explode(",", $unit_user);
+    //$units = implode(",", $units);
+	//echo $units;
 	if ($priv_val == "0") {
 	
 	

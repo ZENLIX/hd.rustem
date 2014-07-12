@@ -32,9 +32,9 @@ if (isset($_POST['login']) && isset($_POST['password']))
 {
     $rq=1;
     $req_url=$_POST['req_url'];
-    $rm=mysql_real_escape_string($_POST['remember_me']);
+    $rm=($_POST['remember_me']);
 //echo $rm;
-    $login = mysql_real_escape_string($_POST['login']);
+    $login = ($_POST['login']);
     $password = md5($_POST['password']);
     /*
     $query = "	SELECT `id`, `login`, `fio`

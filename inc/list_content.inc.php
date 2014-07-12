@@ -14,7 +14,7 @@ if (isset($_POST['menu'])) {
 
 
 
-        $page=mysql_real_escape_string($_POST['page']);
+        $page=($_POST['page']);
         $perpage='10';
         $start_pos = ($page - 1) * $perpage;
         $user_id=id_of_user($_SESSION['helpdesk_user_login']);
@@ -219,7 +219,7 @@ if (isset($_POST['menu'])) {
 
     if ($_POST['menu'] == 'find' ) {
 
-        $z=mysql_real_escape_string($_GET['t']);
+        $z=($_GET['t']);
         //echo($z);
         $user_id=id_of_user($_SESSION['helpdesk_user_login']);
         $unit_user=unit_of_user($user_id);
@@ -601,7 +601,7 @@ if (isset($_POST['menu'])) {
 
     if ($_POST['menu'] == 'in' ) {
 
-        $page=mysql_real_escape_string($_POST['page']);
+        $page=($_POST['page']);
         $perpage='10';
         $start_pos = ($page - 1) * $perpage;
 
@@ -1094,7 +1094,7 @@ if (isset($_POST['menu'])) {
         
         
         */
-        $page=mysql_real_escape_string($_POST['page']);
+        $page=($_POST['page']);
         $perpage='10';
         $start_pos = ($page - 1) * $perpage;
         //$page='N';

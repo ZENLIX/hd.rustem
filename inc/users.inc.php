@@ -240,7 +240,7 @@ if ($_POST['menu'] == 'list' ) {
 }
 if ($_POST['menu'] == 'edit' ) {
 //echo $_POST['id'];
-$usid=mysql_real_escape_string($_POST['id']);
+$usid=($_POST['id']);
    
    
    

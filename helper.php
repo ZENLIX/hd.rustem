@@ -10,7 +10,7 @@ if ($_SESSION['helpdesk_user_id']) {
   
 if (isset($_GET['h'])) {
 
-$h=mysql_real_escape_string($_GET['h']);
+$h=($_GET['h']);
 /*$query="select id, user_init_id, unit_to_id, dt, title, message, hashname
 							from helper
 							where hashname='$h';";

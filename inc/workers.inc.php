@@ -223,7 +223,7 @@ if (isset($_GET['ok'])) {
 }
 
 if ($_POST['menu'] == 'list' ) {
-$page=mysql_real_escape_string($_POST['page']);
+$page=($_POST['page']);
 $perpage='10';
 
 $start_pos = ($page - 1) * $perpage;
@@ -248,7 +248,7 @@ $start_pos = ($page - 1) * $perpage;
         <?php
     //include("../dbconnect.inc.php");
     if (isset($_POST['t'])) {
-    $t=mysql_real_escape_string($_POST['t']);
+    $t=($_POST['t']);
     
     
     
@@ -304,7 +304,7 @@ $start_pos = ($page - 1) * $perpage;
 }
 if ($_POST['menu'] == 'edit' ) {
 //echo $_POST['id'];
-$usid=mysql_real_escape_string($_GET['edit']);
+$usid=($_GET['edit']);
 
 
 
