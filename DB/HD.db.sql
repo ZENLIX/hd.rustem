@@ -317,9 +317,9 @@ CREATE TABLE `users` (
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 
-INSERT INTO `users` (`id`, `fio`, `login`, `pass`, `status`, `priv`, `unit`, `is_admin`, `email`)
+INSERT INTO `users` (`id`, `fio`, `login`, `pass`, `status`, `priv`, `unit`, `is_admin`, `email`,`lang`,`messages`)
 VALUES
-	(1,'Main system account','system','81dc9bdb52d04dc20036dbd8313ed055',1,2,'1,2,3',8,'');
+	(1,'Main system account','system','81dc9bdb52d04dc20036dbd8313ed055',1,2,'1,2,3',8,'','ru','');
 
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
