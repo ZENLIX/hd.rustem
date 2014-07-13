@@ -3108,7 +3108,7 @@ values ('arch', now(), '$unow', '$tid'); ";
             mysql_query ( $query_atl )or die(mysql_error());*/
             
                 $stmt = $dbConnection->prepare('INSERT INTO ticket_log (msg, date_op, init_user_id, ticket_id)
-values (:ar, now(), :unow, :tid');
+values (:ar, now(), :unow, :tid)');
                 $stmt->execute(array(':tid' => $tid,':unow' => $unow, ':ar'=>'arch'));
                 
                 
@@ -3168,8 +3168,9 @@ values (:ar, now(), :unow, :tid');
 values ('ok', now(), '$unow', '$tid'); ";
                 mysql_query ( $query_atl )or die(mysql_error());*/
                 
-            $stmt = $dbConnection->prepare('INSERT INTO ticket_log (msg, date_op, init_user_id, ticket_id)
-values (:ok, now(), :unow, :tid)');
+            $stmt = $dbConnection->prepare('INSERT INTO ticket_log 
+            (msg, date_op, init_user_id, ticket_id)
+			values (:ok, now(), :unow, :tid)');
 			$stmt->execute(array(':ok'=>'ok',':tid' => $tid,':unow'=>$unow));
 
                 ?>
@@ -3235,7 +3236,7 @@ values ('no_ok', now(), '$unow', '$tid'); ";
                     mysql_query ( $query_atl )or die(mysql_error());*/
                     
                     $stmt = $dbConnection->prepare('INSERT INTO ticket_log (msg, date_op, init_user_id, ticket_id)
-values (:no_ok, now(), :unow, :tid');
+values (:no_ok, now(), :unow, :tid)');
 					$stmt->execute(array(':tid' => $tid, ':unow'=>$unow,':no_ok'=>'no_ok'));
                     ?>
 
@@ -3297,7 +3298,7 @@ values ('lock', now(), '$unow', '$tid'); ";
                 mysql_query ( $query_atl )or die(mysql_error());*/
             
             $stmt = $dbConnection->prepare('INSERT INTO ticket_log (msg, date_op, init_user_id, ticket_id)
-values (:lock, now(), :unow, :tid');
+values (:lock, now(), :unow, :tid)');
 			$stmt->execute(array(':tid' => $tid, ':unow'=>$unow, ':lock'=>'lock'));
                 ?>
 
@@ -3340,7 +3341,7 @@ values ('unlock', now(), '$unow', '$tid'); ";
             mysql_query ( $query_atl )or die(mysql_error());*/
             
             $stmt = $dbConnection->prepare('INSERT INTO ticket_log (msg, date_op, init_user_id, ticket_id)
-values (:unlock, now(), :unow, :tid');
+values (:unlock, now(), :unow, :tid)');
 			$stmt->execute(array(':tid' => $tid, ':unow'=>$unow, ':unlock'=>'unlock'));
 
             ?>
@@ -3452,7 +3453,7 @@ values ('edit_subj', now(), '$unow', '$pk'); ";
             */
             
 			 $stmt = $dbConnection->prepare('INSERT INTO ticket_log (msg, date_op, init_user_id, ticket_id)
-values (:edit_subj, now(), :unow, :pk');
+values (:edit_subj, now(), :unow, :pk)');
 			 $stmt->execute(array(':edit_subj'=>'edit_subj', ':pk'=>$pk,':unow'=>$unow));
 
         }
@@ -3477,7 +3478,7 @@ values ('edit_msg', now(), '$unow', '$pk'); ";
             mysql_query ( $query_atl )or die(mysql_error());*/
             
             $stmt = $dbConnection->prepare('INSERT INTO ticket_log (msg, date_op, init_user_id, ticket_id)
-values (:edit_msg, now(), :unow, :pk');
+values (:edit_msg, now(), :unow, :pk)');
 			$stmt->execute(array(':edit_msg'=>'edit_msg', ':pk'=>$pk,':unow'=>$unow));
             
             
@@ -3635,18 +3636,18 @@ VALUES ('$max_id', '$client_fio', '$client_tel', '$client_login', '$unit_desc', 
 
 
 			 $stmt = $dbConnection->prepare('insert into clients 
-			 (id, fio, tel, login, unit_desc, adr, email, posada)
-			 VALUES 
+			 (id, fio, tel, login, unit_desc, adr, email, posada) VALUES 		
 			 (:max_id, :client_fio, :client_tel, :client_login, :unit_desc, :client_adr,  :client_mail, :client_posada)');
+			 
 			 $stmt->execute(array(
-			 ':max_id'			=>	$max_id, 
-			 ':client_fio'		=>	$client_fio, 
-			 ':client_tel'		=>	$client_tel,
-			 ':client_login'	=>	$client_login, 
-			 ':unit_desc'		=>	$unit_desc, 
-			 ':client_adr'		=>	$client_adr, 
-			 ':client_mail'		=>	$client_mail, 
-			 ':client_posada'	=>	$client_posada));
+			 ':max_id'=>$max_id, 
+			 ':client_fio'=>$client_fio, 
+			 ':client_tel'=>$client_tel,
+			 ':client_login'=>$client_login, 
+			 ':unit_desc'=>$unit_desc, 
+			 ':client_adr'=>$client_adr, 
+			 ':client_mail'=>$client_mail, 
+			 ':client_posada'=>$client_posada));
 
 
                 /*$queryid_ticket="SELECT MAX(id) max_id FROM tickets";
@@ -3668,21 +3669,8 @@ VALUES ('$max_id', '$client_fio', '$client_tel', '$client_login', '$unit_desc', 
                 mysql_query ( $query_add_ticket ) or die(mysql_error());*/
                 
                 $stmt = $dbConnection->prepare('INSERT INTO tickets
-				(id, user_init_id,user_to_id,date_create,subj,msg, client_id, unit_id, status, hash_name, prio, last_update) 
-				VALUES 
-				(:max_id_res_ticket, :user_init_id, :user_to_id, now(),:subj, :msg,:max_id,:unit_id, :status, :hashname, :prio, now())');
-			
-			 $stmt->execute(array(
-			 ':max_id_res_ticket'	=>	$max_id_res_ticket,
-			 ':user_init_id'		=>	$user_init_id,
-			 ':user_to_id'			=>	$user_to_id,
-			 ':subj'				=>	$subj,
-			 ':msg'					=>	$msg,
-			 ':max_id'				=>	$max_id,
-			 ':unit_id'				=>	$unit_id,
-			 ':status'				=>	$status,
-			 ':hashname'			=>	$hashname,
-			 ':prio'				=>	$prio));
+								(id, user_init_id,user_to_id,date_create,subj,msg, client_id, unit_id, status, hash_name, prio, last_update) VALUES (:max_id_res_ticket, :user_init_id, :user_to_id, now(),:subj, :msg,:max_id,:unit_id, :status, :hashname, :prio, now())');
+			 $stmt->execute(array(':max_id_res_ticket'=>$max_id_res_ticket,':user_init_id'=>$user_init_id,':user_to_id'=>$user_to_id,':subj'=>$subj,':msg'=>$msg,':max_id'=>$max_id,':unit_id'=>$unit_id,':status'=>$status,':hashname'=>$hashname,':prio'=>$prio));
                 
                 
                 
