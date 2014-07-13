@@ -1,37 +1,21 @@
 <?php
-//phpinfo();
-///////////////////////////////////////////////////////////////////////////
+
+
 include_once('conf.php');
 
-///////////////////////////////////////////////////////////////////////////
 date_default_timezone_set('Europe/Kiev');
-//$connection = mysql_connect($host, $username, $password) or die ("Error: Kunne ikke koble til databasen");
-//mysql_select_db($db_name, $connection);
-
-
-//$dbConnection = new PDO('mysql:localhost;dbname=hd_prod;charset=utf8', 'root', '');
 $dbConnection = new PDO('mysql:host='.$CONF_DB['host'].';dbname='.$CONF_DB['db_name'].';charset=utf8', $CONF_DB['username'], $CONF_DB['password']);
-//mysql_select_db($db_name, $connection);
 $dbConnection->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 $dbConnection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-//$dbConnection->select_db( $db_name );
-
-
-//mysql_query('SET NAMES utf8');
-
 error_reporting(E_ALL ^ E_NOTICE);
 error_reporting(0);
 include_once('inc/mail.inc.php');
 
 function get_user_lang(){
 global $dbConnection;
-			$mid=$_SESSION['helpdesk_user_id'];
-			
-			
-	        /*$queryid = "SELECT lang from users where id='$mid'";
-            $res1 = mysql_query($queryid) or die(mysql_error());
-            $max= mysql_fetch_array( $res1 );*/
-            
+	
+	
+	$mid=$_SESSION['helpdesk_user_id'];        
     $stmt = $dbConnection->prepare('SELECT lang from users where id=:mid');
 	$stmt->execute(array(':mid' => $mid));
 	$max = $stmt->fetch(PDO::FETCH_NUM);
@@ -78,9 +62,12 @@ function generateRandomString($length = 5) {
 
 function validate_exist_mail($str) {
 	$uid=$_SESSION['helpdesk_user_id'];
-	$re = mysql_num_rows(mysql_query("SELECT email from users where email='$str' and id != '$uid';"));
-	if ($re > 0) {$r=false;}
-	else if ($re <= 0) {$r=true;}
+	$stmt = $dbConnection->prepare('SELECT email from users where email=:str and id != :uid');
+    $stmt->execute(array(':str' => $str,':uid' => $uid));
+    
+    
+    if ($stmt -> rowCount() > 0) {$r=false;}
+
 
 	return $r;
 }
@@ -97,20 +84,17 @@ function validate_alphanumeric_underscore($str)
 
 function update_val_by_key($key, $val) {
 
-//$sql="update conf set value='$val' where param='$key'";
-//mysql_query($sql);
-
 }
 
 function randomPassword() {
     $alphabet = "abcdefghijklmnopqrstuwxyz0123456789";
-    $pass = array(); //remember to declare $pass as an array
-    $alphaLength = strlen($alphabet) - 1; //put the length -1 in cache
+    $pass = array(); 
+    $alphaLength = strlen($alphabet) - 1; 
     for ($i = 0; $i < 5; $i++) {
         $n = rand(0, $alphaLength);
         $pass[] = $alphabet[$n];
     }
-    return implode($pass); //turn the array into a string
+    return implode($pass); 
 }
 
 
@@ -124,53 +108,42 @@ function nameshort($name) {
 
 function xss_clean($data)
 {
-        // Fix &entity\n;
+        
         $data = str_replace(array('&amp;','&lt;','&gt;'), array('&amp;amp;','&amp;lt;','&amp;gt;'), $data);
         $data = preg_replace('/(&#*\w+)[\x00-\x20]+;/u', '$1;', $data);
         $data = preg_replace('/(&#x*[0-9A-F]+);*/iu', '$1;', $data);
         $data = html_entity_decode($data, ENT_COMPAT, 'UTF-8');
  
-        // Remove any attribute starting with "on" or xmlns
+        
         $data = preg_replace('#(<[^>]+?[\x00-\x20"\'])(?:on|xmlns)[^>]*+>#iu', '$1>', $data);
  
-        // Remove javascript: and vbscript: protocols
+        
         $data = preg_replace('#([a-z]*)[\x00-\x20]*=[\x00-\x20]*([`\'"]*)[\x00-\x20]*j[\x00-\x20]*a[\x00-\x20]*v[\x00-\x20]*a[\x00-\x20]*s[\x00-\x20]*c[\x00-\x20]*r[\x00-\x20]*i[\x00-\x20]*p[\x00-\x20]*t[\x00-\x20]*:#iu', '$1=$2nojavascript...', $data);
         $data = preg_replace('#([a-z]*)[\x00-\x20]*=([\'"]*)[\x00-\x20]*v[\x00-\x20]*b[\x00-\x20]*s[\x00-\x20]*c[\x00-\x20]*r[\x00-\x20]*i[\x00-\x20]*p[\x00-\x20]*t[\x00-\x20]*:#iu', '$1=$2novbscript...', $data);
         $data = preg_replace('#([a-z]*)[\x00-\x20]*=([\'"]*)[\x00-\x20]*-moz-binding[\x00-\x20]*:#u', '$1=$2nomozbinding...', $data);
  
-        // Only works in IE: <span style="width: expression(alert('Ping!'));"></span>
+        
         $data = preg_replace('#(<[^>]+?)style[\x00-\x20]*=[\x00-\x20]*[`\'"]*.*?expression[\x00-\x20]*\([^>]*+>#i', '$1>', $data);
         $data = preg_replace('#(<[^>]+?)style[\x00-\x20]*=[\x00-\x20]*[`\'"]*.*?behaviour[\x00-\x20]*\([^>]*+>#i', '$1>', $data);
         $data = preg_replace('#(<[^>]+?)style[\x00-\x20]*=[\x00-\x20]*[`\'"]*.*?s[\x00-\x20]*c[\x00-\x20]*r[\x00-\x20]*i[\x00-\x20]*p[\x00-\x20]*t[\x00-\x20]*:*[^>]*+>#iu', '$1>', $data);
  
-        // Remove namespaced elements (we do not need them)
+        
         $data = preg_replace('#</*\w+:\w[^>]*+>#i', '', $data);
  
         do
         {
-                // Remove really unwanted tags
+                
                 $old_data = $data;
                 $data = preg_replace('#</*(?:applet|b(?:ase|gsound|link)|embed|frame(?:set)?|i(?:frame|layer)|l(?:ayer|ink)|meta|object|s(?:cript|tyle)|title|xml)[^>]*+>#i', '', $data);
         }
         while ($old_data !== $data);
  
-        // we are done...
+        
         return $data;
 } 
 
 
 
-
-
-
-
-
-function get_val_by_key($key) {
-///	$re = mysql_query("SELECT value from conf where param='$key';");
-//	$client_arr = mysql_fetch_array($re);
-//	$res=$client_arr['value'];
-//	return $res;
-}
 
 function validate_admin($user_id) {
 global $dbConnection;
