@@ -3169,7 +3169,7 @@ values ('ok', now(), '$unow', '$tid'); ";
                 mysql_query ( $query_atl )or die(mysql_error());*/
                 
             $stmt = $dbConnection->prepare('INSERT INTO ticket_log (msg, date_op, init_user_id, ticket_id)
-values (:ok, now(), :unow, :tid');
+values (:ok, now(), :unow, :tid)');
 			$stmt->execute(array(':ok'=>'ok',':tid' => $tid,':unow'=>$unow));
 
                 ?>
