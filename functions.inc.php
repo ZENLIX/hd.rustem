@@ -196,26 +196,14 @@ global $dbConnection;
             $input=$_COOKIE['authhash_code'];
             $_SESSION['code']=$input;
             $_SESSION['helpdesk_user_id']=$user_id;
-            /*
-            $_SESSION['helpdesk_sort_prio'] = "none";
-            $_SESSION['helpdesk_sort_id'] = "none";
-            $_SESSION['helpdesk_sort_subj'] = "none";
-                    $_SESSION['helpdesk_sort_clientid'] = "none";
-                $_SESSION['helpdesk_sort_userinitid'] = "none";
-                */
+
         }
 
 
     }
-
-//$user_id
-//$input
-
-
-
+ 
     
-    
-$stmt = $dbConnection->prepare('SELECT pass,login,fio from users where id=:user_id LIMIT 1');
+	$stmt = $dbConnection->prepare('SELECT pass,login,fio from users where id=:user_id LIMIT 1');
     $stmt->execute(array(':user_id' => $user_id));
     
     
@@ -239,11 +227,6 @@ $stmt = $dbConnection->prepare('SELECT pass,login,fio from users where id=:user_
 }
 
 function get_ticket_id_by_hash($in) {
-/*
-	$q_total="select id from tickets where hash_name='$in'";
-    $res_total = mysql_query($q_total) or die(mysql_error());
-    $total_ticket= mysql_fetch_assoc( $res_total );
-*/
     global $dbConnection;
 
 $stmt = $dbConnection->prepare('select id from tickets where hash_name=:in');
@@ -277,9 +260,6 @@ $fio = $stmt->fetch(PDO::FETCH_ASSOC);
     $posada=$fio['posada'];
     $email=$fio['email'];
 
-    /*$q_total="select count(id) as t1 from tickets where client_id='$id'";
-    $res_total = mysql_query($q_total) or die(mysql_error());
-    $total_ticket= mysql_fetch_assoc( $res_total );*/
     
     $stmt = $dbConnection->prepare('select count(id) as t1 from tickets where client_id=:id');
 	$stmt->execute(array(':id' => $id));
@@ -288,9 +268,6 @@ $fio = $stmt->fetch(PDO::FETCH_ASSOC);
     
     $tt=$total_ticket['t1'];
     
-    /*$q_last="select max(date_create) as dc from tickets where client_id='$id'";
-    $res_last=mysql_query($q_last) or die(mysql_error());
-    $last_ticket=mysql_fetch_assoc( $res_last );*/
     
     $stmt = $dbConnection->prepare('select max(date_create) as dc from tickets where client_id=:id');
 	$stmt->execute(array(':id' => $id));
@@ -372,16 +349,8 @@ $fio = $stmt->fetch(PDO::FETCH_ASSOC);
 function get_unit_name_return4news($input) {
 global $dbConnection;
 
-
-
-    //include("../dbconnect.inc.php");
-    //if ($input == "0") { echo "личный доступ"; }
     $u=explode(",", $input);
     foreach ($u as $val) {
-
-    /*$query="SELECT name FROM deps where id='$val'";
-    $rest = mysql_query($query) or die(mysql_error());
-    $dep= mysql_fetch_assoc( $rest );*/
     
     $stmt = $dbConnection->prepare('SELECT name FROM deps where id=:val');
 	$stmt->execute(array(':val' => $val));
@@ -391,7 +360,6 @@ global $dbConnection;
     $res=$dep['name'];
     
     }
-    //else { echo "не определено";}
     return $res;
 }
 
@@ -399,17 +367,9 @@ global $dbConnection;
 function get_unit_name_return($input) {
 global $dbConnection;
 
-
-
-    //include("../dbconnect.inc.php");
-    //if ($input == "0") { echo "личный доступ"; }
     $u=explode(",", $input);
     foreach ($u as $val) {
 
-    /*$query="SELECT name FROM deps where id='$val'";
-    $rest = mysql_query($query) or die(mysql_error());
-    $dep= mysql_fetch_assoc( $rest );*/
-    
     $stmt = $dbConnection->prepare('SELECT name FROM deps where id=:val');
 	$stmt->execute(array(':val' => $val));
 	$dep = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -418,31 +378,14 @@ global $dbConnection;
     $res.=$dep['name'];
     $res.="<br>";
     }
-    //else { echo "не определено";}
+
     return $res;
 }
 
 
 
 
-function get_w_by_id($id) {
 
-
-
-
-
-    ?>
-    <div class="col-md-3">
-        ddd
-    </div>
-    <div class="col-md-8">
-
-        ddd
-
-    </div>
-<?php
-
-}
 
 
 
@@ -450,11 +393,6 @@ function get_w_by_id($id) {
 function get_client_info($id) {
 	global $CONF;
 	global $dbConnection;
-	
-    //include("../dbconnect.inc.php");
-    /*$query="SELECT fio,tel,unit_desc,adr,tel_ext,email,login, posada, email FROM clients where id='$id'";
-    $res = mysql_query($query) or die(mysql_error());
-    $fio= mysql_fetch_assoc( $res );*/
     
     $stmt = $dbConnection->prepare('SELECT fio,tel,unit_desc,adr,tel_ext,email,login, posada, email FROM clients where id=:id');
 	$stmt->execute(array(':id' => $id));
@@ -471,20 +409,11 @@ function get_client_info($id) {
     $mails=$fio['email'];
     $posada=$fio['posada'];
 
-
-    /*$q_total="select count(id) as t1 from tickets where client_id='$id'";
-    $res_total = mysql_query($q_total) or die(mysql_error());
-    $total_ticket= mysql_fetch_assoc( $res_total );*/
     
     $stmt = $dbConnection->prepare('select count(id) as t1 from tickets where client_id=:id');
 	$stmt->execute(array(':id' => $id));
 	$total_ticket = $stmt->fetch(PDO::FETCH_ASSOC);
 	$tt=$total_ticket['t1'];
-	
-	
-    /*$q_last="select max(date_create) as dc from tickets where client_id='$id'";
-    $res_last=mysql_query($q_last) or die(mysql_error());
-    $last_ticket=mysql_fetch_assoc( $res_last );*/
     
     $stmt = $dbConnection->prepare('select max(date_create) as dc from tickets where client_id=:id');
 	$stmt->execute(array(':id' => $id));
@@ -553,13 +482,8 @@ function get_client_info($id) {
 <?php
 }
 function client_unit($input) {
-    //include("../dbconnect.inc.php");
     global $dbConnection;
     
-    /*$query="SELECT unit_desc FROM clients where id='$input'";
-    $res = mysql_query($query) or die(mysql_error());
-    $fio= mysql_fetch_assoc( $res );
-    */
     
     $stmt = $dbConnection->prepare('SELECT unit_desc FROM clients where id=:input');
 	$stmt->execute(array(':input' => $input));
@@ -570,7 +494,6 @@ function client_unit($input) {
 
 }
 function id_of_user($input) {
-    //include("../dbconnect.inc.php");
     global $dbConnection;
     $stmt = $dbConnection->prepare('SELECT id FROM users where login=:input');
 	$stmt->execute(array(':input' => $input));
@@ -585,7 +508,6 @@ function id_of_user($input) {
 
 
 function priv_status($input) {
-    //include("../dbconnect.inc.php");
     global $dbConnection;
 
     
@@ -599,16 +521,12 @@ function priv_status($input) {
 
 
 function get_last_ticket_new($id) {
-//2 - главн нач
-//0 - нач отдела
-//1 - пользователь
 global $dbConnection;
     $unit_user=unit_of_user($id);
     $priv_val=priv_status($id);
     $units = explode(",", $unit_user);
     
-    //$inQuery = implode(',', array_fill(0, count($units)-1, '?'));
-    
+     
     $units =implode("', '", $units);
 
 
@@ -619,11 +537,7 @@ global $dbConnection;
 	$stmt->execute(array(':units' => $units, ':id' => $id));
 	$max = $stmt->fetch(PDO::FETCH_NUM);
         
-        /*
-        $queryid = "SELECT max(last_update) from tickets where unit_id IN (".$units.") or user_init_id='$id';";
-        $res1 = mysql_query($queryid) or die(mysql_error());
-        $max= mysql_fetch_array( $res1 );
-*/
+
         
         $max_id=$max[0];
         //echo $max_id;
@@ -631,27 +545,18 @@ global $dbConnection;
 
 
     else if ($priv_val == "1") {
-            /*$queryid = "SELECT max(last_update) from tickets where ((user_to_id='$id') or (user_to_id='0' and unit_id IN (".$units."))) or user_init_id='$id'";
-            $res1 = mysql_query($queryid) or die(mysql_error());
-            $max= mysql_fetch_array( $res1 );
- */
-    
+
     
     $stmt = $dbConnection->prepare("SELECT max(last_update) from tickets where ((user_to_id=:id) or (user_to_id=:tid and unit_id IN (:units))) or user_init_id=:id2");
 	$stmt->execute(array(':units' => $units, ':id' => $id, ':tid' => '0', ':id2' => $id));
 	$max = $stmt->fetch(PDO::FETCH_NUM);
        
-        /*
-        $queryid = "SELECT max(last_update) from tickets where ((user_to_id='$id') or (user_to_id='0' and unit_id IN (".$units.")) or (user_init_id='$id'))";
-        $res1 = mysql_query($queryid) or die(mysql_error());
-        $max= mysql_fetch_array( $res1 );
-*/
-        
+                
         
         $max_id=$max[0];
 
 
-        //$count="1";
+       
     }
 
     else if ($priv_val == "2") {
@@ -664,27 +569,18 @@ global $dbConnection;
 	$max = $stmt->fetch(PDO::FETCH_NUM);
         
         
-        /*
-                $queryid = "SELECT max(last_update) from tickets;";
-        $res1 = mysql_query($queryid) or die(mysql_error());
-        $max= mysql_fetch_array( $res1 );
-*/
         
         $max_id=$max[0];
 
 
-        //$count="1";
+        
     }
     return $max_id;
 }
 
 function get_who_last_action_ticket($ticket_id) {
     global $dbConnection;
-    /*
-    $query="select init_user_id from ticket_log where ticket_id='$ticket_id' order by date_op DESC limit 1;";
-    $res = mysql_query($query) or die(mysql_error());
-    $fio= mysql_fetch_assoc( $res );
-*/
+
     $stmt = $dbConnection->prepare('select init_user_id from ticket_log where ticket_id=:ticket_id order by date_op DESC limit 1');
 	$stmt->execute(array(':ticket_id' => $ticket_id));
 	$fio = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -701,12 +597,7 @@ function get_last_action_type($ticket_id) {
 	$fio = $stmt->fetch(PDO::FETCH_ASSOC);
     
     
-    /*
-    $query="select date_op, msg, init_user_id, to_user_id, to_unit_id from ticket_log where ticket_id='$ticket_id' order by date_op DESC limit 1;";
-    $res = mysql_query($query) or die(mysql_error());
-    $fio= mysql_fetch_assoc( $res );
-*/
-
+    
     $r=$fio['msg'];
     return $r;
 }
@@ -718,10 +609,7 @@ global $dbConnection;
 	$fio = $stmt->fetch(PDO::FETCH_ASSOC);
 	
 	
-	/*$query="select date_op, msg, init_user_id, to_user_id, to_unit_id from ticket_log where ticket_id='$ticket_id' order by date_op DESC limit 1;";
-    $res = mysql_query($query) or die(mysql_error());
-    $fio= mysql_fetch_assoc( $res );
-*/
+	
     $r=$fio['msg'];
     $uss=nameshort(name_of_user_ret($fio['init_user_id']));
     $uss_to=nameshort(name_of_user_ret($fio['to_user_id']));
@@ -759,24 +647,13 @@ global $dbConnection;
 	$stmt->execute(array(':units' => $units, ':id' => $id));
 	$max = $stmt->fetch(PDO::FETCH_NUM);
             
-                       /* $queryid = "SELECT max(last_update) from tickets where unit_id IN (".$units.") or user_init_id='$id';";
-            $res1 = mysql_query($queryid) or die(mysql_error());
-            $max= mysql_fetch_array( $res1 );
-*/
-            
-            
+                                  
             $max_id=$max[0];
-            //echo $max_id;
         }
 
 
         else if ($priv_val == "1") {
 
-
-            /*$queryid = "SELECT max(last_update) from tickets where ((user_to_id='$id') or (user_to_id='0' and unit_id IN (".$units."))) or user_init_id='$id'";
-            $res1 = mysql_query($queryid) or die(mysql_error());
-            $max= mysql_fetch_array( $res1 );
-*/
             
             $stmt = $dbConnection->prepare("SELECT max(last_update) from tickets where ((user_to_id=:id) or (user_to_id=:tid and unit_id IN (:units))) or user_init_id=:id2");
 	$stmt->execute(array(':units' => $units, ':id' => $id, ':tid' => '0', ':id2' => $id));
@@ -787,7 +664,7 @@ global $dbConnection;
             $max_id=$max[0];
 
 
-            //$count="1";
+            
         }
         else if ($priv_val == "2") {
 
@@ -796,13 +673,8 @@ global $dbConnection;
 	$stmt->execute();
 	$max = $stmt->fetch(PDO::FETCH_NUM);
           
-          /*
-                       $queryid = "SELECT max(last_update) from tickets;";
-            $res1 = mysql_query($queryid) or die(mysql_error());
-            $max= mysql_fetch_array( $res1 );
-  */
-            $max_id=$max[0];
-            //echo $max_id;
+                      $max_id=$max[0];
+            
         }
     }
     if ($menu == "in") {
@@ -815,17 +687,14 @@ global $dbConnection;
         $units = implode("', '", $units);
         if ($priv_val == "0") {
 
-            /*$queryid = "SELECT max(last_update) from tickets where unit_id IN (".$units.") and arch='0'";
-            $res1 = mysql_query($queryid) or die(mysql_error());
-            $max= mysql_fetch_array( $res1 );
-            */
+            
 
     $stmt = $dbConnection->prepare("SELECT max(last_update) from tickets where unit_id IN (:units) and arch='0'");
 	$stmt->execute(array(':units' => $units));
 	$max = $stmt->fetch(PDO::FETCH_NUM);
             
             $max_id=$max[0];
-            //echo $max_id;
+            
         }
 
 
@@ -833,11 +702,7 @@ global $dbConnection;
 
 
 
-            /*$queryid = "SELECT max(last_update) from tickets where ((user_to_id='$id' and arch='0') or (user_to_id='0' and unit_id IN (".$units.") and arch='0'))";
-            $res1 = mysql_query($queryid) or die(mysql_error());
-            $max= mysql_fetch_array( $res1 );
-*/
-            
+                        
             $stmt = $dbConnection->prepare("SELECT max(last_update) from tickets where ((user_to_id=:id and arch='0') or (user_to_id='0' and unit_id IN (:units) and arch='0'))");
 	$stmt->execute(array(':id' => $id,':units' => $units));
 	$max = $stmt->fetch(PDO::FETCH_NUM);
@@ -846,38 +711,29 @@ global $dbConnection;
             $max_id=$max[0];
 
 
-            //$count="1";
+            
         }
         else if ($priv_val == "2") {
 
-            /*$queryid = "SELECT max(last_update) from tickets where arch='0'";
-            $res1 = mysql_query($queryid) or die(mysql_error());
-            $max= mysql_fetch_array( $res1 );
-*/
-
+            
     $stmt = $dbConnection->prepare("SELECT max(last_update) from tickets where arch='0'");
 	$stmt->execute();
 	$max = $stmt->fetch(PDO::FETCH_NUM);
 	
             $max_id=$max[0];
-            //echo $max_id;
+            
         }
 
 
 
-        //$count = mysql_num_rows(mysql_query("select * from tickets where user_to_id='$id' and arch='0'"));
+        
     }
     if ($menu == "out") {
-        //$count = mysql_num_rows(mysql_query("select * from tickets where user_init_id='$id' and arch='0'"));
-
+        
 
 
         
-        /*$queryid = "SELECT max(last_update) from tickets where user_init_id='$id' and arch='0'";
-        $res1 = mysql_query($queryid) or die(mysql_error());
-        $max= mysql_fetch_array( $res1 );
-*/
-        
+                
     $stmt = $dbConnection->prepare("SELECT max(last_update) from tickets where user_init_id=:id and arch='0'");
 	$stmt->execute(array(':id' => $id));
 	$max = $stmt->fetch(PDO::FETCH_NUM);
@@ -895,19 +751,12 @@ global $dbConnection;
         $units = explode(",", $unit_user);
         $units = implode("', '", $units);
         if ($priv_val == "0") {
-            //$count = mysql_num_rows(mysql_query("SELECT * from tickets where unit_id='$unit_user'  and arch='1'"));
-
-
-            
+                        
     $stmt = $dbConnection->prepare("SELECT max(last_update) from tickets where unit_id IN (:units) and arch='1'");
 	$stmt->execute(array(':units' => $units));
 	$max = $stmt->fetch(PDO::FETCH_NUM);
 	
-	        /*$queryid = "SELECT max(last_update) from tickets where unit_id IN (".$units.")  and arch='1'";
-            $res1 = mysql_query($queryid) or die(mysql_error());
-            $max= mysql_fetch_array( $res1 );
-*/
-            $max_id=$max[0];
+	                    $max_id=$max[0];
 
 
 
@@ -917,12 +766,7 @@ global $dbConnection;
 
         else if ($priv_val == "1") {
 
-/*
-            $queryid = "SELECT max(last_update) from tickets where (user_to_id='$id' and unit_id IN (".$units.") and arch='1') or
-							(user_to_id='0' and unit_id IN (".$units.") and arch='1')";
-            $res1 = mysql_query($queryid) or die(mysql_error());
-            $max= mysql_fetch_array( $res1 );
-*/
+
 
             
             
@@ -938,22 +782,15 @@ global $dbConnection;
             $max_id=$max[0];
 
 
-            //$count="1";
+            
         }
         if ($priv_val == "2") {
-            //$count = mysql_num_rows(mysql_query("SELECT * from tickets where unit_id='$unit_user'  and arch='1'"));
-
-
-            
+                        
 	$stmt = $dbConnection->prepare("SELECT max(last_update) from tickets where arch='1'");
 	$stmt->execute();
 	$max = $stmt->fetch(PDO::FETCH_NUM);
 	
-	        /*$queryid = "SELECT max(last_update) from tickets where arch='1'";
-            $res1 = mysql_query($queryid) or die(mysql_error());
-            $max= mysql_fetch_array( $res1 );
-*/
-            $max_id=$max[0];
+	                    $max_id=$max[0];
 
 
 
@@ -968,11 +805,10 @@ global $dbConnection;
 
 
 
-        //$count = mysql_num_rows(mysql_query("select * from tickets where user_init_id='$id' and arch='1' or user_to_id='$id' and arch='1'"));
     }
 
     if ($menu == "client") {
-        //$count = mysql_num_rows(mysql_query("select * from clients")) or die('error! Записей не найдено!');
+       
     }
 
 
@@ -993,7 +829,6 @@ $res->execute(array(':uid' => $uid));
 $count = $res->fetch(PDO::FETCH_NUM);
 
 	
-	//$count = mysql_num_rows(mysql_query("SELECT * from tickets where user_init_id='$uid';"));
 	return $count[0];
 }
 function get_total_tickets_lock() {
@@ -1004,7 +839,6 @@ global $dbConnection;
 $res = $dbConnection->prepare("SELECT count(*) from tickets where lock_by=:uid and status='0'");
 $res->execute(array(':uid' => $uid));
 $count = $res->fetch(PDO::FETCH_NUM);
-	//$count = mysql_num_rows(mysql_query("SELECT * from tickets where lock_by='$uid' and status='0';"));
 	return $count[0];
 }
 function get_total_tickets_ok() {
@@ -1017,9 +851,7 @@ $count = $res->fetch(PDO::FETCH_NUM);
 
 
 
-	//$uid=$_SESSION['helpdesk_user_id'];
-	//$count = mysql_num_rows(mysql_query("SELECT * from tickets where ok_by='$uid';"));
-	return $count[0];
+return $count[0];
 }
 function get_total_tickets_out_and_success() {
 
@@ -1072,9 +904,7 @@ global $dbConnection;
     $priv_val=priv_status($uid);
     
     $units = $unit_user;
-    //explode(",", $unit_user);
-    //$units = implode(",", $units);
-	//echo $units;
+    
 	if ($priv_val == "0") {
 	
 	
@@ -1097,17 +927,17 @@ $count=$count[0];
 
 
            
-            //$count="1";
+            
         }
         else if ($priv_val == "2") {
 
-            //$count = mysql_num_rows(mysql_query("SELECT * from tickets where status='0' and lock_by='0';"));
+            
 
 $res = $dbConnection->prepare("SELECT count(*) from tickets where status='0' and lock_by='0'");
 $res->execute();
 $count = $res->fetch(PDO::FETCH_NUM);
 $count=$count[0];
-            //$count="1";
+            
         }
 
 	return $count;
@@ -1137,7 +967,6 @@ function get_myname(){
 function get_total_pages_workers() {
 global $dbConnection;
 $perpage='10';
-//$count = mysql_num_rows(mysql_query("SELECT * from clients;"));
 
 $res = $dbConnection->prepare("SELECT count(*) from clients");
 $res->execute();
@@ -1158,7 +987,7 @@ if ($count <> 0) {
     return $count;
 }
 function get_total_pages($menu, $id) {
-    //include("../dbconnect.inc.php");
+    
     global $dbConnection;
     $perpage='10';
     if ($menu == "in") {
@@ -1174,51 +1003,37 @@ function get_total_pages($menu, $id) {
         
         
         if ($priv_val == "0") {
-            //$count = mysql_num_rows(mysql_query("SELECT * from tickets where unit_id IN (".$units.") and arch='0'"));
-
-$res = $dbConnection->prepare("SELECT count(*) from tickets where unit_id IN (:units) and arch='0'");
+            $res = $dbConnection->prepare("SELECT count(*) from tickets where unit_id IN (:units) and arch='0'");
 $res->execute(array(':units' => $units));
 $count = $res->fetch(PDO::FETCH_NUM);
 $count=$count[0];
 
-			/*
-$res->execute();
-$count = $res->fetch(PDO::FETCH_NUM);
-$count=$count[0];
-			*/
-
-			
+						
         }
 
 
         else if ($priv_val == "1") {
 
-            //$count = mysql_num_rows(mysql_query("SELECT * from tickets where ((user_to_id='$id' and arch='0') or (user_to_id='0' and unit_id IN (".$units.") and arch='0'))"));
 $res = $dbConnection->prepare("SELECT count(*) from tickets where ((user_to_id=:id and arch='0') or (user_to_id='0' and unit_id IN (:units) and arch='0'))");
 $res->execute(array(':id' => $id, ':units' => $units));
 $count = $res->fetch(PDO::FETCH_NUM);
 $count=$count[0];
 
-            //$count="1";
         }
         else if ($priv_val == "2") {
 
-            //$count = mysql_num_rows(mysql_query("SELECT * from tickets where arch='0';"));
             
 $res = $dbConnection->prepare("SELECT count(*) from tickets where arch='0'");
 $res->execute();
 $count = $res->fetch(PDO::FETCH_NUM);
 $count=$count[0];
 
-            //$count="1";
         }
 
 
 
-        //$count = mysql_num_rows(mysql_query("select * from tickets where user_to_id='$id' and arch='0'"));
     }
     if ($menu == "out") {
-        //$count = mysql_num_rows(mysql_query("select * from tickets where user_init_id='$id' and arch='0'"));
         
 $res = $dbConnection->prepare("SELECT count(*) from tickets where user_init_id=:id and arch='0'");
 $res->execute(array(':id' => $id));
@@ -1237,7 +1052,6 @@ $count=$count[0];
         $units = implode("', '", $units);
 
         if ($priv_val == "0") {
-            //$count = mysql_num_rows(mysql_query("SELECT * from tickets where (unit_id IN (".$units.") or user_init_id='$id') and arch='1'"));
             
             
 $res = $dbConnection->prepare("SELECT count(*) from tickets where (unit_id IN (:units) or user_init_id=:id) and arch='1'");
@@ -1249,10 +1063,7 @@ $count=$count[0];
 
         else if ($priv_val == "1") {
 
-           /* $count = mysql_num_rows(mysql_query("SELECT * from tickets
-							where (user_to_id='$id' and unit_id IN (".$units.") and arch='1') or
-							(user_to_id='0' and unit_id IN (".$units.") and arch='1') or (user_init_id='$id' and arch='1')"));
-							*/
+           
 							$res = $dbConnection->prepare("SELECT count(*) from tickets
 							where (user_to_id=:id and unit_id IN (:units) and arch='1') or
 							(user_to_id='0' and unit_id IN (:units2) and arch='1') or		
@@ -1263,12 +1074,11 @@ $count = $res->fetch(PDO::FETCH_NUM);
 $count=$count[0];
 
 
-            //$count="1";
+            
         }
         else if ($priv_val == "2") {
 
-            //$count = mysql_num_rows(mysql_query("SELECT * from tickets where arch='1';"));
-							
+            				
 $res = $dbConnection->prepare("SELECT count(*) from tickets where arch='1'");
 							
 $res->execute();
@@ -1276,7 +1086,7 @@ $count = $res->fetch(PDO::FETCH_NUM);
 $count=$count[0];
 
 
-            //$count="1";
+            
         }
 
 
@@ -1286,11 +1096,9 @@ $count=$count[0];
 
 
 
-        //$count = mysql_num_rows(mysql_query("select * from tickets where user_init_id='$id' and arch='1' or user_to_id='$id' and arch='1'"));
     }
 
     if ($menu == "client") {
-        //$count = mysql_num_rows(mysql_query("select * from clients")) or die('error! Записей не найдено!');
         
         $res = $dbConnection->prepare("SELECT count(*) from clients");
 							
@@ -1315,22 +1123,17 @@ $count=$count[0];
 
 }
 function name_of_client($input) {
-    //include("../dbconnect.inc.php");
     global $dbConnection;
     
     $stmt = $dbConnection->prepare('SELECT fio FROM clients where id=:input');
 	$stmt->execute(array(':input' => $input));
 	$fio = $stmt->fetch(PDO::FETCH_ASSOC);
     
-    /*$query="SELECT fio FROM clients where id='$input'";
-    $res = mysql_query($query) or die(mysql_error());
-    $fio= mysql_fetch_assoc( $res );
-    */
+    
     echo($fio['fio']);
 
 }
 function name_of_client_ret($input) {
-    //include("../dbconnect.inc.php");
     global $dbConnection;
     
     $stmt = $dbConnection->prepare('SELECT fio FROM clients where id=:input');
@@ -1342,7 +1145,6 @@ function name_of_client_ret($input) {
 }
 
 function rus_date() {
-// Перевод
 global $lang;
 
 if ($lang == "ua") {
@@ -1496,12 +1298,12 @@ if ($lang == "ua") {
         "th" => "th"
     );
     }
-    // если передали дату, то переводим ее
+    
     if (func_num_args() > 1) {
         $timestamp = func_get_arg(1);
         return strtr(date(func_get_arg(0), $timestamp), $translate);
     } else {
-// иначе текущую дату
+
         return strtr(date(func_get_arg(0)), $translate);
     }
 }
@@ -1509,7 +1311,6 @@ if ($lang == "ua") {
 function dt_format ($input) {
 
     $dat=date_create($input);
-    //$last_bu = date_format($dat, 'H:i, D, d M');
     $v=rus_date("H:i, D, j M", strtotime($input));
     echo($v);
 }
@@ -1517,7 +1318,6 @@ function dt_format ($input) {
 function dt_format_full ($input) {
 
     $dat=date_create($input);
-    //$last_bu = date_format($dat, 'H:i, D, d M');
     $v=rus_date("H:i:s, D, j M", strtotime($input));
     echo($v);
 }
@@ -1525,14 +1325,12 @@ function dt_format_full ($input) {
 function dt_format_full_r ($input) {
 
     $dat=date_create($input);
-    //$last_bu = date_format($dat, 'H:i, D, d M');
     $v=rus_date("H:i, D, j M", strtotime($input));
     return($v);
 }
 function dt_format_short ($input) {
 
     $dat=date_create($input);
-    //$last_bu = date_format($dat, 'H:i, D, d M');
     $v=rus_date("H:i", strtotime($input));
     return($v);
 }
@@ -1544,7 +1342,6 @@ function time_ago($in) {
     $datetime2 = date_create('now',new DateTimeZone('Europe/Kiev'));
     $interval = date_diff($datetime1, $datetime2);
     echo $interval->format('%d д %h:%I');
-    //echo strftime("%e", strtotime($interval));
 
 }
 function humanTiming_period ($time1, $time_ago)
@@ -1570,7 +1367,6 @@ if ($lang == "ua") {
     foreach ($tokens as $unit => $text) {
         if ($time < $unit) continue;
         $numberOfUnits = floor($time / $unit);
-        //substr($numberOfUnits, -1)
         if ($text=='міс') {
             if ($numberOfUnits == "1") {$text="місяць";}
             if (($numberOfUnits >= "2") && ($numberOfUnits <= "4")) {$text="місяці";} //3,4
@@ -1579,32 +1375,32 @@ if ($lang == "ua") {
 
         if ($text=='тижд') {
             if (substr($numberOfUnits, -1) == "1") {$text="тиждень";}
-            if ((substr($numberOfUnits, -1) >= "2") && (substr($numberOfUnits, -1) <= "4")) {$text="тижні";} //3,4
+            if ((substr($numberOfUnits, -1) >= "2") && (substr($numberOfUnits, -1) <= "4")) {$text="тижні";} 
             if (substr($numberOfUnits, -1) > "4") {$text="тижнів";}
         }
 
         if ($text=='дн') {
             if (substr($numberOfUnits, -1) == "1") {$text="день";}
-            if ((substr($numberOfUnits, -1) >= "2") && (substr($numberOfUnits, -1) <= "4")) {$text="дні";} //3,4
+            if ((substr($numberOfUnits, -1) >= "2") && (substr($numberOfUnits, -1) <= "4")) {$text="дні";} 
             if (substr($numberOfUnits, -1) > "4") {$text="днів";}
         }
 
         if ($text=='год') {
             if (substr($numberOfUnits, -1) == "1") {$text="година";}
-            if ((substr($numberOfUnits, -1) >= "2") && (substr($numberOfUnits, -1) <= "4")) {$text="години";} //3,4
+            if ((substr($numberOfUnits, -1) >= "2") && (substr($numberOfUnits, -1) <= "4")) {$text="години";} 
             if (substr($numberOfUnits, -1) > "4") {$text="годин";}
         }
 
 
         if ($text=='хв') {
             if (substr($numberOfUnits, -1) == "1") {$text="хвилина";}
-            if ((substr($numberOfUnits, -1) >= "2") && (substr($numberOfUnits, -1) <= "4")) {$text="хвилини";} //3,4
+            if ((substr($numberOfUnits, -1) >= "2") && (substr($numberOfUnits, -1) <= "4")) {$text="хвилини";} 
             if (substr($numberOfUnits, -1) > "4") {$text="хвилин";}
         }
 
         if ($text=='сек') {
             if (substr($numberOfUnits, -1) == "1") {$text="секунда";}
-            if ((substr($numberOfUnits, -1) >= "2") && (substr($numberOfUnits, -1) <= "4")) {$text="секунд";} //3,4
+            if ((substr($numberOfUnits, -1) >= "2") && (substr($numberOfUnits, -1) <= "4")) {$text="секунд";} 
             if (substr($numberOfUnits, -1) > "4") {$text="секунд";}
         }
 
@@ -1613,7 +1409,6 @@ if ($lang == "ua") {
         return $numberOfUnits.' '.$text.(($numberOfUnits>1)?'':'');
 
 
-        //return $time;
 
     }
 }
@@ -1729,7 +1524,7 @@ else if ($lang == "en") {
 function humanTiming ($time)
 {
 global $lang;
-    $time = time() - $time; // to get the time since that moment
+    $time = time() - $time; 
 
     $tokens = array (
         31536000 => 'р',
@@ -1748,41 +1543,41 @@ if ($lang == "ua") {
     foreach ($tokens as $unit => $text) {
         if ($time < $unit) continue;
         $numberOfUnits = floor($time / $unit);
-        //substr($numberOfUnits, -1)
+        
         if ($text=='міс') {
             if ($numberOfUnits == "1") {$text="місяць";}
-            if (($numberOfUnits >= "2") && ($numberOfUnits <= "4")) {$text="місяці";} //3,4
+            if (($numberOfUnits >= "2") && ($numberOfUnits <= "4")) {$text="місяці";} 
             if ($numberOfUnits > "4") {$text="місяців";}
         }
 
         if ($text=='тижд') {
             if (substr($numberOfUnits, -1) == "1") {$text="тиждень";}
-            if ((substr($numberOfUnits, -1) >= "2") && (substr($numberOfUnits, -1) <= "4")) {$text="тижні";} //3,4
+            if ((substr($numberOfUnits, -1) >= "2") && (substr($numberOfUnits, -1) <= "4")) {$text="тижні";} 
             if (substr($numberOfUnits, -1) > "4") {$text="тижнів";}
         }
 
         if ($text=='дн') {
             if (substr($numberOfUnits, -1) == "1") {$text="день";}
-            if ((substr($numberOfUnits, -1) >= "2") && (substr($numberOfUnits, -1) <= "4")) {$text="дні";} //3,4
+            if ((substr($numberOfUnits, -1) >= "2") && (substr($numberOfUnits, -1) <= "4")) {$text="дні";} 
             if (substr($numberOfUnits, -1) > "4") {$text="днів";}
         }
 
         if ($text=='год') {
             if (substr($numberOfUnits, -1) == "1") {$text="година";}
-            if ((substr($numberOfUnits, -1) >= "2") && (substr($numberOfUnits, -1) <= "4")) {$text="години";} //3,4
+            if ((substr($numberOfUnits, -1) >= "2") && (substr($numberOfUnits, -1) <= "4")) {$text="години";} 
             if (substr($numberOfUnits, -1) > "4") {$text="годин";}
         }
 
 
         if ($text=='хв') {
             if (substr($numberOfUnits, -1) == "1") {$text="хвилина";}
-            if ((substr($numberOfUnits, -1) >= "2") && (substr($numberOfUnits, -1) <= "4")) {$text="хвилини";} //3,4
+            if ((substr($numberOfUnits, -1) >= "2") && (substr($numberOfUnits, -1) <= "4")) {$text="хвилини";} 
             if (substr($numberOfUnits, -1) > "4") {$text="хвилин";}
         }
 
         if ($text=='сек') {
             if (substr($numberOfUnits, -1) == "1") {$text="секунда";}
-            if ((substr($numberOfUnits, -1) >= "2") && (substr($numberOfUnits, -1) <= "4")) {$text="секунд";} //3,4
+            if ((substr($numberOfUnits, -1) >= "2") && (substr($numberOfUnits, -1) <= "4")) {$text="секунд";} 
             if (substr($numberOfUnits, -1) > "4") {$text="секунд";}
         }
 
@@ -1802,7 +1597,7 @@ else if ($lang == "en") {
     foreach ($tokens as $unit => $text) {
         if ($time < $unit) continue;
         $numberOfUnits = floor($time / $unit);
-        //substr($numberOfUnits, -1)
+        
         if ($text=='міс') {
             if ($numberOfUnits == "1") {$text="month";}
             if (($numberOfUnits >= "2") && ($numberOfUnits <= "4")) {$text="month";} //3,4
@@ -1811,32 +1606,32 @@ else if ($lang == "en") {
 
         if ($text=='тижд') {
             if (substr($numberOfUnits, -1) == "1") {$text="week";}
-            if ((substr($numberOfUnits, -1) >= "2") && (substr($numberOfUnits, -1) <= "4")) {$text="weeks";} //3,4
+            if ((substr($numberOfUnits, -1) >= "2") && (substr($numberOfUnits, -1) <= "4")) {$text="weeks";} 
             if (substr($numberOfUnits, -1) > "4") {$text="weeks";}
         }
 
         if ($text=='дн') {
             if (substr($numberOfUnits, -1) == "1") {$text="day";}
-            if ((substr($numberOfUnits, -1) >= "2") && (substr($numberOfUnits, -1) <= "4")) {$text="days";} //3,4
+            if ((substr($numberOfUnits, -1) >= "2") && (substr($numberOfUnits, -1) <= "4")) {$text="days";} 
             if (substr($numberOfUnits, -1) > "4") {$text="days";}
         }
 
         if ($text=='год') {
             if (substr($numberOfUnits, -1) == "1") {$text="hour";}
-            if ((substr($numberOfUnits, -1) >= "2") && (substr($numberOfUnits, -1) <= "4")) {$text="hours";} //3,4
+            if ((substr($numberOfUnits, -1) >= "2") && (substr($numberOfUnits, -1) <= "4")) {$text="hours";} 
             if (substr($numberOfUnits, -1) > "4") {$text="hours";}
         }
 
 
         if ($text=='хв') {
             if (substr($numberOfUnits, -1) == "1") {$text="minute";}
-            if ((substr($numberOfUnits, -1) >= "2") && (substr($numberOfUnits, -1) <= "4")) {$text="minutes";} //3,4
+            if ((substr($numberOfUnits, -1) >= "2") && (substr($numberOfUnits, -1) <= "4")) {$text="minutes";} 
             if (substr($numberOfUnits, -1) > "4") {$text="minutes";}
         }
 
         if ($text=='сек') {
             if (substr($numberOfUnits, -1) == "1") {$text="second";}
-            if ((substr($numberOfUnits, -1) >= "2") && (substr($numberOfUnits, -1) <= "4")) {$text="seconds";} //3,4
+            if ((substr($numberOfUnits, -1) >= "2") && (substr($numberOfUnits, -1) <= "4")) {$text="seconds";} 
             if (substr($numberOfUnits, -1) > "4") {$text="seconds";}
         }
 
@@ -1845,7 +1640,7 @@ else if ($lang == "en") {
         return $numberOfUnits.' '.$text.(($numberOfUnits>1)?'':'');
 
 
-        //return $time;
+        
 
     }
 }
@@ -1855,41 +1650,41 @@ else if ($lang == "ru") {
     foreach ($tokens as $unit => $text) {
         if ($time < $unit) continue;
         $numberOfUnits = floor($time / $unit);
-        //substr($numberOfUnits, -1)
+        
         if ($text=='міс') {
             if ($numberOfUnits == "1") {$text="месяц";}
-            if (($numberOfUnits >= "2") && ($numberOfUnits <= "4")) {$text="месяца";} //3,4
+            if (($numberOfUnits >= "2") && ($numberOfUnits <= "4")) {$text="месяца";} 
             if ($numberOfUnits > "4") {$text="месяцев";}
         }
 
         if ($text=='тижд') {
             if (substr($numberOfUnits, -1) == "1") {$text="неделя";}
-            if ((substr($numberOfUnits, -1) >= "2") && (substr($numberOfUnits, -1) <= "4")) {$text="недели";} //3,4
+            if ((substr($numberOfUnits, -1) >= "2") && (substr($numberOfUnits, -1) <= "4")) {$text="недели";} 
             if (substr($numberOfUnits, -1) > "4") {$text="недель";}
         }
 
         if ($text=='дн') {
             if (substr($numberOfUnits, -1) == "1") {$text="день";}
-            if ((substr($numberOfUnits, -1) >= "2") && (substr($numberOfUnits, -1) <= "4")) {$text="дня";} //3,4
+            if ((substr($numberOfUnits, -1) >= "2") && (substr($numberOfUnits, -1) <= "4")) {$text="дня";} 
             if (substr($numberOfUnits, -1) > "4") {$text="дней";}
         }
 
         if ($text=='год') {
             if (substr($numberOfUnits, -1) == "1") {$text="час";}
-            if ((substr($numberOfUnits, -1) >= "2") && (substr($numberOfUnits, -1) <= "4")) {$text="часа";} //3,4
+            if ((substr($numberOfUnits, -1) >= "2") && (substr($numberOfUnits, -1) <= "4")) {$text="часа";} 
             if (substr($numberOfUnits, -1) > "4") {$text="часов";}
         }
 
 
         if ($text=='хв') {
             if (substr($numberOfUnits, -1) == "1") {$text="минута";}
-            if ((substr($numberOfUnits, -1) >= "2") && (substr($numberOfUnits, -1) <= "4")) {$text="минут";} //3,4
+            if ((substr($numberOfUnits, -1) >= "2") && (substr($numberOfUnits, -1) <= "4")) {$text="минут";} 
             if (substr($numberOfUnits, -1) > "4") {$text="минут";}
         }
 
         if ($text=='сек') {
             if (substr($numberOfUnits, -1) == "1") {$text="секунда";}
-            if ((substr($numberOfUnits, -1) >= "2") && (substr($numberOfUnits, -1) <= "4")) {$text="секунд";} //3,4
+            if ((substr($numberOfUnits, -1) >= "2") && (substr($numberOfUnits, -1) <= "4")) {$text="секунд";} 
             if (substr($numberOfUnits, -1) > "4") {$text="секунд";}
         }
 
@@ -1898,7 +1693,7 @@ else if ($lang == "ru") {
         return $numberOfUnits.' '.$text.(($numberOfUnits>1)?'':'');
 
 
-        //return $time;
+        
 
     }
 }
@@ -1910,7 +1705,7 @@ else if ($lang == "ru") {
 function humanTiming_old ($time)
 {
 
-    $time = time() - $time; // to get the time since that moment
+    $time = time() - $time; 
 
     return floor($time/86400);
 }
@@ -1929,26 +1724,17 @@ global $dbConnection;
 	$dep = $stmt->fetch(PDO::FETCH_ASSOC);
 	
 	
-    /*$query="SELECT name FROM deps where id='$val'";
-    $rest = mysql_query($query) or die(mysql_error());
-    $dep= mysql_fetch_assoc( $rest );
-    */
-    
+        
     $res.=$dep['name'];
     $res.="<br>";
     }
-    //else { echo "не определено";}
+    
     echo $res;
 }
 
 function name_of_user($input) {
 	global $dbConnection;
-    //include("../dbconnect.inc.php");
-    /*$query="SELECT fio FROM users where id='$input'";
-    $res = mysql_query($query) or die(mysql_error());
-    $fio= mysql_fetch_assoc( $res );*/
-    
-    
+        
     $stmt = $dbConnection->prepare('SELECT fio FROM users where id=:input');
 	$stmt->execute(array(':input' => $input));
 	$fio = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -1957,13 +1743,8 @@ function name_of_user($input) {
 }
 
 function name_of_user_ret($input) {
-    //include("../dbconnect.inc.php");
     global $dbConnection;
     
-    /*$query="SELECT fio FROM users where id='$input'";
-    $res = mysql_query($query) or die(mysql_error());
-    $fio= mysql_fetch_assoc( $res );
-    */
     
     $stmt = $dbConnection->prepare('SELECT fio FROM users where id=:input');
 	$stmt->execute(array(':input' => $input));
@@ -1974,14 +1755,9 @@ function name_of_user_ret($input) {
 }
 
 function unit_of_user($input) {
-    //include("../dbconnect.inc.php");
     global $dbConnection;
     
-    /*$query="SELECT unit FROM users where id='$input'";
-    $res = mysql_query($query) or die(mysql_error());
-    $fio= mysql_fetch_assoc( $res );*/
-    
-    $stmt = $dbConnection->prepare('SELECT unit FROM users where id=:input');
+        $stmt = $dbConnection->prepare('SELECT unit FROM users where id=:input');
 	$stmt->execute(array(':input' => $input));
 	$fio = $stmt->fetch(PDO::FETCH_ASSOC);
 	
@@ -2025,14 +1801,9 @@ global $dbConnection;
 	$total_ticket = $stmt->fetch(PDO::FETCH_ASSOC);
 	
 	
-	/*$q_total="select date_op from ticket_log where ticket_id='$id' and msg='ok' order by date_op DESC";
-    $res_total = mysql_query($q_total) or die(mysql_error());
-    $total_ticket= mysql_fetch_assoc( $res_total );*/
-    
-    
+	    
     $tt=$total_ticket['date_op'];
     
     return humanTiming_period($d_create, $tt);
-	//return $d_create;
 }
 ?>

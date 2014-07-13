@@ -3634,9 +3634,19 @@ VALUES ('$max_id', '$client_fio', '$client_tel', '$client_login', '$unit_desc', 
 
 
 
-			 $stmt = $dbConnection->prepare('insert into clients (id, fio, tel, login, unit_desc, adr, email, posada)
-VALUES (:max_id, :client_fio, :client_tel, :client_login, :unit_desc, :client_adr,  :client_mail, :client_posada)');
-			 $stmt->execute(array(':max_id'=>$max_id, ':client_fio'=>$client_fio, ':client_login'=>$client_login, ':unit_desc'=>$unit_desc, ':client_adr'=>$client_adr, ':client_mail'=>$client_mail, ':client_posada'=>$client_posada));
+			 $stmt = $dbConnection->prepare('insert into clients 
+			 (id, fio, tel, login, unit_desc, adr, email, posada)
+			 VALUES 
+			 (:max_id, :client_fio, :client_tel, :client_login, :unit_desc, :client_adr,  :client_mail, :client_posada)');
+			 $stmt->execute(array(
+			 ':max_id'			=>	$max_id, 
+			 ':client_fio'		=>	$client_fio, 
+			 ':client_tel'		=>	$client_tel,
+			 ':client_login'	=>	$client_login, 
+			 ':unit_desc'		=>	$unit_desc, 
+			 ':client_adr'		=>	$client_adr, 
+			 ':client_mail'		=>	$client_mail, 
+			 ':client_posada'	=>	$client_posada));
 
 
                 /*$queryid_ticket="SELECT MAX(id) max_id FROM tickets";
@@ -3658,8 +3668,21 @@ VALUES (:max_id, :client_fio, :client_tel, :client_login, :unit_desc, :client_ad
                 mysql_query ( $query_add_ticket ) or die(mysql_error());*/
                 
                 $stmt = $dbConnection->prepare('INSERT INTO tickets
-								(id, user_init_id,user_to_id,date_create,subj,msg, client_id, unit_id, status, hash_name, prio, last_update) VALUES (:max_id_res_ticket, :user_init_id, :user_to_id, now(),:subj, :msg,:max_id,:unit_id, :status, :hashname, :prio, now())');
-			 $stmt->execute(array(':max_id_res_ticket'=>$max_id_res_ticket,':user_init_id'=>$user_init_id,':user_to_id'=>$user_to_id,':subj'=>$subj,':msg'=>$msg,':max_id'=>$max_id,':unit_id'=>$unit_id,':status'=>$status,':hashname'=>$hashname,':prio'=>$prio));
+				(id, user_init_id,user_to_id,date_create,subj,msg, client_id, unit_id, status, hash_name, prio, last_update) 
+				VALUES 
+				(:max_id_res_ticket, :user_init_id, :user_to_id, now(),:subj, :msg,:max_id,:unit_id, :status, :hashname, :prio, now())');
+			
+			 $stmt->execute(array(
+			 ':max_id_res_ticket'	=>	$max_id_res_ticket,
+			 ':user_init_id'		=>	$user_init_id,
+			 ':user_to_id'			=>	$user_to_id,
+			 ':subj'				=>	$subj,
+			 ':msg'					=>	$msg,
+			 ':max_id'				=>	$max_id,
+			 ':unit_id'				=>	$unit_id,
+			 ':status'				=>	$status,
+			 ':hashname'			=>	$hashname,
+			 ':prio'				=>	$prio));
                 
                 
                 
