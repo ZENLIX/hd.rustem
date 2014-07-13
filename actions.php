@@ -3360,14 +3360,20 @@ values (:unlock, now(), :unow, :tid)');
             $to=($_POST['to']);
             $tou=($_POST['tou']);
             $tom=($_POST['tom']);
+            
+            if (strlen($tom) > 2) { 
+            
 			$x_refer_comment='<small class=\"text-muted\">'.nameshort(name_of_user_ret($_SESSION['helpdesk_user_id'])).' '.lang('REFER_comment_add').' ('.date(' d.m.Y h:i:s').'):</small> '.strip_tags(xss_clean(($_POST['tom'])));
-//echo "refer";
-            /*$query_update_ticket= "update tickets set unit_id='$to', user_to_id='$tou', msg=concat(msg,'<br>','$x_refer_comment'), lock_by='0', last_update=now() where id='$tid'";
-            mysql_query ( $query_update_ticket )or die(mysql_error());*/
+
             
             $stmt = $dbConnection->prepare('update tickets set unit_id=:to, user_to_id=:tou, msg=concat(msg,:br,:x_refer_comment), lock_by=:n, last_update=now() where id=:tid');
 			$stmt->execute(array(':to'=>$to,':tou'=>$tou,':br'=>'<br>',':x_refer_comment'=>$x_refer_comment,':tid' => $tid, ':n'=>'0'));
-            
+            }
+            else if (strlen($tom) <= 2) { 
+                        
+            $stmt = $dbConnection->prepare('update tickets set unit_id=:to, user_to_id=:tou, lock_by=:n, last_update=now() where id=:tid');
+			$stmt->execute(array(':to'=>$to,':tou'=>$tou,':br'=>'<br>',':tid' => $tid, ':n'=>'0'));
+            }
             
             
 //echo $query_update_ticket;
