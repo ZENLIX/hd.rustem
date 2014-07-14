@@ -675,7 +675,7 @@ if (isset($_POST['menu'])) {
 			$stmt = $dbConnection->prepare('SELECT 
 							id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read, lock_by, ok_by, prio, last_update
 							from tickets
-							where unit_id IN (:units:)  and arch=:n
+							where unit_id IN (:units)  and arch=:n
 							order by ok_by asc, prio desc, id desc
 							limit :start_pos, :perpage');
 
