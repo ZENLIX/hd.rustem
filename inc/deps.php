@@ -10,11 +10,6 @@ if (validate_admin($_SESSION['helpdesk_user_id'])) {
   
 
 ?>
-<style>
-.table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
-padding: 3px;
-}
-</style>
 
 
 <div class="container">
@@ -40,7 +35,7 @@ padding: 3px;
       
 <?php 
 	
-		//$results = mysql_query("select id, name from deps where id!='0';");
+		
 	
 	
 			$stmt = $dbConnection->prepare('select id, name from deps where id!=:n');
@@ -62,7 +57,7 @@ padding: 3px;
         </thead>
 		<tbody>		
 		<?php 
-		//while ($row = mysql_fetch_assoc($results)) {
+		
 			foreach($res1 as $row) {
 		?>
 		<tr id="tr_<?=$row['id'];?>">

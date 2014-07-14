@@ -10,11 +10,7 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
  
 
 ?>
-<style>
-.table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
-padding: 3px;
-}
-</style>
+
 <input type="hidden" id="main_last_new_ticket" value="<?=get_last_ticket_new($_SESSION['helpdesk_user_id']);?>">
 <?php
 $usid=$_SESSION['helpdesk_user_id'];

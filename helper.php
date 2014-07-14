@@ -11,11 +11,6 @@ if ($_SESSION['helpdesk_user_id']) {
 if (isset($_GET['h'])) {
 
 $h=($_GET['h']);
-/*$query="select id, user_init_id, unit_to_id, dt, title, message, hashname
-							from helper
-							where hashname='$h';";
-    $res = mysql_query($query) or die(mysql_error());
-    $fio= mysql_fetch_assoc( $res );*/
     
     
     
@@ -23,7 +18,6 @@ $h=($_GET['h']);
 							from helper where hashname=:h');
 	$stmt->execute(array(':h' => $h));
 	$fio = $stmt->fetch(PDO::FETCH_ASSOC);
-    //echo($fio['fio']);
 
 
 	?>
@@ -66,11 +60,6 @@ else if (!isset($_GET['h'])) {
 
 
 
-	    <style>
-        .table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
-            padding: 3px;
-        }
-    </style>
 <div class="container">
 <input type="hidden" id="main_last_new_ticket" value="<?=get_last_ticket_new($_SESSION['helpdesk_user_id']);?>">
 	<div class="page-header" style="margin-top: -15px;">

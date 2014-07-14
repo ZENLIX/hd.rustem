@@ -10,11 +10,7 @@ if (validate_admin($_SESSION['helpdesk_user_id'])) {
   
 
 ?>
-<style>
-.table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
-padding: 3px;
-}
-</style>
+
 
 
 <div class="container">

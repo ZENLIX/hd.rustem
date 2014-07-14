@@ -1,7 +1,7 @@
 <?php
 session_start();
 include("functions.inc.php");
-$title_header=lang('NEW_title')." - ".$CONF['name_of_firm'];
+$CONF['title_header']=lang('NEW_title')." - ".$CONF['name_of_firm'];
 if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
 if ($_SESSION['helpdesk_user_id']) {
    include("inc/head.inc.php");
@@ -13,22 +13,7 @@ if ($_SESSION['helpdesk_user_id']) {
 
 <div class="container" id="form_add">
 <input type="hidden" id="main_last_new_ticket" value="<?=get_last_ticket_new($_SESSION['helpdesk_user_id']);?>">
-<link rel="stylesheet" href="css/jquery.fileupload.css">
-<style>
 
-    .animated {
-        -webkit-transition: height 0.2s;
-        -moz-transition: height 0.2s;
-        transition: height 0.2s;
-    }
-
-
-    .popover
-    {
-        min-width: 300px ! important;
-    }
-    
-</style>
 
 <div class="row" style="padding-bottom:20px;">
 
@@ -322,17 +307,7 @@ if ($CONF['fix_ticket_subj'] == false) {
 <br>
 </div>
 <div class="col-md-4">
-    <style>
-        .table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
-            padding: 5px;}
-        .panel-body {
-            padding: 5px;
-        }
-        .table {
-            width: 100%;
-            margin-bottom: 0px;
-        }
-    </style>
+
     <div class="panel panel-success" id="user_info" style="display: block;">
 
 

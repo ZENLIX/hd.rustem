@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 error_reporting(0);
 include_once("../functions.inc.php");
@@ -19,20 +18,12 @@ if (isset($_POST['menu'])) {
         $start_pos = ($page - 1) * $perpage;
         $user_id=id_of_user($_SESSION['helpdesk_user_login']);
 
-        /*$results = mysql_query("SELECT 
-							id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read,lock_by, ok_by, prio
-							from tickets
-							where user_init_id='$user_id' and arch='0'
-							order by id desc
-							limit $start_pos, $perpage
-							");
-							*/
-							
-		    $stmt = $dbConnection->prepare('SELECT id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read,lock_by, ok_by, prio from tickets where user_init_id=:user_id and arch=:n order by id desc limit :start_pos, :perpage');
 
-			$stmt->execute(array(':user_id' => $user_id, ':n'=>'0',':start_pos'=>$start_pos,':perpage'=>$perpage));
-			$res1 = $stmt->fetchAll();
-								
+        $stmt = $dbConnection->prepare('SELECT id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read,lock_by, ok_by, prio from tickets where user_init_id=:user_id and arch=:n order by id desc limit :start_pos, :perpage');
+
+        $stmt->execute(array(':user_id' => $user_id, ':n'=>'0',':start_pos'=>$start_pos,':perpage'=>$perpage));
+        $res1 = $stmt->fetchAll();
+
 
 
 
@@ -73,8 +64,7 @@ if (isset($_POST['menu'])) {
 
                 <?php
 
-                //while ($row = mysql_fetch_assoc($results)) {
-					foreach($res1 as $row) {
+                foreach($res1 as $row) {
                     $lb=$row['lock_by'];
                     $ob=$row['ok_by'];
 
@@ -164,10 +154,10 @@ if (isset($_POST['menu'])) {
 
 
                     if ($row['status'] == 1) {$st=  "<span class=\"label label-success\"><i class=\"fa fa-check-circle\"></i> ".lang('t_list_a_oko')." ".nameshort(name_of_user_ret($ob))."</span>";
-	                    $t_ago=get_date_ok($row['date_create'], $row['id']);
+                        $t_ago=get_date_ok($row['date_create'], $row['id']);
                     }
                     if ($row['status'] == 0) {
-                    	$t_ago=humanTiming(strtotime($row['date_create']));
+                        $t_ago=humanTiming(strtotime($row['date_create']));
                         if ($lb <> 0) {$st=  "<span class=\"label label-warning\"><i class=\"fa fa-gavel\"></i> ".lang('t_list_a_lock_u')." ".nameshort(name_of_user_ret($lb))."</span>";}
                         if ($lb == 0) {$st=  "<span class=\"label label-primary\"><i class=\"fa fa-clock-o\"></i> ".lang('t_list_a_hold')."</span>";}
                     }
@@ -224,105 +214,70 @@ if (isset($_POST['menu'])) {
         $user_id=id_of_user($_SESSION['helpdesk_user_login']);
         $unit_user=unit_of_user($user_id);
         $priv_val=priv_status($user_id);
-        /*
-        $results = mysql_query("SELECT 
-                            id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read, lock_by, ok_by, prio
-                            from tickets
-                            where unit_id='$unit_user'  and arch='0'
-                            order by id DESC
-                            limit $start_pos, $perpage
-                            ");
-                            */
+
 
         $units = explode(",", $unit_user);
         $units = implode("', '", $units);
-        //print_r($units);
-
-        //$units = "'". implode("', '", $units) ."'";
-        //echo $units;
-        //print_r ($list);
-
-
 
 
 
         if ($priv_val == 0) {
-            /*$results = mysql_query("SELECT 
-							id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read, lock_by, ok_by, prio, last_update, arch
-							from tickets
-							where ((unit_id IN (".$units.") and arch='0') or (user_init_id='$user_id')) and (id='$z' or subj like '%" . $z . "%') limit 10
-							");*/
-							
-			$stmt = $dbConnection->prepare('SELECT 
+
+
+            $stmt = $dbConnection->prepare('SELECT 
 							id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read, lock_by, ok_by, prio, last_update, arch
 							from tickets
 							where ((unit_id IN (:units) and arch=:n) or (user_init_id=:user_id)) and (id=:z or subj like :z1) limit 10');
 
-			$stmt->execute(array(':units' => $units, ':n'=>'0',':user_id'=>$user_id,':z'=>$z,':z1'=>$z));
-			$res1 = $stmt->fetchAll();
-							
-							
-							
-							
-							
+            $stmt->execute(array(':units' => $units, ':n'=>'0',':user_id'=>$user_id,':z'=>$z,':z1'=>$z));
+            $res1 = $stmt->fetchAll();
+
+
+
+
+
         }
         else if ($priv_val == 1) {
-        
-        
-            /*$results = mysql_query("SELECT 
-							id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read, lock_by, ok_by, prio, last_update, arch
-							from tickets
-							where (((user_to_id='$user_id') or
-							(user_to_id='0' and unit_id IN (".$units.") )) or user_init_id='$user_id') and (id='$z' or subj like '%" . $z . "%')
-							limit 10
-							");
-							*/
-							
-										$stmt = $dbConnection->prepare('SELECT 
+
+
+
+            $stmt = $dbConnection->prepare('SELECT 
 							id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read, lock_by, ok_by, prio, last_update, arch
 							from tickets
 							where (((user_to_id=:user_id) or
 							(user_to_id=:n and unit_id IN (:units) )) or user_init_id=:user_id2) and (id=:z or subj like :z1)
 							limit 10');
 
-			$stmt->execute(array(':units' => $units, ':n'=>'0',':user_id'=>$user_id,':z'=>$z,':z1'=>$z,':user_id2'=>$user_id));
-			$res1 = $stmt->fetchAll();
-							
-							
-							
-							
-							
-							
+            $stmt->execute(array(':units' => $units, ':n'=>'0',':user_id'=>$user_id,':z'=>$z,':z1'=>$z,':user_id2'=>$user_id));
+            $res1 = $stmt->fetchAll();
+
+
+
+
+
+
         }
 
 
         else if ($priv_val == 2) {
-            /*$results = mysql_query("SELECT 
-							id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read, lock_by, ok_by, prio, last_update, arch
-							from tickets
-							where id='$z' or subj like '%" . $z . "%'
-							limit 10
-							");
-							*/
-							
-			$stmt = $dbConnection->prepare('SELECT 
+
+            $stmt = $dbConnection->prepare('SELECT 
 							id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read, lock_by, ok_by, prio, last_update, arch
 							from tickets
 							where id=:z or subj like :z1
 							limit 10');
 
-			$stmt->execute(array(':z'=>$z,':z1'=>$z));
-			$res1 = $stmt->fetchAll();
-			
-			
-							
-							
-							
+            $stmt->execute(array(':z'=>$z,':z1'=>$z));
+            $res1 = $stmt->fetchAll();
+
+
+
+
+
         }
 
 
-        //$count_rows = mysql_numrows($results);
-        //if ($count_rows == "0") {
+
         if(empty($res1)) {
             ?>
             <div class="well well-large well-transparent lead">
@@ -334,7 +289,7 @@ if (isset($_POST['menu'])) {
         }
 
 
-        //if ($count_rows <> "0") {
+
         else if(!empty($res1)) {
 
             ?>
@@ -355,24 +310,12 @@ if (isset($_POST['menu'])) {
             </thead>
             <tbody>
             <?php
-            //while ($row = mysql_fetch_assoc($results)) {
+
             foreach($res1 as $row) {
                 $lb=$row['lock_by'];
                 $ob=$row['ok_by'];
                 $arch = $row['arch'];
-                /*
-                if (priv_status($user_id) == "0") {
-                    $lock_st="";	$muclass="";
-                }
-                if (priv_status($user_id) == "1") {
-                    if ($lb <> $user_id) {$lock_st="disabled=\"disabled\""; $muclass="text-muted";}
-                    if (($lb == "0") || ($lb == $user_id)) {$lock_st=""; $muclass="";}
-                }
-                
-                */
 
-//$lock_st="disabled=\"disabled\"";
-//$muclass="text-muted";
 
                 $user_id_z=id_of_user($_SESSION['helpdesk_user_login']);
                 $unit_user_z=unit_of_user($user_id_z);
@@ -560,9 +503,9 @@ if (isset($_POST['menu'])) {
                 }
                 if ($row['status'] == 1) {$t_ago=get_date_ok($row['date_create'], $row['id']);}
                 if ($row['status'] == 0) {$t_ago=humanTiming(strtotime($row['date_create']));}
-                
-                
-                
+
+
+
                 ?>
                 <tr id="tr_<?php echo $row['id']; ?>" class="<?=$style?>">
                     <td style=" vertical-align: middle; "><small class="<?=$muclass;?>"><center><?php echo $row['id']; ?></center></small></td>
@@ -609,51 +552,12 @@ if (isset($_POST['menu'])) {
         $unit_user=unit_of_user($user_id);
         $priv_val=priv_status($user_id);
 
-        /*
-        cookie['sort']={id, prio, создание, обновление}
-        
-        order by id DESC
-        order by ok_by asc, prio desc, id desc
-        */
+
         $units = explode(",", $unit_user);
         $units = implode("', '", $units);
 
 
 
-        /*
-        if ($_SESSION['helpdesk_sort_prio'] == "asc" )  {$order.="prio asc"; $prio_icon="<i class=\"fa fa-caret-down\"></i>";}
-        if ($_SESSION['helpdesk_sort_prio'] == "desc" ) {$order.="prio desc"; $prio_icon="<i class=\"fa fa-caret-up\"></i>";}
-        if ($_SESSION['helpdesk_sort_prio'] == "none" ) {$order.=""; $prio_icon="";}
-        
-        if ($_SESSION['helpdesk_sort_id'] == "asc" )  {$order.="id asc"; $id_icon="<i class=\"fa fa-caret-down\"></i>";}
-        if ($_SESSION['helpdesk_sort_id'] == "desc" ) {$order.="id desc"; $id_icon="<i class=\"fa fa-caret-up\"></i>";}
-        if ($_SESSION['helpdesk_sort_id'] == "none" ) {$order.=""; $id_icon="";}
-        
-        if ($_SESSION['helpdesk_sort_subj'] == "asc" )  {$order.="subj asc";  $subj_icon="<i class=\"fa fa-caret-down\"></i>";}
-        if ($_SESSION['helpdesk_sort_subj'] == "desc" ) {$order.="subj desc"; $subj_icon="<i class=\"fa fa-caret-up\"></i>";}
-        if ($_SESSION['helpdesk_sort_subj'] == "none" ) {$order.=""; $subj_icon="";}
-        
-        if ($_SESSION['helpdesk_sort_clientid'] == "asc" )  {$order.="client_id asc";  $cli_icon="<i class=\"fa fa-caret-down\"></i>";}
-        if ($_SESSION['helpdesk_sort_clientid'] == "desc" ) {$order.="client_id desc"; $cli_icon="<i class=\"fa fa-caret-up\"></i>";}
-        if ($_SESSION['helpdesk_sort_clientid'] == "none" ) {$order.=""; 		 $cli_icon="";}
-                       
-        if ($_SESSION['helpdesk_sort_userinitid'] == "asc" )  {$order.="user_init_id asc";  $init_icon="<i class=\"fa fa-caret-down\"></i>";}
-        if ($_SESSION['helpdesk_sort_userinitid'] == "desc" ) {$order.="user_init_id desc"; $init_icon="<i class=\"fa fa-caret-up\"></i>";}
-        if ($_SESSION['helpdesk_sort_userinitid'] == "none" ) {$order.="";          $init_icon="";}
-        
-        
-        if ($order == "") {$order="ok_by asc, prio desc, id desc";}
-        */
-
-
-        //client_id       user_init_id
-        //,user_init_id,unit_id,user_to_id
-
-
-
-
-
-        //$order=$order1.",".$order3;
 
 
 
@@ -661,46 +565,29 @@ if (isset($_POST['menu'])) {
 
 
         if ($priv_val == 0) {
-            /*$results = mysql_query("SELECT 
-							id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read, lock_by, ok_by, prio, last_update
-							from tickets
-							where unit_id IN (".$units.")  and arch='0'
-							order by ok_by asc, prio desc, id desc
-							limit $start_pos, $perpage
-							");
-							*/
-							
-							
-							
-			$stmt = $dbConnection->prepare('SELECT 
+
+
+
+            $stmt = $dbConnection->prepare('SELECT 
 							id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read, lock_by, ok_by, prio, last_update
 							from tickets
 							where unit_id IN (:units)  and arch=:n
 							order by ok_by asc, prio desc, id desc
 							limit :start_pos, :perpage');
 
-			$stmt->execute(array(':units' => $units, ':n'=>'0',':start_pos'=>$start_pos,':perpage'=>$perpage));
-			$res1 = $stmt->fetchAll();
-							
-							
-							
-							
-							
+            $stmt->execute(array(':units' => $units, ':n'=>'0',':start_pos'=>$start_pos,':perpage'=>$perpage));
+            $res1 = $stmt->fetchAll();
+
+
+
+
+
         }
         else if ($priv_val == 1) {
-            
-            /*$results = mysql_query("SELECT 
-							id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read, lock_by, ok_by, prio, last_update
-							from tickets
-							where ((user_to_id='$user_id' and arch='0') or
-							(user_to_id='0' and unit_id IN (".$units.") and arch='0'))
-							order by ok_by asc, prio desc, id desc
-							limit $start_pos, $perpage
-							");
-							*/
-							
-							
-							$stmt = $dbConnection->prepare('SELECT 
+
+
+
+            $stmt = $dbConnection->prepare('SELECT 
 							id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read, lock_by, ok_by, prio, last_update
 							from tickets
 							where ((user_to_id=:user_id and arch=:n) or
@@ -709,33 +596,25 @@ if (isset($_POST['menu'])) {
 							limit :start_pos, :perpage');
 
 
-			$stmt->execute(array(':user_id'=>$user_id,':units' => $units, ':n'=>'0',':n1'=>'0',':n2'=>'0',':start_pos'=>$start_pos,':perpage'=>$perpage));
-			$res1 = $stmt->fetchAll();
-							
-							
+            $stmt->execute(array(':user_id'=>$user_id,':units' => $units, ':n'=>'0',':n1'=>'0',':n2'=>'0',':start_pos'=>$start_pos,':perpage'=>$perpage));
+            $res1 = $stmt->fetchAll();
+
+
         }
         else if ($priv_val == 2) {
-            
-            /*results = mysql_query("SELECT 
-							id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read, lock_by, ok_by, prio, last_update
-							from tickets
-							where arch='0'
-							order by ok_by asc, prio desc, id desc
-							limit $start_pos, $perpage
-							");
-							*/
-							
-							
-							$stmt = $dbConnection->prepare('SELECT 
+
+
+
+            $stmt = $dbConnection->prepare('SELECT 
 							id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read, lock_by, ok_by, prio, last_update
 							from tickets
 							where arch=:n
 							order by ok_by asc, prio desc, id desc
 							limit :start_pos, :perpage');
 
-			$stmt->execute(array(':n'=>'0',':start_pos'=>$start_pos,':perpage'=>$perpage));
-			$res1 = $stmt->fetchAll();
-							
+            $stmt->execute(array(':n'=>'0',':start_pos'=>$start_pos,':perpage'=>$perpage));
+            $res1 = $stmt->fetchAll();
+
         }
 
 
@@ -785,24 +664,11 @@ if (isset($_POST['menu'])) {
             <tbody>
 
             <?php
-            //if (mysql_num_rows($results) > 0) {
-            //while ($row = mysql_fetch_assoc($results)) {
-				foreach($res1 as $row) {
+
+            foreach($res1 as $row) {
                 $lb=$row['lock_by'];
                 $ob=$row['ok_by'];
-                /*
-                if (priv_status($user_id) == "0") {
-                    $lock_st="";	$muclass="";
-                }
-                if (priv_status($user_id) == "1") {
-                    if ($lb <> $user_id) {$lock_st="disabled=\"disabled\""; $muclass="text-muted";}
-                    if (($lb == "0") || ($lb == $user_id)) {$lock_st=""; $muclass="";}
-                }
-                
-                */
 
-//$lock_st="disabled=\"disabled\"";
-//$muclass="text-muted";
 
                 $user_id_z=$_SESSION['helpdesk_user_id'];
                 $unit_user_z=unit_of_user($user_id_z);
@@ -999,38 +865,25 @@ if (isset($_POST['menu'])) {
 
                 if ($row['prio'] == "2") {$prio= "<span class=\"label label-danger\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".lang('t_list_a_p_high')."\"><i class=\"fa fa-arrow-up\"></i></span>"; }
 
-                /*
-                          if ($row['status'] == 1) {$st=  "<i class=\"fa fa-check-circle\"></i> виконано ".nameshort(name_of_user_ret($ob));} 
-                          if ($row['status'] == 0) {
-                              if ($lb <> 0) {
-                                  if ($lb == $user_id) {$st=  "<i class=\"fa fa-gavel\"></i> працює ".nameshort(name_of_user_ret($lb));}
-                                  if ($lb <> $user_id) {$st=  "<i class=\"fa fa-gavel\"></i> працює ".nameshort(name_of_user_ret($lb));}
-                              
-                              
-                              }
-                              if ($lb == 0) {$st=  "<i class=\"fa fa-clock-o\"></i> очікування дії";}
-                          }
-                    
-                        
-                        */
 
 
 
-                
-                
-                
+
+
+
+
                 if ($row['status'] == 1) {$st=  "<span class=\"label label-success\"><i class=\"fa fa-check-circle\"></i> ".lang('t_list_a_oko')." ".nameshort(name_of_user_ret($ob))."</span>";
-	                $t_ago=get_date_ok($row['date_create'], $row['id']);
+                    $t_ago=get_date_ok($row['date_create'], $row['id']);
                 }
                 if ($row['status'] == 0) {
-                $t_ago=humanTiming(strtotime($row['date_create']));
+                    $t_ago=humanTiming(strtotime($row['date_create']));
                     if ($lb <> 0) {
 
                         if ($lb == $user_id) {$st=  "<span class=\"label label-warning\"><i class=\"fa fa-gavel\"></i> ".lang('t_list_a_lock_i')."</span>";}
 
                         if ($lb <> $user_id) {$st=  "<span class=\"label label-default\"><i class=\"fa fa-gavel\"></i> ".lang('t_list_a_lock_u')." ".nameshort(name_of_user_ret($lb))."</span>";}
 
-                        //$st=$lb;
+
 
                     }
                     if ($lb == 0) {$st=  "<span class=\"label label-primary\"><i class=\"fa fa-clock-o\"></i> ".lang('t_list_a_hold')."</span>";}
@@ -1081,23 +934,11 @@ if (isset($_POST['menu'])) {
         }
     }
     if ($_POST['menu'] == 'arch' ) {
-        /*
-        
-        
-        
-        Если 0 (нач отдела) то может смотреть все заявки своего отдела
-        
-        
-        
-        
-        
-        
-        
-        */
+
         $page=($_POST['page']);
         $perpage='10';
         $start_pos = ($page - 1) * $perpage;
-        //$page='N';
+
 
 
         $user_id=id_of_user($_SESSION['helpdesk_user_login']);
@@ -1106,45 +947,29 @@ if (isset($_POST['menu'])) {
         $units = implode("', '", $units);
         $priv_val=priv_status($user_id);
         if ($priv_val == 0) {
-            
-            /*$results = mysql_query("SELECT 
-							id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read, lock_by, ok_by, ok_date
-							from tickets
-							where (unit_id IN (".$units.") or user_init_id='$user_id') and arch='1'
-							order by id DESC
-							limit $start_pos, $perpage
-							");
-							*/
-							
-							
-			$stmt = $dbConnection->prepare('SELECT 
+
+
+
+            $stmt = $dbConnection->prepare('SELECT 
 							id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read, lock_by, ok_by, ok_date
 							from tickets
 							where (unit_id IN (:units) or user_init_id=:user_id) and arch=:n
 							order by id DESC
 							limit :start_pos, :perpage');
 
-			$stmt->execute(array(':n'=>'1',':units'=>$units, ':user_id'=>$user_id,':start_pos'=>$start_pos,':perpage'=>$perpage));
-			$res1 = $stmt->fetchAll();
-							
-							
-							
-							
+            $stmt->execute(array(':n'=>'1',':units'=>$units, ':user_id'=>$user_id,':start_pos'=>$start_pos,':perpage'=>$perpage));
+            $res1 = $stmt->fetchAll();
+
+
+
+
         }
         else if ($priv_val == 1) {
 
-            /*$results = mysql_query("SELECT 
-							id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read, lock_by, ok_by, ok_date
-							from tickets
-							where ((user_to_id='$user_id' and unit_id IN (".$units.") and arch='1') or
-							(user_to_id='0' and unit_id IN (".$units.") and arch='1')) or (user_init_id='$user_id' and arch='1')
-							order by id DESC
-							limit $start_pos, $perpage
-							");
-							*/
-							
-							
-			$stmt = $dbConnection->prepare('SELECT 
+
+
+
+            $stmt = $dbConnection->prepare('SELECT 
 							id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read, lock_by, ok_by, ok_date
 							from tickets
 							where ((user_to_id=:user_id and unit_id IN (:units) and arch=:n) or
@@ -1152,37 +977,31 @@ if (isset($_POST['menu'])) {
 							order by id DESC
 							limit :start_pos, :perpage');
 
-			$stmt->execute(array(':n'=>'1',':n1'=>'0',':n2'=>'1',':n3'=>'1',':units'=>$units,':units2'=>$units, ':user_id'=>$user_id, ':user_id2'=>$user_id,':start_pos'=>$start_pos,':perpage'=>$perpage));
-			$res1 = $stmt->fetchAll();
-							
-							
-							
-							
+            $stmt->execute(array(':n'=>'1',':n1'=>'0',':n2'=>'1',':n3'=>'1',':units'=>$units,':units2'=>$units, ':user_id'=>$user_id, ':user_id2'=>$user_id,':start_pos'=>$start_pos,':perpage'=>$perpage));
+            $res1 = $stmt->fetchAll();
+
+
+
+
         }
         else	if ($priv_val == 2) {
-            /*$results = mysql_query("SELECT 
-							id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read, lock_by, ok_by, ok_date
-							from tickets
-							where arch='1'
-							order by id DESC
-							limit $start_pos, $perpage
-							");*/
-							
-							
-							
-			$stmt = $dbConnection->prepare('SELECT 
+
+
+
+
+            $stmt = $dbConnection->prepare('SELECT 
 							id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read, lock_by, ok_by, ok_date
 							from tickets
 							where arch=:n
 							order by id DESC
 							limit :start_pos, :perpage');
 
-			$stmt->execute(array(':n'=>'1',':start_pos'=>$start_pos,':perpage'=>$perpage));
-			$res1 = $stmt->fetchAll();
-							
-							
-							
-							
+            $stmt->execute(array(':n'=>'1',':start_pos'=>$start_pos,':perpage'=>$perpage));
+            $res1 = $stmt->fetchAll();
+
+
+
+
         }
 
         $aha=get_total_pages('arch', $user_id);
@@ -1221,8 +1040,8 @@ if (isset($_POST['menu'])) {
                 <?php
 
 
-                //while ($row = mysql_fetch_assoc($results)) {
-foreach($res1 as $row) {
+
+                foreach($res1 as $row) {
 
 
                     if ($row['user_to_id'] <> 0 ) {

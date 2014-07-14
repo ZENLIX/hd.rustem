@@ -1,29 +1,25 @@
 $(document).ready(function() {
-//$("#main_login").hide().fadeIn(500);
-//$("#div_new").hide().fadeIn(500);
-function get_lang_param(par) {
-var result="";
-	$.ajax({
-                type: "POST",
-                url: "actions.php",
-                data: "mode=get_lang_param"+
+
+    function get_lang_param(par) {
+        var result="";
+        $.ajax({
+            type: "POST",
+            url: "actions.php",
+            data: "mode=get_lang_param"+
                 "&param="+par,
-                async: false,
-                success: function(html){
-                	//alert(html);
-                	
-                	result=html;
-                }
-                });
-                //alert (res);
-                return (result);
-                
-};
+            async: false,
+            success: function(html){
+
+                result=html;
+            }
+        });
+        return (result);
+
+    };
 
 
     $('textarea').autosize({append: "\n"});
 
-    //$('#mc').prettyCheckable();
 
 
     $('#my-select').multiSelect({
@@ -34,16 +30,13 @@ var result="";
 
     var settingsShow = function() {
         var showPanel = $(".chosen-select").find('option:selected').attr('id');
-        //$("#settings-tabs .tab").hide();
-        //$("#" + showPanel).fadeIn("fast");
-        //alert(showPanel);
+
     }
     $(".chosen-select").chosen({
         no_results_text: "Не знайдено...",
         allow_single_deselect: true,
     });
     $(".chosen-select").chosen().change(settingsShow);
-    //$.fn.editable.defaults.url = 'admin/edit_order.php';
     $.fn.editable.defaults.mode = 'inline';
     $("#user_info").hide();
     $("#alert_add").hide();
@@ -52,7 +45,7 @@ var result="";
 
 
 
-        $("#fio").autocomplete({
+    $("#fio").autocomplete({
         max: 10,
         minLength: 2,
         source: "json.php?fio",
@@ -62,13 +55,11 @@ var result="";
         },
         select: function(event, ui) {
             $("#fio").val(ui.item.label);
-            //$("#user_login").val(ui.item.label2);
             $("#client_id_param").val(ui.item.value);
-			$('#fio').popover('hide');
+            $('#fio').popover('hide');
             $('#for_fio').removeClass('has-error').addClass('has-success');
             $("#user_info").hide().fadeIn(500);
             $("#alert_add").hide();
-            //alert('ok');
             $.ajax({
                 type: "POST",
                 url: "actions.php",
@@ -104,7 +95,6 @@ var result="";
 
                 }
             });
-            //$("#city_id").val(ui.item.value);
             return false;
         },
         change: function(event, ui) {
@@ -114,7 +104,6 @@ var result="";
 
 
                 if (ui.item == null) {
-                    //$("#user_login").val('');
                     $("#user_info").hide();
                     $("#status_action").val('add');
                     $('#fio').popover('hide');
@@ -161,7 +150,6 @@ var result="";
                         }
                     });
                 } else {
-                    //alert("selected item: " + ui.item.value);
                 }
 
             }
@@ -179,7 +167,7 @@ var result="";
 
 
     });
-        $("select#to").blur(function() {
+    $("select#to").blur(function() {
 
         if ( $('select#to').val() != 0 ){
 
@@ -196,51 +184,47 @@ var result="";
 
     });
 
-function createuserslist(unit_id) {
-	//ajax 
-	//alert(unit_id);
-	
-	$.ajax({
-                            type: "POST",
-                            url: "actions.php",
-                            data: "mode=get_users_list"+
-                                "&unit="+unit_id,
-                            dataType: "json",
-                            success: function(html){
-                            $('select#users_do').empty();
-                                if (html) {
-                                    $.each(html, function(i, item) {
-	                                    $('select#users_do')
-										.append($("<option></option>")
-										.attr("value",item.co)
-										.text(item.name));
-	                                    //item.name item.co
-	                                    
-                                    });
-                                    }
-                                    $('select#users_do').trigger('chosen:updated');
-                                    //alert($('select#users_do').val());
-                                    }
-                                    
-                                    });
-	
-	
-	
-	
-}
+    function createuserslist(unit_id) {
+
+
+        $.ajax({
+            type: "POST",
+            url: "actions.php",
+            data: "mode=get_users_list"+
+                "&unit="+unit_id,
+            dataType: "json",
+            success: function(html){
+                $('select#users_do').empty();
+                if (html) {
+                    $.each(html, function(i, item) {
+                        $('select#users_do')
+                            .append($("<option></option>")
+                                .attr("value",item.co)
+                                .text(item.name));
+
+                    });
+                }
+                $('select#users_do').trigger('chosen:updated');
+            }
+
+        });
+
+
+
+
+    }
 
 
     $("select#to").change(function() {
-		var i=$('select#to').val();
+        var i=$('select#to').val();
         if ( $('select#to').val() != 0 ){
 
             $('#for_to').popover('hide');
             $('#for_to').removeClass('has-error');
             $('#for_to').addClass('has-success');
-            
+
             createuserslist(i);
-            //PROBLEM!
-            
+
         }
         else {
 
@@ -284,33 +268,6 @@ function createuserslist(unit_id) {
         }
 
     });
-    /*
-     $("#subj").blur(function() {
-     if($(this).val().length > 1) {
-     // Enable submit button
-     $("#subj").popover('hide');
-     $("#for_subj").removeClass('has-error').addClass('has-success');
-
-     } else {
-     // Disable submit button
-     $("#subj").popover('show');
-     $("#for_subj").addClass('has-error');
-     }
-     });
-
-     $("#subj").keypress(function() {
-     if($(this).val().length > 1) {
-     // Enable submit button
-     $("#subj").popover('hide');
-     $("#for_subj").removeClass('has-error').addClass('has-success');
-
-     } else {
-     // Disable submit button
-     $("#subj").popover('show');
-     $("#for_subj").addClass('has-error');
-     }
-     });
-     */
 
 
 
@@ -331,12 +288,10 @@ function createuserslist(unit_id) {
 
     $("textarea#msg").blur(function() {
         if($(this).val().length > 1) {
-            // Enable submit button
             $("textarea#msg").popover('hide');
             $("#for_msg").removeClass('has-error').addClass('has-success');
 
         } else {
-            // Disable submit button
             $("textarea#msg").popover('show');
             $("#for_msg").addClass('has-error');
         }
@@ -344,12 +299,10 @@ function createuserslist(unit_id) {
 
     $("textarea#msg").keypress(function() {
         if($(this).val().length > 1) {
-            // Enable submit button
             $("textarea#msg").popover('hide');
             $("#for_msg").removeClass('has-error').addClass('has-success');
 
         } else {
-            // Disable submit button
             $("textarea#msg").popover('show');
             $("#for_msg").addClass('has-error');
         }
@@ -361,35 +314,29 @@ function createuserslist(unit_id) {
         totalPages: $("#total_pages").val(),
         bootstrapMajorVersion: 3,
         size: "small",
-        //alignment:"center",
         itemContainerClass: function (type, page, current) {
             return (page === current) ? "active" : "pointer-cursor";
         },
         onPageClicked: function(e,originalEvent,type,page){
-			var current=$("#curent_page").attr('value');
+            var current=$("#curent_page").attr('value');
 
-			if (page != current) {
+            if (page != current) {
 
-            $("#curent_page").attr('value', page);
+                $("#curent_page").attr('value', page);
 
-            //$('#alert-content').text("Page item clicked, type: "+type+" page: "+page);
-            //$("#spinner").fadeIn(300);
+                $.ajax({
+                    type: "POST",
+                    url: "inc/workers.inc.php",
+                    data: "page="+page+
+                        "&menu=list",
+                    success: function(html){
+                        $("#content_worker").hide().html(html).fadeIn(500);
+                        $('[data-toggle="tooltip"]').tooltip({container: 'body', html:true});
+                    }
+                });
+            }
 
-            $.ajax({
-                type: "POST",
-                url: "inc/workers.inc.php",
-                data: "page="+page+
-                "&menu=list",
-                success: function(html){
-                    $("#content_worker").hide().html(html).fadeIn(500);
-                    //$("#spinner").hide();
-                    $('[data-toggle="tooltip"]').tooltip({container: 'body', html:true});
-                }
-            });
-}
 
-            //menu=out
-            //page=N
         }
 
     }
@@ -400,35 +347,33 @@ function createuserslist(unit_id) {
         totalPages: $("#total_pages").val(),
         bootstrapMajorVersion: 3,
         size: "small",
-        //alignment:"center",
         itemContainerClass: function (type, page, current) {
             return (page === current) ? "active" : "pointer-cursor";
         },
         onPageClicked: function(e,originalEvent,type,page){
-			var current=$("#curent_page").attr('value');
+            var current=$("#curent_page").attr('value');
 
-			if (page != current) {
+            if (page != current) {
 
-            $("#curent_page").attr('value', page);
+                $("#curent_page").attr('value', page);
 
-            //$('#alert-content').text("Page item clicked, type: "+type+" page: "+page);
-            $("#spinner").fadeIn(300);
 
-            $.ajax({
-                type: "POST",
-                url: "inc/list_content.inc.php",
-                data: "menu=in"+
-                    "&page="+page,
-                success: function(html){
-                    $("#content").hide().html(html).fadeIn(500);
-                    $("#spinner").hide();
-                    $('[data-toggle="tooltip"]').tooltip({container: 'body', html:true});
-                }
-            });
-}
+                $("#spinner").fadeIn(300);
 
-            //menu=out
-            //page=N
+                $.ajax({
+                    type: "POST",
+                    url: "inc/list_content.inc.php",
+                    data: "menu=in"+
+                        "&page="+page,
+                    success: function(html){
+                        $("#content").hide().html(html).fadeIn(500);
+                        $("#spinner").hide();
+                        $('[data-toggle="tooltip"]').tooltip({container: 'body', html:true});
+                    }
+                });
+            }
+
+
         }
 
     }
@@ -441,27 +386,24 @@ function createuserslist(unit_id) {
             return (page === current) ? "active" : "pointer-cursor";
         },
         onPageClicked: function(e,originalEvent,type,page){
-            //$('#alert-content').text("Page item clicked, type: "+type+" page: "+page);
             var current=$("#curent_page").attr('value');
 
-			if (page != current) {
-            $("#spinner").fadeIn(300);
-            $("#curent_page").attr('value', page);
-            $.ajax({
-                type: "POST",
-                url: "inc/list_content.inc.php",
-                data: "menu=out"+
-                    "&page="+page,
-                success: function(html){
-                    $("#content").hide().html(html).fadeIn(500);
-                    $("#spinner").hide();
-                    $('[data-toggle="tooltip"]').tooltip({container: 'body', html:true});
-                }
-            });
-}
+            if (page != current) {
+                $("#spinner").fadeIn(300);
+                $("#curent_page").attr('value', page);
+                $.ajax({
+                    type: "POST",
+                    url: "inc/list_content.inc.php",
+                    data: "menu=out"+
+                        "&page="+page,
+                    success: function(html){
+                        $("#content").hide().html(html).fadeIn(500);
+                        $("#spinner").hide();
+                        $('[data-toggle="tooltip"]').tooltip({container: 'body', html:true});
+                    }
+                });
+            }
 
-            //menu=out
-            //page=N
         }
 
     }
@@ -474,28 +416,26 @@ function createuserslist(unit_id) {
             return (page === current) ? "active" : "pointer-cursor";
         },
         onPageClicked: function(e,originalEvent,type,page){
-        var current=$("#curent_page").attr('value');
+            var current=$("#curent_page").attr('value');
 
-			if (page != current) {
-            $("#curent_page").attr('value', page);
-            //$('#alert-content').text("Page item clicked, type: "+type+" page: "+page);
-            $("#spinner").fadeIn(300);
+            if (page != current) {
+                $("#curent_page").attr('value', page);
+                $("#spinner").fadeIn(300);
 
-            $.ajax({
-                type: "POST",
-                url: "inc/list_content.inc.php",
-                data: "menu=arch"+
-                    "&page="+page,
-                success: function(html){
-                    $("#content").hide().html(html).fadeIn(500);
-                    $("#spinner").hide();
-                    $('[data-toggle="tooltip"]').tooltip({container: 'body', html:true});
-                }
-            });
-}
+                $.ajax({
+                    type: "POST",
+                    url: "inc/list_content.inc.php",
+                    data: "menu=arch"+
+                        "&page="+page,
+                    success: function(html){
+                        $("#content").hide().html(html).fadeIn(500);
+                        $("#spinner").hide();
+                        $('[data-toggle="tooltip"]').tooltip({container: 'body', html:true});
+                    }
+                });
+            }
 
-            //menu=out
-            //page=N
+
         }
 
     }
@@ -503,22 +443,9 @@ function createuserslist(unit_id) {
     $('#example_in').bootstrapPaginator(options_in);
     $('#example_out').bootstrapPaginator(options_out);
     $('#example_arch').bootstrapPaginator(options_arch);
-	$('#example_workers').bootstrapPaginator(options_workers);
+    $('#example_workers').bootstrapPaginator(options_workers);
 
-    /*
-     $('#unit_id').editable({
-     inputclass: 'input-sm',
-     emptytext: 'пусто',
-     value: $('#unit_id').attr("value"),    
-     source: [
-     {value: 1, text: 'Відділ впровадження інформаційних систем'},
-     {value: 2, text: 'Сектор зв\'язку'},
-     {value: 3, text: 'Відділ інформаційної безпеки та адміністрування мереж'},
-     {value: 4, text: 'Відділ супроводження користувачів'},
-     {value: 5, text: 'Відділ супроводження інформаційних систем'}
-     ]
-     });
-     */
+
 
     $.ionSound({
         sounds: [
@@ -534,53 +461,38 @@ function createuserslist(unit_id) {
         layout: 'top',
         theme: 'defaultTheme',
         type: 'information',
-        text: '', // can be html or string
-        dismissQueue: true, // If you want to use queue feature set this true
+        text: '',
+        dismissQueue: true,
         template: '<div class="noty_message"><button type="button" class="close" style="padding-left: 2px;margin-top: -5px;" aria-hidden="true">&times;</button><span class="noty_text"></span></div>',
         animation: {
             open: {height: 'toggle'},
             close: {height: 'toggle'},
             easing: 'swing',
-            speed: 500 // opening & closing animation speed
+            speed: 500
         },
-        timeout: false, // delay for closing event. Set false for sticky notifications
-        force: false, // adds notification to the beginning of queue when set to true
+        timeout: false,
+        force: false,
         modal: false,
-        maxVisible: 5, // you can set max visible notification for dismissQueue true option,
-        killer: false, // for close all notifications before show
-        closeWith: ['click'], // ['click', 'button', 'hover']
+        maxVisible: 5,
+        killer: false,
+        closeWith: ['click'],
         callback: {
             onShow: function() {},
             afterShow: function() {},
             onClose: function() {},
             afterClose: function() {}
         },
-        buttons: false // an array of buttons
+        buttons: false
     };
 
 
-
-
-
-
-    /*
-     <input type="hidden" id="main_last_new_ticket" value="<?php
-     echo get_last_ticket_new($_SESSION['helpdesk_user_id']);
-     ?>">
-     ajax проверить новые заявки
-     если есть то:
-     сообщение
-     если нет то:
-     */
 
 
 
 
 
     function check_update() {
-        //<input type="hidden" id="main_last_new_ticket" value="<?=get_last_ticket_new($_SESSION['helpdesk_user_id']);?>">
         var ee=$("#main_last_new_ticket").val();
-        //var hostadr=get_host_conf();
         if (ee) {
             $.ajax({
                 type: "POST",
@@ -589,10 +501,10 @@ function createuserslist(unit_id) {
                     "&type=all"+
                     "&last_update="+ee,
                 success: function(html){
-                    if (html == "no") {//alert('no');
+                    if (html == "no") {
                     }
                     else {
-                        var new_lu=html;	  											                  	
+                        var new_lu=html;
                         $.ajax({
                             type: "POST",
                             url: "actions.php",
@@ -609,7 +521,7 @@ function createuserslist(unit_id) {
                                             timeout: false
                                         });
                                         $.ionSound.play("button_tiny");
-										$.titleAlert(item.up);
+                                        $.titleAlert(item.up);
                                     });
                                 }
                                 $("#main_last_new_ticket").attr('value', new_lu);
@@ -619,13 +531,11 @@ function createuserslist(unit_id) {
                 }});
         }
     };
-    
-    
-    
-        function check_update_index() {
-        //<input type="hidden" id="main_last_new_ticket" value="<?=get_last_ticket_new($_SESSION['helpdesk_user_id']);?>">
+
+
+
+    function check_update_index() {
         var ee=$("#main_last_new_ticket").val();
-        //var hostadr=get_host_conf();
         if (ee) {
             $.ajax({
                 type: "POST",
@@ -634,10 +544,10 @@ function createuserslist(unit_id) {
                     "&type=all"+
                     "&last_update="+ee,
                 success: function(html){
-                    if (html == "no") {//alert('no');
+                    if (html == "no") {
                     }
                     else {
-                        var new_lu=html;	  											                  	
+                        var new_lu=html;
                         $.ajax({
                             type: "POST",
                             url: "actions.php",
@@ -654,46 +564,46 @@ function createuserslist(unit_id) {
                                             timeout: false
                                         });
                                         $.ionSound.play("button_tiny");
-										//$.titleAlert("Оновлено!");
-										            $.ajax({
-                type: "POST",
-                url: "actions.php",
-                data: "mode=last_news",
-                success: function(html){
-	                $('#last_news').html(html);
-	                $('[data-toggle="tooltip"]').tooltip('hide');
-	                $('[data-toggle="tooltip"]').tooltip({container: 'body', html:true});
-                }
-                });
-                $('#spinner').show();
-                                               $.ajax({
-                type: "POST",
-                url: "actions.php",
-                data: "mode=dashboard_t",
-                success: function(html){
-                
-	                $('#dashboard_t').html(html);
-	                $('#spinner').hide();
-	                $('[data-toggle="tooltip"]').tooltip('hide');
-	                $('[data-toggle="tooltip"]').tooltip({container: 'body', html:true});
-                }
-                });
-                
-                                                               $.ajax({
-                type: "POST",
-                url: "actions.php",
-                dataType: "json",
-                data: "mode=update_dashboard_labels",
-                success: function(html){
-						$.each(html, function(i, item) {
-							$('#d_label_1').html(item.a);
-							$('#d_label_2').html(item.b);
-							$('#d_label_3').html(item.c);
-						});
-                }
-                });
-                
-                
+
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "actions.php",
+                                            data: "mode=last_news",
+                                            success: function(html){
+                                                $('#last_news').html(html);
+                                                $('[data-toggle="tooltip"]').tooltip('hide');
+                                                $('[data-toggle="tooltip"]').tooltip({container: 'body', html:true});
+                                            }
+                                        });
+                                        $('#spinner').show();
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "actions.php",
+                                            data: "mode=dashboard_t",
+                                            success: function(html){
+
+                                                $('#dashboard_t').html(html);
+                                                $('#spinner').hide();
+                                                $('[data-toggle="tooltip"]').tooltip('hide');
+                                                $('[data-toggle="tooltip"]').tooltip({container: 'body', html:true});
+                                            }
+                                        });
+
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "actions.php",
+                                            dataType: "json",
+                                            data: "mode=update_dashboard_labels",
+                                            success: function(html){
+                                                $.each(html, function(i, item) {
+                                                    $('#d_label_1').html(item.a);
+                                                    $('#d_label_2').html(item.b);
+                                                    $('#d_label_3').html(item.c);
+                                                });
+                                            }
+                                        });
+
+
                                     });
                                 }
                                 $("#main_last_new_ticket").attr('value', new_lu);
@@ -705,34 +615,34 @@ function createuserslist(unit_id) {
     };
 
 
-    //check_update('hello');
-if (def_filename == "notes.php") {
 
-$.ajax({
-                type: "POST",
-                url: "actions.php",
-                data: "mode=get_list_notes",
-                success: function(html){
-	                $('#table_list').html(html);
-	                
-	                $.ajax({
-                type: "POST",
-                url: "actions.php",
-                data: "mode=get_first_note",
-                success: function(html){
-	                                }
-                });
-                
-                
-                }
+    if (def_filename == "notes.php") {
+
+        $.ajax({
+            type: "POST",
+            url: "actions.php",
+            data: "mode=get_list_notes",
+            success: function(html){
+                $('#table_list').html(html);
+
+                $.ajax({
+                    type: "POST",
+                    url: "actions.php",
+                    data: "mode=get_first_note",
+                    success: function(html){
+                    }
                 });
 
-		
 
-		
+            }
+        });
 
 
-}
+
+
+
+
+    }
 
     if (def_filename == "ticket.php") {
         setInterval(function(){
@@ -800,52 +710,49 @@ $.ajax({
             check_update();
         },5000);
     }
-        if (def_filename == "new.php") {
+    if (def_filename == "new.php") {
         setInterval(function(){
             check_update();
         },5000);
     }
-    
-            if (def_filename == "notes.php") {
-            $('#buttons').hide();
+
+    if (def_filename == "notes.php") {
+        $('#buttons').hide();
         setInterval(function(){
             check_update();
         },5000);
     }
 
     if ((def_filename == "index.php") || (def_filename == "")) {
-    //$('[data-toggle="tooltip"]').tooltip({container: 'body', html:true});
-               $.ajax({
-                type: "POST",
-                url: "actions.php",
-                data: "mode=last_news",
-                success: function(html){
-	                $('#last_news').html(html);
-	                //$('[data-toggle="tooltip"]').tooltip('hide');
-	                //$('[data-toggle="tooltip"]').tooltip({container: 'body', html:true});
-                }
-                });
-                $('#spinner').show();
-                               $.ajax({
-                type: "POST",
-                url: "actions.php",
-                data: "mode=dashboard_t",
-                success: function(html){
-	                $('#dashboard_t').html(html);
-	                $('#spinner').hide();
-	                //$('[data-toggle="tooltip"]').tooltip('hide');
-	                $('[data-toggle="tooltip"]').tooltip({container: 'body', html:true});
-                }
-                });
-                
-                
-                
+        $.ajax({
+            type: "POST",
+            url: "actions.php",
+            data: "mode=last_news",
+            success: function(html){
+                $('#last_news').html(html);
+
+            }
+        });
+        $('#spinner').show();
+        $.ajax({
+            type: "POST",
+            url: "actions.php",
+            data: "mode=dashboard_t",
+            success: function(html){
+                $('#dashboard_t').html(html);
+                $('#spinner').hide();
+                $('[data-toggle="tooltip"]').tooltip({container: 'body', html:true});
+            }
+        });
+
+
+
         setInterval(function(){
             check_update_index();
-            
-            
+
+
         },5000);
-        
+
     }
 
 
@@ -866,7 +773,6 @@ $.ajax({
             },
             function(start, end) {
                 $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-                //alert(start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD'));
                 $('#d_start').attr('value', start.format('YYYY-MM-DD'));
                 $('#d_stop').attr('value', end.format('YYYY-MM-DD'));
             }
@@ -877,29 +783,29 @@ $.ajax({
 
 
 
-if (def_filename == "helper.php") {
-setInterval(function(){
+    if (def_filename == "helper.php") {
+        setInterval(function(){
             check_update();
         },5000);
-        
-$.ajax({
-                type: "POST",
-                url: "actions.php",
-                data: "mode=list_help",
-                success: function(html) {
+
+        $.ajax({
+            type: "POST",
+            url: "actions.php",
+            data: "mode=list_help",
+            success: function(html) {
                 $("#help_content").html(html);
-}
-});
-};
+            }
+        });
+    };
 
 
 
 
-if (def_filename == "stats.php") {
-       setInterval(function(){
+    if (def_filename == "stats.php") {
+        setInterval(function(){
             check_update();
         },5000);
-	}
+    }
 
 
 
@@ -914,10 +820,7 @@ if (def_filename == "stats.php") {
             check_update();
 
 
-            /*
-             самое последнее изменение или создание старше чем то что есть то обновить.
-             */
-            //alert(oo);
+
 
 
             $.ajax({
@@ -927,10 +830,9 @@ if (def_filename == "stats.php") {
                     "&type="+pt+
                     "&last_update="+lt,
                 success: function(html){
-                    //alert(html);
-                    if (html == "no") {//alert('no');
+                    if (html == "no") {
                     }
-                    else {//alert('up');
+                    else {
                         if (oo == "null") {
                             window.location = "list.php?"+pt;
                         }
@@ -938,7 +840,6 @@ if (def_filename == "stats.php") {
                         var new_lu=html;
 
 
-                        //noty({text: '<i class=\"fa fa-refresh\"></i> Оновлено заявки!'});
                         $.ajax({
                             type: "POST",
                             url: "inc/list_content.inc.php",
@@ -948,14 +849,13 @@ if (def_filename == "stats.php") {
                                 $('[data-toggle="tooltip"]').tooltip('hide');
                                 $("#content").html(html);
 
-                                ////////////////////last_ticket _UPDATE!!!!!!
                                 $('[data-toggle="tooltip"]').tooltip({container: 'body', html:true});
                             }
                         });
 
 
-//update labels;
-							$.ajax({
+
+                        $.ajax({
                             type: "POST",
                             url: "actions.php",
                             data: "mode=update_list_labels",
@@ -963,18 +863,15 @@ if (def_filename == "stats.php") {
                             success: function(html){
                                 if (html) {
                                     $.each(html, function(i, item) {
-                                    //alert(item.in);
-                                    $('span#label_list_in').html(item.in);
-                                    $('span#label_list_out').html(item.out);
-                                    //label_list_out
-                                    
+                                        $('span#label_list_in').html(item.in);
+                                        $('span#label_list_out').html(item.out);
+
                                     });
-                                    }
-                                    }
-                                    });
+                                }
+                            }
+                        });
 
 
-                        //alert(new_lu+' & '+lt);
                         $("#last_ticket").attr('value', new_lu);
 
 
@@ -991,22 +888,6 @@ if (def_filename == "stats.php") {
 
 
 
-            /*
-
-             $.ajax({
-             type: "POST",
-             url: "list_content.inc.php",
-             data: "menu="+pt+
-             "&page="+oo,
-             success: function(html){
-             $('[data-toggle="tooltip"]').tooltip('hide');
-             $("#content").html(html);
-             //$("#spinner").hide();
-             $('[data-toggle="tooltip"]').tooltip({container: 'body'});
-             }
-             });
-
-             */
 
         },5000);
     }
@@ -1028,10 +909,9 @@ if (def_filename == "stats.php") {
                 data: "mode=find_worker"+
                     "&fio="+$("input#fio_find").val(),
                 success: function(html) {
-                    //alert(html);
-                    //window.location = "users.php?create&ok";
+
                     $("#content_worker").hide().html(html).fadeIn(500);
-                    //$("textarea#msg").val('')
+
 
                 }
             });
@@ -1041,52 +921,37 @@ if (def_filename == "stats.php") {
 
     $('body').on('click', 'button#create_new_help', function(event) {
         event.preventDefault();
-        
-        $.ajax({
-                type: "POST",
-                url: "actions.php",
-                data: "mode=create_helper",
-                success: function(html) {
-                    //alert(html);
-                    //window.location = "users.php?create&ok";
-                    $("#help_content").hide().html(html).fadeIn(500);
-                        var settingsShow = function() {
-        var showPanel = $(".chosen-select").find('option:selected').attr('id');
-    }
-    $(".chosen-select").chosen({
-        no_results_text: "Не знайдено...",
-        allow_single_deselect: true,
-    });
-    $(".chosen-select").chosen().change(settingsShow);
-    $('#summernote_help').summernote({
-	  height: 300,   //set editable area's height
-	  focus: true,
-	  lang: 'uk-UA'
-  });
 
-                }
-            });
-
-        
-        
-        });
-        
-        
-        //add_worker
-        /*
-        $('body').on('click', 'button#add_worker', function(event) {
-        event.preventDefault();
         $.ajax({
-        		type: "POST",
-                url: "inc/workers.inc.php",
-                data: "menu=new",
-                success: function(html){
-                $('#content_worker').html(html);
+            type: "POST",
+            url: "actions.php",
+            data: "mode=create_helper",
+            success: function(html) {
+
+                $("#help_content").hide().html(html).fadeIn(500);
+                var settingsShow = function() {
+                    var showPanel = $(".chosen-select").find('option:selected').attr('id');
                 }
+                $(".chosen-select").chosen({
+                    no_results_text: "Не знайдено...",
+                    allow_single_deselect: true,
                 });
+                $(".chosen-select").chosen().change(settingsShow);
+                $('#summernote_help').summernote({
+                    height: 300,
+                    focus: true,
+                    lang: 'uk-UA'
+                });
+
+            }
         });
-        */
-        
+
+
+
+    });
+
+
+
     $('body').on('click', 'button#action_refer_to', function(event) {
         event.preventDefault();
         var st=$("#action_refer_to").attr('value');
@@ -1103,301 +968,213 @@ if (def_filename == "stats.php") {
 
 
     });
-    
-                $('body').on('click', 'button#save_notes', function(event) {
+
+    $('body').on('click', 'button#save_notes', function(event) {
         event.preventDefault();
         var u=$(this).attr('value');
         var sHTML = $('#summernote').code();
         var data = { 'mode' : 'save_notes', 'hn' : u, 'msg' : sHTML };
-        
-        $.ajax({
-        		type: "POST",
-                url: "actions.php",
-                
-                data: data,
-                success: function(html){
-                //console.log(html);
-                	                 $.ajax({
-                type: "POST",
-                url: "actions.php",
-                data: "mode=get_list_notes",
-                success: function(html){
-	                $('#table_list').html(html);
-	                
-	                
-	                noty({
-                                            text: "Запис збережено",
-                                            layout: 'center',
-                                            type: 'information',
-                                            timeout: 2000
 
-                                        });
-	                
-	                
-                }
+        $.ajax({
+            type: "POST",
+            url: "actions.php",
+
+            data: data,
+            success: function(html){
+                //console.log(html);
+                $.ajax({
+                    type: "POST",
+                    url: "actions.php",
+                    data: "mode=get_list_notes",
+                    success: function(html){
+                        $('#table_list').html(html);
+
+
+                        noty({
+                            text: "Запис збережено",
+                            layout: 'center',
+                            type: 'information',
+                            timeout: 2000
+
+                        });
+
+
+                    }
                 });
-                }
-                });
-        
+            }
         });
 
-            $('body').on('click', 'a#to_notes', function(event) {
+    });
+
+    $('body').on('click', 'a#to_notes', function(event) {
         event.preventDefault();
         var u=$(this).attr('value');
         var hostadr=get_host_conf();
         var langp=get_lang_param('JS_save');
         var langup=get_lang_param('JS_pub');
 
-        //$('#save_notes').attr('value', u);
         $('#exampleInputEmail1').attr('value', hostadr+"/note.php?h="+u);
-		
+
         $.ajax({
-                type: "POST",
-                url: "actions.php",
-                data: "mode=get_notes"+
+            type: "POST",
+            url: "actions.php",
+            data: "mode=get_notes"+
                 "&hn="+u,
-                success: function(html){
+            success: function(html){
                 $('#summernote').destroy();
 
                 $('#summernote').html(html);
                 $('#buttons').show();
-                
-$('#summernote').summernote({
-	  height: 300,   //set editable area's height
-	  focus: true,
-	  lang: 'uk-UA',
-	  oninit: function() {
-            // Add "open" - "save" buttons
-            var openBtn = '<button id="save_notes" value="'+u+'" type="button" class="btn btn-success btn-sm btn-small" title="'+langp+'" data-event="something" tabindex="-1"><i class="fa fa-check-circle"></i></button>';
-            var saveBtn = '<button id="saveFileBtn" type="button" class="btn btn-warning btn-sm btn-small" title="'+langup+'" data-event="something" tabindex="-1" data-toggle="modal" data-target=".bs-example-modal-sm"><i class="fa fa-bullhorn"></i> </button>';
-            var fileGroup = '<div class="note-file btn-group">' + openBtn + saveBtn + '</div>';
-            $(fileGroup).prependTo($('.note-toolbar'));
-            // Button tooltips
-            $('#save_notes').tooltip({container: 'body', placement: 'bottom'});
-            $('#saveFileBtn').tooltip({container: 'body', placement: 'bottom'});
-            // Button events
-            /*
-            $('#openFileBtn').click(function(event) {
-                loadContent(editor);
-            });
-            $('#saveFileBtn').click(function(event) {
-                saveContent(editor);
-            });
-            */
-        }
-  });
-                
-                
-                                }
+
+                $('#summernote').summernote({
+                    height: 300,
+                    focus: true,
+                    lang: 'uk-UA',
+                    oninit: function() {
+
+                        var openBtn = '<button id="save_notes" value="'+u+'" type="button" class="btn btn-success btn-sm btn-small" title="'+langp+'" data-event="something" tabindex="-1"><i class="fa fa-check-circle"></i></button>';
+                        var saveBtn = '<button id="saveFileBtn" type="button" class="btn btn-warning btn-sm btn-small" title="'+langup+'" data-event="something" tabindex="-1" data-toggle="modal" data-target=".bs-example-modal-sm"><i class="fa fa-bullhorn"></i> </button>';
+                        var fileGroup = '<div class="note-file btn-group">' + openBtn + saveBtn + '</div>';
+                        $(fileGroup).prependTo($('.note-toolbar'));
+
+                        $('#save_notes').tooltip({container: 'body', placement: 'bottom'});
+                        $('#saveFileBtn').tooltip({container: 'body', placement: 'bottom'});
+                    }
                 });
-        
+
+
+            }
         });
 
-function get_host_conf() {
-var result="";
-	$.ajax({
-                type: "POST",
-                url: "actions.php",
-                data: "mode=get_host_conf",
-                async: false,
-                success: function(html){
-                	//alert(html);
-                	
-                	result=html;
-                }
-                });
-                //alert (res);
-                return (result);
-                
-};
-//var mmm=get_host_conf();
-//alert(mmm);
-//get_host_conf();
+    });
 
-/*
-$('body').on('click', 'button#delete_user', function(event) {
-        event.preventDefault();
-        var n_id=$(this).attr('value');
-        var lang_del=get_lang_param('JS_del');
-        
-        
-                        bootbox.confirm(lang_del, function(result) {
-  if (result == true) {
-	  $.ajax({
-                type: "POST",
-                url: "actions.php",
-                data: "mode=del_user"+
-                "&nid="+n_id,
-                success: function(html){
-                //alert(html);
-	                 $.ajax({
-                type: "POST",
-                url: "actions.php",
-                data: "mode=get_list_notes",
-                success: function(html){
-	             window.location = "users.php?list";
-                }
-                });
-                }
-                });
-	  
-	  
-  }
-  else if (result == false) {}
-});
-        
-        
-        
-        
-        
+    function get_host_conf() {
+        var result="";
+        $.ajax({
+            type: "POST",
+            url: "actions.php",
+            data: "mode=get_host_conf",
+            async: false,
+            success: function(html){
+
+
+                result=html;
+            }
         });
-*/
 
-        $('body').on('click', 'button#del_notes', function(event) {
+        return (result);
+
+    };
+
+    $('body').on('click', 'button#del_notes', function(event) {
         event.preventDefault();
         var n_id=$(this).attr('value');
         var langp=get_lang_param('JS_create');
-        /*$.ajax({
-                type: "POST",
-                url: "actions.php",
-                data: "mode=del_notes"+
-                "&nid="+$(this).attr('value'),
-                success: function(html){
-                //alert(html);
-	                 $.ajax({
-                type: "POST",
-                url: "actions.php",
-                data: "mode=get_list_notes",
-                success: function(html){
-	                $('#table_list').html(html);
-	                $('#summernote').destroy();
+        var lang_del=get_lang_param('JS_del');
+        bootbox.confirm(lang_del, function(result) {
+            if (result == true) {
+                $.ajax({
+                    type: "POST",
+                    url: "actions.php",
+                    data: "mode=del_notes"+
+                        "&nid="+n_id,
+                    success: function(html){
+                        //alert(html);
+                        $.ajax({
+                            type: "POST",
+                            url: "actions.php",
+                            data: "mode=get_list_notes",
+                            success: function(html){
+                                $('#table_list').html(html);
+                                $('#summernote').destroy();
 
-                $('#summernote').html("<div class=\"jumbotron\"><p><center>Створіть новий запис або оберіть...</center></p></div>");
-                $('#buttons').hide();
-                }
+                                $('#summernote').html("<div class=\"jumbotron\"><p><center>"+langp+"</center></p></div>");
+                                $('#buttons').hide();
+                            }
+                        });
+                    }
                 });
-                }
-                });
-                */
-                var lang_del=get_lang_param('JS_del');
-                bootbox.confirm(lang_del, function(result) {
-  if (result == true) {
-	  $.ajax({
-                type: "POST",
-                url: "actions.php",
-                data: "mode=del_notes"+
-                "&nid="+n_id,
-                success: function(html){
-                //alert(html);
-	                 $.ajax({
-                type: "POST",
-                url: "actions.php",
-                data: "mode=get_list_notes",
-                success: function(html){
-	                $('#table_list').html(html);
-	                $('#summernote').destroy();
 
-                $('#summernote').html("<div class=\"jumbotron\"><p><center>"+langp+"</center></p></div>");
-                $('#buttons').hide();
-                }
-                });
-                }
-                });
-	  
-	  
-  }
-  else if (result == false) {}
-});
+
+            }
+            else if (result == false) {}
         });
+    });
     $('body').on('click', 'button#create_new_note', function(event) {
         event.preventDefault();
         var langp=get_lang_param('JS_save');
         var langup=get_lang_param('JS_pub');
         $.ajax({
-                type: "POST",
-                url: "actions.php",
-                data: "mode=create_notes",
-                success: function(html){
-                //alert(html);
-                
-                
-                
-                
+            type: "POST",
+            url: "actions.php",
+            data: "mode=create_notes",
+            success: function(html){
+
                 var u=html;
                 var hostadr=get_host_conf();
-                //$('#save_notes').attr('value', u);
                 $('#exampleInputEmail1').attr('value', hostadr+"/note.php?h="+u);
-                        $.ajax({
-                type: "POST",
-                url: "actions.php",
-                data: "mode=get_notes"+
-                "&hn="+u,
-                success: function(html){
-                $('#summernote').destroy();
+                $.ajax({
+                    type: "POST",
+                    url: "actions.php",
+                    data: "mode=get_notes"+
+                        "&hn="+u,
+                    success: function(html){
+                        $('#summernote').destroy();
 
-                $('#summernote').html(html);
-                $('#buttons').show();
-                
-$('#summernote').summernote({
-	  height: 300,   //set editable area's height
-	  focus: true,
-	  lang: 'uk-UA',
-	  oninit: function() {
-            // Add "open" - "save" buttons
-            var openBtn = '<button id="save_notes" value="'+u+'" type="button" class="btn btn-success btn-sm btn-small" title="'+langp+'" data-event="something" tabindex="-1"><i class="fa fa-check-circle"></i></button>';
-            var saveBtn = '<button id="saveFileBtn" type="button" class="btn btn-warning btn-sm btn-small" title="'+langup+'" data-event="something" tabindex="-1" data-toggle="modal" data-target=".bs-example-modal-sm"><i class="fa fa-bullhorn"></i> </button>';
-            var fileGroup = '<div class="note-file btn-group">' + openBtn + saveBtn + '</div>';
-            $(fileGroup).prependTo($('.note-toolbar'));
-            // Button tooltips
-            $('#save_notes').tooltip({container: 'body', placement: 'bottom'});
-            $('#saveFileBtn').tooltip({container: 'body', placement: 'bottom'});
-            // Button events
-            /*
-            $('#openFileBtn').click(function(event) {
-                loadContent(editor);
-            });
-            $('#saveFileBtn').click(function(event) {
-                saveContent(editor);
-            });
-            */
-        }
-  });
+                        $('#summernote').html(html);
+                        $('#buttons').show();
 
-                
-                }
+                        $('#summernote').summernote({
+                            height: 300,
+                            focus: true,
+                            lang: 'uk-UA',
+                            oninit: function() {
+
+                                var openBtn = '<button id="save_notes" value="'+u+'" type="button" class="btn btn-success btn-sm btn-small" title="'+langp+'" data-event="something" tabindex="-1"><i class="fa fa-check-circle"></i></button>';
+                                var saveBtn = '<button id="saveFileBtn" type="button" class="btn btn-warning btn-sm btn-small" title="'+langup+'" data-event="something" tabindex="-1" data-toggle="modal" data-target=".bs-example-modal-sm"><i class="fa fa-bullhorn"></i> </button>';
+                                var fileGroup = '<div class="note-file btn-group">' + openBtn + saveBtn + '</div>';
+                                $(fileGroup).prependTo($('.note-toolbar'));
+                                $('#save_notes').tooltip({container: 'body', placement: 'bottom'});
+                                $('#saveFileBtn').tooltip({container: 'body', placement: 'bottom'});
+
+                            }
+                        });
+
+
+                    }
                 });
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-	                        $.ajax({
-                type: "POST",
-                url: "actions.php",
-                data: "mode=get_list_notes",
-                success: function(html){
-	                $('#table_list').html(html);
-                }
+
+
+
+
+
+
+
+
+
+
+                $.ajax({
+                    type: "POST",
+                    url: "actions.php",
+                    data: "mode=get_list_notes",
+                    success: function(html){
+                        $('#table_list').html(html);
+                    }
                 });
-                }
-                });
-                
-        
-                
-                
-                
-                
-        
+            }
         });
-    
-    
-    
-   
+
+
+
+
+
+
+
+    });
+
+
+
+
 
     $('body').on('click', 'button#units_del', function(event) {
         event.preventDefault();
@@ -1409,7 +1186,7 @@ $('#summernote').summernote({
                 "&id="+$(this).attr('value'),
             success: function(html) {
                 $("#content_units").html(html);
-                //$("#subj_text").val('');
+
             }
         });
 
@@ -1430,7 +1207,7 @@ $('#summernote').summernote({
                 "&e="+$("#d_stop").val(),
             success: function(html) {
                 $("#content_report").html(html);
-                //$("#subj_text").val('');
+
             }
         });
 
@@ -1464,7 +1241,7 @@ $('#summernote').summernote({
                 "&id="+$(this).attr('value'),
             success: function(html) {
                 $("#content_subj").html(html);
-                //$("#subj_text").val('');
+
             }
         });
 
@@ -1487,9 +1264,9 @@ $('#summernote').summernote({
 
     });
 
-    
-    
-        $('body').on('click', 'button#deps_del', function(event) {
+
+
+    $('body').on('click', 'button#deps_del', function(event) {
         event.preventDefault();
 
         $.ajax({
@@ -1499,12 +1276,12 @@ $('#summernote').summernote({
                 "&id="+$(this).attr('value'),
             success: function(html) {
                 $("#content_deps").html(html);
-                //$("#subj_text").val('');
+
             }
         });
 
     });
-        $('body').on('click', 'button#deps_add', function(event) {
+    $('body').on('click', 'button#deps_add', function(event) {
         event.preventDefault();
 
         $.ajax({
@@ -1546,19 +1323,16 @@ $('#summernote').summernote({
                 "&id="+$(this).attr('value'),
             success: function(html) {
                 $("#content_posada").html(html);
-                //$("#subj_text").val('');
+
             }
         });
 
     });
 
-    //$('#enable').click(function() {
-    // $('#edit_subj_ticket').editable('toggleDisabled');
-    //$('#edit_msg_ticket').editable('toggleDisabled');
+
 
     $('body').on('click', 'button#editable_enable', function(event) {
         event.preventDefault();
-        //$('#editable_enable').click(function() {
         $('#edit_subj_ticket').editable('toggleDisabled');
         $('#edit_msg_ticket').editable('toggleDisabled');
     });
@@ -1576,7 +1350,6 @@ $('#summernote').summernote({
                 "&id="+table_id,
             success: function() {
                 $(elem).fadeOut(500);
-                //alert(html);
             }
         });
 
@@ -1594,7 +1367,6 @@ $('#summernote').summernote({
                 "&id="+table_id,
             success: function() {
                 $(elem).fadeOut(500);
-                //alert(html);
             }
         });
 
@@ -1616,8 +1388,7 @@ $('#summernote').summernote({
                 "&lang="+$("select#lang").val()+
                 "&id="+$("#edit_profile_main").attr('value'),
             success: function(html) {
-                //alert(html);
-                //window.location = "users.php?create&ok";
+
                 $("#m_info").hide().html(html).fadeIn(500);
 
 
@@ -1639,8 +1410,6 @@ $('#summernote').summernote({
                 "&new_pass2="+$("#new_pass2").val()+
                 "&id="+$("#edit_profile_main").attr('value'),
             success: function(html) {
-                //alert(html);
-                //window.location = "users.php?create&ok";
                 $("#p_info").hide().html(html).fadeIn(500);
 
 
@@ -1649,8 +1418,8 @@ $('#summernote').summernote({
     });
 
 
-//send_zapit_add
-$('body').on('click', 'button#send_zapit_add', function(event) {
+
+    $('body').on('click', 'button#send_zapit_add', function(event) {
         event.preventDefault();
         $.ajax({
             type: "POST",
@@ -1659,16 +1428,13 @@ $('body').on('click', 'button#send_zapit_add', function(event) {
                 $('#form_approve').serialize()
             ,
             success: function(html) {
-                //alert(html);
-                //window.location = "users.php?create&ok";
+
                 $("#sze_info").hide().html(html).fadeIn(500);
 
 
 
 
-                //$("#sze_info").hide().html(html).fadeIn(500);
 
-                //$("textarea#msg").val('')
                 $("#send_zapit_add").fadeOut(500);
 
             }
@@ -1685,16 +1451,13 @@ $('body').on('click', 'button#send_zapit_add', function(event) {
                 $('#form_approve').serialize()
             ,
             success: function(html) {
-                //alert(html);
-                //window.location = "users.php?create&ok";
+
                 $("#sze_info").hide().html(html).fadeIn(500);
 
 
 
 
-                //$("#sze_info").hide().html(html).fadeIn(500);
 
-                //$("textarea#msg").val('')
                 $("#send_zapit_edit_ok").fadeOut(500);
 
             }
@@ -1712,16 +1475,13 @@ $('body').on('click', 'button#send_zapit_add', function(event) {
                 $('#form_approve').serialize()
             ,
             success: function(html) {
-                //alert(html);
-                //window.location = "users.php?create&ok";
+
                 $("#sze_info").hide().html(html).fadeIn(500);
 
 
 
 
-                //$("#sze_info").hide().html(html).fadeIn(500);
 
-                //$("textarea#msg").val('')
                 $("#send_zapit_edit").fadeOut(500);
 
             }
@@ -1738,10 +1498,9 @@ $('body').on('click', 'button#send_zapit_add', function(event) {
             data: "mode=find_worker"+
                 "&fio="+$("input#fio_find").val(),
             success: function(html) {
-                //alert(html);
-                //window.location = "users.php?create&ok";
+
                 $("#content_worker").hide().html(html).fadeIn(500);
-                //$("textarea#msg").val('')
+
 
             }
         });
@@ -1781,8 +1540,7 @@ $('body').on('click', 'button#send_zapit_add', function(event) {
                     "&textmsg="+$("textarea#msg").val().replace(/\r\n|\r|\n/g,"<br />")+
                     "&tid="+tid,
                 success: function(html) {
-                    //alert(html);
-                    //window.location = "users.php?create&ok";
+
                     $("#comment_content").html(html);
                     $("textarea#msg").val('')
 
@@ -1846,222 +1604,222 @@ $('body').on('click', 'button#send_zapit_add', function(event) {
                 "&lang="+$('select#lang').val()+
                 "&mail="+$("#mail").val(),
             success: function(html) {
-                //alert(html);
+
                 window.location = "users.php?create&ok";
 
             }
         });
     });
-    ////////////////////////////////////
-        $('body').on('click', 'button#edit_helper', function(event) {
+
+    $('body').on('click', 'button#edit_helper', function(event) {
         event.preventDefault();
         var hn=$(this).val();
-        
-                $.ajax({
+
+        $.ajax({
             type: "POST",
             url: "actions.php",
             data: "mode=edit_helper"+
-            "&hn="+hn,
-			success: function(html) {
-				$("#help_content").html(html);
-				                        var settingsShow = function() {
-        var showPanel = $(".chosen-select").find('option:selected').attr('id');
-    }
-    $(".chosen-select").chosen({
-        no_results_text: "Не знайдено...",
-        allow_single_deselect: true,
-    });
-    $(".chosen-select").chosen().change(settingsShow);
-    $('#summernote_help').summernote({
-	  height: 300,   //set editable area's height
-	  focus: true,
-	  lang: 'uk-UA'
-  });
-			}
-			});
+                "&hn="+hn,
+            success: function(html) {
+                $("#help_content").html(html);
+                var settingsShow = function() {
+                    var showPanel = $(".chosen-select").find('option:selected').attr('id');
+                }
+                $(".chosen-select").chosen({
+                    no_results_text: "Не знайдено...",
+                    allow_single_deselect: true,
+                });
+                $(".chosen-select").chosen().change(settingsShow);
+                $('#summernote_help').summernote({
+                    height: 300,
+                    focus: true,
+                    lang: 'uk-UA'
+                });
+            }
         });
-        $('body').on('click', 'button#del_helper', function(event) {
+    });
+    $('body').on('click', 'button#del_helper', function(event) {
         event.preventDefault();
         var hn=$(this).val();
-        
+
         var langdel= get_lang_param('JS_del');
-        
+
         bootbox.confirm(langdel, function(result) {
-  if (result == true) {        $.ajax({
-            type: "POST",
-            url: "actions.php",
-            data: "mode=del_help"+
-            "&hn="+hn,
-			success: function(html) {
-			
-			$.ajax({
+            if (result == true) {        $.ajax({
                 type: "POST",
                 url: "actions.php",
-                data: "mode=list_help",
+                data: "mode=del_help"+
+                    "&hn="+hn,
                 success: function(html) {
-                $("#help_content").html(html);
-}
-});
-			
-			}
-			});
-  }
-  });
-        
-        
-        
 
+                    $.ajax({
+                        type: "POST",
+                        url: "actions.php",
+                        data: "mode=list_help",
+                        success: function(html) {
+                            $("#help_content").html(html);
+                        }
+                    });
 
-        
+                }
+            });
+            }
         });
+
+
+
+
+
+
+    });
 //do_save_help
     $('body').on('click', 'button#do_save_help', function(event) {
         event.preventDefault();
         var sHTML = $('#summernote_help').code();
         var hn = $(this).val();
         var u=$("#u").chosen().val();
-		
-		var lang_unit= get_lang_param('JS_unit');
-		var lang_probl= get_lang_param('JS_probl');
+
+        var lang_unit= get_lang_param('JS_unit');
+        var lang_probl= get_lang_param('JS_probl');
         var t=$("#t").val();
         var data = { 'mode' : 'do_save_help', 'u' : u, 't' : t, 'msg' : sHTML, 'hn': hn };
-        
+
         var error_code=0;
-                if (u == null) { 
-	        error_code=1;
-	        noty({
-                                            text: lang_unit,
-                                            layout: 'center',
-                                            type: 'information',
-                                            timeout: 2000
+        if (u == null) {
+            error_code=1;
+            noty({
+                text: lang_unit,
+                layout: 'center',
+                type: 'information',
+                timeout: 2000
 
-                                        });
+            });
         }
-        
-        if ($("#t").val().length == 0 ) { error_code=1; 
-	        noty({
-                                            text: lang_probl,
-                                            layout: 'center',
-                                            type: 'information',
-                                            timeout: 2000
 
-                                        });
+        if ($("#t").val().length == 0 ) { error_code=1;
+            noty({
+                text: lang_probl,
+                layout: 'center',
+                type: 'information',
+                timeout: 2000
+
+            });
         }
-        
+
         if (error_code == 0) {
-        $.ajax({
-            type: "POST",
-            url: "actions.php",
-            data: data,
-            success: function(html) {
-            
-                //alert(html);
-                window.location = "helper.php";
+            $.ajax({
+                type: "POST",
+                url: "actions.php",
+                data: data,
+                success: function(html) {
 
-            }
-        });
-}
-        });
-        
-        
+
+                    window.location = "helper.php";
+
+                }
+            });
+        }
+    });
+
+
     $('body').on('click', 'button#do_create_help', function(event) {
         event.preventDefault();
         var sHTML = $('#summernote_help').code();
-       
+
         var u=$("#u").chosen().val();
-		var lang_unit= get_lang_param('JS_unit');
-		var lang_probl= get_lang_param('JS_probl');
+        var lang_unit= get_lang_param('JS_unit');
+        var lang_probl= get_lang_param('JS_probl');
 
         var t=$("#t").val();
         var data = { 'mode' : 'do_create_help', 'u' : u, 't' : t, 'msg' : sHTML };
-        
+
         var error_code=0;
-        
+
         //alert (u);
-        if (u == null) { 
-	        error_code=1;
-	        noty({
-                                            text: lang_unit,
-                                            layout: 'center',
-                                            type: 'information',
-                                            timeout: 2000
+        if (u == null) {
+            error_code=1;
+            noty({
+                text: lang_unit,
+                layout: 'center',
+                type: 'information',
+                timeout: 2000
 
-                                        });
+            });
         }
-        
-        if ($("#t").val().length == 0 ) { error_code=1; 
-	        noty({
-                                            text: lang_probl,
-                                            layout: 'center',
-                                            type: 'information',
-                                            timeout: 2000
 
-                                        });
+        if ($("#t").val().length == 0 ) { error_code=1;
+            noty({
+                text: lang_probl,
+                layout: 'center',
+                type: 'information',
+                timeout: 2000
+
+            });
         }
-        
+
         if (error_code == 0) {
+            $.ajax({
+                type: "POST",
+                url: "actions.php",
+                data: data,
+                success: function(html) {
+
+
+                    window.location = "helper.php";
+
+                }
+            });
+        }
+    });
+//find_helper
+    $("input#find_helper").keyup(function() {
+        var t=$(this).val();
+
+
+
         $.ajax({
             type: "POST",
             url: "actions.php",
-            data: data,
+            data: "mode=find_help"+
+                "&t="+t,
             success: function(html) {
-            
-                //alert(html);
-                window.location = "helper.php";
-
+                $("#help_content").html(html);
             }
         });
-}
-        });
-//find_helper
-$("input#find_helper").keyup(function() {
-	var t=$(this).val();
-	
-	
-	
-	$.ajax({
-            type: "POST",
-            url: "actions.php",
-            data: "mode=find_help"+
-            "&t="+t,
-			success: function(html) {
-			$("#help_content").html(html);
-			}
-			});
 
 
-});
+    });
 
 
-$("input#fio_find_admin").keyup(function() {
-	var t=$(this).val(),
-		t_l=$(this).val().length;
-	
-	
-	console.log(t_l);
-	
-	if (t_l > 0 ) {
-		$('#example_workers').hide();
-	}
-	if (t_l == 0 ) {
-		$('#example_workers').show();
-	}
-	
-	$.ajax({
+    $("input#fio_find_admin").keyup(function() {
+        var t=$(this).val(),
+            t_l=$(this).val().length;
+
+
+        console.log(t_l);
+
+        if (t_l > 0 ) {
+            $('#example_workers').hide();
+        }
+        if (t_l == 0 ) {
+            $('#example_workers').show();
+        }
+
+        $.ajax({
             type: "POST",
             url: "inc/workers.inc.php",
             data: "menu=list"+
-            "&page=1"+
-            "&t="+t,
-			success: function(html) {
-			$("#content_worker").html(html);
-			
-			
-			}
-			});
+                "&page=1"+
+                "&t="+t,
+            success: function(html) {
+                $("#content_worker").html(html);
 
 
-});
+            }
+        });
+
+
+    });
 
 
     $('body').on('click', 'button#edit_user', function(event) {
@@ -2122,7 +1880,7 @@ $("input#fio_find_admin").keyup(function() {
                     "&tid="+tr_id+
                     "&user="+us,
                 success: function(){
-                    //$("#msg").hide().html(html).fadeIn(500);
+
                     $(elem).removeClass().addClass('success', 1000);
 
 
@@ -2140,7 +1898,7 @@ $("input#fio_find_admin").keyup(function() {
                     "&tid="+tr_id+
                     "&user="+us,
                 success: function(){
-                    //$("#msg").hide().html(html).fadeIn(500);
+
                     $(elem).removeClass('success', 1000);
 
 
@@ -2164,10 +1922,7 @@ $("input#fio_find_admin").keyup(function() {
             data: "mode=arch_now"+
                 "&tid="+tr_id,
             success: function(){
-                //$("#msg").hide().html(html).fadeIn(500);
 
-                //$("#msg").hide().html(html).fadeIn(500);
-                //setTimeout(function() {$('#msg').children('.alert').fadeOut(500);}, 3000);
                 $(elem).fadeOut(500);
 
 
@@ -2175,29 +1930,6 @@ $("input#fio_find_admin").keyup(function() {
         });
 
     });
-    /*
-    $('body').on('click', 'button#action_del_time', function(event) {
-        event.preventDefault();
-        var tr_id = $(this).attr('value');
-        var elem = '#tr_' + tr_id;
-        $.ajax({
-            type: "POST",
-            url: "actions.php",
-            data: "mode=del_now"+
-                "&tid="+tr_id,
-            success: function(){
-                //$("#msg").hide().html(html).fadeIn(500);
-
-                //$("#msg").hide().html(html).fadeIn(500);
-                //setTimeout(function() {$('#msg').children('.alert').fadeOut(500);}, 3000);
-                $(elem).fadeOut(500);
-
-
-            }
-        });
-
-    });
-*/
     $('body').on('click', 'button#action_list_lock', function(event) {
         event.preventDefault();
 
@@ -2205,9 +1937,6 @@ $("input#fio_find_admin").keyup(function() {
         var tr_id = $(this).attr('value');
         var elem = '#tr_' + tr_id;
         var us=$(this).attr('user');
-
-        //var button_id= "#action_list_lock [value='"+tr_id+"']";
-        //alert(elem);
 
 
         if (status_ll == "lock") {
@@ -2221,10 +1950,6 @@ $("input#fio_find_admin").keyup(function() {
                     "&tid="+tr_id+
                     "&user="+us,
                 success: function(){
-                    //$("#msg").hide().html(html).fadeIn(500);
-
-                    //$("#msg").hide().html(html).fadeIn(500);
-                    //setTimeout(function() {$('#msg').children('.alert').fadeOut(500);}, 3000);
                     $(elem).removeClass().addClass('warning', 1000);
 
 
@@ -2249,10 +1974,7 @@ $("input#fio_find_admin").keyup(function() {
                 data: "mode=unlock"+
                     "&tid="+tr_id,
                 success: function(){
-                    //$("#msg").hide().html(html).fadeIn(500);
 
-                    //$("#msg").hide().html(html).fadeIn(500);
-                    //setTimeout(function() {$('#msg').children('.alert').fadeOut(500);}, 3000);
                     $(elem).removeClass('warning', 1000);
 
 
@@ -2290,7 +2012,7 @@ $("input#fio_find_admin").keyup(function() {
                     "&tid="+ok_val_tid+
                     "&user="+ok_val,
                 success: function(html){
-                    //$("#msg").hide().html(html).fadeIn(500);
+
 
                     $("#msg").hide().html(html).fadeIn(500);
                     setTimeout(function() {$('#msg').children('.alert').fadeOut(500);}, 3000);
@@ -2300,7 +2022,7 @@ $("input#fio_find_admin").keyup(function() {
             });
         }
         if (status_lock == 'no_ok') {
-        	var lang_nook= get_lang_param('JS_no_ok');
+            var lang_nook= get_lang_param('JS_no_ok');
             $("button#action_lock").attr('disabled', "disabled");
             $("button#action_refer_to").attr('disabled', "disabled");
             $("button#action_ok").attr('status', "ok").html("<i class=''></i> "+lang_nook);
@@ -2311,7 +2033,7 @@ $("input#fio_find_admin").keyup(function() {
                     "&tid="+ok_val_tid+
                     "&user="+ok_val,
                 success: function(html){
-                    //$("#msg").hide().html(html).fadeIn(500);
+
 
                     $("#msg").hide().html(html).fadeIn(500);
                     setTimeout(function() {$('#msg').children('.alert').fadeOut(500);}, 3000);
@@ -2332,10 +2054,10 @@ $("input#fio_find_admin").keyup(function() {
         var lock_val=$("button#action_lock").attr("value");
         var lock_val_tid=$("button#action_lock").attr("tid");
         var status_lock=$("button#action_lock").attr('status');
-var lang_unlock= get_lang_param('JS_unlock');
+        var lang_unlock= get_lang_param('JS_unlock');
         if (status_lock == 'lock') {
             $("button#action_lock").attr('status', "unlock").html("<i class='fa fa-unlock'></i> "+lang_unlock);
-            //$("div#alert_lock").fadeIn(500);
+
             $("#msg_e").hide();
             $.ajax({
                 type: "POST",
@@ -2344,7 +2066,7 @@ var lang_unlock= get_lang_param('JS_unlock');
                     "&tid="+lock_val_tid+
                     "&user="+lock_val,
                 success: function(html){
-                    //$("#msg").hide().html(html).fadeIn(500);
+
 
                     $("#msg").hide().html(html).fadeIn(500);
                     setTimeout(function() {$('#msg').children('.alert').fadeOut(500);}, 3000);
@@ -2358,7 +2080,7 @@ var lang_unlock= get_lang_param('JS_unlock');
             $("#msg_e").hide();
             var lang_lock= get_lang_param('JS_lock');
             $("button#action_lock").attr('status', "lock").html("<i class='fa fa-lock'></i> "+lang_lock);
-            //$("div#alert_lock").fadeOut(500);
+
             $.ajax({
                 type: "POST",
                 url: "actions.php",
@@ -2387,11 +2109,11 @@ var lang_unlock= get_lang_param('JS_unlock');
         var to=$("select#t_to").val();
         var tou=$("select#t_users_do").val();
         var tom=$("#msg1").val();
-        //alert(to);
+
         var error_code=0;
         if (to == '0') {
             error_code=1;
-            //alert('no');
+
             $('#t_for_to').popover('show');
             $('#t_for_to').addClass('has-error');
 
@@ -2399,8 +2121,7 @@ var lang_unlock= get_lang_param('JS_unlock');
 
         if (error_code == 0) {
             var pp=$("button#ref_ticket").attr("value");
-            //to, pp, tou
-            //alert(tou);
+
 
             $.ajax({
                 type: "POST",
@@ -2423,12 +2144,12 @@ var lang_unlock= get_lang_param('JS_unlock');
 
 
 
-    //$("#form_field").chosen().change( … );
+
     $("select#t_users_do").change(function() {
 
         var p=$('select#t_users_do').val();
         var t=$('select#t_to').val();
-        //alert(p);
+
 
 
         if (t == 0 ) {
@@ -2450,7 +2171,7 @@ var lang_unlock= get_lang_param('JS_unlock');
                         $('#t_for_to').addClass('has-success');
 
 
-                        //alert(n);
+
                     }
                 });
             }
@@ -2469,7 +2190,7 @@ var lang_unlock= get_lang_param('JS_unlock');
 
         var p=$('select#users_do').val();
         var t=$('select#to').val();
-        //alert(p);
+
 
 
         if (t == 0 ) {
@@ -2481,7 +2202,7 @@ var lang_unlock= get_lang_param('JS_unlock');
                         "&uid="+p,
                     success: function(html){
 
-//alert (html);
+
 
 
                         $("select#to [value='"+html+"']").attr("selected", "selected");
@@ -2491,7 +2212,7 @@ var lang_unlock= get_lang_param('JS_unlock');
                         $('#for_to').addClass('has-success');
 
 
-                        //alert(n);
+
                     }
                 });
             }
@@ -2524,26 +2245,22 @@ var lang_unlock= get_lang_param('JS_unlock');
 
     });
 
-/*$("#fileuploader").uploadFile({
-	url:"YOUR_FILE_UPLOAD_URL",
-	fileName:"myfile"
-	});
-	*/
-	var lang_dd= get_lang_param('TICKET_file_upload_msg');
-	var uploadObj = $("#fileuploader").uploadFile({
-url:"upload.php",
-multiple:true,
-autoSubmit:false,
-fileName:"myfile",
-formData: {"hashname":$("#hashname").val()},
-maxFileSize:5000000,
-showStatusAfterSuccess:false,
-dragDropStr: "<span><b>"+lang_dd+"</b></span>",
-abortStr:"abort",
-cancelStr:"cancel",
-doneStr:"done"
 
-});
+    var lang_dd= get_lang_param('TICKET_file_upload_msg');
+    var uploadObj = $("#fileuploader").uploadFile({
+        url:"upload.php",
+        multiple:true,
+        autoSubmit:false,
+        fileName:"myfile",
+        formData: {"hashname":$("#hashname").val()},
+        maxFileSize:5000000,
+        showStatusAfterSuccess:false,
+        dragDropStr: "<span><b>"+lang_dd+"</b></span>",
+        abortStr:"abort",
+        cancelStr:"cancel",
+        doneStr:"done"
+
+    });
 
 
 
@@ -2554,27 +2271,21 @@ doneStr:"done"
         var s=$("#subj").val();
         var to=$("select#to").val();
         var m=$("#msg").val().length;
-        //alert(to);
 
-	
-
-//alert($("#users_do").val());
 
         var error_code=0;
 
-        //if ($('#fio').val().length == 0 && $('#user_login').val().length == 0){
+
         if ($('#fio').val().length == 0){
             error_code=1;
-            //alert('no');
-            //$('#fio').popover('show');
+
             $('#fio').popover('show');
             $('#for_fio').addClass('has-error');
         }
 
         if (to == '0') {
             error_code=1;
-            //alert('no');
-            //$('#for_to').popover('show');
+
             $('#dsd').popover('show');
             $('#for_to').addClass('has-error');
 
@@ -2607,7 +2318,7 @@ doneStr:"done"
             }
             if (status_action =='add') {
 
-				uploadObj.startUpload();
+                uploadObj.startUpload();
 
 
 
@@ -2633,8 +2344,8 @@ doneStr:"done"
                         "&prio="+$("#prio").val()+
                         "&hashname="+$("#hashname").val(),
                     success: function(html) {
-                        //alert(html);
-                        
+
+
                         window.location = "new.php?ok&h="+html;
 
                     }
@@ -2647,7 +2358,7 @@ doneStr:"done"
 
 
             if (status_action =='edit') {
-            uploadObj.startUpload();
+                uploadObj.startUpload();
                 $.ajax({
                     type: "POST",
                     async: false,
@@ -2670,10 +2381,10 @@ doneStr:"done"
                         "&prio="+$("#prio").val()+
                         "&hashname="+$("#hashname").val(),
                     success: function(html) {
-                        //alert(html);
-                        
+
+
                         window.location = "new.php?ok&h="+html;
-                        //alert(html);
+
                     }
                 });
 
@@ -2689,3 +2400,4 @@ doneStr:"done"
 
 
 });
+
