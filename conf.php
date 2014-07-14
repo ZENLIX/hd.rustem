@@ -18,10 +18,19 @@ $CONF['fix_ticket_subj']=true;								//Ticket subj list or input? {true or fals
 $CONF['file_uploads']	=true;								// New ticket - file upload?
 $acceptable = array(
         'application/pdf',
+        'application/msword',
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        'application/msword',
+        'application/excel',
+        'application/vnd.ms-excel',
+        'application/x-excel',
+        'application/x-msexcel',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
         'image/jpeg',
         'image/jpg',
         'image/gif',
         'image/png'
+
     );
 
 /*
