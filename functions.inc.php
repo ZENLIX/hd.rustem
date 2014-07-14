@@ -11,6 +11,12 @@ error_reporting(E_ALL ^ E_NOTICE);
 error_reporting(0);
 include_once('inc/mail.inc.php');
 
+
+$forhostname=substr($CONF['hostname'], -1);
+if ($forhostname == "/") {$CONF['hostname']=$CONF['hostname'];}
+else if ($forhostname <> "/") {$CONF['hostname']=$CONF['hostname']."/";}
+
+
 function get_user_lang(){
     global $dbConnection;
 

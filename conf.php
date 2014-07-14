@@ -16,7 +16,7 @@ $CONF_DB = array (
 //System configuration variables and some options
 $CONF = array (
 'title_header' 		=> 'helpdesk',
-'hostname'			=> 'http://localhost/web/HD.rustem/',
+'hostname'			=> 'http://localhost/web/HD.rustem',
 'mail'				=> 'hd@hd.local',
 'days2arch'			=> 3,
 'name_of_firm'		=> 'IT корпорация',
