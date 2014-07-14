@@ -283,9 +283,15 @@ $res->execute(array(':n' => '1', ':tid'=>$tid));
 										<?php
 			//while ($r = mysql_fetch_assoc($res)) {
 			foreach($res1 as $r) {
+		$name_cur=$r['name'];
+		$name_pr=explode('-',$name_cur);
+
 		?>
+
                  <li>
-	                 <small><a target="_blank" href='upload_files/<?=$r['name'];?>'><?=$r['name'];?></a></small>
+
+                <small><a target="_blank" href='download.php?filename=upload_files/<?=$r['name'];?>'><?=$name_pr[1];?></a></small>
+
                  </li>
                 <?php }?>
 						</ul>
