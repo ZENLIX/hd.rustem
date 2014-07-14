@@ -3366,13 +3366,32 @@ values (:unlock, now(), :unow, :tid)');
 			$x_refer_comment='<small class=\"text-muted\">'.nameshort(name_of_user_ret($_SESSION['helpdesk_user_id'])).' '.lang('REFER_comment_add').' ('.date(' d.m.Y h:i:s').'):</small> '.strip_tags(xss_clean(($_POST['tom'])));
 
             
-            $stmt = $dbConnection->prepare('update tickets set unit_id=:to, user_to_id=:tou, msg=concat(msg,:br,:x_refer_comment), lock_by=:n, last_update=now() where id=:tid');
-			$stmt->execute(array(':to'=>$to,':tou'=>$tou,':br'=>'<br>',':x_refer_comment'=>$x_refer_comment,':tid' => $tid, ':n'=>'0'));
+            $stmt = $dbConnection->prepare('update tickets set 
+            unit_id=:to, 
+            user_to_id=:tou, 
+            msg=concat(msg,:br,:x_refer_comment), 
+            lock_by=:n, 
+            last_update=now() where id=:tid');
+			$stmt->execute(array(
+			':to'=>$to,
+			':tou'=>$tou,
+			':br'=>'<br>',
+			':x_refer_comment'=>$x_refer_comment,
+			':tid' => $tid, 
+			':n'=>'0'));
             }
             else if (strlen($tom) <= 2) { 
                         
-            $stmt = $dbConnection->prepare('update tickets set unit_id=:to, user_to_id=:tou, lock_by=:n, last_update=now() where id=:tid');
-			$stmt->execute(array(':to'=>$to,':tou'=>$tou,':br'=>'<br>',':tid' => $tid, ':n'=>'0'));
+            $stmt = $dbConnection->prepare('update tickets set 
+            unit_id=:to, 
+            user_to_id=:tou, 
+            lock_by=:n, 
+            last_update=now() where id=:tid');
+			$stmt->execute(array(
+			':to'=>$to,
+			':tou'=>$tou,
+			':tid' => $tid, 
+			':n'=>'0'));
             }
             
             

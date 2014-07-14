@@ -4,7 +4,7 @@ session_start();
 include("functions.inc.php");
 
 
-$title_header="Завка #".get_ticket_id_by_hash($_GET['hash'])." - ".$CONF['name_of_firm'];
+$title_header=lang('TICKET_name')." #".get_ticket_id_by_hash($_GET['hash'])." - ".$CONF['name_of_firm'];
 
 if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
     include("inc/head.inc.php");
