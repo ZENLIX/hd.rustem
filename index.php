@@ -82,7 +82,7 @@ $url = parse_url($CONF['hostname']);
     if ($rq==0) {
         include("inc/head.inc.php");
         include("inc/navbar.inc.php");
-        include("dashboard.php");
+        include("inc/dashboard.php");
 
         include("inc/footer.inc.php");}
 

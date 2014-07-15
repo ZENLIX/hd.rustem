@@ -75,7 +75,7 @@ if ($newt == 0) {
                     <!--li <?=echoActiveClassIfRequestMatches("clients.php")?> ><a href="clients.php"><i class="fa fa-users"></i> Клієнти</a></li-->
                     <li <?=echoActiveClassIfRequestMatches("users.php")?>><a href="<?=$CONF['hostname']?>users.php?list"><i class="fa fa-users"></i> <?=lang('NAVBAR_users');?></a></li>
                     <li <?=echoActiveClassIfRequestMatches("deps.php")?>><a href="<?=$CONF['hostname']?>inc/deps.php"><i class="fa fa-sitemap"></i> <?=lang('NAVBAR_deps');?></a></li>
-                    <li <?=echoActiveClassIfRequestMatches("approve.php")?>><a href="<?=$CONF['hostname']?>approve.php"><i class="fa fa-check-square-o"></i> <?=lang('NAVBAR_approve');?></a></li>
+                    <li <?=echoActiveClassIfRequestMatches("approve.php")?>><a href="<?=$CONF['hostname']?>inc/approve.php"><i class="fa fa-check-square-o"></i> <?=lang('NAVBAR_approve');?></a></li>
                     
                     <li class="divider"></li>
                                         <li class="dropdown-submenu">
