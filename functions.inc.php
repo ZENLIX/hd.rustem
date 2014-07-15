@@ -67,13 +67,14 @@ function generateRandomString($length = 5) {
 }
 
 function validate_exist_mail($str) {
+    global $dbConnection;
     $uid=$_SESSION['helpdesk_user_id'];
-    $stmt = $dbConnection->prepare('SELECT email from users where email=:str and id != :uid');
+    
+    $stmt = $dbConnection->prepare('SELECT count(email) as n from users where email=:str and id != :uid');
     $stmt->execute(array(':str' => $str,':uid' => $uid));
-
-
-    if ($stmt -> rowCount() > 0) {$r=false;}
-
+	$row = $stmt->fetch(PDO::FETCH_ASSOC);
+    if ($row['n'] > 0) {$r=false;}
+	else if ($row['n'] == 0) {$r=true;}
 
     return $r;
 }
