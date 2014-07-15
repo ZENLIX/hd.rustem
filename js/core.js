@@ -800,6 +800,24 @@ $(document).ready(function() {
 
 
 
+if (def_filename == "new.php") {
+    var lang_dd= get_lang_param('TICKET_file_upload_msg');
+    var uploadObj = $("#fileuploader").uploadFile({
+        url:"upload.php",
+        multiple:true,
+        autoSubmit:false,
+        fileName:"myfile",
+        formData: {"hashname":$("#hashname").val()},
+        maxFileSize:5000000,
+        showStatusAfterSuccess:false,
+        dragDropStr: "<span><b>"+lang_dd+"</b></span>",
+        abortStr:"abort",
+        cancelStr:"cancel",
+        doneStr:"done"
+
+    });
+    }
+
 
     if (def_filename == "stats.php") {
         setInterval(function(){
@@ -1345,7 +1363,7 @@ $(document).ready(function() {
 
         $.ajax({
             type: "POST",
-            url: "actions.php",
+            url: "../actions.php",
             data: "mode=aprove_yes"+
                 "&id="+table_id,
             success: function() {
@@ -1362,7 +1380,7 @@ $(document).ready(function() {
 
         $.ajax({
             type: "POST",
-            url: "actions.php",
+            url: "../actions.php",
             data: "mode=aprove_no"+
                 "&id="+table_id,
             success: function() {
@@ -2246,21 +2264,7 @@ $(document).ready(function() {
     });
 
 
-    var lang_dd= get_lang_param('TICKET_file_upload_msg');
-    var uploadObj = $("#fileuploader").uploadFile({
-        url:"upload.php",
-        multiple:true,
-        autoSubmit:false,
-        fileName:"myfile",
-        formData: {"hashname":$("#hashname").val()},
-        maxFileSize:5000000,
-        showStatusAfterSuccess:false,
-        dragDropStr: "<span><b>"+lang_dd+"</b></span>",
-        abortStr:"abort",
-        cancelStr:"cancel",
-        doneStr:"done"
 
-    });
 
 
 

@@ -35,6 +35,7 @@
 <script src="<?=$CONF['hostname']?>/js/jquery.titlealert.js"></script>
 <script src="<?=$CONF['hostname']?>/js/highcharts.js"></script>
 <script src="<?=$CONF['hostname']?>/js/bootbox.min.js"></script>
+<script src="<?=$CONF['hostname']?>/js/jquery.form.js"></script>
 <script src="<?=$CONF['hostname']?>/js/jquery.uploadfile.min.js"></script>
 <script src="<?=$CONF['hostname']?>/js/core.js"></script>
 
