@@ -7,21 +7,21 @@
 
 //Access information to MySQL database
 $CONF_DB = array (
-'host' 		=> 'localhost', 
-'username'	=> 'root',
-'password'	=> '',
-'db_name'	=> 'hd_prod'
+	'host' 		=> 'localhost', 
+	'username'	=> 'root',
+	'password'	=> '',
+	'db_name'	=> 'hd_prod'
 );
 
 //System configuration variables and some options
 $CONF = array (
-		'title_header'	    => 'helpdesk',
-		'hostname'		    => 'http://localhost/web/HD.rustem',
-		'mail'			    => 'hd@hd.local',
-		'days2arch'   	    => 3,
-		'name_of_firm'	    => 'IT корпорация',
-		'fix_subj'			=> true,
-		'file_uploads'		=> true
+	'title_header'	=> 'helpdesk',
+	'hostname'		=> 'http://localhost/web/HD.rustem',
+	'mail'			=> 'hd@hd.local',
+	'days2arch'		=> 3,
+	'name_of_firm'	=> 'IT корпорация',
+	'fix_subj'		=> true,
+	'file_uploads'	=> true
 );
 
 //List of good file types to upload
