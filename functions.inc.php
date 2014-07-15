@@ -28,7 +28,7 @@ function get_user_lang(){
 
     $max_id=$max[0];
     $length = strlen(utf8_decode($max_id));
-    if (($length < 1) || $max_id==0) {$ress='ru';} else {$ress=$max_id;}
+    if (($length < 1) || $max_id == "0") {$ress='ru';} else {$ress=$max_id;}
     return $ress;
 }
 
