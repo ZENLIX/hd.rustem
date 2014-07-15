@@ -1,11 +1,11 @@
 <?php
 session_start();
-include("functions.inc.php");
-$CONF['title_header'] = lang('LIST_title') . " - система заявок";
+include("../functions.inc.php");
+$CONF['title_header'] = lang('LIST_title') . " - ".lang('MAIN_TITLE');
 if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
 
-    include("inc/head.inc.php");
-    include("inc/navbar.inc.php");
+    include("head.inc.php");
+    include("navbar.inc.php");
 
     if (isset($_GET['in'])) {
         $status_in = "active";
@@ -148,7 +148,7 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
             if (isset($_GET['in'])) {
                 $_POST['menu'] = "in";
                 $_POST['page'] = "1";
-                include_once("inc/list_content.inc.php");
+                include_once("list_content.inc.php");
                 ?>
 
 
@@ -159,19 +159,19 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
             if (isset($_GET['out'])) {
                 $_POST['menu'] = "out";
                 $_POST['page'] = "1";
-                include_once("inc/list_content.inc.php");
+                include_once("list_content.inc.php");
             }
 
             if (isset($_GET['arch'])) {
                 $_POST['menu'] = "arch";
                 $_POST['page'] = "1";
-                include_once("inc/list_content.inc.php");
+                include_once("list_content.inc.php");
             }
 
 
             if (isset($_GET['find'])) {
                 $_POST['menu'] = "find";
-                include_once("inc/list_content.inc.php");
+                include_once("list_content.inc.php");
             }
 
 
@@ -250,7 +250,7 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
         <br>
     </div>
     <?php
-    include("inc/footer.inc.php");
+    include("footer.inc.php");
     ?>
 
 <?php

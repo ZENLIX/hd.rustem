@@ -1,15 +1,15 @@
 <?php
 session_start();
 
-include("functions.inc.php");
+include("../functions.inc.php");
 
 
 $CONF['title_header']=lang('TICKET_name')." #".get_ticket_id_by_hash($_GET['hash'])." - ".$CONF['name_of_firm'];
 
 
 if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
-    include("inc/head.inc.php");
-    include("inc/navbar.inc.php");
+    include("head.inc.php");
+    include("navbar.inc.php");
 
     $hn=($_GET['hash']);
 
@@ -266,7 +266,7 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
                                 foreach($res1 as $r) {
                                     ?>
                                     <li>
-                                        <small><a target="_blank" href='upload_files/<?=$r['name'];?>'><?=$r['name'];?></a></small>
+                                        <small><a target="_blank" href='../upload_files/<?=$r['name'];?>'><?=$r['name'];?></a></small>
                                     </li>
                                 <?php }?>
                             </ul>
@@ -707,7 +707,7 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
 
 
     <?php
-    include("inc/footer.inc.php");
+    include("footer.inc.php");
 
 }
 else {

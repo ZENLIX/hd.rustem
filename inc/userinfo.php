@@ -1,11 +1,11 @@
 <?php
 session_start();
-include("functions.inc.php");
+include("../functions.inc.php");
 
 if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
 
-   include("inc/head.inc.php");
-   include("inc/navbar.inc.php");
+   include("head.inc.php");
+   include("navbar.inc.php");
    
 $user_id=($_GET["user"]);
 
@@ -237,7 +237,7 @@ $tid=$row['id'];
 
 
 <?php
- include("inc/footer.inc.php");
+ include("footer.inc.php");
 ?>
 
 <?php

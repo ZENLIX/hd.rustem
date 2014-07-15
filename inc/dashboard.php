@@ -19,17 +19,17 @@
         </div>
         <div class="col-md-6">
             <div class="panel panel-default">
-                <div class="panel-heading"><a href="stats.php"><i class="fa fa-bar-chart-o"></i> <?= lang('DASHBOARD_ticket_stats'); ?></a></div>
+                <div class="panel-heading"><a href="inc/stats.php"><i class="fa fa-bar-chart-o"></i> <?= lang('DASHBOARD_ticket_stats'); ?></a></div>
                 <div class="panel-body">
                     <div class="row">
 
                         <div class="col-md-4 col-xs-4"><center>    <strong class="text-danger"  style="font-weight: bold; font-style: normal; font-variant: normal; font-size: 20px;" data-toggle="tooltip" data-placement="top" title="<?= lang('DASHBOARD_ticket_in_desc'); ?>">
-                                    <a class="text-danger" href="list.php?in" id="d_label_1"><?= get_total_tickets_free(); ?></a>
+                                    <a class="text-danger" href="inc/list.php?in" id="d_label_1"><?= get_total_tickets_free(); ?></a>
                                 </strong><br><small><i class="fa fa-download"></i> <?= lang('DASHBOARD_ticket_in'); ?>	</small>	</center></div>
 
                         <div class="col-md-4 col-xs-4"><center>	<strong class="text-warning" style="font-weight: bold; font-style: normal; font-variant: normal; font-size: 20px;" data-toggle="tooltip" data-placement="top" title="<?= lang('DASHBOARD_ticket_lock_desc'); ?>" id="d_label_2"><?= get_total_tickets_lock(); ?></strong><br><small><i class='fa fa-lock'></i> <?= lang('DASHBOARD_ticket_lock'); ?> </small>	</center></div>
 
-                        <div class="col-md-4 col-xs-4"><center>	<strong class="text-primary" style="font-weight: bold; font-style: normal; font-variant: normal; font-size: 20px;" data-toggle="tooltip" data-placement="top" title="<?= lang('DASHBOARD_ticket_out_desc'); ?>"><a class="text-primary" href="list.php?out" id="d_label_3"><?= get_total_tickets_out_and_success(); ?></a></strong><br><small><i class="fa fa-upload"></i>  <?= lang('DASHBOARD_ticket_out'); ?></small>	</center></div>
+                        <div class="col-md-4 col-xs-4"><center>	<strong class="text-primary" style="font-weight: bold; font-style: normal; font-variant: normal; font-size: 20px;" data-toggle="tooltip" data-placement="top" title="<?= lang('DASHBOARD_ticket_out_desc'); ?>"><a class="text-primary" href="inc/list.php?out" id="d_label_3"><?= get_total_tickets_out_and_success(); ?></a></strong><br><small><i class="fa fa-upload"></i>  <?= lang('DASHBOARD_ticket_out'); ?></small>	</center></div>
 
                     </div>
                 </div>
@@ -53,7 +53,7 @@
         </div>
         <div class="col-md-6">
             <div class="panel panel-default">
-                <div class="panel-heading"><a href="helper.php"><i class="fa fa-globe"></i> <?= lang('DASHBOARD_last_help'); ?></a></div>
+                <div class="panel-heading"><a href="inc/helper.php"><i class="fa fa-globe"></i> <?= lang('DASHBOARD_last_help'); ?></a></div>
                 <div class="panel-body">
                     <?php get_helper(); ?>                </div>
             </div>
@@ -61,7 +61,7 @@
 
         <div class="col-md-12">
             <div class="panel panel-default">
-                <div class="panel-heading"><a href="list.php?in"><i class="fa fa-list-alt"></i> <?= lang('DASHBOARD_last_in'); ?></a></div>
+                <div class="panel-heading"><a href="inc/list.php?in"><i class="fa fa-list-alt"></i> <?= lang('DASHBOARD_last_in'); ?></a></div>
                 <div class="panel-body">
 
                     <div id="spinner" class="well well-large well-transparent lead">

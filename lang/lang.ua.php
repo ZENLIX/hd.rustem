@@ -381,8 +381,8 @@ function lang($phrase){
 
 
 
-'DASHBOARD_def_msg' => ', вітаємо Вас в системі заявок!</strong></center><br>Рекомендуємо Вам ознайомитись з <a href=\'help.php\' class=\'alert-link\'> </i> інструкцією</a> по роботі
-  з системою.<br> Або <a href=\'new.php\' class=\'alert-link\'>створіть нову заявку</a> прямо зараз!',
+'DASHBOARD_def_msg' => ', вітаємо Вас в системі заявок!</strong></center><br>Рекомендуємо Вам ознайомитись з <a href=\'inc/help.php\' class=\'alert-link\'> </i> інструкцією</a> по роботі
+  з системою.<br> Або <a href=\'inc/new.php\' class=\'alert-link\'>створіть нову заявку</a> прямо зараз!',
   
 'msg_creted_new_user' => 'Буде створено нового користувача.',
 

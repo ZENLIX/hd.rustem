@@ -1,11 +1,11 @@
 <?php
 session_start();
-include("functions.inc.php");
+include("../functions.inc.php");
 
 if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
 //if (validate_admin($_SESSION['helpdesk_user_id'])) {
-    include("inc/head.inc.php");
-    include("inc/navbar.inc.php");
+    include("head.inc.php");
+    include("navbar.inc.php");
 
 
 
@@ -21,7 +21,7 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
                 <div class="panel ">
                     <div class="panel-body">
                         <center>
-                            <img src="img/helpdesk.001.png" class="img-responsive img-thumbnail">
+                            <img src="../img/helpdesk.001.png" class="img-responsive img-thumbnail">
                         </center>
                     </div>
                 </div>
@@ -53,7 +53,7 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
                             
                             <div class="panel-body">
 
-                                <img src="img/help1.png" class="img-responsive img-thumbnail"><br>
+                                <img src="../img/help1.png" class="img-responsive img-thumbnail"><br>
                                 <?=lang('HELP_new_text');?>
 
                             </div>
@@ -70,7 +70,7 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
 
 
 
-                                <img src="img/help2.png" class="img-responsive img-thumbnail">
+                                <img src="" class="img-responsive img-thumbnail">
                                 <br>
                                 <?=lang('HELP_review_text');?>
 

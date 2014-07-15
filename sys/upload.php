@@ -1,6 +1,6 @@
 <?php
-include_once("functions.inc.php");
-$output_dir = "upload_files/";
+include_once("../functions.inc.php");
+$output_dir = "../upload_files/";
 
 $hn=$_POST['hashname'];
 $maxsize    = 2097152;

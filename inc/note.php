@@ -1,9 +1,9 @@
 <?php
 //session_start();
-include("functions.inc.php");
+include("../functions.inc.php");
 
 
-   include("inc/head.inc.php");
+   include("head.inc.php");
    //include("inc/navbar.inc.php");
    
   if (isset($_GET['h'])) {
@@ -43,7 +43,7 @@ $h=($_GET['h']);
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="index.php"> <img src="img/logo.png"> система заявок</a>
+        <a class="navbar-brand" href="<?=$CONF['hostname']?>index.php"> <img src="<?=$CONF['hostname']?>/img/logo.png"> <?=$CONF['name_of_firm']?></a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -86,5 +86,5 @@ $h=($_GET['h']);
 
 <?php
 }
- include("inc/footer.inc.php");
+ include("footer.inc.php");
 ?>

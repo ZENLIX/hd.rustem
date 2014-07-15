@@ -1,12 +1,12 @@
 <?php
 session_start();
 error_reporting(0);
-include("functions.inc.php");
+include("../functions.inc.php");
 
 if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
 
-    include("inc/head.inc.php");
-    include("inc/navbar.inc.php");
+    include("head.inc.php");
+    include("navbar.inc.php");
 
 
 
@@ -54,14 +54,14 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
             if (isset($_GET['add'])) {
                 $o=false;
                 $_POST['menu']='new';
-                include "inc/workers.inc.php";
+                include "workers.inc.php";
                 ?>
 
             <?php }  ?>
             <?php if (isset($_GET['edit'])) {
                 $o=false;
                 $_POST['menu']='edit';
-                include "inc/workers.inc.php";
+                include "workers.inc.php";
                 ?>
 
             <?php }
@@ -78,7 +78,7 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
                     if ((priv_status($user_id) == "0")||(priv_status($user_id) == "2")) {
                         $_POST['menu']='list';
                         $_POST['page']="1";
-                        include "inc/workers.inc.php";
+                        include "workers.inc.php";
 
                     }
                     else if (priv_status($user_id) == "1") {
@@ -123,7 +123,7 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
     <br>
     </div>
     <?php
-    include("inc/footer.inc.php");
+    include("footer.inc.php");
     ?>
 
 <?php

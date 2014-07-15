@@ -1,11 +1,11 @@
 <?php
 session_start();
-include("functions.inc.php");
+include("../functions.inc.php");
 
 if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
 if (validate_admin($_SESSION['helpdesk_user_id'])) {
-   include("inc/head.inc.php");
-   include("inc/navbar.inc.php");
+   include("head.inc.php");
+   include("navbar.inc.php");
    
    
 if (isset($_GET['create'])) {
@@ -38,20 +38,20 @@ if (isset($_GET['list'])) {
 	  if (isset($_GET['create'])) {
 		//echo "in";
 		$_POST['menu']="new";
-		include_once("inc/users.inc.php");
+		include_once("users.inc.php");
 		}
 		
 		if (isset($_GET['list'])) {
 		//echo "in";
 		$_POST['menu']="list";
-		include_once("inc/users.inc.php");
+		include_once("users.inc.php");
 		}
 		
 		if (isset($_GET['edit'])) {
 		//echo "in";
 		$_POST['menu']="edit";
 		$_POST['id']=$_GET['edit'];
-		include_once("inc/users.inc.php");
+		include_once("users.inc.php");
 		}
 	  
 	  ?>
@@ -74,7 +74,7 @@ if (isset($_GET['list'])) {
 <br>
 </div>
 <?php
- include("inc/footer.inc.php");
+ include("footer.inc.php");
 ?>
 
 <?php

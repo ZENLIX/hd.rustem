@@ -89,6 +89,6 @@ $url = parse_url($CONF['hostname']);
 }
 else {
     include("inc/head.inc.php");
-    include 'auth.php';
+    include 'inc/auth.php';
 }
 ?>

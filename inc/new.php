@@ -1,11 +1,11 @@
 <?php
 session_start();
-include("functions.inc.php");
+include("../functions.inc.php");
 $CONF['title_header']=lang('NEW_title')." - ".$CONF['name_of_firm'];
 if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
 if ($_SESSION['helpdesk_user_id']) {
-   include("inc/head.inc.php");
-   include("inc/navbar.inc.php");
+   include("head.inc.php");
+   include("navbar.inc.php");
    
   
 
@@ -194,9 +194,9 @@ if ($CONF['fix_ticket_subj'] == false) {
 <div class="control-group" id="for_subj">
     	<div class="controls">
           <div class="form-group">
-    <label for="subj" class="col-sm-2 control-label"><small>Тема: </small></label>
+    <label for="subj" class="col-sm-2 control-label"><small><?=lang('NEW_subj');?>: </small></label>
     <div class="col-sm-10">
-      <input type="text" class="form-control input-sm" name="subj" id="subj" placeholder="Тема" data-toggle="popover" data-html="true" data-trigger="manual" data-placement="right" data-content="<small>Вкажіть тему заявки</small>">
+      <input type="text" class="form-control input-sm" name="subj" id="subj" placeholder="<?=lang('NEW_subj');?>" data-toggle="popover" data-html="true" data-trigger="manual" data-placement="right" data-content="<small><?=lang('NEW_subj_msg');?></small>">
     </div>
   </div></div></div>
 <?php } 
@@ -335,7 +335,7 @@ if ($CONF['fix_ticket_subj'] == false) {
 
 </div>
 <?php
- include("inc/footer.inc.php");
+ include("footer.inc.php");
 ?>
 
 

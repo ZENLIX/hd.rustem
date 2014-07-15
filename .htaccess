@@ -1,0 +1,9 @@
+#RewriteEngine on
+#Первый параметр
+#RewriteRule ^([a-zA-Z0-9_-]+)$ inc/route.php?page=$1
+#RewriteRule ^([a-zA-Z0-9_-]+)/$ inc/route.php?page=$1
+#Второй параметр
+#RewriteRule ^([a-zA-Z0-9_-]+)/([0-9]+)$ index.php?pName=$1&page=$2
+#RewriteRule ^([a-zA-Z0-9_-]+)/([0-9]+)/$ index.php?pName=$1&page=$2
+
+#RewriteEngine  on

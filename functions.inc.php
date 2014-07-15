@@ -394,7 +394,7 @@ function get_helper($in) {
                 if ($ac == "ok") {
 
                     ?>
-                    <tr><td><small><i class="fa fa-file-text-o"></i> </small><a href="helper.php?h=<?= $row['hashname']; ?>"><small><?= cutstr_help2_ret($row['title']); ?></small></a></td><td><small style="float:right;" class="text-muted">(<?= lang('DASHBOARD_author'); ?>: <?= nameshort(name_of_user_ret($row['user_init_id'])); ?>)</small></td></tr>
+                    <tr><td><small><i class="fa fa-file-text-o"></i> </small><a href="inc/helper.php?h=<?= $row['hashname']; ?>"><small><?= cutstr_help2_ret($row['title']); ?></small></a></td><td><small style="float:right;" class="text-muted">(<?= lang('DASHBOARD_author'); ?>: <?= nameshort(name_of_user_ret($row['user_init_id'])); ?>)</small></td></tr>
 
                 <?php
                 }
@@ -491,7 +491,7 @@ function get_client_info_ticket($id) {
                 <td style=" width: 30px; "><small class="text-muted"><?=lang('WORKER_total');?>:</small></td>
                 <td><small>
                         <?php if ($priv_val <> "1") { ?>
-                        <a target="_blank" href="userinfo.php?user=<?=$id?>">
+                        <a target="_blank" href="inc/userinfo.php?user=<?=$id?>">
                             <?php }?>
                             <?php echo $tt; ?>
                             <?php if ($priv_val <> "1") { ?>
@@ -502,7 +502,7 @@ function get_client_info_ticket($id) {
 
             <tr>
                 <td style=" width: 30px; "><small class="text-muted"><?=lang('WORKER_last');?>:</small></td>
-                <td><small><?php if ($priv_val <> "1") { ?><a target="_blank" href="userinfo.php?user=<?=$id?>"><?php } ?><?php echo $lt; ?><?php if ($priv_val <> "1") { ?></a><?php } ?></small></td>
+                <td><small><?php if ($priv_val <> "1") { ?><a target="_blank" href="inc/userinfo.php?user=<?=$id?>"><?php } ?><?php echo $lt; ?><?php if ($priv_val <> "1") { ?></a><?php } ?></small></td>
             </tr>
             </tbody>
         </table>
@@ -607,11 +607,11 @@ function get_client_info($id) {
             </tr>
             <tr>
                 <td style=" width: 30px; "><small><?=lang('WORKER_posada');?>:</small></td>
-                <td><small><a href="#" id="edit_posada" data-type="select" data-source="<?=$CONF['hostname'];?>/json.php?posada" data-pk="1" data-title="<?=lang('WORKER_posada');?>"><?=$posada?></a></small></td>
+                <td><small><a href="#" id="edit_posada" data-type="select" data-source="<?=$CONF['hostname'];?>/inc/json.php?posada" data-pk="1" data-title="<?=lang('WORKER_posada');?>"><?=$posada?></a></small></td>
             </tr>
             <tr>
                 <td style=" width: 30px; "><small><?=lang('WORKER_unit');?>:</small></td>
-                <td><small><a href="#" id="edit_unit" data-type="select" data-source="<?=$CONF['hostname'];?>/json.php?units" data-pk="1" data-title="<?=lang('NEW_unit');?>"><?php echo $pod; ?></a></small></td>
+                <td><small><a href="#" id="edit_unit" data-type="select" data-source="<?=$CONF['hostname'];?>/inc/json.php?units" data-pk="1" data-title="<?=lang('NEW_to_unit');?>"><?php echo $pod; ?></a></small></td>
             </tr>
 
             <tr>
@@ -630,14 +630,14 @@ function get_client_info($id) {
                 <td style=" width: 30px; "><small class="text-muted"><?=lang('WORKER_total');?>:</small></td>
                 <td><small class="text-muted">
                         <?php if ($priv_val <> "1") { ?>
-                        <a target="_blank" href="userinfo.php?user=<?=$id?>"><?php }?><?php echo $tt; ?><?php if ($priv_val <> "1") { ?></a><?php } ?></small></td>
+                        <a target="_blank" href="inc/userinfo.php?user=<?=$id?>"><?php }?><?php echo $tt; ?><?php if ($priv_val <> "1") { ?></a><?php } ?></small></td>
             </tr>
 
             <tr>
                 <td style=" width: 30px; "><small class="text-muted"><?=lang('WORKER_last');?>:</small></td>
                 <td><small class="text-muted">
                         <?php if ($priv_val <> "1") { ?>
-                        <a target="_blank" href="userinfo.php?user=<?=$id?>">
+                        <a target="_blank" href="inc/userinfo.php?user=<?=$id?>">
                             <?php }?><?php echo $lt; ?><?php if ($priv_val <> "1") { ?></a><?php } ?></small></td>
             </tr>
             </tbody>

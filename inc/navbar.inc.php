@@ -53,18 +53,18 @@ if ($newt == 0) {
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-tags"></i> <?=lang('NAVBAR_tickets');?> <?=$newtickets?><b class="caret"></b></a>
                 <ul class="dropdown-menu">
 
-            <li <?=echoActiveClassIfRequestMatches("new.php")?>><a href="<?=$CONF['hostname']?>new.php"><i class="fa fa-tag"></i> <?=lang('NAVBAR_create_ticket');?></a></li>
-            <li <?=echoActiveClassIfRequestMatches("list.php")?>><a href="<?=$CONF['hostname']?>list.php?in"><i class="fa fa-list-alt"></i> <?=lang('NAVBAR_list_ticket');?> <?=$newtickets?></a></li>
+            <li <?=echoActiveClassIfRequestMatches("new.php")?>><a href="<?=$CONF['hostname']?>inc/new.php"><i class="fa fa-tag"></i> <?=lang('NAVBAR_create_ticket');?></a></li>
+            <li <?=echoActiveClassIfRequestMatches("list.php")?>><a href="<?=$CONF['hostname']?>inc/list.php?in"><i class="fa fa-list-alt"></i> <?=lang('NAVBAR_list_ticket');?> <?=$newtickets?></a></li>
                 </ul></li>
             <!--li <?=echoActiveClassIfRequestMatches("message.php")?>><a href=""><i class="fa fa-comments-o"></i> Повідомлення <span class="badge">2</span></a></li>
 	  <li <?=echoActiveClassIfRequestMatches("reports.php")?>><a href=""><i class="fa fa-bar-chart-o"></i> Звіти</a></li-->
 
 
-            <li <?=echoActiveClassIfRequestMatches("clients.php")?>><a href="<?=$CONF['hostname']?>clients.php"><i class="fa fa-users"></i> <?=lang('NAVBAR_workers');?></a></li>
+            <li <?=echoActiveClassIfRequestMatches("clients.php")?>><a href="<?=$CONF['hostname']?>inc/clients.php"><i class="fa fa-users"></i> <?=lang('NAVBAR_workers');?></a></li>
             
-            <li <?=echoActiveClassIfRequestMatches("helper.php")?>><a href="<?=$CONF['hostname']?>helper.php"><i class="fa fa-globe"></i> <?=lang('NAVBAR_helper');?></a></li>
+            <li <?=echoActiveClassIfRequestMatches("helper.php")?>><a href="<?=$CONF['hostname']?>inc/helper.php"><i class="fa fa-globe"></i> <?=lang('NAVBAR_helper');?></a></li>
             
-                        <li <?=echoActiveClassIfRequestMatches("notes.php")?>><a href="<?=$CONF['hostname']?>notes.php"><i class="fa fa-book"></i> <?=lang('NAVBAR_notes');?></a></li>
+                        <li <?=echoActiveClassIfRequestMatches("notes.php")?>><a href="<?=$CONF['hostname']?>inc/notes.php"><i class="fa fa-book"></i> <?=lang('NAVBAR_notes');?></a></li>
 
 
 
@@ -73,7 +73,7 @@ if ($newt == 0) {
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-shield"></i> <?=lang('NAVBAR_admin');?> <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <!--li <?=echoActiveClassIfRequestMatches("clients.php")?> ><a href="clients.php"><i class="fa fa-users"></i> Клієнти</a></li-->
-                    <li <?=echoActiveClassIfRequestMatches("users.php")?>><a href="<?=$CONF['hostname']?>users.php?list"><i class="fa fa-users"></i> <?=lang('NAVBAR_users');?></a></li>
+                    <li <?=echoActiveClassIfRequestMatches("users.php")?>><a href="<?=$CONF['hostname']?>inc/users.php?list"><i class="fa fa-users"></i> <?=lang('NAVBAR_users');?></a></li>
                     <li <?=echoActiveClassIfRequestMatches("deps.php")?>><a href="<?=$CONF['hostname']?>inc/deps.php"><i class="fa fa-sitemap"></i> <?=lang('NAVBAR_deps');?></a></li>
                     <li <?=echoActiveClassIfRequestMatches("approve.php")?>><a href="<?=$CONF['hostname']?>inc/approve.php"><i class="fa fa-check-square-o"></i> <?=lang('NAVBAR_approve');?></a></li>
                     
@@ -111,8 +111,8 @@ if ($newt == 0) {
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <?=nameshort(name_of_user_ret($_SESSION['helpdesk_user_id']));?> <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <!--li <?=echoActiveClassIfRequestMatches("clients.php")?> ><a href="clients.php"><i class="fa fa-users"></i> Клієнти</a></li-->
-                    <li <?=echoActiveClassIfRequestMatches("profile.php")?>><a href="<?=$CONF['hostname']?>profile.php"><i class="fa fa-cogs"></i> <?=lang('NAVBAR_profile');?></a></li>
-                    <li <?=echoActiveClassIfRequestMatches("help.php")?>><a href="<?=$CONF['hostname']?>help.php"><i class="fa fa-question-circle"></i> <?=lang('NAVBAR_help');?></a></li>
+                    <li <?=echoActiveClassIfRequestMatches("profile.php")?>><a href="<?=$CONF['hostname']?>inc/profile.php"><i class="fa fa-cogs"></i> <?=lang('NAVBAR_profile');?></a></li>
+                    <li <?=echoActiveClassIfRequestMatches("help.php")?>><a href="<?=$CONF['hostname']?>inc/help.php"><i class="fa fa-question-circle"></i> <?=lang('NAVBAR_help');?></a></li>
                     <li><a href="<?=$CONF['hostname']?>index.php?logout"><i class="fa fa-sign-out"></i> <?=lang('NAVBAR_logout');?></a></li>
                 </ul>
             </li>

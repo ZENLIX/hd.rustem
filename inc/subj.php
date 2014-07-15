@@ -101,6 +101,6 @@ if (validate_admin($_SESSION['helpdesk_user_id'])) {
 	}
 	}
 else {
-    include '../auth.php';
+    include 'auth.php';
 }
 ?>

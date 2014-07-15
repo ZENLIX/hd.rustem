@@ -1,11 +1,11 @@
 <?php
 session_start();
-include("functions.inc.php");
+include("../functions.inc.php");
 
 if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
 //if (validate_admin($_SESSION['helpdesk_user_id'])) {
-   include("inc/head.inc.php");
-   include("inc/navbar.inc.php");
+   include("head.inc.php");
+   include("navbar.inc.php");
    
  
 
@@ -161,7 +161,7 @@ else if ($langu == "ua") {$status_lang_ua="selected";}
 <br>
 </div>
 <?php
- include("inc/footer.inc.php");
+ include("footer.inc.php");
 ?>
 
 <?php

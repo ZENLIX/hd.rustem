@@ -285,11 +285,11 @@ if ( isset($_POST['mode']) ) {
                                 </tr>
                                 <tr>
                                     <td style=" width: 30px; "><small><?=lang('WORKER_posada');?>:</small></td>
-                                    <td><small><a href="#" id="new_posada"  data-type="select" data-source="<?=$CONF['hostname'];?>/json.php?posada" data-pk="1" data-title="<?=lang('WORKER_posada');?>"></a></small></td>
+                                    <td><small><a href="#" id="new_posada"  data-type="select" data-source="<?=$CONF['hostname'];?>/inc/json.php?posada" data-pk="1" data-title="<?=lang('WORKER_posada');?>"></a></small></td>
                                 </tr>
                                 <tr>
                                     <td style=" width: 30px; "><small><?=lang('WORKER_unit');?>:</small></td>
-                                    <td><small><a href="#" id="new_unit" data-type="select" data-source="<?=$CONF['hostname'];?>/json.php?units" data-pk="1" data-title="<?=lang('NEW_unit');?>"></a></small></td>
+                                    <td><small><a href="#" id="new_unit" data-type="select" data-source="<?=$CONF['hostname'];?>/inc/json.php?units" data-pk="1" data-title="<?=lang('NEW_to_unit');?>"></a></small></td>
                                 </tr>
 
                                 <tr>
@@ -1164,7 +1164,7 @@ if ( isset($_POST['mode']) ) {
                     <tr id="tr_<?php echo $row['id']; ?>" class="<?=$style?>">
                         <td style=" vertical-align: middle; "><small class="<?=$muclass;?>"><center><?php echo $row['id']; ?></center></small></td>
                         <td style=" vertical-align: middle; "><small class="<?=$muclass;?>"><center><?=$prio?></center></small></td>
-                        <td style=" vertical-align: middle; "><a class="<?=$muclass;?>" data-toggle="tooltip" data-placement="bottom" title="<?=$row['subj']?>" href="ticket.php?hash=<?php echo $row['hash_name']; ?>"><?php cutstr($row['subj']); ?></a></td>
+                        <td style=" vertical-align: middle; "><a class="<?=$muclass;?>" data-toggle="tooltip" data-placement="bottom" title="<?=$row['subj']?>" href="inc/ticket.php?hash=<?php echo $row['hash_name']; ?>"><?php cutstr($row['subj']); ?></a></td>
                         <td style=" vertical-align: middle; "><small class="<?=$muclass;?>"><?php name_of_client($row['client_id']); ?></small></td>
                         <td style=" vertical-align: middle; "><small class="<?=$muclass;?>"><center><?php dt_format($row['date_create']); ?></center></small></td>
                         <td style=" vertical-align: middle; "><small class="<?=$muclass;?>"><center><?=$t_ago;?></center></small></td>
@@ -1310,7 +1310,7 @@ if ( isset($_POST['mode']) ) {
                 foreach ($results as $arr) {
                     ?>
 
-                    <tr><td style=" width: 100px; vertical-align: inherit;"><small><i class="fa fa-tag"></i> </small><a href="ticket.php?hash=<?=$arr['hash'];?>"><small><?=lang('TICKET_name');?> #<?=$arr['name'];?></small></a></td><td><small><?=$arr['at'];?></small></td><td style=" width: 110px; vertical-align: inherit;"><small style="float:right;" class="text-muted "> <?=$arr['time'];?></small></td></tr>
+                    <tr><td style=" width: 100px; vertical-align: inherit;"><small><i class="fa fa-tag"></i> </small><a href="inc/ticket.php?hash=<?=$arr['hash'];?>"><small><?=lang('TICKET_name');?> #<?=$arr['name'];?></small></a></td><td><small><?=$arr['at'];?></small></td><td style=" width: 110px; vertical-align: inherit;"><small style="float:right;" class="text-muted "> <?=$arr['time'];?></small></td></tr>
 
                 <?php
 

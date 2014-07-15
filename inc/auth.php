@@ -1,5 +1,5 @@
 <?php
-include("inc/head.inc.php");
+include_once("head.inc.php");
 //include("dbconnect.inc.php");
 ?>
 
@@ -69,8 +69,8 @@ include("inc/head.inc.php");
 
 <div class="container" id='main_login'>
     <?php //echo $_SERVER['REQUEST_URI']; ?>
-    <form class="form-signin" action="index.php" method="POST" autocomplete="off">
-        <center><img src="img/help-desk-icon.png" width="128"><h2 class="text-muted"><?=lang('MAIN_TITLE');?></h2><small class="text-muted"><?=lang('AUTH_USER');?></small></center><br>
+    <form class="form-signin" action="<?=$CONF['hostname']?>index.php" method="POST" autocomplete="off">
+        <center><img src="<?=$CONF['hostname']?>img/help-desk-icon.png" width="128"><h2 class="text-muted"><?=lang('MAIN_TITLE');?></h2><small class="text-muted"><?=lang('AUTH_USER');?></small></center><br>
         <input type="text" name="login" autocomplete="off" class="form-control" placeholder="<?=lang('login');?>">
         <input type="password" name="password" class="form-control" placeholder="<?=lang('pass');?>">
         <div style="padding-left:75px;">
@@ -98,8 +98,8 @@ include("inc/head.inc.php");
 
 
 </div>
-<script src="js/jquery-1.11.0.min.js"></script>
-<script src="js/bootstrap/js/bootstrap.min.js"></script>
+<script src="<?=$CONF['hostname']?>js/jquery-1.11.0.min.js"></script>
+<script src="<?=$CONF['hostname']?>js/bootstrap/js/bootstrap.min.js"></script>
 <script>
     $(document).ready(function() {
         $("#main_login").hide().fadeIn(500);
