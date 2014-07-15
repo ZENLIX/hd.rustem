@@ -188,7 +188,7 @@ if (isset($_GET['ok'])) {
 */
 
 
-if ($CONF['fix_ticket_subj'] == false) {
+if ($CONF['fix_subj'] == false) {
 ?>
 
 <div class="control-group" id="for_subj">
@@ -200,7 +200,7 @@ if ($CONF['fix_ticket_subj'] == false) {
     </div>
   </div></div></div>
 <?php } 
-	else if ($CONF['fix_ticket_subj'] == true) {
+	else if ($CONF['fix_subj'] == true) {
 ?>
 
 
