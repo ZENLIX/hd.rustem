@@ -31,7 +31,7 @@
 <script src="<?=$CONF['hostname']?>/js/moment.min.js"></script>
 <script src="<?=$CONF['hostname']?>/js/daterangepicker.js"></script>
 <script src="<?=$CONF['hostname']?>/js/summernote.min.js"></script>
-<script src="<?=$CONF['hostname']?>/js/summernote-uk-UA.js"></script>
+<script src="<?=$CONF['hostname']?>/js/summernote-lang.js"></script>
 <script src="<?=$CONF['hostname']?>/js/jquery.titlealert.js"></script>
 <script src="<?=$CONF['hostname']?>/js/highcharts.js"></script>
 <script src="<?=$CONF['hostname']?>/js/bootbox.min.js"></script>
