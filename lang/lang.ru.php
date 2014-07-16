@@ -462,6 +462,7 @@ function lang($phrase){
 'TICKET_file_add'=>'Добавить файл',
 'TICKET_file_list'=>'Прикреплённые файлы',
 'SYSTEM_lang'=>'Язык',
+'summernote_lang'=> 'ru-RU',
 ''=>''
 
             );

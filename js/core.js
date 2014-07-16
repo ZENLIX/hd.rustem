@@ -1001,7 +1001,7 @@ if (ispath('create') ) {
                 $('#summernote_help').summernote({
                     height: 300,
                     focus: true,
-                    lang: 'uk-UA'
+                    lang: get_lang_param('summernote_lang')
                 });
 
             }
@@ -1090,7 +1090,7 @@ if (ispath('create') ) {
                 $('#summernote').summernote({
                     height: 300,
                     focus: true,
-                    lang: 'uk-UA',
+                    lang: get_lang_param('summernote_lang'),
                     oninit: function() {
 
                         var openBtn = '<button id="save_notes" value="'+u+'" type="button" class="btn btn-success btn-sm btn-small" title="'+langp+'" data-event="something" tabindex="-1"><i class="fa fa-check-circle"></i></button>';
@@ -1170,6 +1170,7 @@ if (ispath('create') ) {
     $('body').on('click', 'button#create_new_note', function(event) {
         event.preventDefault();
         var langp=get_lang_param('JS_save');
+        
         var langup=get_lang_param('JS_pub');
         $.ajax({
             type: "POST",
@@ -1194,7 +1195,7 @@ if (ispath('create') ) {
                         $('#summernote').summernote({
                             height: 300,
                             focus: true,
-                            lang: 'uk-UA',
+                            lang: get_lang_param('summernote_lang'),
                             oninit: function() {
 
                                 var openBtn = '<button id="save_notes" value="'+u+'" type="button" class="btn btn-success btn-sm btn-small" title="'+langp+'" data-event="something" tabindex="-1"><i class="fa fa-check-circle"></i></button>';
@@ -1700,7 +1701,7 @@ if (ispath('create') ) {
                 $('#summernote_help').summernote({
                     height: 300,
                     focus: true,
-                    lang: 'uk-UA'
+                    lang: get_lang_param('summernote_lang')
                 });
             }
         });

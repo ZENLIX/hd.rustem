@@ -452,6 +452,7 @@ If you are an head of the department - you can see all your Tickets department (
 To do this, there is a section - Members. Locate the user that you need and change the data. After that, they will be tested by the system administrator and change. 
                                  </ p> ', 
 'SYSTEM_lang'=>'Language',
+'summernote_lang'=> 'en-US',
 ''=>''
 );
 return isset($lang[$phrase]) ? $lang[$phrase] : 'undefined';

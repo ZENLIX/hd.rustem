@@ -410,6 +410,7 @@ function lang($phrase){
 'TICKET_file_add'=>'Додати файл',
 'TICKET_file_list'=>'Додатковi файли',
 'SYSTEM_lang'=>'Мова',
+'summernote_lang'=> 'uk-UA',
 '' => '',
 '' => '',
 '' => '',
