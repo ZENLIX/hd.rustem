@@ -96,9 +96,10 @@ $url = parse_url($CONF['hostname']);
 		
 		
 		
+		if (isset($_GET['page'])) {
 		
-		switch($_GET['page'])
-		{
+		
+		switch($_GET['page']) {
 	case 'create': 	include('inc/new.php');		break;
 	case 'list': 	include('inc/list.php');	break;
 	case 'stats': 	include('inc/stats.php');	break;
@@ -116,7 +117,8 @@ $url = parse_url($CONF['hostname']);
 	case 'ticket': 	include('inc/ticket.php');	break;
 		default: include('404.php');
 }	
-		
+//include("inc/footer.inc.php");
+		}
 		
 		}
 

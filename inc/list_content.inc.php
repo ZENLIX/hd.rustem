@@ -17,7 +17,7 @@ if (isset($_POST['menu'])) {
         $perpage='10';
         $start_pos = ($page - 1) * $perpage;
         $user_id=id_of_user($_SESSION['helpdesk_user_login']);
-
+		$ps=priv_status($user_id);
 
         $stmt = $dbConnection->prepare('SELECT id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read,lock_by, ok_by, prio from tickets where user_init_id=:user_id and arch=:n order by id desc limit :start_pos, :perpage');
 
@@ -67,6 +67,18 @@ if (isset($_POST['menu'])) {
                 foreach($res1 as $row) {
                     $lb=$row['lock_by'];
                     $ob=$row['ok_by'];
+                    
+                    $dis_status="";
+                    
+                    
+                    if (($row['status'] == "1") && ($ob <> $user_id)) {
+                    	if ($ps == "2") {$dis_status="";}
+                    	else if ($ps == "0") {$dis_status="";}
+                    	else if ($ps == "1") {$dis_status="disabled=\'disabled\'";}
+	                    
+                    }
+                    
+                    
 
                     if ($row['is_read'] == "0") {$style="bold_for_new";
 
@@ -181,7 +193,7 @@ if (isset($_POST['menu'])) {
                         <td style=" vertical-align: middle; ">
                             <center>
                                 <div class="btn-group btn-group-xs actions">
-                                    <button data-toggle="tooltip" data-placement="bottom" title="<?=lang('t_list_a_ok_no');?>" type="button" class="btn btn-success" user="<?=$user_id?>" value="<?php echo $row['id']; ?>" id="action_list_ok" status="<?=$ob_status?>"><?=$ob_text?></button>
+                                    <button data-toggle="tooltip" data-placement="bottom" title="<?=lang('t_list_a_ok_no');?>" type="button" <?=$dis_status;?> class="btn btn-success" user="<?=$user_id?>" value="<?php echo $row['id']; ?>" id="action_list_ok" status="<?=$ob_status?>"><?=$ob_text?></button>
                                 </div>
                             </center>
                         </td>
