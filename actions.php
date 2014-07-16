@@ -19,12 +19,21 @@ if ( isset($_POST['mode']) ) {
 
     if ($mode == "activate_login") {
         $mailadr=($_POST['mailadress']);
-        $query="SELECT id, fio,login,status FROM users where email='$mailadr';";
-        $res = mysql_query($query) or die(mysql_error());
+        
+        
+        //$query="SELECT id, fio,login,status FROM users where email='$mailadr';";
+        //$res = mysql_query($query) or die(mysql_error());
 
-        if(mysql_num_rows($res)>0) {
+		$stmt = $dbConnection->prepare('SELECT id, fio,login,status FROM users where email=:mailadr');
+        $stmt->execute(array(':mailadr' => $mailadr));
+        $r = $stmt->fetchAll();
+            
+        if (!empty($r)) {
 
-            $r= mysql_fetch_assoc( $res );
+                //foreach($res as $row) {
+        //if(mysql_num_rows($res)>0) {
+
+            //$r= mysql_fetch_assoc( $res );
 
             if ($r['status'] == "0") {
 
@@ -134,7 +143,7 @@ if ( isset($_POST['mode']) ) {
             $res = $stmt->fetchAll();
 
             ?>
-            <table class="table table-hover" style="margin-bottom: 0px;" id="table_list">
+            <table class="table table-hover" style="margin-bottom: 0px; margin-bottom: 0px;" id="table_list">
 
 
             <?php
@@ -530,7 +539,7 @@ if ( isset($_POST['mode']) ) {
                                     <button id="do_save_help" value="<?=$hn?>" class="btn btn-success" type="submit"><i class="fa fa-check-circle-o"></i> <?=lang('HELP_save');?></button>
                                 </div>
                                 <div class="btn-group">
-                                    <a href="helper.php" class="btn btn-default" type="submit"><i class="fa fa-reply"></i> <?=lang('HELP_back');?></a>
+                                    <a href="helper" class="btn btn-default" type="submit"><i class="fa fa-reply"></i> <?=lang('HELP_back');?></a>
                                 </div>
                             </div>
 
@@ -621,7 +630,7 @@ if ( isset($_POST['mode']) ) {
                                     <button id="do_create_help" class="btn btn-success" type="submit"><i class="fa fa-check-circle-o"></i> <?=lang('HELP_create');?></button>
                                 </div>
                                 <div class="btn-group">
-                                    <a href="helper.php" class="btn btn-default" type="submit"><i class="fa fa-reply"></i> <?=lang('HELP_back');?></a>
+                                    <a href="helper" class="btn btn-default" type="submit"><i class="fa fa-reply"></i> <?=lang('HELP_back');?></a>
                                 </div>
                             </div>
 
@@ -683,7 +692,7 @@ if ( isset($_POST['mode']) ) {
                 if ($ac == "ok") {
                     ?>
 
-                    <h5 style=" margin-bottom: 5px; "><i class="fa fa-file-text-o"></i> <a href="helper.php?h=<?=$row['hashname'];?>"><?=$row['title'];?></a> <small>(<?=lang('DASHBOARD_author');?>: <?=nameshort(name_of_user_ret($row['user_init_id']));?>)<?php if ($priv_h== "yes") { echo " 
+                    <h5 style=" margin-bottom: 5px; "><i class="fa fa-file-text-o"></i> <a href="helper?h=<?=$row['hashname'];?>"><?=$row['title'];?></a> <small>(<?=lang('DASHBOARD_author');?>: <?=nameshort(name_of_user_ret($row['user_init_id']));?>)<?php if ($priv_h== "yes") { echo " 
 	        <div class=\"btn-group\">
 	        <button id=\"edit_helper\" value=\"".$row['hashname']."\" type=\"button\" class=\"btn btn-default btn-xs\"><i class=\"fa fa-pencil\"></i></button>
 	        <button id=\"del_helper\" value=\"".$row['hashname']."\"type=\"button\" class=\"btn btn-default btn-xs\"><i class=\"fa fa-trash-o\"></i></button>
@@ -692,7 +701,7 @@ if ( isset($_POST['mode']) ) {
                     <p style=" margin-bottom: 30px; "><small><?=cutstr_help_ret(strip_tags($row['message']));?>
                         </small>
 
-                    </p>
+                    </p><hr>
                 <?php
                 }
             }
@@ -767,7 +776,7 @@ if ( isset($_POST['mode']) ) {
                     if ($ac == "ok") {
                         ?>
 
-                        <h5 style=" margin-bottom: 5px; "><i class="fa fa-file-text-o"></i> <a href="helper.php?h=<?=$row['hashname'];?>"><?=$row['title'];?></a> <small>(<?=lang('DASHBOARD_author');?>: <?=nameshort(name_of_user_ret($row['user_init_id']));?>)<?php if ($priv_h== "yes") { echo " 
+                        <h5 style=" margin-bottom: 5px; "><i class="fa fa-file-text-o"></i> <a href="helper?h=<?=$row['hashname'];?>"><?=$row['title'];?></a> <small>(<?=lang('DASHBOARD_author');?>: <?=nameshort(name_of_user_ret($row['user_init_id']));?>)<?php if ($priv_h== "yes") { echo " 
 	        <div class=\"btn-group\">
 	        <button id=\"edit_helper\" value=\"".$row['hashname']."\" type=\"button\" class=\"btn btn-default btn-xs\"><i class=\"fa fa-pencil\"></i></button>
 	        <button id=\"del_helper\" value=\"".$row['hashname']."\"type=\"button\" class=\"btn btn-default btn-xs\"><i class=\"fa fa-trash-o\"></i></button>
@@ -777,6 +786,7 @@ if ( isset($_POST['mode']) ) {
                             </small>
 
                         </p>
+                        <hr>
                     <?php
                     }
                 }
@@ -1164,7 +1174,7 @@ if ( isset($_POST['mode']) ) {
                     <tr id="tr_<?php echo $row['id']; ?>" class="<?=$style?>">
                         <td style=" vertical-align: middle; "><small class="<?=$muclass;?>"><center><?php echo $row['id']; ?></center></small></td>
                         <td style=" vertical-align: middle; "><small class="<?=$muclass;?>"><center><?=$prio?></center></small></td>
-                        <td style=" vertical-align: middle; "><a class="<?=$muclass;?>" data-toggle="tooltip" data-placement="bottom" title="<?=$row['subj']?>" href="inc/ticket.php?hash=<?php echo $row['hash_name']; ?>"><?php cutstr($row['subj']); ?></a></td>
+                        <td style=" vertical-align: middle; "><a class="<?=$muclass;?>" data-toggle="tooltip" data-placement="bottom" title="<?=$row['subj']?>" href="ticket?<?php echo $row['hash_name']; ?>"><?php cutstr($row['subj']); ?></a></td>
                         <td style=" vertical-align: middle; "><small class="<?=$muclass;?>"><?php name_of_client($row['client_id']); ?></small></td>
                         <td style=" vertical-align: middle; "><small class="<?=$muclass;?>"><center><?php dt_format($row['date_create']); ?></center></small></td>
                         <td style=" vertical-align: middle; "><small class="<?=$muclass;?>"><center><?=$t_ago;?></center></small></td>
@@ -1310,7 +1320,7 @@ if ( isset($_POST['mode']) ) {
                 foreach ($results as $arr) {
                     ?>
 
-                    <tr><td style=" width: 100px; vertical-align: inherit;"><small><i class="fa fa-tag"></i> </small><a href="inc/ticket.php?hash=<?=$arr['hash'];?>"><small><?=lang('TICKET_name');?> #<?=$arr['name'];?></small></a></td><td><small><?=$arr['at'];?></small></td><td style=" width: 110px; vertical-align: inherit;"><small style="float:right;" class="text-muted "> <?=$arr['time'];?></small></td></tr>
+                    <tr><td style=" width: 100px; vertical-align: inherit;"><small><i class="fa fa-tag"></i> </small><a href="ticket?<?=$arr['hash'];?>"><small><?=lang('TICKET_name');?> #<?=$arr['name'];?></small></a></td><td><small><?=$arr['at'];?></small></td><td style=" width: 110px; vertical-align: inherit;"><small style="float:right;" class="text-muted "> <?=$arr['time'];?></small></td></tr>
 
                 <?php
 
