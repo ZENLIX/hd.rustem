@@ -1,7 +1,7 @@
 hd.rustem
 =======
 HELPDESK веб-система, для организации учёта выполнения задач (заявок) между структурными подразделениями и пользователями или клиентами организации.
-<img src="http://hd.rustem.com.ua/hd_screen/1.png">
+<img src="http://habrastorage.org/getpro/habr/post_images/1dd/ab7/eb0/1ddab7eb053c4368b46e959e71ea991d.png">
 
 <h4>Функционал</h4>
 <ul>
