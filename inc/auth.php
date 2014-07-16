@@ -108,7 +108,7 @@ include_once("head.inc.php");
 
             $.ajax({
                 type: "POST",
-                url: "actions.php",
+                url: <?=$CONF['hostname']?>"actions.php",
                 data: "mode=activate_login_form",
                 success: function(html){
                     //alert(html);
@@ -121,7 +121,7 @@ include_once("head.inc.php");
                         var m=$("#mailadress").val();
                         $.ajax({
                             type: "POST",
-                            url: "actions.php",
+                            url: <?=$CONF['hostname']?>"actions.php",
                             data: "mode=activate_login"+
                                 "&mailadress="+m,
                             success: function(html){
