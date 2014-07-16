@@ -226,7 +226,7 @@ if ($_POST['menu'] == 'list' ) {
 	?>
           <tr class="<?=$r;?>">
             <td><small><?php echo $row['id']; ?></small></td>
-            <td><small><a value="<?php echo $row['id']; ?>" href="users.php?edit=<?=$row['id'];?>"><?php echo $row['fio']; ?></a></small></td>
+            <td><small><a value="<?php echo $row['id']; ?>" href="<?php echo $CONF['hostname']; ?>users?edit=<?=$row['id'];?>"><?php echo $row['fio']; ?></a></small></td>
             <td><small><?php echo $row['login']; ?></small></td>
             <td><small><?php echo $priv; ?></small></td>
             <td><small><?=$unit?></small></td>

@@ -229,7 +229,7 @@ $perpage='10';
 $start_pos = ($page - 1) * $perpage;
 ?>
 <div class="panel panel-default">
-  <div class="panel-heading"><?=lang('USERS_list');?> <div style="float:right;"><a href="clients.php?add"  class="btn btn-success btn-xs"><?=lang('DEPS_add');?></a></div></div>
+  <div class="panel-heading"><?=lang('USERS_list');?> <div style="float:right;"><a href="<?=$CONF['hostname']?>clients?add"  class="btn btn-success btn-xs"><?=lang('DEPS_add');?></a></div></div>
   <div class="panel-body">
   <table class="table table-striped table-bordered">
         <thead>
@@ -287,7 +287,7 @@ $start_pos = ($page - 1) * $perpage;
 	?>
           <tr class="">
             <td><small><center><?=$row['id'];?></center></small></td>
-            <td><small><a value="<?=$row['id']; ?>" href="clients.php?edit=<?=$row['id'];?>"><?=$row['fio'];?></a></small></td>
+            <td><small><a value="<?=$row['id']; ?>" href="<?=$CONF['hostname']?>clients?edit=<?=$row['id'];?>"><?=$row['fio'];?></a></small></td>
             <td><small><?=$row['login'];?></small></td>
             <td><small><?=$row['tel'];?></small></td>
             <td><small><?=$row['unit_desc'];?></small></td>

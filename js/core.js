@@ -1,5 +1,10 @@
 $(document).ready(function() {
 
+
+
+var ACTIONPATH=MyHOSTNAME+"actions.php";
+
+
     function get_lang_param(par) {
         var result="";
         var zcode="";
@@ -12,7 +17,7 @@ if (url.search("inc") >= 0) {
 
         $.ajax({
             type: "POST",
-            url: zcode+"actions.php",
+            url: ACTIONPATH,
             data: "mode=get_lang_param"+
                 "&param="+par,
             async: false,
@@ -51,6 +56,17 @@ if (url.search("inc") >= 0) {
 
     $("#refer_to").hide();
 
+function ispath(p1) {
+var url = window.location.href;
+var zzz=false;
+if (url.search(p1) >= 0) {
+    zzz=true;
+}	
+return zzz;
+};
+
+
+
 function whatpath() {
 var url = window.location.href;
 var zzz="";
@@ -63,7 +79,7 @@ return zzz;
     $("#fio").autocomplete({
         max: 10,
         minLength: 2,
-        source: "json.php?fio",
+        source: MyHOSTNAME+"/inc/json.php?fio",
         focus: function(event, ui) {
             $("#fio").val(ui.item.label);
             return false;
@@ -77,7 +93,7 @@ return zzz;
             $("#alert_add").hide();
             $.ajax({
                 type: "POST",
-                url: whatpath()+"actions.php",
+                url: ACTIONPATH,
                 data: "mode=get_client_from_new_t&get_client_info=" + ui.item.value,
                 success: function(html) {
                     $("#user_info").hide().html(html).fadeIn(500);
@@ -127,7 +143,7 @@ return zzz;
 
                     $.ajax({
                         type: "POST",
-                        url: whatpath()+"actions.php",
+                        url: ACTIONPATH,
                         data: "mode=get_client_from_new_t&new_client_info="+$("#fio").val(),
                         success: function(html) {
                             $("#alert_add").hide().html(html).fadeIn(500);
@@ -204,7 +220,7 @@ return zzz;
 
         $.ajax({
             type: "POST",
-            url: "../actions.php",
+            url: ACTIONPATH,
             data: "mode=get_users_list"+
                 "&unit="+unit_id,
             dataType: "json",
@@ -341,7 +357,7 @@ return zzz;
 
                 $.ajax({
                     type: "POST",
-                    url: "workers.inc.php",
+                    url: MyHOSTNAME+"inc/workers.inc.php",
                     data: "page="+page+
                         "&menu=list",
                     success: function(html){
@@ -377,7 +393,7 @@ return zzz;
 
                 $.ajax({
                     type: "POST",
-                    url: "list_content.inc.php",
+                    url: MyHOSTNAME+"inc/list_content.inc.php",
                     data: "menu=in"+
                         "&page="+page,
                     success: function(html){
@@ -408,7 +424,7 @@ return zzz;
                 $("#curent_page").attr('value', page);
                 $.ajax({
                     type: "POST",
-                    url: "list_content.inc.php",
+                    url: MyHOSTNAME+"inc/list_content.inc.php",
                     data: "menu=out"+
                         "&page="+page,
                     success: function(html){
@@ -439,7 +455,7 @@ return zzz;
 
                 $.ajax({
                     type: "POST",
-                    url: "list_content.inc.php",
+                    url: MyHOSTNAME+"inc/list_content.inc.php",
                     data: "menu=arch"+
                         "&page="+page,
                     success: function(html){
@@ -519,7 +535,7 @@ if (url.search("inc") >= 0) {
         if (ee) {
             $.ajax({
                 type: "POST",
-                url: zcode+"actions.php",
+                url: ACTIONPATH,
                 data: "mode=check_update"+
                     "&type=all"+
                     "&last_update="+ee,
@@ -530,14 +546,14 @@ if (url.search("inc") >= 0) {
                         var new_lu=html;
                         $.ajax({
                             type: "POST",
-                            url: zcode+"actions.php",
+                            url: ACTIONPATH,
                             data: "mode=list_ticket_update"+
                                 "&last_update="+ee,
                             dataType: "json",
                             success: function(html){
                                 if (html) {
                                     $.each(html, function(i, item) {
-                                        var t='<div style=\'float: left;\'><a style=\'color: rgb(243, 235, 235); cursor: inherit;\' target=\'_blank\' href=\''+item.url+'/ticket.php?hash='+item.hash+'\'><strong>'+item.ticket+' #'+item.name+'</strong> </a></div><div style=\'float: right; padding-right: 10px;\'><small>'+item.time+'</small></div><br><hr style=\'margin-top: 5px; margin-bottom: 8px; border:0; border-top:0px solid #E4E4E4\'><a style=\'color: rgb(252, 252, 252); cursor: inherit;\' target=\'_blank\' href=\''+item.url+'/ticket.php?hash='+item.hash+'\'>'+item.at+'</a>';
+                                        var t='<div style=\'float: left;\'><a style=\'color: rgb(243, 235, 235); cursor: inherit;\' target=\'_blank\' href=\''+item.url+'/ticket?'+item.hash+'\'><strong>'+item.ticket+' #'+item.name+'</strong> </a></div><div style=\'float: right; padding-right: 10px;\'><small>'+item.time+'</small></div><br><hr style=\'margin-top: 5px; margin-bottom: 8px; border:0; border-top:0px solid #E4E4E4\'><a style=\'color: rgb(252, 252, 252); cursor: inherit;\' target=\'_blank\' href=\''+item.url+'/ticket?'+item.hash+'\'>'+item.at+'</a>';
                                         noty({
                                             text: t,
                                             layout: 'bottomRight',
@@ -562,7 +578,7 @@ if (url.search("inc") >= 0) {
         if (ee) {
             $.ajax({
                 type: "POST",
-                url: "actions.php",
+                url: ACTIONPATH,
                 data: "mode=check_update"+
                     "&type=all"+
                     "&last_update="+ee,
@@ -573,14 +589,14 @@ if (url.search("inc") >= 0) {
                         var new_lu=html;
                         $.ajax({
                             type: "POST",
-                            url: "actions.php",
+                            url: ACTIONPATH,
                             data: "mode=list_ticket_update"+
                                 "&last_update="+ee,
                             dataType: "json",
                             success: function(html){
                                 if (html) {
                                     $.each(html, function(i, item) {
-                                        var t='<div style=\'float: left;\'><a style=\'color: rgb(243, 235, 235); cursor: inherit;\' target=\'_blank\' href=\''+item.url+'/ticket.php?hash='+item.hash+'\'><strong>'+item.ticket+' #'+item.name+'</strong> </a></div><div style=\'float: right; padding-right: 10px;\'><small>'+item.time+'</small></div><br><hr style=\'margin-top: 5px; margin-bottom: 8px; border:0; border-top:0px solid #E4E4E4\'><a style=\'color: rgb(252, 252, 252); cursor: inherit;\' target=\'_blank\' href=\''+item.url+'/ticket.php?hash='+item.hash+'\'>'+item.at+'</a>';
+                                        var t='<div style=\'float: left;\'><a style=\'color: rgb(243, 235, 235); cursor: inherit;\' target=\'_blank\' href=\''+item.url+'/ticket?'+item.hash+'\'><strong>'+item.ticket+' #'+item.name+'</strong> </a></div><div style=\'float: right; padding-right: 10px;\'><small>'+item.time+'</small></div><br><hr style=\'margin-top: 5px; margin-bottom: 8px; border:0; border-top:0px solid #E4E4E4\'><a style=\'color: rgb(252, 252, 252); cursor: inherit;\' target=\'_blank\' href=\''+item.url+'/ticket?'+item.hash+'\'>'+item.at+'</a>';
                                         noty({
                                             text: t,
                                             layout: 'bottomRight',
@@ -590,7 +606,7 @@ if (url.search("inc") >= 0) {
 
                                         $.ajax({
                                             type: "POST",
-                                            url: "actions.php",
+                                            url: ACTIONPATH,
                                             data: "mode=last_news",
                                             success: function(html){
                                                 $('#last_news').html(html);
@@ -601,7 +617,7 @@ if (url.search("inc") >= 0) {
                                         $('#spinner').show();
                                         $.ajax({
                                             type: "POST",
-                                            url: "actions.php",
+                                            url: ACTIONPATH,
                                             data: "mode=dashboard_t",
                                             success: function(html){
 
@@ -614,7 +630,7 @@ if (url.search("inc") >= 0) {
 
                                         $.ajax({
                                             type: "POST",
-                                            url: "actions.php",
+                                            url: ACTIONPATH,
                                             dataType: "json",
                                             data: "mode=update_dashboard_labels",
                                             success: function(html){
@@ -638,19 +654,19 @@ if (url.search("inc") >= 0) {
     };
 
 
-
-    if (def_filename == "notes.php") {
+if (ispath('notes') ) {
+    //if (def_filename == "notes.php") {
 
         $.ajax({
             type: "POST",
-            url: "../actions.php",
+            url: ACTIONPATH,
             data: "mode=get_list_notes",
             success: function(html){
                 $('#table_list').html(html);
 
                 $.ajax({
                     type: "POST",
-                    url: "../actions.php",
+                    url: ACTIONPATH,
                     data: "mode=get_first_note",
                     success: function(html){
                     }
@@ -666,15 +682,15 @@ if (url.search("inc") >= 0) {
 
 
     }
-
-    if (def_filename == "ticket.php") {
+if (ispath('ticket')) {
+    //if (def_filename == "ticket.php") {
         setInterval(function(){
             var lu=$("#last_update").attr('value');
             var tid=$("#ticket_id").attr('value');
             check_update();
             $.ajax({
                 type: "POST",
-                url: "../actions.php",
+                url: ACTIONPATH,
                 dataType: "json",
                 data: "mode=check_update_one"+
                     "&id="+tid+
@@ -686,11 +702,11 @@ if (url.search("inc") >= 0) {
                         $.each(html, function(i, item) {
 
 
-                            if (item.type == "update") {window.location = "ticket.php?hash="+item.hash+"&refresh"; }
+                            if (item.type == "update") {window.location = MyHOSTNAME+"ticket?"+item.hash+"&refresh"; }
                             else if (item.type == "comment") {
                                 $.ajax({
                                     type: "POST",
-                                    url: "../actions.php",
+                                    url: ACTIONPATH,
                                     data: "mode=view_comment"+
                                         "&tid="+tid,
                                     success: function(r) {
@@ -722,25 +738,26 @@ if (url.search("inc") >= 0) {
 
 
     }
-    if (def_filename == "clients.php") {
+    if (ispath('clients') ) {
+    //if (def_filename == "clients.php") {
         setInterval(function(){
             check_update();
         },5000);
     }
-
-    if (def_filename == "profile.php") {
+if (ispath('profile') ) {
+    //if (def_filename == "profile.php") {
         setInterval(function(){
             check_update();
         },5000);
     }
-    
-    if (def_filename == "new.php") {
+    if (ispath('create') ) {
+    //if (def_filename == "new.php") {
         setInterval(function(){
             check_update();
         },5000);
     }
-
-    if (def_filename == "notes.php") {
+if (ispath('notes') ) {
+    //if (def_filename == "notes.php") {
         $('#buttons').hide();
         setInterval(function(){
             check_update();
@@ -749,9 +766,10 @@ if (url.search("inc") >= 0) {
     }
 
     if ((def_filename == "index.php") || (def_filename == "")) {
+    //alert(ACTIONPATH);
         $.ajax({
             type: "POST",
-            url: "actions.php",
+            url: ACTIONPATH,
             data: "mode=last_news",
             success: function(html){
                 $('#last_news').html(html);
@@ -761,7 +779,7 @@ if (url.search("inc") >= 0) {
         $('#spinner').show();
         $.ajax({
             type: "POST",
-            url: "actions.php",
+            url: ACTIONPATH,
             data: "mode=dashboard_t",
             success: function(html){
                 $('#dashboard_t').html(html);
@@ -807,15 +825,15 @@ if (url.search("inc") >= 0) {
 
 
 
-
-    if (def_filename == "helper.php") {
+if (ispath('helper') ) {
+    //if (def_filename == "helper.php") {
         setInterval(function(){
             check_update();
         },5000);
 
         $.ajax({
             type: "POST",
-            url: "../actions.php",
+            url: ACTIONPATH,
             data: "mode=list_help",
             success: function(html) {
                 $("#help_content").html(html);
@@ -824,11 +842,11 @@ if (url.search("inc") >= 0) {
     };
 
 
-
-if (def_filename == "new.php") {
+if (ispath('create') ) {
+//if (def_filename == "new.php") {
     var lang_dd= get_lang_param('TICKET_file_upload_msg');
     var uploadObj = $("#fileuploader").uploadFile({
-        url:"../sys/upload.php",
+        url: MyHOSTNAME+"/sys/upload.php",
         multiple:true,
         autoSubmit:false,
         fileName:"myfile",
@@ -843,8 +861,8 @@ if (def_filename == "new.php") {
     });
     }
 
-
-    if (def_filename == "stats.php") {
+	if (ispath('stats')) {
+    //if (def_filename == "stats.php") {
         setInterval(function(){
             check_update();
         },5000);
@@ -852,8 +870,8 @@ if (def_filename == "new.php") {
 
 
 
-
-    if (def_filename == "list.php") {
+	if (ispath('list')) {
+    //if (def_filename == "list.php") {
         //alert('ok');
         setInterval(function(){
             var oo=$("#curent_page").attr('value');
@@ -868,7 +886,7 @@ if (def_filename == "new.php") {
 
             $.ajax({
                 type: "POST",
-                url: "../actions.php",
+                url: ACTIONPATH,
                 data: "mode=check_update"+
                     "&type="+pt+
                     "&last_update="+lt,
@@ -877,7 +895,7 @@ if (def_filename == "new.php") {
                     }
                     else {
                         if (oo == "null") {
-                            window.location = "list.php?"+pt;
+                            window.location = MyHOSTNAME+"list?"+pt;
                         }
 
                         var new_lu=html;
@@ -885,7 +903,7 @@ if (def_filename == "new.php") {
 
                         $.ajax({
                             type: "POST",
-                            url: "list_content.inc.php",
+                            url: MyHOSTNAME+"inc/list_content.inc.php",
                             data: "menu="+pt+
                                 "&page="+oo,
                             success: function(html){
@@ -900,7 +918,7 @@ if (def_filename == "new.php") {
 
                         $.ajax({
                             type: "POST",
-                            url: "../actions.php",
+                            url: ACTIONPATH,
                             data: "mode=update_list_labels",
                             dataType: "json",
                             success: function(html){
@@ -940,7 +958,7 @@ if (def_filename == "new.php") {
     $("#fio_find").autocomplete({
         max: 10,
         minLength: 2,
-        source: "json.php?fio",
+        source: MyHOSTNAME+"inc/json.php?fio",
         focus: function(event, ui) {
             $("#fio_find").val(ui.item.label);
             return false;
@@ -948,7 +966,7 @@ if (def_filename == "new.php") {
         select: function(event, ui) {
             $.ajax({
                 type: "POST",
-                url: "actions.php",
+                url: ACTIONPATH,
                 data: "mode=find_worker"+
                     "&fio="+$("input#fio_find").val(),
                 success: function(html) {
@@ -967,7 +985,7 @@ if (def_filename == "new.php") {
 
         $.ajax({
             type: "POST",
-            url: "../actions.php",
+            url: ACTIONPATH,
             data: "mode=create_helper",
             success: function(html) {
 
@@ -1020,14 +1038,14 @@ if (def_filename == "new.php") {
 
         $.ajax({
             type: "POST",
-            url: "../actions.php",
+            url: ACTIONPATH,
 
             data: data,
             success: function(html){
                 //console.log(html);
                 $.ajax({
                     type: "POST",
-                    url: "../actions.php",
+                    url: ACTIONPATH,
                     data: "mode=get_list_notes",
                     success: function(html){
                         $('#table_list').html(html);
@@ -1056,11 +1074,11 @@ if (def_filename == "new.php") {
         var langp=get_lang_param('JS_save');
         var langup=get_lang_param('JS_pub');
 
-        $('#exampleInputEmail1').attr('value', hostadr+"/inc/note.php?h="+u);
+        $('#exampleInputEmail1').attr('value', MyHOSTNAME+"/inc/note.php?h="+u);
 
         $.ajax({
             type: "POST",
-            url: "../actions.php",
+            url: ACTIONPATH,
             data: "mode=get_notes"+
                 "&hn="+u,
             success: function(html){
@@ -1101,7 +1119,7 @@ if (def_filename == "new.php") {
 
         $.ajax({
             type: "POST",
-            url: zcode+"actions.php",
+            url: ACTIONPATH,
             data: "mode=get_host_conf",
             async: false,
             success: function(html){
@@ -1124,14 +1142,14 @@ if (def_filename == "new.php") {
             if (result == true) {
                 $.ajax({
                     type: "POST",
-                    url: "../actions.php",
+                    url: ACTIONPATH,
                     data: "mode=del_notes"+
                         "&nid="+n_id,
                     success: function(html){
                         //alert(html);
                         $.ajax({
                             type: "POST",
-                            url: "../actions.php",
+                            url: ACTIONPATH,
                             data: "mode=get_list_notes",
                             success: function(html){
                                 $('#table_list').html(html);
@@ -1155,16 +1173,16 @@ if (def_filename == "new.php") {
         var langup=get_lang_param('JS_pub');
         $.ajax({
             type: "POST",
-            url: "../actions.php",
+            url: ACTIONPATH,
             data: "mode=create_notes",
             success: function(html){
 
                 var u=html;
                 var hostadr=get_host_conf();
-                $('#exampleInputEmail1').attr('value', hostadr+"/inc/note.php?h="+u);
+                $('#exampleInputEmail1').attr('value', MyHOSTNAME+"/inc/note.php?h="+u);
                 $.ajax({
                     type: "POST",
-                    url: "../actions.php",
+                    url: ACTIONPATH,
                     data: "mode=get_notes"+
                         "&hn="+u,
                     success: function(html){
@@ -1204,7 +1222,7 @@ if (def_filename == "new.php") {
 
                 $.ajax({
                     type: "POST",
-                    url: "../actions.php",
+                    url: ACTIONPATH,
                     data: "mode=get_list_notes",
                     success: function(html){
                         $('#table_list').html(html);
@@ -1230,7 +1248,7 @@ if (def_filename == "new.php") {
 
         $.ajax({
             type: "POST",
-            url: "../actions.php",
+            url: ACTIONPATH,
             data: "mode=units_del"+
                 "&id="+$(this).attr('value'),
             success: function(html) {
@@ -1249,7 +1267,7 @@ if (def_filename == "new.php") {
 
         $.ajax({
             type: "POST",
-            url: "actions.php",
+            url: ACTIONPATH,
             data: "mode=get_report"+
                 "&id="+$("#user_report").val()+
                 "&s="+$("#d_start").val()+
@@ -1268,7 +1286,7 @@ if (def_filename == "new.php") {
 
         $.ajax({
             type: "POST",
-            url: "../actions.php",
+            url: ACTIONPATH,
             data: "mode=units_add"+
                 "&text="+$("#units_text").val(),
             success: function(html) {
@@ -1285,7 +1303,7 @@ if (def_filename == "new.php") {
 
         $.ajax({
             type: "POST",
-            url: "../actions.php",
+            url: ACTIONPATH,
             data: "mode=subj_del"+
                 "&id="+$(this).attr('value'),
             success: function(html) {
@@ -1302,7 +1320,7 @@ if (def_filename == "new.php") {
 
         $.ajax({
             type: "POST",
-            url: "../actions.php",
+            url: ACTIONPATH,
             data: "mode=subj_add"+
                 "&text="+$("#subj_text").val(),
             success: function(html) {
@@ -1320,7 +1338,7 @@ if (def_filename == "new.php") {
 
         $.ajax({
             type: "POST",
-            url: "../actions.php",
+            url: ACTIONPATH,
             data: "mode=deps_del"+
                 "&id="+$(this).attr('value'),
             success: function(html) {
@@ -1335,7 +1353,7 @@ if (def_filename == "new.php") {
 
         $.ajax({
             type: "POST",
-            url: "../actions.php",
+            url: ACTIONPATH,
             data: "mode=deps_add"+
                 "&text="+$("#deps_text").val(),
             success: function(html) {
@@ -1352,7 +1370,7 @@ if (def_filename == "new.php") {
 
         $.ajax({
             type: "POST",
-            url: "../actions.php",
+            url: ACTIONPATH,
             data: "mode=posada_add"+
                 "&text="+$("#posada_text").val(),
             success: function(html) {
@@ -1367,7 +1385,7 @@ if (def_filename == "new.php") {
 
         $.ajax({
             type: "POST",
-            url: "../actions.php",
+            url: ACTIONPATH,
             data: "mode=posada_del"+
                 "&id="+$(this).attr('value'),
             success: function(html) {
@@ -1394,7 +1412,7 @@ if (def_filename == "new.php") {
 
         $.ajax({
             type: "POST",
-            url: "../actions.php",
+            url: ACTIONPATH,
             data: "mode=aprove_yes"+
                 "&id="+table_id,
             success: function() {
@@ -1411,7 +1429,7 @@ if (def_filename == "new.php") {
 
         $.ajax({
             type: "POST",
-            url: "../actions.php",
+            url: ACTIONPATH,
             data: "mode=aprove_no"+
                 "&id="+table_id,
             success: function() {
@@ -1430,7 +1448,7 @@ if (def_filename == "new.php") {
 
         $.ajax({
             type: "POST",
-            url: "../actions.php",
+            url: ACTIONPATH,
             data: "mode=edit_profile_main"+
                 "&login="+$("#login").val()+
                 "&mail="+$("#mail").val()+
@@ -1452,7 +1470,7 @@ if (def_filename == "new.php") {
 
         $.ajax({
             type: "POST",
-            url: "../actions.php",
+            url: ACTIONPATH,
             data: "mode=edit_profile_pass"+
                 "&old_pass="+$("#old_pass").val()+
                 "&new_pass="+$("#new_pass").val()+
@@ -1472,7 +1490,7 @@ if (def_filename == "new.php") {
         event.preventDefault();
         $.ajax({
             type: "POST",
-            url: "../actions.php",
+            url: ACTIONPATH,
             data: "mode=send_zapit_add"+"&"+
                 $('#form_approve').serialize()
             ,
@@ -1495,7 +1513,7 @@ if (def_filename == "new.php") {
         event.preventDefault();
         $.ajax({
             type: "POST",
-            url: "../actions.php",
+            url: ACTIONPATH,
             data: "mode=send_zapit_edit_ok"+"&"+
                 $('#form_approve').serialize()
             ,
@@ -1519,7 +1537,7 @@ if (def_filename == "new.php") {
         event.preventDefault();
         $.ajax({
             type: "POST",
-            url: "../actions.php",
+            url: ACTIONPATH,
             data: "mode=send_zapit_edit"+"&"+
                 $('#form_approve').serialize()
             ,
@@ -1543,7 +1561,7 @@ if (def_filename == "new.php") {
 
         $.ajax({
             type: "POST",
-            url: "actions.php",
+            url: ACTIONPATH,
             data: "mode=find_worker"+
                 "&fio="+$("input#fio_find").val(),
             success: function(html) {
@@ -1583,7 +1601,7 @@ if (def_filename == "new.php") {
 
             $.ajax({
                 type: "POST",
-                url: "../actions.php",
+                url: ACTIONPATH,
                 data: "mode=add_comment"+
                     "&user="+usr+
                     "&textmsg="+$("textarea#msg").val().replace(/\r\n|\r|\n/g,"<br />")+
@@ -1642,7 +1660,7 @@ if (def_filename == "new.php") {
 
         $.ajax({
             type: "POST",
-            url: whatpath()+"actions.php",
+            url: ACTIONPATH,
             data: "mode=add_user"+
                 "&fio="+$("#fio").val()+
                 "&login="+$("#login").val()+
@@ -1654,7 +1672,7 @@ if (def_filename == "new.php") {
                 "&mail="+$("#mail").val(),
             success: function(html) {
 
-                window.location = "users.php?create&ok";
+                window.location = MyHOSTNAME+"users?create&ok";
 
             }
         });
@@ -1666,7 +1684,7 @@ if (def_filename == "new.php") {
 
         $.ajax({
             type: "POST",
-            url: "../actions.php",
+            url: ACTIONPATH,
             data: "mode=edit_helper"+
                 "&hn="+hn,
             success: function(html) {
@@ -1696,14 +1714,14 @@ if (def_filename == "new.php") {
         bootbox.confirm(langdel, function(result) {
             if (result == true) {        $.ajax({
                 type: "POST",
-                url: "../actions.php",
+                url: ACTIONPATH,
                 data: "mode=del_help"+
                     "&hn="+hn,
                 success: function(html) {
 
                     $.ajax({
                         type: "POST",
-                        url: "../actions.php",
+                        url: ACTIONPATH,
                         data: "mode=list_help",
                         success: function(html) {
                             $("#help_content").html(html);
@@ -1758,12 +1776,12 @@ if (def_filename == "new.php") {
         if (error_code == 0) {
             $.ajax({
                 type: "POST",
-                url: "../actions.php",
+                url: ACTIONPATH,
                 data: data,
                 success: function(html) {
 
 
-                    window.location = "helper.php";
+                    window.location = MyHOSTNAME+"helper";
 
                 }
             });
@@ -1809,12 +1827,12 @@ if (def_filename == "new.php") {
         if (error_code == 0) {
             $.ajax({
                 type: "POST",
-                url: "../actions.php",
+                url: ACTIONPATH,
                 data: data,
                 success: function(html) {
 
 
-                    window.location = "helper.php";
+                    window.location = MyHOSTNAME+"helper";
 
                 }
             });
@@ -1828,7 +1846,7 @@ if (def_filename == "new.php") {
 
         $.ajax({
             type: "POST",
-            url: "../actions.php",
+            url: ACTIONPATH,
             data: "mode=find_help"+
                 "&t="+t,
             success: function(html) {
@@ -1856,7 +1874,7 @@ if (def_filename == "new.php") {
 
         $.ajax({
             type: "POST",
-            url: "workers.inc.php",
+            url: MyHOSTNAME+"/inc/workers.inc.php",
             data: "menu=list"+
                 "&page=1"+
                 "&t="+t,
@@ -1876,7 +1894,7 @@ if (def_filename == "new.php") {
         var usid = $(this).attr('value');
         $.ajax({
             type: "POST",
-            url: whatpath()+"actions.php",
+            url: ACTIONPATH,
             data: "mode=edit_user"+
                 "&fio="+$("#fio").val()+
                 "&login="+$("#login").val()+
@@ -1890,7 +1908,7 @@ if (def_filename == "new.php") {
                 "&idu="+usid,
             success: function(html) {
                 //alert(html);
-                window.location = "users.php?edit="+usid+"&ok";
+                window.location = MyHOSTNAME+"users?edit="+usid+"&ok";
 
             }
         });
@@ -1924,7 +1942,7 @@ if (def_filename == "new.php") {
             $(this).html('<i class=\"fa fa-check-circle-o\"></i>');
             $.ajax({
                 type: "POST",
-                url: "../actions.php",
+                url: ACTIONPATH,
                 data: "mode=status_no_ok"+
                     "&tid="+tr_id+
                     "&user="+us,
@@ -1942,7 +1960,7 @@ if (def_filename == "new.php") {
             $(this).html('<i class=\"fa fa-circle-o\"></i>');
             $.ajax({
                 type: "POST",
-                url: "../actions.php",
+                url: ACTIONPATH,
                 data: "mode=status_ok"+
                     "&tid="+tr_id+
                     "&user="+us,
@@ -1967,7 +1985,7 @@ if (def_filename == "new.php") {
         var elem = '#tr_' + tr_id;
         $.ajax({
             type: "POST",
-            url: "actions.php",
+            url: ACTIONPATH,
             data: "mode=arch_now"+
                 "&tid="+tr_id,
             success: function(){
@@ -1994,7 +2012,7 @@ if (def_filename == "new.php") {
             $(this).html('<i class=\"fa fa-lock\"></i>');
             $.ajax({
                 type: "POST",
-                url: "../actions.php",
+                url: ACTIONPATH,
                 data: "mode=lock"+
                     "&tid="+tr_id+
                     "&user="+us,
@@ -2019,7 +2037,7 @@ if (def_filename == "new.php") {
 
             $.ajax({
                 type: "POST",
-                url: "../actions.php",
+                url: ACTIONPATH,
                 data: "mode=unlock"+
                     "&tid="+tr_id,
                 success: function(){
@@ -2056,7 +2074,7 @@ if (def_filename == "new.php") {
             $("button#action_refer_to").removeAttr('disabled');
             $.ajax({
                 type: "POST",
-                url: "../actions.php",
+                url: ACTIONPATH,
                 data: "mode=status_ok"+
                     "&tid="+ok_val_tid+
                     "&user="+ok_val,
@@ -2077,7 +2095,7 @@ if (def_filename == "new.php") {
             $("button#action_ok").attr('status', "ok").html("<i class=''></i> "+lang_nook);
             $.ajax({
                 type: "POST",
-                url: "../actions.php",
+                url: ACTIONPATH,
                 data: "mode=status_no_ok"+
                     "&tid="+ok_val_tid+
                     "&user="+ok_val,
@@ -2110,7 +2128,7 @@ if (def_filename == "new.php") {
             $("#msg_e").hide();
             $.ajax({
                 type: "POST",
-                url: "../actions.php",
+                url: ACTIONPATH,
                 data: "mode=lock"+
                     "&tid="+lock_val_tid+
                     "&user="+lock_val,
@@ -2132,7 +2150,7 @@ if (def_filename == "new.php") {
 
             $.ajax({
                 type: "POST",
-                url: "../actions.php",
+                url: ACTIONPATH,
                 data: "mode=unlock"+
                     "&tid="+lock_val_tid,
                 success: function(html){
@@ -2174,7 +2192,7 @@ if (def_filename == "new.php") {
 
             $.ajax({
                 type: "POST",
-                url: "../actions.php",
+                url: ACTIONPATH,
                 data: "mode=update_to"+
                     "&ticket_id="+pp+
                     "&to="+to+
@@ -2182,7 +2200,7 @@ if (def_filename == "new.php") {
                     "&tom="+tom,
                 success: function(html){
                     $("#ccc").hide().html(html).fadeIn(500);
-                    window.location = "list.php?in";
+                    window.location = MyHOSTNAME+"list?in";
 
                 }
             });
@@ -2205,7 +2223,7 @@ if (def_filename == "new.php") {
             if (p != 0 ) {
                 $.ajax({
                     type: "POST",
-                    url: "../actions.php",
+                    url: ACTIONPATH,
                     data: "mode=get_unit_id"+
                         "&uid="+p,
                     success: function(html){
@@ -2246,7 +2264,7 @@ if (def_filename == "new.php") {
             if (p != 0 ) {
                 $.ajax({
                     type: "POST",
-                    url: "../actions.php",
+                    url: ACTIONPATH,
                     data: "mode=get_unit_id"+
                         "&uid="+p,
                     success: function(html){
@@ -2360,7 +2378,7 @@ if (def_filename == "new.php") {
                 $.ajax({
                     type: "POST",
                     async: false,
-                    url: "../actions.php",
+                    url: ACTIONPATH,
                     data: "mode=add_ticket"+
                         "&type_add=add"+
                         "&fio="+$("#username").text()+
@@ -2381,8 +2399,8 @@ if (def_filename == "new.php") {
                     success: function(html) {
 
 
-                        window.location = "new.php?ok&h="+html;
-
+                        //window.location = "new.php?ok&h="+html;
+						window.location = MyHOSTNAME+"create/?ok&h="+html;
                     }
                 });
 
@@ -2397,7 +2415,7 @@ if (def_filename == "new.php") {
                 $.ajax({
                     type: "POST",
                     async: false,
-                    url: "../actions.php",
+                    url: ACTIONPATH,
                     data: "mode=add_ticket"+
                         "&type_add=edit"+
                         "&client_id_param="+$("#client_id_param").val()+
@@ -2418,8 +2436,8 @@ if (def_filename == "new.php") {
                     success: function(html) {
 
 
-                        window.location = "new.php?ok&h="+html;
-
+                        //window.location = "new.php?ok&h="+html;
+						window.location = MyHOSTNAME+"create/?ok&h="+html;
                     }
                 });
 

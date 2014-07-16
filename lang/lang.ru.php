@@ -382,7 +382,7 @@ function lang($phrase){
 
 
 
-'DASHBOARD_def_msg'=>', приветствуем Вас в системе заявок! </strong> </center> <br> Рекомендуем Вам посмотреть <a href=\'inc/help.php\' class=\'alert-link\'> </i> инструкции </a> по работе с системой. <br> Или <a href=\'inc/new.php\'class=\'alert-link\'> создайте новую заявку </a> прямо сейчас!',
+'DASHBOARD_def_msg'=>', приветствуем Вас в системе заявок! </strong> </center> <br> Рекомендуем Вам посмотреть <a href=\'inc/help.php\' class=\'alert-link\'> </i> инструкции </a> по работе с системой. <br> Или <a href=\'create\'class=\'alert-link\'> создайте новую заявку </a> прямо сейчас!',
 
 'msg_creted_new_user' => 'Будет заведен новый пользователь.',
 

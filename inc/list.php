@@ -104,7 +104,7 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
                 </div>
 
                 <div class="col-md-3" style="padding-top:20px;">
-                    <form action="list.php" method="get">
+                    <form action="<?=$CONF['hostname'];?>list" method="get">
                         <div class="input-group">
 
                             <input name="t" type="text" class="form-control  input-sm" id="input_find"
@@ -123,13 +123,13 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
         </div>
 
         <div class="btn-group btn-group-justified">
-            <a class="btn btn-default btn-sm <?= $status_in ?>" role="button" href="list.php?in"><i
+            <a class="btn btn-default btn-sm <?= $status_in ?>" role="button" href="?in"><i
                     class="fa fa-download"></i> <?= lang('LIST_in'); ?> <span
                     id="label_list_in"><?= $newtickets ?></span></a>
-            <a class="btn btn-default btn-sm <?= $status_out ?>" role="button" id="link_out" href="list.php?out"><i
+            <a class="btn btn-default btn-sm <?= $status_out ?>" role="button" id="link_out" href="?out"><i
                     class="fa fa-upload"></i> <?= lang('LIST_out'); ?> <span
                     id="label_list_out"><?= $out_tickets ?></span> </a>
-            <a class="btn btn-default btn-sm <?= $status_arch ?>" role="button" href="list.php?arch"><i
+            <a class="btn btn-default btn-sm <?= $status_arch ?>" role="button" href="?arch"><i
                     class="fa fa-archive"></i> <?= lang('LIST_arch'); ?></a>
         </div>
         <br>

@@ -10,7 +10,14 @@ if ($_SESSION['helpdesk_user_id']) {
   
 
 ?>
-
+<style>
+.table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
+padding: 2px;
+line-height: 1.428571429;
+vertical-align: top;
+border-top: 0px solid #DDD;
+}
+</style>
 
 <div class="container">
 <input type="hidden" id="main_last_new_ticket" value="<?=get_last_ticket_new($_SESSION['helpdesk_user_id']);?>">
@@ -61,7 +68,7 @@ if ($_SESSION['helpdesk_user_id']) {
 <div class="panel panel-default">
   <div class="panel-body">
 
-    <div id="table_list">
+    <div id="table_list" style="margin-bottom: 0px; margin-bottom: 0px;">
   
 </div>
 	

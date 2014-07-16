@@ -11,7 +11,10 @@ if (validate_admin($_SESSION['helpdesk_user_id'])) {
 if (isset($_GET['create'])) {
 	$status_create="active";
 }
-if (isset($_GET['list'])) {
+else if (isset($_GET['list'])) {
+	$status_list="active";
+}
+else {
 	$status_list="active";
 }
 
@@ -27,8 +30,8 @@ if (isset($_GET['list'])) {
 <div class="row">
   <div class="col-md-3">
 	  <ul class="nav nav-pills nav-stacked">
-  <li class="<?=$status_create?>"><a href="users.php?create" id="create_user"><i class="fa fa-male"></i> <?=lang('USERS_create');?></a></li>
-  <li class="<?=$status_list?>"><a href="users.php?list" id="list_user"><i class="fa fa-list-alt"></i> <?=lang('USERS_list');?></a></li>
+  <li class="<?=$status_create?>"><a href="?create" id="create_user"><i class="fa fa-male"></i> <?=lang('USERS_create');?></a></li>
+  <li class="<?=$status_list?>"><a href="?list" id="list_user"><i class="fa fa-list-alt"></i> <?=lang('USERS_list');?></a></li>
  </ul>
   </div>
   <div class="col-md-8">
@@ -41,16 +44,21 @@ if (isset($_GET['list'])) {
 		include_once("users.inc.php");
 		}
 		
-		if (isset($_GET['list'])) {
+		else if (isset($_GET['list'])) {
 		//echo "in";
 		$_POST['menu']="list";
 		include_once("users.inc.php");
 		}
 		
-		if (isset($_GET['edit'])) {
+		else if (isset($_GET['edit'])) {
 		//echo "in";
 		$_POST['menu']="edit";
 		$_POST['id']=$_GET['edit'];
+		include_once("users.inc.php");
+		}
+		else {
+		$_GET['list']="s";
+			$_POST['menu']="list";
 		include_once("users.inc.php");
 		}
 	  

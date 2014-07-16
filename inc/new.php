@@ -35,7 +35,7 @@ if (isset($_GET['ok'])) {
     ?>
     <div class="alert alert-success alert-dismissable">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-        <strong><i class="fa fa-check"></i> <?=lang('NEW_ok');?></strong> <?=lang('NEW_ok_1');?> <a class="alert-link" href="ticket.php?hash=<?=$h;?>"><?=lang('NEW_ok_2');?></a> <?=lang('NEW_ok_3');?>.
+        <strong><i class="fa fa-check"></i> <?=lang('NEW_ok');?></strong> <?=lang('NEW_ok_1');?> <a class="alert-link" href="<?=$CONF['hostname']?>ticket?<?=$h;?>"><?=lang('NEW_ok_2');?></a> <?=lang('NEW_ok_3');?>.
     </div>
 <?php
 
@@ -285,7 +285,7 @@ if ($CONF['fix_subj'] == false) {
             <button id="enter_ticket" class="btn btn-success" type="button"><i class="fa fa-check-circle-o"></i> <?=lang('NEW_button_create');?></button>
         </div>
         <div class="btn-group">
-            <a id="reset_ticket" class="btn btn-default" type="submit" href="new.php"><i class="fa fa-eraser"></i> <?=lang('NEW_button_reset');?></a>
+            <a id="reset_ticket" class="btn btn-default" type="submit" href="create"><i class="fa fa-eraser"></i> <?=lang('NEW_button_reset');?></a>
         </div>
     </div>
 	<input type="hidden" id="file_array" value="">

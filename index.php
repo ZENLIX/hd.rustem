@@ -80,11 +80,45 @@ $url = parse_url($CONF['hostname']);
 
     if ($rq==1) { header("Location: http://".$url['host'].$req_url);}
     if ($rq==0) {
-        include("inc/head.inc.php");
+    
+    
+    if (!isset($_GET['page'])) {        
+    
+    	include("inc/head.inc.php");
         include("inc/navbar.inc.php");
         include("inc/dashboard.php");
+		include("inc/footer.inc.php");
+		}
+    
+    
 
-        include("inc/footer.inc.php");}
+		
+		
+		
+		
+		
+		switch($_GET['page'])
+		{
+	case 'create': 	include('inc/new.php');		break;
+	case 'list': 	include('inc/list.php');	break;
+	case 'stats': 	include('inc/stats.php');	break;
+	case 'clients': include('inc/clients.php');	break;
+	case 'helper': 	include('inc/helper.php');	break;
+	case 'notes': 	include('inc/notes.php');	break;
+	case 'profile': include('inc/profile.php');	break;
+	case 'help': 	include('inc/help.php');	break;
+	case 'users': 	include('inc/users.php');	break;
+	case 'deps': 	include('inc/deps.php');	break;
+	case 'approve': include('inc/approve.php');	break;
+	case 'posada': 	include('inc/posada.php');	break;
+	case 'units': 	include('inc/units.php');	break;
+	case 'subj': 	include('inc/subj.php');	break;
+	case 'ticket': 	include('inc/ticket.php');	break;
+		default: include('404.php');
+}	
+		
+		
+		}
 
 }
 else {

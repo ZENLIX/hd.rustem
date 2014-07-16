@@ -170,7 +170,7 @@ if (isset($_POST['menu'])) {
                     <tr id="tr_<?php echo $row['id']; ?>" class="<?=$style?>">
                         <td style=" vertical-align: middle; "><small><center><?php echo $row['id']; ?></center></small></td>
                         <td style=" vertical-align: middle; "><small><center><?=$prio?></center></small></td>
-                        <td style=" vertical-align: middle; "><a href="ticket.php?hash=<?php echo $row['hash_name']; ?>"><?php cutstr($row['subj']); ?></a></td>
+                        <td style=" vertical-align: middle; "><a href="ticket?<?php echo $row['hash_name']; ?>"><?php cutstr($row['subj']); ?></a></td>
                         <td style=" vertical-align: middle; "><small><?php name_of_client($row['client_id']); ?></small></td>
                         <td style=" vertical-align: middle; "><small><center><?php dt_format($row['date_create']); ?></center></small></td>
                         <td style=" vertical-align: middle; "><small><center><?=$t_ago;?></center></small></td>
@@ -510,7 +510,7 @@ if (isset($_POST['menu'])) {
                 <tr id="tr_<?php echo $row['id']; ?>" class="<?=$style?>">
                     <td style=" vertical-align: middle; "><small class="<?=$muclass;?>"><center><?php echo $row['id']; ?></center></small></td>
                     <td style=" vertical-align: middle; "><small class="<?=$muclass;?>"><center><?=$prio?></center></small></td>
-                    <td style=" vertical-align: middle; "><a class="<?=$muclass;?>" data-toggle="tooltip" data-placement="bottom" title="<?=$row['subj']?>" href="ticket.php?hash=<?php echo $row['hash_name']; ?>"><?php cutstr($row['subj']); ?></a></td>
+                    <td style=" vertical-align: middle; "><a class="<?=$muclass;?>" data-toggle="tooltip" data-placement="bottom" title="<?=$row['subj']?>" href="ticket?<?php echo $row['hash_name']; ?>"><?php cutstr($row['subj']); ?></a></td>
                     <td style=" vertical-align: middle; "><small class="<?=$muclass;?>"><?php name_of_client($row['client_id']); ?></small></td>
                     <td style=" vertical-align: middle; "><small class="<?=$muclass;?>"><center><?php dt_format($row['date_create']); ?></center></small></td>
                     <td style=" vertical-align: middle; "><small class="<?=$muclass;?>"><center><?=$t_ago;?></center></small></td>
@@ -896,7 +896,7 @@ if (isset($_POST['menu'])) {
                 <tr id="tr_<?php echo $row['id']; ?>" class="<?=$style?>">
                     <td style=" vertical-align: middle; "><small class="<?=$muclass;?>"><center><?php echo $row['id']; ?></center></small></td>
                     <td style=" vertical-align: middle; "><small class="<?=$muclass;?>"><center><?=$prio?></center></small></td>
-                    <td style=" vertical-align: middle; "><a class="<?=$muclass;?>" data-toggle="tooltip" data-placement="bottom" title="<?=$row['subj']?>" href="ticket.php?hash=<?php echo $row['hash_name']; ?>"><?php cutstr($row['subj']); ?></a></td>
+                    <td style=" vertical-align: middle; "><a class="<?=$muclass;?>" data-toggle="tooltip" data-placement="bottom" title="<?=$row['subj']?>" href="ticket?<?php echo $row['hash_name']; ?>"><?php cutstr($row['subj']); ?></a></td>
                     <td style=" vertical-align: middle; "><small class="<?=$muclass;?>"><?php name_of_client($row['client_id']); ?></small></td>
                     <td style=" vertical-align: middle; "><small class="<?=$muclass;?>"><center><?php dt_format($row['date_create']); ?></center></small></td>
                     <td style=" vertical-align: middle; "><small class="<?=$muclass;?>"><center><?=$t_ago;?></center></small></td>
@@ -1063,7 +1063,7 @@ if (isset($_POST['menu'])) {
                     ?>
                     <tr >
                         <td style=" vertical-align: middle; "><small><center><?php echo $row['id']; ?></center></small></td>
-                        <td style=" vertical-align: middle; "><small><a href="ticket.php?hash=<?php echo $row['hash_name']; ?>"><?php cutstr($row['subj']); ?></a></small></td>
+                        <td style=" vertical-align: middle; "><small><a href="ticket?<?php echo $row['hash_name']; ?>"><?php cutstr($row['subj']); ?></a></small></td>
                         <td style=" vertical-align: middle; "><small><?php name_of_client($row['client_id']); ?></small></td>
                         <td style=" vertical-align: middle; "><small><center><?php dt_format($row['date_create']); ?></center></small></td>
                         <td style=" vertical-align: middle; "><small><?=nameshort(name_of_user_ret($row['user_init_id'])); ?></small></td>

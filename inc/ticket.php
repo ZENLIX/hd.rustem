@@ -2,26 +2,20 @@
 session_start();
 
 include("../functions.inc.php");
+$rkeys=array_keys($_GET);
 
-
-$CONF['title_header']=lang('TICKET_name')." #".get_ticket_id_by_hash($_GET['hash'])." - ".$CONF['name_of_firm'];
+$CONF['title_header']=lang('TICKET_name')." #".get_ticket_id_by_hash($rkeys[1])." - ".$CONF['name_of_firm'];
 
 
 if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
     include("head.inc.php");
     include("navbar.inc.php");
 
-    $hn=($_GET['hash']);
-
-
-    ?>
-
-    <?php
-
-
-
-
-
+    
+	
+	//echo $rkeys[1];
+	//$hn=($_GET['hash']);
+	$hn=$rkeys[1];
     $stmt = $dbConnection->prepare('SELECT 
 							id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, comment, last_edit, is_read, lock_by, ok_by, arch, ok_date, prio, last_update
 							from tickets
@@ -266,7 +260,7 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
                                 foreach($res1 as $r) {
                                     ?>
                                     <li>
-                                        <small><a target="_blank" href='../upload_files/<?=$r['name'];?>'><?=$r['name'];?></a></small>
+                                        <small><a target="_blank" href='<?=$CONF['hostname'];?>upload_files/<?=$r['name'];?>'><?=$r['name'];?></a></small>
                                     </li>
                                 <?php }?>
                             </ul>
