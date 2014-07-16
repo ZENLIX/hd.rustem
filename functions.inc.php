@@ -4,7 +4,12 @@
 include_once('conf.php');
 
 date_default_timezone_set('Europe/Kiev');
-$dbConnection = new PDO('mysql:host='.$CONF_DB['host'].';dbname='.$CONF_DB['db_name'].';charset=utf8', $CONF_DB['username'], $CONF_DB['password']);
+$dbConnection = new PDO(
+    'mysql:host='.$CONF_DB['host'].';dbname='.$CONF_DB['db_name'],
+    $CONF_DB['username'],
+    $CONF_DB['password'],
+    array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8")
+);
 $dbConnection->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 $dbConnection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 error_reporting(E_ALL ^ E_NOTICE);
@@ -69,7 +74,7 @@ function generateRandomString($length = 5) {
 function validate_exist_mail($str) {
     global $dbConnection;
     $uid=$_SESSION['helpdesk_user_id'];
-    
+
     $stmt = $dbConnection->prepare('SELECT count(email) as n from users where email=:str and id != :uid');
     $stmt->execute(array(':str' => $str,':uid' => $uid));
 	$row = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -167,7 +172,7 @@ function validate_admin($user_id) {
 
 function view_log($tid) {
 global $dbConnection;
-	
+
                         $stmt = $dbConnection->prepare('SELECT msg,
 							date_op, init_user_id, to_user_id, to_unit_id from ticket_log where
 							ticket_id=:tid order by date_op DESC');
@@ -255,7 +260,7 @@ global $dbConnection;
 
 
 
-                        <?php } 
+                        <?php }
 }
 
 function view_comment($tid) {
@@ -348,7 +353,7 @@ function get_helper() {
     $units = explode(",", $unit_user);
     array_push($units, "0");
 
-    $stmt = $dbConnection->prepare('SELECT 
+    $stmt = $dbConnection->prepare('SELECT
 							id, user_init_id, unit_to_id, dt, title, message, hashname
 							from helper
 							order by dt desc
@@ -1127,7 +1132,7 @@ function get_myname(){
     $uid=$_SESSION['helpdesk_user_id'];
 	$nu=name_of_user_ret($uid);
 	$length = strlen(utf8_decode($nu));
-	
+
 	if ($length > 2) {$n=explode(" ", name_of_user_ret($uid)); $t=$n[1]." ".$n[2];}
 	else if ($length <= 2) {$t="";}
     //$n=explode(" ", name_of_user_ret($uid));
@@ -1235,7 +1240,7 @@ function get_total_pages($menu, $id) {
 
             $res = $dbConnection->prepare("SELECT count(*) from tickets
 							where (user_to_id=:id and unit_id IN (:units) and arch='1') or
-							(user_to_id='0' and unit_id IN (:units2) and arch='1') or		
+							(user_to_id='0' and unit_id IN (:units2) and arch='1') or
 							(user_init_id=:id2 and arch='1')");
 
             $res->execute(array(':id' => $id, ':units' => $units,':id2' => $id,':units2' => $units));
