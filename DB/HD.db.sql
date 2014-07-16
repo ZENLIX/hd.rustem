@@ -298,21 +298,21 @@ UNLOCK TABLES;
 # ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `users`;
-
 CREATE TABLE `users` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `fio` varchar(512) DEFAULT NULL,
-  `login` varchar(64) DEFAULT NULL,
-  `pass` varchar(64) DEFAULT NULL,
-  `status` int(11) DEFAULT NULL,
+  `login` varchar(64) NOT NULL DEFAULT '',
+  `pass` varchar(64) NOT NULL DEFAULT '',
+  `status` int(11) NOT NULL DEFAULT '1',
   `priv` int(11) DEFAULT '0',
-  `unit` varchar(11) DEFAULT NULL,
+  `unit` varchar(11) NOT NULL DEFAULT '0',
   `is_admin` int(4) NOT NULL DEFAULT '0',
   `email` varchar(128) DEFAULT NULL,
-  `messages` varchar(2048) DEFAULT NULL,
-  `lang` varchar(11) DEFAULT NULL,
+  `messages` varchar(2048) NOT NULL DEFAULT '',
+  `lang` varchar(11) NOT NULL DEFAULT 'ru',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
