@@ -337,7 +337,7 @@ function get_ticket_id_by_hash($in) {
     return $tt;
 }
 
-function get_helper($in) {
+function get_helper() {
     global $dbConnection;
 
 
@@ -394,7 +394,7 @@ function get_helper($in) {
                 if ($ac == "ok") {
 
                     ?>
-                    <tr><td><small><i class="fa fa-file-text-o"></i> </small><a href="inc/helper.php?h=<?= $row['hashname']; ?>"><small><?= cutstr_help2_ret($row['title']); ?></small></a></td><td><small style="float:right;" class="text-muted">(<?= lang('DASHBOARD_author'); ?>: <?= nameshort(name_of_user_ret($row['user_init_id'])); ?>)</small></td></tr>
+                    <tr><td><small><i class="fa fa-file-text-o"></i> </small><a href="helper?h=<?= $row['hashname']; ?>"><small><?= cutstr_help2_ret($row['title']); ?></small></a></td><td><small style="float:right;" class="text-muted">(<?= lang('DASHBOARD_author'); ?>: <?= nameshort(name_of_user_ret($row['user_init_id'])); ?>)</small></td></tr>
 
                 <?php
                 }
@@ -1125,10 +1125,13 @@ function get_dashboard_msg(){
 }
 function get_myname(){
     $uid=$_SESSION['helpdesk_user_id'];
-
-
-    $n=explode(" ", name_of_user_ret($uid));
-    return $n[1]." ".$n[2];
+	$nu=name_of_user_ret($uid);
+	$length = strlen(utf8_decode($nu));
+	
+	if ($length > 2) {$n=explode(" ", name_of_user_ret($uid)); $t=$n[1]." ".$n[2];}
+	else if ($length <= 2) {$t="";}
+    //$n=explode(" ", name_of_user_ret($uid));
+    return $t;
 }
 function get_total_pages_workers() {
     global $dbConnection;
