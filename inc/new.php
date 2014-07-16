@@ -1,6 +1,6 @@
 <?php
 session_start();
-include("../functions.inc.php");
+include_once("../functions.inc.php");
 $CONF['title_header']=lang('NEW_title')." - ".$CONF['name_of_firm'];
 if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
 if ($_SESSION['helpdesk_user_id']) {
@@ -26,8 +26,8 @@ if ($_SESSION['helpdesk_user_id']) {
 
 
 
-<div class="col-md-1"></div>
-<div class="col-md-7" id="div_new">
+<div class=""></div>
+<div class="col-md-8" id="div_new">
 <?php
 if (isset($_GET['ok'])) {
     if (isset($_GET['h'])) {$h=$_GET['h'];}
