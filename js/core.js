@@ -855,7 +855,7 @@ if (ispath('create') ) {
         showStatusAfterSuccess:false,
         dragDropStr: "<span><b>"+lang_dd+"</b></span>",
         abortStr:"abort",
-        cancelStr:"cancel",
+        cancelStr:get_lang_param('upload_cancel'),
         doneStr:"done"
 
     });
