@@ -249,7 +249,7 @@ global $dbConnection;
       <td width="36%" align="center" valign="middle" style="border: 1px solid #ddd;font-family: Arial, Helvetica, sans-serif;
 	font-size: 19px;"><b>#{$tid}</b></td>
       <td width="49%" style="border: 1px solid #ddd;font-family: Arial, Helvetica, sans-serif;
-	font-size: 12px;"><p style="font-family: Arial, Helvetica, sans-serif; font-size:11px; text-align:center;"> <a href='{$CONF['hostname']}/inc/ticket?{$h}'>{$MAIL_2link}</a>.</p></td>
+	font-size: 12px;"><p style="font-family: Arial, Helvetica, sans-serif; font-size:11px; text-align:center;"> <a href='{$CONF['hostname']}/ticket?{$h}'>{$MAIL_2link}</a>.</p></td>
     </tr>
   </tbody>
 </table>
@@ -408,7 +408,7 @@ while ($qrow = mysql_fetch_array($qresult,MYSQL_ASSOC)) {
       <td width="36%" align="center" valign="middle" style="border: 1px solid #ddd;font-family: Arial, Helvetica, sans-serif;
 	font-size: 19px;"><b>#{$tid}</b></td>
       <td width="49%" style="border: 1px solid #ddd;font-family: Arial, Helvetica, sans-serif;
-	font-size: 12px;"><p style="font-family: Arial, Helvetica, sans-serif; font-size:11px; text-align:center;"> <a href='{$CONF['hostname']}/inc/ticket?{$h}'>{$MAIL_2link}</a>.</p></td>
+	font-size: 12px;"><p style="font-family: Arial, Helvetica, sans-serif; font-size:11px; text-align:center;"> <a href='{$CONF['hostname']}/ticket?{$h}'>{$MAIL_2link}</a>.</p></td>
     </tr>
   </tbody>
 </table>
@@ -577,7 +577,7 @@ EOBODY;
       <td width="36%" align="center" valign="middle" style="border: 1px solid #ddd;font-family: Arial, Helvetica, sans-serif;
 	font-size: 19px;"><b>#{$tid}</b></td>
       <td width="49%" style="border: 1px solid #ddd;font-family: Arial, Helvetica, sans-serif;
-	font-size: 12px;"><p style="font-family: Arial, Helvetica, sans-serif; font-size:11px; text-align:center;"><a href='{$CONF['hostname']}/inc/ticket?{$h}'>{$MAIL_2link}</a></p></td>
+	font-size: 12px;"><p style="font-family: Arial, Helvetica, sans-serif; font-size:11px; text-align:center;"><a href='{$CONF['hostname']}/ticket?{$h}'>{$MAIL_2link}</a></p></td>
     </tr>
   </tbody>
 </table>
