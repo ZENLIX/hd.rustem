@@ -51,7 +51,7 @@ if (isset($_POST['login']) && isset($_POST['password']))
     	$row = $stmt->fetch(PDO::FETCH_ASSOC);
 
 
-
+		session_regenerate_id();
         $_SESSION['helpdesk_user_id'] = $row['id'];
         $_SESSION['helpdesk_user_login'] = $row['login'];
         $_SESSION['helpdesk_user_fio'] = $row['fio'];
