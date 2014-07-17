@@ -102,7 +102,7 @@ DROP TABLE IF EXISTS `files`;
 
 CREATE TABLE `files` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `ticket_id` int(11) DEFAULT NULL,
+  `ticket_hash` varchar(512) DEFAULT NULL,
   `original_name` varchar(512) DEFAULT NULL,
   `file_hash` varchar(512) DEFAULT NULL,
   `file_type` varchar(512) DEFAULT NULL,

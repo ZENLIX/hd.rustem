@@ -47,10 +47,10 @@ if ((!in_array($_FILES["myfile"]["type"], $acceptable)) && (!empty($_FILES["myfi
  		
  		
  		$stmt = $dbConnection->prepare('insert into files 
- 		(ticket_id, original_name, file_hash, file_type, file_size, file_ext) values 
- 		(:ticket_id, :original_name, :file_hash, :file_type, :file_size, :file_ext)');
+ 		(ticket_hash, original_name, file_hash, file_type, file_size, file_ext) values 
+ 		(:ticket_hash, :original_name, :file_hash, :file_type, :file_size, :file_ext)');
 		$stmt->execute(array(
-		':ticket_id'=>$file_tid, 
+		':ticket_hash'=>$hn, 
 		':original_name'=>$fileName,
 		':file_hash'=>$fhash,
 		':file_type'=>$filetype,

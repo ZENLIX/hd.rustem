@@ -246,8 +246,8 @@ border-top: 0px solid #DDD;}
 
 
 
-                $stmt = $dbConnection->prepare('SELECT file_hash, original_name, file_size FROM files where ticket_id=:tid');
-                $stmt->execute(array(':tid'=>$tid));
+                $stmt = $dbConnection->prepare('SELECT file_hash, original_name, file_size FROM files where ticket_hash=:tid');
+                $stmt->execute(array(':tid'=>$hn));
                 $res1 = $stmt->fetchAll();
                 if (!empty($res1)) {
 
