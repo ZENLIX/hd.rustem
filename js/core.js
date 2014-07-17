@@ -846,6 +846,7 @@ if (ispath('create') ) {
 //if (def_filename == "new.php") {
     var lang_dd= get_lang_param('TICKET_file_upload_msg');
     var uploadObj = $("#fileuploader").uploadFile({
+    	allowedTypes: "jpg,png,gif,doc,docx,xls,xlsx,rtf,pdf,zip,bmp",
         url: MyHOSTNAME+"/sys/upload.php",
         multiple:true,
         autoSubmit:false,
