@@ -464,6 +464,7 @@ function lang($phrase){
 'SYSTEM_lang'=>'Язык',
 'summernote_lang'=> 'ru-RU',
 'note_save'=>'Запись сохранена',
+'upload_cancel'=>'Удалить',
 ''=>''
 
             );
