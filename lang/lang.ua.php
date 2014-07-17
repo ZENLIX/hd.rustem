@@ -411,6 +411,8 @@ function lang($phrase){
 'TICKET_file_list'=>'Додатковi файли',
 'SYSTEM_lang'=>'Мова',
 'summernote_lang'=> 'uk-UA',
+'note_save'=>'Запись збережено',
+'upload_cancel'=>'Видалити',
 '' => '',
 '' => '',
 '' => '',

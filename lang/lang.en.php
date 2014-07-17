@@ -453,6 +453,8 @@ To do this, there is a section - Members. Locate the user that you need and chan
                                  </ p> ', 
 'SYSTEM_lang'=>'Language',
 'summernote_lang'=> 'en-US',
+'note_save'=>'Record saved',
+'upload_cancel'=>'Remove',
 ''=>''
 );
 return isset($lang[$phrase]) ? $lang[$phrase] : 'undefined';

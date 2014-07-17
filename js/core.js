@@ -856,7 +856,7 @@ if (ispath('create') ) {
         showStatusAfterSuccess:false,
         dragDropStr: "<span><b>"+lang_dd+"</b></span>",
         abortStr:"abort",
-        cancelStr:"cancel",
+        cancelStr:get_lang_param('upload_cancel'),
         doneStr:"done"
 
     });
@@ -1053,7 +1053,7 @@ if (ispath('create') ) {
 
 
                         noty({
-                            text: "Запис збережено",
+                            text: get_lang_param('note_save'),
                             layout: 'center',
                             type: 'information',
                             timeout: 2000
