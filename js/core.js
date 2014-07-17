@@ -1052,7 +1052,7 @@ if (ispath('create') ) {
 
 
                         noty({
-                            text: "Запис збережено",
+                            text: get_lang_param('note_save'),
                             layout: 'center',
                             type: 'information',
                             timeout: 2000
