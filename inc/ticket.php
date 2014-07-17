@@ -210,6 +210,11 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
                     padding: 8px;
                     line-height: 1.428571429;
                     vertical-align: top;}
+                    .table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
+
+line-height: 1.428571429;
+vertical-align: top;
+border-top: 0px solid #DDD;}
             </style>
 
 
@@ -241,8 +246,8 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
 
 
 
-                $stmt = $dbConnection->prepare('SELECT name FROM files where h_name=:hn');
-                $stmt->execute(array(':hn'=>$hn));
+                $stmt = $dbConnection->prepare('SELECT file_hash, original_name, file_size FROM files where ticket_id=:tid');
+                $stmt->execute(array(':tid'=>$tid));
                 $res1 = $stmt->fetchAll();
                 if (!empty($res1)) {
 
@@ -254,16 +259,28 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
                             <center><small><strong><?=lang('TICKET_file_list')?>:</strong></small></center>
                         </div>
                         <div class="col-md-9">
-                            <ul>
+                            <table class="table table-hover">
+                                    <tbody>
                                 <?php
-
+									
                                 foreach($res1 as $r) {
                                     ?>
-                                    <li>
-                                        <small><a target="_blank" href='<?=$CONF['hostname'];?>upload_files/<?=$r['name'];?>'><?=$r['name'];?></a></small>
-                                    </li>
+                                    
+                                    
+                                    
+                    <tr>
+                        <td style="width:20px;"><small><?=get_file_icon($r['file_hash']);?></small></td>
+                        <td><small><a href='<?=$CONF['hostname'];?>sys/download.php?<?=$r['file_hash'];?>'><?=$r['original_name'];?></a></small></td>
+                        <td><small><?php echo round(($r['file_size']/(1024*1024)),2);?> Mb</small></td>
+                    </tr>
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
                                 <?php }?>
-                            </ul>
+                            </table>
 
                         </div>
                     </div>

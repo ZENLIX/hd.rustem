@@ -1,14 +1,3 @@
-# ************************************************************
-# Sequel Pro SQL dump
-# Версия 3408
-#
-# http://www.sequelpro.com/
-# http://code.google.com/p/sequel-pro/
-#
-# Адрес: 127.0.0.1 (MySQL 5.6.16)
-# Схема: hd
-# Время создания: 2014-05-20 08:10:13 +0000
-# ************************************************************
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -113,11 +102,14 @@ DROP TABLE IF EXISTS `files`;
 
 CREATE TABLE `files` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(512) DEFAULT NULL,
-  `h_name` varchar(512) DEFAULT NULL,
+  `ticket_id` int(11) DEFAULT NULL,
+  `original_name` varchar(512) DEFAULT NULL,
+  `file_hash` varchar(512) DEFAULT NULL,
+  `file_type` varchar(512) DEFAULT NULL,
+  `file_size` int(11) DEFAULT NULL,
+  `file_ext` varchar(12) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 
 # Дамп таблицы helper

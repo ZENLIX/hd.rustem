@@ -7,7 +7,7 @@ $maxsize    = 2097152;
 
 
 
-
+$file_tid=get_ticket_id_by_hash($hn);
 
 if(isset($_FILES["myfile"]))
 {
@@ -20,7 +20,8 @@ if(isset($_FILES["myfile"]))
 	if(!is_array($_FILES["myfile"]["name"])) //single file
 	{
  	 	$fileName = $_FILES["myfile"]["name"];
- 	 	
+ 	 	$filetype = $_FILES["myfile"]["type"];
+ 	 	$filesize = $_FILES["myfile"]["size"];
  	if($_FILES["myfile"]["size"]>$maxsize)
 	{
 	$flag=true;	
@@ -30,16 +31,34 @@ if ((!in_array($_FILES["myfile"]["type"], $acceptable)) && (!empty($_FILES["myfi
 }
  	 	
  	 	if($flag == false) {
- 	 	$fileName1 = $hn."-".$_FILES["myfile"]["name"];
- 		move_uploaded_file($_FILES["myfile"]["tmp_name"],$output_dir.$fileName1);
+ 	 	$fhash=randomhash();
+ 	 	//$ext = pathinfo($filename, PATHINFO_EXTENSION);
+ 	 	//$_FILES["myfile"]["name"]
+ 	 	//$_FILES["myfile"]["type"]
+ 	 	//$_FILES["myfile"]["size"]
+ 	 	//$fhash
+ 	 	//get_ticket_id_by_hash($hn);
+ 	 	//$file_tid
+ 	 	$ext = pathinfo($fileName, PATHINFO_EXTENSION);
+ 	 	$fileName_norm = $fhash.".".$ext;
+ 	 	
+ 	 	
+ 		move_uploaded_file($_FILES["myfile"]["tmp_name"],$output_dir.$fileName_norm);
  		
- 		//sql insert
- 		//$query="insert into files (name, h_name) values ('$fileName1','$hn');";
-        //mysql_query($query)or die(mysql_error());
- 		$stmt = $dbConnection->prepare('insert into files (name, h_name) values (:fileName1,:hn)');
-		$stmt->execute(array(':fileName1'=>$fileName1, ':hn'=>$hn));
+ 		
+ 		$stmt = $dbConnection->prepare('insert into files 
+ 		(ticket_id, original_name, file_hash, file_type, file_size, file_ext) values 
+ 		(:ticket_id, :original_name, :file_hash, :file_type, :file_size, :file_ext)');
+		$stmt->execute(array(
+		':ticket_id'=>$file_tid, 
+		':original_name'=>$fileName,
+		':file_hash'=>$fhash,
+		':file_type'=>$filetype,
+		':file_size'=>$filesize,
+		':file_ext'=>$ext
+		));
  		}
-    	$ret[]= $fileName;
+    	$ret[]= $fileName_norm;
 	}
 
     echo json_encode($ret);

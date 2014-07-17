@@ -109,6 +109,17 @@ function randomPassword() {
     return implode($pass);
 }
 
+function randomhash() {
+    $alphabet = "abcdefghijklmnopqrstuwxyz0123456789";
+    $pass = array();
+    $alphaLength = strlen($alphabet) - 1;
+    for ($i = 0; $i < 24; $i++) {
+        $n = rand(0, $alphaLength);
+        $pass[] = $alphabet[$n];
+    }
+    return implode($pass);
+}
+
 
 
 
@@ -154,7 +165,37 @@ function xss_clean($data)
     return $data;
 }
 
+function get_file_icon($in) {
+    global $dbConnection;
+	$stmt = $dbConnection->prepare('SELECT file_type FROM files where file_hash=:file_hash');
+    $stmt->execute(array(':file_hash' => $in));
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    $ftype=$row['file_type'];
+    
+    
+    switch($ftype) {
 
+
+    
+    
+    case 'application/pdf': $icon="<i class=\"fa fa-file-pdf-o\"></i>";	break;
+    case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document': $icon="<i class=\"fa fa-file-word-o\"></i>";	break;
+    case 'application/msword': $icon="<i class=\"fa fa-file-word-o\"></i> ";	break;
+    case 'application/excel': $icon="<i class=\"fa fa-file-excel-o\"></i>";	break;
+    case 'application/vnd.ms-excel': $icon="<i class=\"fa fa-file-excel-o\"></i>";	break;
+    case 'application/x-excel': $icon="<i class=\"fa fa-file-excel-o\"></i>";	break;
+    case 'application/x-msexcel': $icon="<i class=\"fa fa-file-excel-o\"></i>";	break;
+    case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': $icon="<i class=\"fa fa-file-word-o\"></i>";	break;
+    case 'image/jpeg': $icon="<i class=\"fa fa-file-image-o\"></i>";	break;
+    case 'image/jpg': $icon="<i class=\"fa fa-file-image-o\"></i>";	break;
+    case 'image/gif': $icon="<i class=\"fa fa-file-image-o\"></i>";	break;
+    case 'image/png': $icon="<i class=\"fa fa-file-image-o\"></i>";	break;
+    
+		default: $icon="<i class=\"fa fa-file\"></i>";
+    }
+	
+	return $icon;
+}
 
 
 function validate_admin($user_id) {
