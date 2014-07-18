@@ -863,12 +863,10 @@ function get_last_ticket($menu, $id) {
         $unit_user=unit_of_user($id);
         $priv_val=priv_status($id);
 
-        $units = explode(",", $unit_user);
-        $units =implode("', '", $units);
-$ee=explode(",", $unit_user);
-foreach($ee as $key=>$value) {$in_query = $in_query . ' :val_' . $key . ', '; }
-$in_query = substr($in_query, 0, -2);
-foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
+		$ee=explode(",", $unit_user);
+		foreach($ee as $key=>$value) {$in_query = $in_query . ' :val_' . $key . ', '; }
+		$in_query = substr($in_query, 0, -2);
+		foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
 
         if ($priv_val == "0") {
 
@@ -877,24 +875,19 @@ foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
             $paramss=array(':id' => $id);
             $stmt->execute(array_merge($vv,$paramss));
             $max = $stmt->fetch(PDO::FETCH_NUM);
-
-
-            $max_id=$max[0];
+			$max_id=$max[0];
         }
 
 
         else if ($priv_val == "1") {
-
-
-            $stmt = $dbConnection->prepare("SELECT max(last_update) from tickets where ((user_to_id=:id) or (user_to_id=:tid and unit_id IN (".$in_query."))) or user_init_id=:id2");
+			$stmt = $dbConnection->prepare("SELECT max(last_update) from tickets where (
+			(user_to_id=:id) or (user_to_id=:tid and unit_id IN (".$in_query."))
+			) or user_init_id=:id2");
             $paramss=array(':id' => $id, ':tid' => '0', ':id2' => $id);
             $stmt->execute(array_merge($vv,$paramss));
             
             $max = $stmt->fetch(PDO::FETCH_NUM);
-
-
-
-            $max_id=$max[0];
+			$max_id=$max[0];
 
 
 
@@ -910,7 +903,7 @@ foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
 
         }
     }
-    if ($menu == "in") {
+    else if ($menu == "in") {
 
 
 
@@ -977,7 +970,7 @@ foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
 
 
     }
-    if ($menu == "out") {
+    else if ($menu == "out") {
 
 
 
@@ -990,15 +983,14 @@ foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
 
         $max_id=$max[0];
     }
-    if ($menu == "arch") {
+    else if ($menu == "arch") {
 
 
 
 
         $unit_user=unit_of_user($id);
         $priv_val=priv_status($id);
-        $units = explode(",", $unit_user);
-        $units = implode("', '", $units);
+
         
 $ee=explode(",", $unit_user);
 $s=1;
@@ -1032,11 +1024,13 @@ foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
 
 
 
-            $stmt = $dbConnection->prepare("SELECT max(last_update) from tickets where (user_to_id=:id and unit_id IN (".$in_query.") and arch='1') or
-							(user_to_id='0' and unit_id IN (".$in_query2.") and arch='1')");
+            $stmt = $dbConnection->prepare("SELECT max(last_update) from tickets where 
+            (user_to_id=:id and unit_id IN (".$in_query.") and arch='1')
+             or
+			(user_to_id='0' and unit_id IN (".$in_query2.") and arch='1')");
 							
 							
-            $stmt->execute(array(':id' => $id));
+           
             
             
             $paramss=array(':id' => $id);
@@ -1054,7 +1048,7 @@ foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
 
 
         }
-        if ($priv_val == "2") {
+        else if ($priv_val == "2") {
 
             $stmt = $dbConnection->prepare("SELECT max(last_update) from tickets where arch='1'");
             $stmt->execute();
@@ -1077,9 +1071,6 @@ foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
 
     }
 
-    if ($menu == "client") {
-
-    }
 
 
 
@@ -1379,7 +1370,7 @@ foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
             $paramss=array(':id' => $id,':id2' => $id);
             $res->execute(array_merge($vv,$vv2,$paramss));
             $count = $res->fetch(PDO::FETCH_NUM);
-            $count=$count[0];
+            $count=0;
 
 
 

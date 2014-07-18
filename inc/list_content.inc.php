@@ -856,7 +856,7 @@ foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
 							limit :start_pos, :perpage');
                         
 $paramss=array(':n'=>'1', ':user_id'=>$user_id,':start_pos'=>$start_pos,':perpage'=>$perpage);
-//$stmt->execute(array_merge($vv,$paramss));
+$stmt->execute(array_merge($vv,$paramss));
 $res1 = $stmt->fetchAll();
 
 
@@ -867,12 +867,15 @@ $res1 = $stmt->fetchAll();
 
 
 
-
-            $stmt = $dbConnection->prepare('SELECT 
+//echo "hello";
+            $stmt = $dbConnection->prepare('
+            SELECT 
 							id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read, lock_by, ok_by, ok_date
 							from tickets
-							where ((user_to_id=:user_id and unit_id IN ('.$in_query.') and arch=:n) or
-							(user_to_id=:n1 and unit_id IN ('.$in_query2.') and arch=:n2)) or (user_init_id=:user_id2 and arch=:n3)
+							where (
+							(user_to_id=:user_id and unit_id IN ('.$in_query.') and arch=:n) or
+							(user_to_id=:n1 and unit_id IN ('.$in_query2.') and arch=:n2)
+							) or (user_init_id=:user_id2 and arch=:n3)
 							order by id DESC
 							limit :start_pos, :perpage');
 
@@ -880,6 +883,7 @@ $res1 = $stmt->fetchAll();
             
             
 $paramss=array(':n'=>'1',':n1'=>'0',':n2'=>'1',':n3'=>'1', ':user_id'=>$user_id, ':user_id2'=>$user_id,':start_pos'=>$start_pos,':perpage'=>$perpage);
+
 $stmt->execute(array_merge($vv,$vv2,$paramss));
 $res1 = $stmt->fetchAll();
 
@@ -916,7 +920,7 @@ $res1 = $stmt->fetchAll();
             </div>
         <?php
         }
-        if ($aha <> "0") {
+        else if ($aha <> "0") {
             ?>
 
             <input type="hidden" value="<?php echo get_total_pages('arch', $user_id); ?>" id="val_menu">

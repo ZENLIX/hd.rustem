@@ -1,6 +1,6 @@
 <?php
 session_start();
-include("../functions.inc.php");
+include_once("functions.inc.php");
 $CONF['title_header'] = lang('LIST_title') . " - ".lang('MAIN_TITLE');
 if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
 
@@ -184,6 +184,7 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
 
         <?php
         $nn = get_last_ticket($_POST['menu'], $user_id);
+        
         if ($nn == 0) {
 
 
@@ -194,7 +195,7 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
 
 
         }
-        if ($nn <> 0) {
+        else if ($nn <> 0) {
             ?>
 
             <?php if (isset($_GET['in'])) {
