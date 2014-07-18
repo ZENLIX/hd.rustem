@@ -857,7 +857,8 @@ if (ispath('create') ) {
         dragDropStr: "<span><b>"+lang_dd+"</b></span>",
         abortStr:"abort",
         cancelStr:get_lang_param('upload_cancel'),
-        doneStr:"done"
+        doneStr:"done",
+        sizeErrorStr:get_lang_param('upload_errorsize')
 
     });
     }
