@@ -413,6 +413,7 @@ function lang($phrase){
 'summernote_lang'=> 'uk-UA',
 'note_save'=>'Запис збережено',
 'upload_cancel'=>'Видалити',
+'upload_errorsize'=>'не допускається. Максимальний дозволений розмір:',
 '' => '',
 '' => '',
 '' => '',
