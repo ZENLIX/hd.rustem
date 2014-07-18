@@ -1,6 +1,6 @@
 <?php
 $base = dirname(dirname(__FILE__)); 
-include($base ."/sys/functions.inc.php");
+include($base ."/functions.inc.php");
 /*   
 5 0 * * * /usr/bin/php5 -f /var/www/hd_prod/sys/4cron.php > /var/www/hd_prod/4cron.log 2>&1
 */
