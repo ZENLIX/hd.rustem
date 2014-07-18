@@ -487,6 +487,12 @@ return zzz;
 
     var def_p = window.location.pathname.split("/");
     var def_filename = def_p[def_p.length-1];
+    
+    
+
+
+//alert(window.location);
+
 
     $.noty.defaults = {
         layout: 'top',
@@ -765,7 +771,8 @@ if (ispath('notes') ) {
         
     }
 
-    if ((def_filename == "index.php") || (def_filename == "")) {
+
+    if ((def_filename == "index.php") || (window.location == MyHOSTNAME)) {
     //alert(ACTIONPATH);
         $.ajax({
             type: "POST",
