@@ -68,111 +68,98 @@ if (isset($_POST['menu'])) {
                     $lb=$row['lock_by'];
                     $ob=$row['ok_by'];
                     
+                    
+////////////////////////////Блокирует кнопки/////////////////////////////////////////////////////////////////                    
                     $dis_status="";
-                    
-                    
                     if (($row['status'] == "1") && ($ob <> $user_id)) {
                     	if ($ps == "2") {$dis_status="";}
                     	else if ($ps == "0") {$dis_status="";}
                     	else if ($ps == "1") {$dis_status="disabled=\'disabled\'";}
-	                    
                     }
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////         
+    
+    
+    
+////////////////////////////Раскрашивает и подписывает кнопки/////////////////////////////////////////////////////////////////
+if ($row['is_read'] == "0") { $style="bold_for_new"; }
+if ($row['is_read'] <> "0") { $style=""; }
+                    if ($row['status'] == "1") {
+                        $ob_text="<i class=\"fa fa-check-circle-o\"></i>";
+                        $ob_status="unok";
+                        $ob_tooltip=lang('t_list_a_nook');
+                        $style="success";
+
+                        if ($lb <> "0") {
+                            $lb_text="<i class=\"fa fa-lock\"></i>";
+                            $lb_status="unlock";
+                            $lb_tooltip=lang('t_list_a_unlock');
+                        }
+                        if ($lb == "0") {
+                            $lb_text="<i class=\"fa fa-unlock\"></i>";
+                            $lb_status="lock";
+                            $lb_tooltip=lang('t_list_a_lock');
+                        }
+
+
+                    }
+
+                    if ($row['status'] == "0") {
+                        $ob_text="<i class=\"fa fa-circle-o\"></i>";
+                        $ob_status="ok";
+                        $ob_tooltip=lang('t_list_a_ok');
+                        if ($lb <> "0") {
+                            $lb_text="<i class=\"fa fa-lock\"></i>";
+                            $lb_status="unlock";
+                            $lb_tooltip=lang('t_list_a_unlock');
+                            if ($lb == $user_id) {$style="warning";}
+                            if ($lb <> $user_id) {$style="active";}
+                        }
+
+                        if ($lb == "0") {
+                            $lb_text="<i class=\"fa fa-unlock\"></i>";
+                            $lb_status="lock";
+                            $lb_tooltip=lang('t_list_a_lock');
+                        }
+
+                    }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+////////////////////////////Показывает приоритет//////////////////////////////////////////////////////////////
+                $prio="<span class=\"label label-info\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".lang('t_list_a_p_norm')."\"><i class=\"fa fa-minus\"></i></span>";
+
+                if ($row['prio'] == "0") {$prio= "<span class=\"label label-primary\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".lang('t_list_a_p_low')."\"><i class=\"fa fa-arrow-down\"></i></span>"; }
+
+                if ($row['prio'] == "2") {$prio= "<span class=\"label label-danger\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".lang('t_list_a_p_high')."\"><i class=\"fa fa-arrow-up\"></i></span>"; }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+////////////////////////////Показывает labels//////////////////////////////////////////////////////////////
+                if ($row['status'] == 1) {$st=  "<span class=\"label label-success\"><i class=\"fa fa-check-circle\"></i> ".lang('t_list_a_oko')." ".nameshort(name_of_user_ret($ob))."</span>";
+                    $t_ago=get_date_ok($row['date_create'], $row['id']);
+                }
+                if ($row['status'] == 0) {
+                    $t_ago=humanTiming(strtotime($row['date_create']));
+                    if ($lb <> 0) {
+
+                        if ($lb == $user_id) {$st=  "<span class=\"label label-warning\"><i class=\"fa fa-gavel\"></i> ".lang('t_list_a_lock_i')."</span>";}
+
+                        if ($lb <> $user_id) {$st=  "<span class=\"label label-default\"><i class=\"fa fa-gavel\"></i> ".lang('t_list_a_lock_u')." ".nameshort(name_of_user_ret($lb))."</span>";}
+
+                    }
+                    if ($lb == 0) {$st=  "<span class=\"label label-primary\"><i class=\"fa fa-clock-o\"></i> ".lang('t_list_a_hold')."</span>";}
+                }
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    
+    
                     
-                    
-
-                    if ($row['is_read'] == "0") {$style="bold_for_new";
-
-
-                        if ($row['status'] == "1") {
-                            $ob_text="<i class=\"fa fa-check-circle-o\"></i>";
-                            $ob_status="unok";
-                            $style="success";
-                            if ($lb <> "0") {
-                                $lb_text="<i class=\"fa fa-lock\"></i>";
-                                $lb_status="unlock";
-                            }
-                            if ($lb == "0") {
-                                $lb_text="<i class=\"fa fa-unlock\"></i>";
-                                $lb_status="lock";
-                            }
-
-                        }
-
-                        if ($row['status'] == "0") {
-                            $ob_text="<i class=\"fa fa-circle-o\"></i>";
-                            $ob_status="ok";
-                            if ($lb <> "0") {
-                                $lb_text="<i class=\"fa fa-lock\"></i>";
-                                $lb_status="unlock";
-                                if ($lb == $user_id) {$style="warning";}
-                                if ($lb <> $user_id) {$style="active";}
-                            }
-                            if ($lb == "0") {
-                                $lb_text="<i class=\"fa fa-unlock\"></i>";
-                                $lb_status="lock";
-                            }
-
-                        }
-
-                    }
-                    if ($row['is_read'] <> "0") {
-
-                        if ($row['status'] == "1") {
-                            $ob_text="<i class=\"fa fa-check-circle-o\"></i>";
-                            $ob_status="unok";
-                            $style="success";
-                            if ($lb <> "0") {
-                                $lb_text="<i class=\"fa fa-lock\"></i>";
-                                $lb_status="unlock";
-                            }
-                            if ($lb == "0") {
-                                $lb_text="<i class=\"fa fa-unlock\"></i>";
-                                $lb_status="lock";
-                            }
-                        }
-
-
-                        if ($row['status'] == "0") {
-                            $ob_text="<i class=\"fa fa-circle-o\"></i>";
-                            $ob_status="ok";
-                            if ($lb <> "0") {
-                                $lb_text="<i class=\"fa fa-lock\"></i>";
-                                $lb_status="unlock";
-                                if ($lb == $user_id) {$style="warning";}
-                                if ($lb <> $user_id) {$style="active";}
-                            }
-                            if ($lb == "0") {
-                                $style="";
-                                $lb_text="<i class=\"fa fa-unlock\"></i>";
-                                $lb_status="lock";
-                            }
-                        }
-                    }
-
-                    $prio="<span class=\"label label-info\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".lang('t_list_a_p_norm')."\"><i class=\"fa fa-minus\"></i></span>";
-
-                    if ($row['prio'] == "0") {$prio= "<span class=\"label label-primary\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".lang('t_list_a_p_low')."\"><i class=\"fa fa-arrow-down\"></i></span>"; }
-
-                    if ($row['prio'] == "2") {$prio= "<span class=\"label label-danger\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".lang('t_list_a_p_high')."\"><i class=\"fa fa-arrow-up\"></i></span>"; }
-
-
-
-
-                    if ($row['status'] == 1) {$st=  "<i class=\"fa fa-check-circle\"></i> ".lang('t_list_a_oko')." ".nameshort(name_of_user_ret($ob));}
-                    if ($row['status'] == 0) {
-                        if ($lb <> 0) {$st=  "<i class=\"fa fa-gavel\"></i> ".lang('t_list_a_lock_u')." ".nameshort(name_of_user_ret($lb));}
-                        if ($lb == 0) {$st=  "<i class=\"fa fa-clock-o\"></i> ".lang('t_list_a_hold')."";}
-                    }
-
-
-                    if ($row['status'] == 1) {$st=  "<span class=\"label label-success\"><i class=\"fa fa-check-circle\"></i> ".lang('t_list_a_oko')." ".nameshort(name_of_user_ret($ob))."</span>";
-                        $t_ago=get_date_ok($row['date_create'], $row['id']);
-                    }
-                    if ($row['status'] == 0) {
-                        $t_ago=humanTiming(strtotime($row['date_create']));
-                        if ($lb <> 0) {$st=  "<span class=\"label label-warning\"><i class=\"fa fa-gavel\"></i> ".lang('t_list_a_lock_u')." ".nameshort(name_of_user_ret($lb))."</span>";}
-                        if ($lb == 0) {$st=  "<span class=\"label label-primary\"><i class=\"fa fa-clock-o\"></i> ".lang('t_list_a_hold')."</span>";}
-                    }
 
 
 
@@ -187,7 +174,7 @@ if (isset($_POST['menu'])) {
                         <td style=" vertical-align: middle; "><small><center><?php dt_format($row['date_create']); ?></center></small></td>
                         <td style=" vertical-align: middle; "><small><center><?=$t_ago;?></center></small></td>
                         <td style=" vertical-align: middle; "><small><?php get_unit_name($row['unit_id']); ?></small>
-                            <small><div  id="" class=" text-muted editable"><?php name_of_user($row['user_to_id']); ?></div></small></td>
+                            <small><div  id="" class=" text-muted"><?php name_of_user($row['user_to_id']); ?></div></small></td>
                         <td style=" vertical-align: middle; "><small><center><?=$st;?></center>
                             </small></td>
                         <td style=" vertical-align: middle; ">
@@ -230,7 +217,12 @@ if (isset($_POST['menu'])) {
 
         $units = explode(",", $unit_user);
         $units = implode("', '", $units);
-
+        
+        
+$ee=explode(",", $unit_user);
+foreach($ee as $key=>$value) {$in_query = $in_query . ' :val_' . $key . ', '; }
+$in_query = substr($in_query, 0, -2);
+foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
 
 
         if ($priv_val == 0) {
@@ -239,11 +231,12 @@ if (isset($_POST['menu'])) {
             $stmt = $dbConnection->prepare('SELECT 
 							id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read, lock_by, ok_by, prio, last_update, arch
 							from tickets
-							where ((unit_id IN (:units) and arch=:n) or (user_init_id=:user_id)) and (id=:z or subj like :z1) limit 10');
+							where ((unit_id IN ('.$in_query.') and arch=:n) or (user_init_id=:user_id)) and (id=:z or subj like :z1) limit 10');
 
-            $stmt->execute(array(':units' => $units, ':n'=>'0',':user_id'=>$user_id,':z'=>$z,':z1'=>$z));
+                        
+            $paramss=array(':n'=>'0',':user_id'=>$user_id,':z'=>$z,':z1'=>$z);
+            $stmt->execute(array_merge($vv,$paramss));
             $res1 = $stmt->fetchAll();
-
 
 
 
@@ -257,13 +250,13 @@ if (isset($_POST['menu'])) {
 							id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read, lock_by, ok_by, prio, last_update, arch
 							from tickets
 							where (((user_to_id=:user_id) or
-							(user_to_id=:n and unit_id IN (:units) )) or user_init_id=:user_id2) and (id=:z or subj like :z1)
+							(user_to_id=:n and unit_id IN ('.$in_query.') )) or user_init_id=:user_id2) and (id=:z or subj like :z1)
 							limit 10');
 
-            $stmt->execute(array(':units' => $units, ':n'=>'0',':user_id'=>$user_id,':z'=>$z,':z1'=>$z,':user_id2'=>$user_id));
+
+            $paramss=array(':n'=>'0',':user_id'=>$user_id,':z'=>$z,':z1'=>$z,':user_id2'=>$user_id);
+            $stmt->execute(array_merge($vv,$paramss));
             $res1 = $stmt->fetchAll();
-
-
 
 
 
@@ -336,104 +329,24 @@ if (isset($_POST['menu'])) {
                 $lock_by_z=$row['lock_by'];
 
 
-
-                $lo="no";
-                if (priv_status($user_id) == "0") {
-                    $u=explode(",",$unit_user_z);
-
-                    if (in_array($row['unit_id'], $u)) {$lo="yes";}
-                    if ($row['user_init_id'] == $user_id_z) {$lo="yes";}
-                    if ($row['user_to_id'] == $user_id) {$lo="yes";}
-                }
-
-                else if (priv_status($user_id) == "2") {
-                    if ($row['unit_id'] == $unit_user_z) {$lo="yes";}
-                    if ($row['user_init_id'] == $user_id_z) {$lo="yes";}
-                    if ($row['user_to_id'] == $user_id) {$lo="yes";}
-                }
-
-
-                else if (priv_status($user_id) == "1") {
-                    $u=explode(",",$unit_user_z);
-
-
-
-                    // ЗАявка не выполнена ИЛИ выполнена мной
-                    if (($status_ok_z == 0) || (($status_ok_z == 1) && ($ok_by_z == $user_id_z)))
-                    {
-                        //echo "ЗАявка не выполнена ИЛИ выполнена мной"."<br>";
-
-                        //ЗАявка не заблокирована ИЛИ заблокирована мной
-                        if (($lock_by_z == 0) || ($lock_by_z == $user_id_z)) {
-                            //echo "ЗАявка не заблокирована ИЛИ заблокирована мной"."<br>";
-
-
-                            // ЗАявка моего отдела ВСЕМ
-                            if ((in_array($row['unit_id'], $u)) && ($row['user_to_id'] == "0")) {
-                                //echo "ЗАявка моего отдела ВСЕМ"."<br>";
-                                $lo="yes";
-                            }
-
-                            // Заявка мне
-                            if ($row['user_to_id'] == $user_id_z) {
-                                //echo "ЗАявка мне"."<br>";
-                                $lo="yes";
-                            }
-
-                            //инициатор заявки я
-                            if ($row['user_init_id'] == $user_id_z) {
-                                //echo "инициатор заявки я"."<br>";
-                                $lo="yes";
-                                //echo "f";
-                            }
-                        }
-                    }
-
-
-
-
-
-
-                }
-
-
-
-
-
-
-//echo $lo;
-                if ($lo == "yes") {$lock_st=""; $muclass="";}
-                if ($lo == "no") {$lock_st="disabled=\"disabled\""; $muclass="text-muted";}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                if ($row['is_read'] == "0") {
-
-                    $style="bold_for_new";
-
+////////////////////////////Раскрашивает и подписывает кнопки/////////////////////////////////////////////////////////////////
+if ($row['is_read'] == "0") { $style="bold_for_new"; }
+if ($row['is_read'] <> "0") { $style=""; }
                     if ($row['status'] == "1") {
                         $ob_text="<i class=\"fa fa-check-circle-o\"></i>";
                         $ob_status="unok";
+                        $ob_tooltip=lang('t_list_a_nook');
                         $style="success";
 
                         if ($lb <> "0") {
                             $lb_text="<i class=\"fa fa-lock\"></i>";
                             $lb_status="unlock";
+                            $lb_tooltip=lang('t_list_a_unlock');
                         }
                         if ($lb == "0") {
                             $lb_text="<i class=\"fa fa-unlock\"></i>";
                             $lb_status="lock";
+                            $lb_tooltip=lang('t_list_a_lock');
                         }
 
 
@@ -442,10 +355,11 @@ if (isset($_POST['menu'])) {
                     if ($row['status'] == "0") {
                         $ob_text="<i class=\"fa fa-circle-o\"></i>";
                         $ob_status="ok";
-
+                        $ob_tooltip=lang('t_list_a_ok');
                         if ($lb <> "0") {
                             $lb_text="<i class=\"fa fa-lock\"></i>";
                             $lb_status="unlock";
+                            $lb_tooltip=lang('t_list_a_unlock');
                             if ($lb == $user_id) {$style="warning";}
                             if ($lb <> $user_id) {$style="active";}
                         }
@@ -453,58 +367,94 @@ if (isset($_POST['menu'])) {
                         if ($lb == "0") {
                             $lb_text="<i class=\"fa fa-unlock\"></i>";
                             $lb_status="lock";
+                            $lb_tooltip=lang('t_list_a_lock');
                         }
 
                     }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-                }
 
-                if ($row['is_read'] <> "0") {
 
-                    if ($row['status'] == "1") {
-                        $ob_text="<i class=\"fa fa-check-circle-o\"></i>";
-                        $ob_status="unok";
-                        $style="success";
-                        if ($lb <> "0") {
-                            $lb_text="<i class=\"fa fa-lock\"></i>";
-                            $lb_status="unlock";
-                        }
-                        if ($lb == "0") {
-                            $lb_text="<i class=\"fa fa-unlock\"></i>";
-                            $lb_status="lock";
-                        }
-                    }
-                    if ($row['status'] == "0") {
-                        $ob_text="<i class=\"fa fa-circle-o\"></i>";
-                        $ob_status="ok";
-                        if ($lb <> "0") {
-                            $lb_text="<i class=\"fa fa-lock\"></i>";
-                            $lb_status="unlock";
-                            if ($lb == $user_id) {$style="warning";}
-                            if ($lb <> $user_id) {$style="active";}
-                        }
-                        if ($lb == "0") {
-                            $style="";
-                            $lb_text="<i class=\"fa fa-unlock\"></i>";
-                            $lb_status="lock";
-                        }
 
-                    }
-                }
-
+////////////////////////////Показывает кому/////////////////////////////////////////////////////////////////
                 if ($row['user_to_id'] <> 0 ) {
                     $to_text="<div class=''>".nameshort(name_of_user_ret($row['user_to_id']))."</div>";
                 }
                 if ($row['user_to_id'] == 0 ) {
                     $to_text="<strong data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".get_unit_name_return($row['unit_id'])."\">".lang('t_list_a_all')."</strong>";
                 }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+
+
+////////////////////////////Показывает приоритет//////////////////////////////////////////////////////////////
                 $prio="<span class=\"label label-info\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".lang('t_list_a_p_norm')."\"><i class=\"fa fa-minus\"></i></span>";
 
                 if ($row['prio'] == "0") {$prio= "<span class=\"label label-primary\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".lang('t_list_a_p_low')."\"><i class=\"fa fa-arrow-down\"></i></span>"; }
 
                 if ($row['prio'] == "2") {$prio= "<span class=\"label label-danger\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".lang('t_list_a_p_high')."\"><i class=\"fa fa-arrow-up\"></i></span>"; }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+
+
+
+
+
+////////////////////////////Показывает labels//////////////////////////////////////////////////////////////
+                if ($row['status'] == 1) {$st=  "<span class=\"label label-success\"><i class=\"fa fa-check-circle\"></i> ".lang('t_list_a_oko')." ".nameshort(name_of_user_ret($ob))."</span>";
+                    $t_ago=get_date_ok($row['date_create'], $row['id']);
+                }
+                if ($row['status'] == 0) {
+                    $t_ago=humanTiming(strtotime($row['date_create']));
+                    if ($lb <> 0) {
+
+                        if ($lb == $user_id) {$st=  "<span class=\"label label-warning\"><i class=\"fa fa-gavel\"></i> ".lang('t_list_a_lock_i')."</span>";}
+
+                        if ($lb <> $user_id) {$st=  "<span class=\"label label-default\"><i class=\"fa fa-gavel\"></i> ".lang('t_list_a_lock_u')." ".nameshort(name_of_user_ret($lb))."</span>";}
+
+                    }
+                    if ($lb == 0) {$st=  "<span class=\"label label-primary\"><i class=\"fa fa-clock-o\"></i> ".lang('t_list_a_hold')."</span>";}
+                }
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+/////////если пользователь///////////////////////////////////////////////////////////////////////////////////////////
+if ($priv_val == 1) { 
+//ЗАявка не выполнена ИЛИ выполнена мной
+//ЗАявка не заблокирована ИЛИ заблокирована мной
+$lo == "no";
+if (($status_ok_z == 0) || (($status_ok_z == 1) && ($ok_by_z == $user_id_z)))
+                    {
+                        if (($lock_by_z == 0) || ($lock_by_z == $user_id_z)) {
+                        $lo == "yes";
+						}
+					}
+                if ($lo == "yes") {$lock_st=""; $muclass="";}
+                else if ($lo == "no") {$lock_st="disabled=\"disabled\""; $muclass="text-muted";}
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+/////////если нач отдела/////////////////////////////////////////////////////////////////////////////////////////////
+else if ($priv_val == 0) { 
+$lock_st=""; $muclass="";	
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+//////////главный админ//////////////////////////////////////////////////////////////////////////////////////////////
+else if ($priv_val == 2) { 
+$lock_st=""; $muclass="";
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+               
                 if ($arch == "1") {$st=  "<span class=\"label label-default\">".lang('t_list_a_arch')." </span>";}
                 if ($arch == "0") {
                     if ($row['status'] == 1) {$st=  "<span class=\"label label-success\"><i class=\"fa fa-check-circle\"></i> ".lang('t_list_a_oko')." ".nameshort(name_of_user_ret($ob))."</span>";}
@@ -564,12 +514,16 @@ if (isset($_POST['menu'])) {
         $unit_user=unit_of_user($user_id);
         $priv_val=priv_status($user_id);
 
-
+		//$unit_user = 1,2,3
         $units = explode(",", $unit_user);
+        //$units = array[1,2,3]
         $units = implode("', '", $units);
 
 
-
+$ee=explode(",", $unit_user);
+foreach($ee as $key=>$value) {$in_query = $in_query . ' :val_' . $key . ', '; }
+$in_query = substr($in_query, 0, -2);
+foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
 
 
 
@@ -579,15 +533,19 @@ if (isset($_POST['menu'])) {
         if ($priv_val == 0) {
 
 
-
+//нач отдела
+/*
+выбрать все заявки, которые состоят с моих отделах
+*/
             $stmt = $dbConnection->prepare('SELECT 
 							id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read, lock_by, ok_by, prio, last_update
 							from tickets
-							where unit_id IN (:units)  and arch=:n
+							where unit_id IN (' . $in_query . ')  and arch=:n
 							order by ok_by asc, prio desc, id desc
 							limit :start_pos, :perpage');
 
-            $stmt->execute(array(':units' => $units, ':n'=>'0',':start_pos'=>$start_pos,':perpage'=>$perpage));
+            $paramss=array(':n'=>'0',':start_pos'=>$start_pos,':perpage'=>$perpage);
+            $stmt->execute(array_merge($vv,$paramss));
             $res1 = $stmt->fetchAll();
 
 
@@ -599,22 +557,25 @@ if (isset($_POST['menu'])) {
 
 
 
-            $stmt = $dbConnection->prepare('SELECT 
+$stmt = $dbConnection->prepare('SELECT 
 							id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read, lock_by, ok_by, prio, last_update
 							from tickets
 							where ((user_to_id=:user_id and arch=:n) or
-							(user_to_id=:n1 and unit_id IN (:units) and arch=:n2))
+							(user_to_id=:n1 and unit_id IN (' . $in_query . ') and arch=:n2))
 							order by ok_by asc, prio desc, id desc
 							limit :start_pos, :perpage');
-
-
-            $stmt->execute(array(':user_id'=>$user_id,':units' => $units, ':n'=>'0',':n1'=>'0',':n2'=>'0',':start_pos'=>$start_pos,':perpage'=>$perpage));
+$paramss=array(':user_id'=>$user_id, ':n'=>'0',':n1'=>'0',':n2'=>'0',':start_pos'=>$start_pos,':perpage'=>$perpage);
+$stmt->execute(array_merge($vv,$paramss));
+            
+            
+            
+            
             $res1 = $stmt->fetchAll();
 
 
         }
         else if ($priv_val == 2) {
-
+//Главный начальник
 
 
             $stmt = $dbConnection->prepare('SELECT 
@@ -688,101 +649,9 @@ if (isset($_POST['menu'])) {
                 $ok_by_z=$row['ok_by'];
                 $lock_by_z=$row['lock_by'];
 
-
-
-                $lo="no";
-
-                if (priv_status($user_id) == "0") {
-                    $u=explode(",",$unit_user_z);
-
-                    if (in_array($row['unit_id'], $u)) {$lo="yes";}
-                    if ($row['user_init_id'] == $user_id_z) {$lo="yes";}
-                    if ($row['user_to_id'] == $user_id) {$lo="yes";}
-                }
-                else if (priv_status($user_id) == "2") {
-                    if ($row['unit_id'] == $unit_user_z) {$lo="yes";}
-                    if ($row['user_init_id'] == $user_id_z) {$lo="yes";}
-                    if ($row['user_to_id'] == $user_id) {$lo="yes";}
-                }
-
-
-
-                else if (priv_status($user_id) == "1") {
-
-                    $u=explode(",",$unit_user_z);
-                    //print_r ($u);
-                    // ЗАявка не выполнена ИЛИ выполнена мной
-                    if (($status_ok_z == 0) || (($status_ok_z == 1) && ($ok_by_z == $user_id_z)))
-                    {
-                        //echo "ЗАявка не выполнена ИЛИ выполнена мной"."<br>";
-
-                        //ЗАявка не заблокирована ИЛИ заблокирована мной
-                        if (($lock_by_z == 0) || ($lock_by_z == $user_id_z)) {
-                            //echo "ЗАявка не заблокирована ИЛИ заблокирована мной"."<br>";
-
-
-                            // ЗАявка моего отдела ВСЕМ
-                            if ((in_array($row['unit_id'], $u)) && ($row['user_to_id'] == "0")) {
-
-                                //if (($row['unit_id'] == $unit_user_z) && ($row['user_to_id'] == "0")) {
-                                //echo "ЗАявка моего отдела ВСЕМ"."<br>";
-                                $lo="yes";
-                            }
-
-                            // Заявка мне
-                            if ($row['user_to_id'] == $user_id_z) {
-                                //echo "ЗАявка мне"."<br>";
-                                $lo="yes";
-                            }
-
-                            //инициатор заявки я
-                            if ($row['user_init_id'] == $user_id_z) {
-                                //echo "инициатор заявки я"."<br>";
-                                $lo="yes";
-                                //echo "f";
-                            }
-                        }
-                        //инициатор заявки я
-                        if ($row['user_init_id'] == $user_id_z) {
-                            //echo "инициатор заявки я"."<br>";
-                            $lo="yes";
-                            //echo "f";
-                        }
-                    }
-
-
-
-
-
-
-                }
-
-
-
-
-
-
-//echo $lo;
-                if ($lo == "yes") {$lock_st=""; $muclass="";}
-                if ($lo == "no") {$lock_st="disabled=\"disabled\""; $muclass="text-muted";}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                if ($row['is_read'] == "0") {
-
-                    $style="bold_for_new";
-
+////////////////////////////Раскрашивает и подписывает кнопки/////////////////////////////////////////////////////////////////
+if ($row['is_read'] == "0") { $style="bold_for_new"; }
+if ($row['is_read'] <> "0") { $style=""; }
                     if ($row['status'] == "1") {
                         $ob_text="<i class=\"fa fa-check-circle-o\"></i>";
                         $ob_status="unok";
@@ -822,68 +691,36 @@ if (isset($_POST['menu'])) {
                         }
 
                     }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-                }
 
-                if ($row['is_read'] <> "0") {
 
-                    if ($row['status'] == "1") {
-                        $ob_text="<i class=\"fa fa-check-circle-o\"></i>";
-                        $ob_status="unok";
-                        $style="success";
-                        $ob_tooltip=lang('t_list_a_nook');
-                        if ($lb <> "0") {
-                            $lb_text="<i class=\"fa fa-lock\"></i>";
-                            $lb_status="unlock";
-                            $lb_tooltip=lang('t_list_a_unlock');
-                        }
-                        if ($lb == "0") {
-                            $lb_text="<i class=\"fa fa-unlock\"></i>";
-                            $lb_status="lock";
-                            $lb_tooltip=lang('t_list_a_lock');
-                        }
-                    }
-                    if ($row['status'] == "0") {
-                        $ob_text="<i class=\"fa fa-circle-o\"></i>";
-                        $ob_status="ok";
-                        $ob_tooltip=lang('t_list_a_ok');
-                        if ($lb <> "0") {
-                            $lb_text="<i class=\"fa fa-lock\"></i>";
-                            $lb_status="unlock";
-                            $lb_tooltip=lang('t_list_a_unlock');
-                            if ($lb == $user_id) {$style="warning";}
-                            if ($lb <> $user_id) {$style="active";}
-                        }
-                        if ($lb == "0") {
-                            $style="";
-                            $lb_text="<i class=\"fa fa-unlock\"></i>";
-                            $lb_status="lock";$lb_tooltip=lang('t_list_a_lock');
 
-                        }
-
-                    }
-                }
-
+////////////////////////////Показывает кому/////////////////////////////////////////////////////////////////
                 if ($row['user_to_id'] <> 0 ) {
                     $to_text="<div class=''>".nameshort(name_of_user_ret($row['user_to_id']))."</div>";
                 }
                 if ($row['user_to_id'] == 0 ) {
                     $to_text="<strong data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".get_unit_name_return($row['unit_id'])."\">".lang('t_list_a_all')."</strong>";
                 }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+
+
+////////////////////////////Показывает приоритет//////////////////////////////////////////////////////////////
                 $prio="<span class=\"label label-info\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".lang('t_list_a_p_norm')."\"><i class=\"fa fa-minus\"></i></span>";
 
                 if ($row['prio'] == "0") {$prio= "<span class=\"label label-primary\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".lang('t_list_a_p_low')."\"><i class=\"fa fa-arrow-down\"></i></span>"; }
 
                 if ($row['prio'] == "2") {$prio= "<span class=\"label label-danger\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".lang('t_list_a_p_high')."\"><i class=\"fa fa-arrow-up\"></i></span>"; }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
 
 
 
-
-
+////////////////////////////Показывает labels//////////////////////////////////////////////////////////////
                 if ($row['status'] == 1) {$st=  "<span class=\"label label-success\"><i class=\"fa fa-check-circle\"></i> ".lang('t_list_a_oko')." ".nameshort(name_of_user_ret($ob))."</span>";
                     $t_ago=get_date_ok($row['date_create'], $row['id']);
                 }
@@ -895,15 +732,49 @@ if (isset($_POST['menu'])) {
 
                         if ($lb <> $user_id) {$st=  "<span class=\"label label-default\"><i class=\"fa fa-gavel\"></i> ".lang('t_list_a_lock_u')." ".nameshort(name_of_user_ret($lb))."</span>";}
 
-
-
                     }
                     if ($lb == 0) {$st=  "<span class=\"label label-primary\"><i class=\"fa fa-clock-o\"></i> ".lang('t_list_a_hold')."</span>";}
                 }
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+/////////если пользователь///////////////////////////////////////////////////////////////////////////////////////////
+if ($priv_val == 1) { 
+//ЗАявка не выполнена ИЛИ выполнена мной
+//ЗАявка не заблокирована ИЛИ заблокирована мной
+$lo == "no";
+if (($status_ok_z == 0) || (($status_ok_z == 1) && ($ok_by_z == $user_id_z)))
+                    {
+                        if (($lock_by_z == 0) || ($lock_by_z == $user_id_z)) {
+                        $lo == "yes";
+						}
+					}
+                if ($lo == "yes") {$lock_st=""; $muclass="";}
+                else if ($lo == "no") {$lock_st="disabled=\"disabled\""; $muclass="text-muted";}
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+/////////если нач отдела/////////////////////////////////////////////////////////////////////////////////////////////
+else if ($priv_val == 0) { 
+$lock_st=""; $muclass="";	
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+//////////главный админ//////////////////////////////////////////////////////////////////////////////////////////////
+else if ($priv_val == 2) { 
+$lock_st=""; $muclass="";
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 ?>
-
-
-
 
                 <tr id="tr_<?php echo $row['id']; ?>" class="<?=$style?>">
                     <td style=" vertical-align: middle; "><small class="<?=$muclass;?>"><center><?php echo $row['id']; ?></center></small></td>
@@ -958,6 +829,21 @@ if (isset($_POST['menu'])) {
         $units = explode(",", $unit_user);
         $units = implode("', '", $units);
         $priv_val=priv_status($user_id);
+        
+        
+$ee=explode(",", $unit_user);
+$s=1;
+foreach($ee as $key=>$value) { $in_query = $in_query . ' :val_' . $key . ', '; $s++; }
+$c=($s-1);
+foreach($ee as $key=>$value) {$in_query2 = $in_query2 . ' :val_' . ($c+$key) . ', '; }
+$in_query = substr($in_query, 0, -2);
+$in_query2 = substr($in_query2, 0, -2);
+foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}        
+ foreach ($ee as $key=>$value) { $vv2[":val_" . ($c+$key)]=$value;}    
+ 
+ 
+ //$pp2=array_merge($vv,$vv2);     
+ 
         if ($priv_val == 0) {
 
 
@@ -965,12 +851,13 @@ if (isset($_POST['menu'])) {
             $stmt = $dbConnection->prepare('SELECT 
 							id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read, lock_by, ok_by, ok_date
 							from tickets
-							where (unit_id IN (:units) or user_init_id=:user_id) and arch=:n
+							where (unit_id IN ('. $in_query. ') or user_init_id=:user_id) and arch=:n
 							order by id DESC
 							limit :start_pos, :perpage');
-
-            $stmt->execute(array(':n'=>'1',':units'=>$units, ':user_id'=>$user_id,':start_pos'=>$start_pos,':perpage'=>$perpage));
-            $res1 = $stmt->fetchAll();
+                        
+$paramss=array(':n'=>'1', ':user_id'=>$user_id,':start_pos'=>$start_pos,':perpage'=>$perpage);
+//$stmt->execute(array_merge($vv,$paramss));
+$res1 = $stmt->fetchAll();
 
 
 
@@ -984,14 +871,17 @@ if (isset($_POST['menu'])) {
             $stmt = $dbConnection->prepare('SELECT 
 							id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read, lock_by, ok_by, ok_date
 							from tickets
-							where ((user_to_id=:user_id and unit_id IN (:units) and arch=:n) or
-							(user_to_id=:n1 and unit_id IN (:units2) and arch=:n2)) or (user_init_id=:user_id2 and arch=:n3)
+							where ((user_to_id=:user_id and unit_id IN ('.$in_query.') and arch=:n) or
+							(user_to_id=:n1 and unit_id IN ('.$in_query2.') and arch=:n2)) or (user_init_id=:user_id2 and arch=:n3)
 							order by id DESC
 							limit :start_pos, :perpage');
 
-            $stmt->execute(array(':n'=>'1',':n1'=>'0',':n2'=>'1',':n3'=>'1',':units'=>$units,':units2'=>$units, ':user_id'=>$user_id, ':user_id2'=>$user_id,':start_pos'=>$start_pos,':perpage'=>$perpage));
-            $res1 = $stmt->fetchAll();
 
+            
+            
+$paramss=array(':n'=>'1',':n1'=>'0',':n2'=>'1',':n3'=>'1', ':user_id'=>$user_id, ':user_id2'=>$user_id,':start_pos'=>$start_pos,':perpage'=>$perpage);
+$stmt->execute(array_merge($vv,$vv2,$paramss));
+$res1 = $stmt->fetchAll();
 
 
 
