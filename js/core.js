@@ -690,6 +690,8 @@ if (ispath('notes') ) {
     }
 if (ispath('ticket')) {
     //if (def_filename == "ticket.php") {
+    
+    
         setInterval(function(){
             var lu=$("#last_update").attr('value');
             var tid=$("#ticket_id").attr('value');
@@ -774,6 +776,32 @@ if (ispath('notes') ) {
 
     if ((def_filename == "index.php") || (window.location == MyHOSTNAME)) {
     //alert(ACTIONPATH);
+    
+    
+    
+    $('body').on('click', 'a#more_news', function(event) {
+        event.preventDefault();
+        var tid=$(this).attr('value');
+
+                                            $.ajax({
+                                            type: "POST",
+                                            url: ACTIONPATH,
+                                            data: "mode=last_news"+
+                                            "&v="+$(this).attr('value'),
+                                            success: function(html){
+                                                $('#last_news').html(html);
+                                                $('[data-toggle="tooltip"]').tooltip('hide');
+                                                $('[data-toggle="tooltip"]').tooltip({container: 'body', html:true});
+                                            }
+                                        });
+                                        });
+                                        
+                                        
+    
+    
+    
+    
+    
         $.ajax({
             type: "POST",
             url: ACTIONPATH,
@@ -853,13 +881,13 @@ if (ispath('create') ) {
 //if (def_filename == "new.php") {
     var lang_dd= get_lang_param('TICKET_file_upload_msg');
     var uploadObj = $("#fileuploader").uploadFile({
-    	allowedTypes: "jpg,png,gif,doc,docx,xls,xlsx,rtf,pdf,zip,bmp",
+    	allowedTypes: "jpeg,jpg,png,gif,doc,docx,xls,xlsx,rtf,pdf,zip,bmp",
         url: MyHOSTNAME+"/sys/upload.php",
         multiple:true,
         autoSubmit:false,
         fileName:"myfile",
         formData: {"hashname":$("#hashname").val()},
-        maxFileSize:5000000,
+        maxFileSize:30000000,
         showStatusAfterSuccess:false,
         dragDropStr: "<span><b>"+lang_dd+"</b></span>",
         abortStr:"abort",
@@ -2387,7 +2415,7 @@ if (ispath('create') ) {
 
                 $.ajax({
                     type: "POST",
-                    async: false,
+                    //async: false,
                     url: ACTIONPATH,
                     data: "mode=add_ticket"+
                         "&type_add=add"+
@@ -2424,7 +2452,7 @@ if (ispath('create') ) {
                 uploadObj.startUpload();
                 $.ajax({
                     type: "POST",
-                    async: false,
+                    //async: false,
                     url: ACTIONPATH,
                     data: "mode=add_ticket"+
                         "&type_add=edit"+
@@ -2446,7 +2474,7 @@ if (ispath('create') ) {
                     success: function(html) {
 
 
-                        //window.location = "new.php?ok&h="+html;
+                        //console.log(html);
 						window.location = MyHOSTNAME+"create/?ok&h="+html;
                     }
                 });

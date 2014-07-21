@@ -1,6 +1,7 @@
 <?php
-function mailtoactivate($login, $mail, $pass) {
-global $CONF;
+include_once('sys/class.phpmailer.php');
+function mailtoactivate($login, $mails, $pass) {
+global $CONF, $CONF_MAIL, $dbConnection;
 //global $CONF['hostname'];
     $mfrom_name=lang('MAIL_name');
     $mfrom_mail=$CONF['mail'];
@@ -10,7 +11,7 @@ global $CONF;
 
     'Reply-To: '.$CONF['mail'] . "\r\n" .
     'X-Mailer: PHP/' . phpversion();
-    $to      = $mail;
+    $to      = $mails;
     $subject = lang('MAIL_active');
     
     $MAIL_cong=lang('MAIL_cong');
@@ -59,10 +60,31 @@ EOBODY;
 
 
 
-    mail($to, "=?utf-8?B?".base64_encode($subject)."?=", $message, $headers);
+    //mail($to, "=?utf-8?B?".base64_encode($subject)."?=", $message, $headers);
+$mail             = new PHPMailer();
+$mail->CharSet 	  = 'UTF-8';
+$mail->IsSMTP();
+
+$mail->SMTPAuth   = true; 
+$mail->SMTPSecure = "tls"; 
+$mail->Host       = $CONF_MAIL['host']; 
+$mail->Port       = $CONF_MAIL['port'];                  
+$mail->Username   = $CONF_MAIL['username'];
+$mail->Password   = $CONF_MAIL['password']; 
+$mail->SetFrom($CONF_MAIL['from'], $CONF_MAIL['from']);
+$mail->AddReplyTo($CONF_MAIL['from'],$CONF_MAIL['from']);
+$mail->Subject    = $subject;
+$mail->AltBody    = "To view the message, please use an HTML compatible email viewer!"; 
+
+$mail->MsgHTML($message);
+$mail->AddAddress($to, "");
+
+$mail->Send();
+
+
 }
 function mailtoactivate_admin($login, $mail, $pass) {
-global $CONF;
+global $CONF, $CONF_MAIL, $dbConnection;
     /*$subject = lang('MAIL_active');
     
     
@@ -125,11 +147,31 @@ EOBODY;
 
 
 
-    mail($to, "=?utf-8?B?".base64_encode($subject)."?=", $message, $headers);
+    //mail($to, "=?utf-8?B?".base64_encode($subject)."?=", $message, $headers);
+    $mail             = new PHPMailer();
+$mail->CharSet 	  = 'UTF-8';
+$mail->IsSMTP();
+
+$mail->SMTPAuth   = true; 
+$mail->SMTPSecure = "tls"; 
+$mail->Host       = $CONF_MAIL['host']; 
+$mail->Port       = $CONF_MAIL['port'];                  
+$mail->Username   = $CONF_MAIL['username'];
+$mail->Password   = $CONF_MAIL['password']; 
+$mail->SetFrom($CONF_MAIL['from'], $CONF_MAIL['from']);
+$mail->AddReplyTo($CONF_MAIL['from'],$CONF_MAIL['from']);
+$mail->Subject    = $subject;
+$mail->AltBody    = "To view the message, please use an HTML compatible email viewer!"; 
+
+$mail->MsgHTML($message);
+$mail->AddAddress($to, "");
+
+$mail->Send();
+
 }
 function send_mail_to($type,$tid) {
-global $CONF;
-global $dbConnection;
+global $CONF, $CONF_MAIL, $dbConnection;
+
 
     $MAIL_login=lang('login');
     $MAIL_pass=lang('pass');
@@ -168,7 +210,7 @@ global $dbConnection;
         
         $stmt = $dbConnection->prepare('SELECT user_init_id,user_to_id,date_create,subj,msg, client_id, unit_id, status, hash_name, prio,last_update FROM tickets where id=:tid');
         $stmt->execute(array(':tid' => $tid));
-        $max_id_ticket = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $max_id_ticket = $stmt->fetch(PDO::FETCH_ASSOC);
         
         
         
@@ -199,25 +241,7 @@ global $dbConnection;
         else if ($max_id_ticket['user_to_id'] == 0 ) {
             $to_text=lang('t_list_a_all')." ".get_unit_name_return($unit_id);
         }
-        /*
-        
-        ЕСТЬ id заявки
-        есть список id пользователей
-         name  units
-        user1  1,2,3
-        user2  1
-        user3  2
-        user4  1,2
-        
-        select name from users where id 
-        like '%" . $unit_id . "%'
-        */
-       
-       /*$qstring = "SELECT email, unit FROM users where status='1';";
-       $qresult = mysql_query($qstring);
 
-       while ($qrow = mysql_fetch_array($qresult,MYSQL_ASSOC)) {
-       */
                         
                         
         $stmt = $dbConnection->prepare('SELECT email, unit FROM users where status=:n');
@@ -320,7 +344,33 @@ EOBODY;
 
 
 
-                mail($to, "=?utf-8?B?".base64_encode($subject)."?=", $message, $headers);
+$mail             = new PHPMailer();
+$mail->CharSet 	  = 'UTF-8';
+$mail->IsSMTP();
+
+$mail->SMTPAuth   = true; 
+$mail->SMTPSecure = "tls"; 
+$mail->Host       = $CONF_MAIL['host']; 
+$mail->Port       = $CONF_MAIL['port'];                  
+$mail->Username   = $CONF_MAIL['username'];
+$mail->Password   = $CONF_MAIL['password']; 
+$mail->SetFrom($CONF_MAIL['from']);
+//$mail->AddReplyTo($CONF_MAIL['from'],$CONF_MAIL['from']);
+$mail->Subject    = $subject;
+$mail->AltBody    = "To view the message, please use an HTML compatible email viewer!"; 
+
+$mail->MsgHTML($message);
+$mail->AddAddress($to, "");
+
+$mail->Send();
+if(!$mail->Send()) {
+  echo "Mailer Error: " . $mail->ErrorInfo;
+} else {
+  echo "Message sent!";
+}
+
+
+
                 
             }
 
@@ -479,8 +529,30 @@ EOBODY;
 
 
 
-                mail($to, "=?utf-8?B?".base64_encode($subject)."?=", $message, $headers);
-                
+                $mail             = new PHPMailer();
+$mail->CharSet 	  = 'UTF-8';
+$mail->IsSMTP();
+
+$mail->SMTPAuth   = true; 
+$mail->SMTPSecure = "tls"; 
+$mail->Host       = $CONF_MAIL['host']; 
+$mail->Port       = $CONF_MAIL['port'];                  
+$mail->Username   = $CONF_MAIL['username'];
+$mail->Password   = $CONF_MAIL['password']; 
+$mail->SetFrom($CONF_MAIL['from'], $CONF_MAIL['from']);
+$mail->AddReplyTo($CONF_MAIL['from'],$CONF_MAIL['from']);
+$mail->Subject    = $subject;
+$mail->AltBody    = "To view the message, please use an HTML compatible email viewer!"; 
+
+$mail->MsgHTML($message);
+$mail->AddAddress($to, "");
+
+$mail->Send();
+                if(!$mail->Send()) {
+  echo "Mailer Error: " . $mail->ErrorInfo;
+} else {
+  echo "Message sent!";
+}
             }
 
 							}
@@ -648,11 +720,36 @@ EOBODY;
 
 
 
-                mail($to, "=?utf-8?B?".base64_encode($subject)."?=", $message, $headers);
-            }
+                $mail             = new PHPMailer();
+$mail->CharSet 	  = 'UTF-8';
+$mail->IsSMTP();
+
+$mail->SMTPAuth   = true; 
+$mail->SMTPSecure = "tls"; 
+$mail->Host       = $CONF_MAIL['host']; 
+$mail->Port       = $CONF_MAIL['port'];                  
+$mail->Username   = $CONF_MAIL['username'];
+$mail->Password   = $CONF_MAIL['password']; 
+$mail->SetFrom($CONF_MAIL['from'], $CONF_MAIL['from']);
+$mail->AddReplyTo($CONF_MAIL['from'],$CONF_MAIL['from']);
+$mail->Subject    = $subject;
+$mail->AltBody    = "To view the message, please use an HTML compatible email viewer!"; 
+
+$mail->MsgHTML($message);
+$mail->AddAddress($to, "");
+
+$mail->Send();
+if(!$mail->Send()) {
+  echo "Mailer Error: " . $mail->ErrorInfo;
+} else {
+  echo "Message sent!";
+}            }
         }
 
 
+    
+    
+    //echo "dd";
     }
 
 

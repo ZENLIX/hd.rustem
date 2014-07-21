@@ -11,6 +11,8 @@ if ($_SESSION['helpdesk_user_id']) {
 
 ?>
 
+
+
 <div class="container" id="form_add">
 <input type="hidden" id="main_last_new_ticket" value="<?=get_last_ticket_new($_SESSION['helpdesk_user_id']);?>">
 
@@ -294,6 +296,9 @@ if ($CONF['fix_subj'] == false) {
     <input type="hidden" id="status_action" value="">
     <input type="hidden" id="prio" value="1">
     <input type="hidden" value="<?php echo $_SESSION['helpdesk_user_id']; ?>" id="user_init_id">
+
+
+
 
 
 

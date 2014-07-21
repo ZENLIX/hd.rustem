@@ -24,6 +24,14 @@ $CONF = array (
 	'file_uploads'	=> true
 );
 
+$CONF_MAIL = array (
+	'host'		=> 'smtp.gmail.com',
+	'port'		=> 587,
+	'username'	=> 'your_login@gmail.com',
+	'password'	=> 'your_pass',
+	'from'		=> 'helpdesk'
+);
+
 //List of good file types to upload
 $acceptable = array(
         'application/pdf',

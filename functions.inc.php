@@ -2,6 +2,7 @@
 
 
 include_once('conf.php');
+include_once('sys/class.phpmailer.php');
 
 date_default_timezone_set('Europe/Kiev');
 $dbConnection = new PDO(
@@ -715,7 +716,24 @@ function id_of_user($input) {
 }
 
 
+function priv_status_name($input) {
+    global $dbConnection;
 
+
+    $stmt = $dbConnection->prepare('SELECT priv FROM users where id=:input');
+    $stmt->execute(array(':input' => $input));
+    $id = $stmt->fetch(PDO::FETCH_ASSOC);
+
+switch($id['priv']) {
+	case '2': 	$r="<p class=\"text-warning\">".lang('USERS_nach1')."</p>";	break;
+	case '0': 	$r="<p class=\"text-success\">".lang('USERS_nach')."</p>";	break;
+	case '1': 	$r="<p class=\"text-info\">".lang('USERS_wo')."</p>";	break;
+	default: $r="";
+}	
+
+
+    return ($r);
+}
 
 
 
