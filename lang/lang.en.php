@@ -126,7 +126,9 @@ function lang ($phrase) {
 ,'PROFILE_msg_pass_err2' => 'New passwords do not match.' 
 ,'PROFILE_msg_pass_err3' => 'Password must be at least 4 characters.' 
 ,'PROFILE_msg_pass_ok' => 'Password successfully changed. Need <a href=\'index.php\'> log in again </ a>. ' 
-,'PROFILE_msg_te' => 'Error' 
+,'PROFILE_msg_te' => 'Error'
+,'PROFILE_priv'=>'Your access to system as'
+,'PROFILE_priv_unit'=>'Access to units'
 
 ,'TABLE_name' => 'Name' 
 ,'TABLE_action' => 'Action' 

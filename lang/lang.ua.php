@@ -127,6 +127,8 @@ function lang($phrase){
 'PROFILE_msg_pass_err3' => 'Пароль повинен бути не менше 4 символів.',
 'PROFILE_msg_pass_ok' => 'Пароль успішно змінено. Вам потрібно <a href=\'index.php\'>зайти заново в систему</a>.',
 'PROFILE_msg_te' => 'Помилка',
+'PROFILE_priv'=>'Ваші права в системі',
+'PROFILE_priv_unit'=>'Доступ до відділів',
 
 'TABLE_name' => 'Назва',
 'TABLE_action' => 'Дія',
