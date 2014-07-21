@@ -3,7 +3,7 @@ include_once("../functions.inc.php");
 $output_dir = "../upload_files/";
 
 $hn=$_POST['hashname'];
-$maxsize    = 2097152;
+$maxsize    = 30097152;
 
 
 
@@ -32,13 +32,6 @@ if ((!in_array($_FILES["myfile"]["type"], $acceptable)) && (!empty($_FILES["myfi
  	 	
  	 	if($flag == false) {
  	 	$fhash=randomhash();
- 	 	//$ext = pathinfo($filename, PATHINFO_EXTENSION);
- 	 	//$_FILES["myfile"]["name"]
- 	 	//$_FILES["myfile"]["type"]
- 	 	//$_FILES["myfile"]["size"]
- 	 	//$fhash
- 	 	//get_ticket_id_by_hash($hn);
- 	 	//$file_tid
  	 	$ext = pathinfo($fileName, PATHINFO_EXTENSION);
  	 	$fileName_norm = $fhash.".".$ext;
  	 	
