@@ -44,7 +44,9 @@
 
 
 
-                    <div id="last_news"></div>
+                    <div id="last_news" style="max-height: 135px;
+scroll-behavior: initial;
+overflow-y: scroll;"></div>
 
 
 
