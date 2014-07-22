@@ -76,7 +76,7 @@ if ($ap == 0) {
 
             <?php  if (validate_admin($_SESSION['helpdesk_user_id'])) { ?>
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-shield"></i> <?=lang('NAVBAR_admin');?> <b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-shield"></i> <?=lang('NAVBAR_admin');?> <?=$apr;?> <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <!--li <?=echoActiveClassIfRequestMatches("clients.php")?> ><a href="clients.php"><i class="fa fa-users"></i> Клієнти</a></li-->
                     <li <?=echoActiveClassIfRequestMatches("users")?>><a href="<?=$CONF['hostname']?>users"><i class="fa fa-users"></i> <?=lang('NAVBAR_users');?></a></li>
