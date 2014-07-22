@@ -34,7 +34,7 @@ $h=($_GET['h']);
      </div>
      <div class="row" id="content_notes" style="padding-bottom: 25px;">
 <div class="col-md-1">
-<a href="helper" class="btn btn-primary btn-sm"><i class="fa fa-reply"></i> <?=lang('HELPER_back');?></a>
+<a id="go_back" class="btn btn-primary btn-sm"><i class="fa fa-reply"></i> <?=lang('HELPER_back');?></a>
 </div>
 <div class="col-md-11" id="">
 

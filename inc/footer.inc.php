@@ -17,7 +17,7 @@
 </div>
 <script type="text/javascript">
     var MyHOSTNAME = "<?php echo $CONF['hostname']; ?>";
-    //var MyJSNumVar = <?php Print($MyPHPNumVar); ?>;
+    
 </script>
 <script src="<?=$CONF['hostname']?>/js/jquery-1.11.0.min.js"></script>
 <script src="<?=$CONF['hostname']?>/js/bootstrap/js/bootstrap.min.js"></script>
