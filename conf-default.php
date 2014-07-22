@@ -21,16 +21,19 @@ $CONF = array (
 	'days2arch'		=> 3,
 	'name_of_firm'	=> 'IT корпорация',
 	'fix_subj'		=> true,
-	'file_uploads'	=> true
+	'file_uploads'	=> true,
+	'debug_mode'	=> false
 );
 
 $CONF_MAIL = array (
 	'host'		=> 'smtp.gmail.com',
 	'port'		=> 587,
 	'auth'		=> true,
+	'auth_type' => 'tls', //ssl or tls
 	'username'	=> 'your_login@gmail.com',
 	'password'	=> 'your_pass',
-	'from'		=> 'helpdesk'
+	'from'		=> 'helpdesk',
+	'debug'		=> false 
 );
 
 //List of good file types to upload

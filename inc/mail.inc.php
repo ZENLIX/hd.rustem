@@ -66,7 +66,7 @@ $mail->CharSet 	  = 'UTF-8';
 $mail->IsSMTP();
 
 $mail->SMTPAuth   = $CONF_MAIL['auth']; 
-$mail->SMTPSecure = "tls"; 
+$mail->SMTPSecure = $CONF_MAIL['auth_type'];
 $mail->Host       = $CONF_MAIL['host']; 
 $mail->Port       = $CONF_MAIL['port'];                  
 $mail->Username   = $CONF_MAIL['username'];
@@ -153,7 +153,7 @@ $mail->CharSet 	  = 'UTF-8';
 $mail->IsSMTP();
 
 $mail->SMTPAuth   = $CONF_MAIL['auth']; 
-$mail->SMTPSecure = "tls"; 
+$mail->SMTPSecure = $CONF_MAIL['auth_type'];
 $mail->Host       = $CONF_MAIL['host']; 
 $mail->Port       = $CONF_MAIL['port'];                  
 $mail->Username   = $CONF_MAIL['username'];
@@ -349,7 +349,7 @@ $mail->CharSet 	  = 'UTF-8';
 $mail->IsSMTP();
 
 $mail->SMTPAuth   = $CONF_MAIL['auth']; 
-$mail->SMTPSecure = "tls"; 
+$mail->SMTPSecure = $CONF_MAIL['auth_type']; 
 $mail->Host       = $CONF_MAIL['host']; 
 $mail->Port       = $CONF_MAIL['port'];                  
 $mail->Username   = $CONF_MAIL['username'];
@@ -358,17 +358,19 @@ $mail->SetFrom($CONF_MAIL['from']);
 //$mail->AddReplyTo($CONF_MAIL['from'],$CONF_MAIL['from']);
 $mail->Subject    = $subject;
 $mail->AltBody    = "To view the message, please use an HTML compatible email viewer!"; 
-
+if ($CONF_MAIL['debug'] == true) {$mail->SMTPDebug  = 1;}
 $mail->MsgHTML($message);
 $mail->AddAddress($to, "");
 
 $mail->Send();
+
+if ($CONF_MAIL['debug'] == true) {
 if(!$mail->Send()) {
   echo "Mailer Error: " . $mail->ErrorInfo;
 } else {
   echo "Message sent!";
 }
-
+}
 
 
                 
@@ -534,7 +536,7 @@ $mail->CharSet 	  = 'UTF-8';
 $mail->IsSMTP();
 
 $mail->SMTPAuth   = $CONF_MAIL['auth']; 
-$mail->SMTPSecure = "tls"; 
+$mail->SMTPSecure = $CONF_MAIL['auth_type']; 
 $mail->Host       = $CONF_MAIL['host']; 
 $mail->Port       = $CONF_MAIL['port'];                  
 $mail->Username   = $CONF_MAIL['username'];
@@ -546,12 +548,14 @@ $mail->AltBody    = "To view the message, please use an HTML compatible email vi
 
 $mail->MsgHTML($message);
 $mail->AddAddress($to, "");
-
+if ($CONF_MAIL['debug'] == true) {$mail->SMTPDebug  = 1;}
 $mail->Send();
+if ($CONF_MAIL['debug'] == true) {
                 if(!$mail->Send()) {
   echo "Mailer Error: " . $mail->ErrorInfo;
 } else {
   echo "Message sent!";
+}
 }
             }
 
@@ -725,7 +729,7 @@ $mail->CharSet 	  = 'UTF-8';
 $mail->IsSMTP();
 
 $mail->SMTPAuth   = $CONF_MAIL['auth']; 
-$mail->SMTPSecure = "tls"; 
+$mail->SMTPSecure = $CONF_MAIL['auth_type']; 
 $mail->Host       = $CONF_MAIL['host']; 
 $mail->Port       = $CONF_MAIL['port'];                  
 $mail->Username   = $CONF_MAIL['username'];
@@ -737,12 +741,15 @@ $mail->AltBody    = "To view the message, please use an HTML compatible email vi
 
 $mail->MsgHTML($message);
 $mail->AddAddress($to, "");
-
+if ($CONF_MAIL['debug'] == true) {$mail->SMTPDebug  = 1;}
 $mail->Send();
+
+if ($CONF_MAIL['debug'] == true) {
 if(!$mail->Send()) {
   echo "Mailer Error: " . $mail->ErrorInfo;
 } else {
   echo "Message sent!";
+}
 }            }
         }
 
