@@ -1369,6 +1369,17 @@ function get_total_pages_workers() {
 
     return $count;
 }
+
+function get_approve() {
+global $dbConnection;
+	        $stmt = $dbConnection->prepare('select count(id) as t1 from approved_info ');
+            $stmt->execute();
+            $total_ticket = $stmt->fetch(PDO::FETCH_ASSOC);
+
+
+            return $total_ticket['t1'];
+}
+
 function get_total_pages($menu, $id) {
 
     global $dbConnection;
