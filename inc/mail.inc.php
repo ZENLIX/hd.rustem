@@ -71,8 +71,8 @@ $mail->Host       = $CONF_MAIL['host'];
 $mail->Port       = $CONF_MAIL['port'];                  
 $mail->Username   = $CONF_MAIL['username'];
 $mail->Password   = $CONF_MAIL['password']; 
-$mail->SetFrom($CONF_MAIL['from'], $CONF_MAIL['from']);
-$mail->AddReplyTo($CONF_MAIL['from'],$CONF_MAIL['from']);
+$mail->SetFrom($CONF_MAIL['from'], $CONF['name_of_firm']);
+$mail->AddReplyTo($CONF_MAIL['from'], $CONF['name_of_firm']);
 $mail->Subject    = $subject;
 $mail->AltBody    = "To view the message, please use an HTML compatible email viewer!"; 
 
@@ -158,8 +158,8 @@ $mail->Host       = $CONF_MAIL['host'];
 $mail->Port       = $CONF_MAIL['port'];                  
 $mail->Username   = $CONF_MAIL['username'];
 $mail->Password   = $CONF_MAIL['password']; 
-$mail->SetFrom($CONF_MAIL['from'], $CONF_MAIL['from']);
-$mail->AddReplyTo($CONF_MAIL['from'],$CONF_MAIL['from']);
+$mail->SetFrom($CONF_MAIL['from'], $CONF['name_of_firm']);
+$mail->AddReplyTo($CONF_MAIL['from'], $CONF['name_of_firm']);
 $mail->Subject    = $subject;
 $mail->AltBody    = "To view the message, please use an HTML compatible email viewer!"; 
 
@@ -354,8 +354,8 @@ $mail->Host       = $CONF_MAIL['host'];
 $mail->Port       = $CONF_MAIL['port'];                  
 $mail->Username   = $CONF_MAIL['username'];
 $mail->Password   = $CONF_MAIL['password']; 
-$mail->SetFrom($CONF_MAIL['from']);
-//$mail->AddReplyTo($CONF_MAIL['from'],$CONF_MAIL['from']);
+$mail->SetFrom($CONF_MAIL['from'], $CONF['name_of_firm']);
+$mail->AddReplyTo($CONF_MAIL['from'], $CONF['name_of_firm']);
 $mail->Subject    = $subject;
 $mail->AltBody    = "To view the message, please use an HTML compatible email viewer!"; 
 if ($CONF_MAIL['debug'] == true) {$mail->SMTPDebug  = 1;}
@@ -541,8 +541,8 @@ $mail->Host       = $CONF_MAIL['host'];
 $mail->Port       = $CONF_MAIL['port'];                  
 $mail->Username   = $CONF_MAIL['username'];
 $mail->Password   = $CONF_MAIL['password']; 
-$mail->SetFrom($CONF_MAIL['from'], $CONF_MAIL['from']);
-$mail->AddReplyTo($CONF_MAIL['from'],$CONF_MAIL['from']);
+$mail->SetFrom($CONF_MAIL['from'], $CONF['name_of_firm']);
+$mail->AddReplyTo($CONF_MAIL['from'], $CONF['name_of_firm']);
 $mail->Subject    = $subject;
 $mail->AltBody    = "To view the message, please use an HTML compatible email viewer!"; 
 
@@ -734,8 +734,8 @@ $mail->Host       = $CONF_MAIL['host'];
 $mail->Port       = $CONF_MAIL['port'];                  
 $mail->Username   = $CONF_MAIL['username'];
 $mail->Password   = $CONF_MAIL['password']; 
-$mail->SetFrom($CONF_MAIL['from'], $CONF_MAIL['from']);
-$mail->AddReplyTo($CONF_MAIL['from'],$CONF_MAIL['from']);
+$mail->SetFrom($CONF_MAIL['from'], $CONF['name_of_firm']);
+$mail->AddReplyTo($CONF_MAIL['from'], $CONF['name_of_firm']);
 $mail->Subject    = $subject;
 $mail->AltBody    = "To view the message, please use an HTML compatible email viewer!"; 
 
