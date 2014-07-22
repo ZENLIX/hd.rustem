@@ -736,13 +736,27 @@ if ($row['is_read'] <> "0") { $style=""; }
 if ($priv_val == 1) { 
 //ЗАявка не выполнена ИЛИ выполнена мной
 //ЗАявка не заблокирована ИЛИ заблокирована мной
-$lo == "no";
+$lo = "no";
+
+
+if ($row['user_init_id'] == $user_id_z) {
+
+                                $lo="yes";
+
+                            }
+                            
+
+if ($row['user_init_id'] <> $user_id_z) {
+
 if (($status_ok_z == 0) || (($status_ok_z == 1) && ($ok_by_z == $user_id_z)))
                     {
                         if (($lock_by_z == 0) || ($lock_by_z == $user_id_z)) {
-                        $lo == "yes";
+                        $lo = "yes";
 						}
 					}
+					}
+					
+					
                 if ($lo == "yes") {$lock_st=""; $muclass="";}
                 else if ($lo == "no") {$lock_st="disabled=\"disabled\""; $muclass="text-muted";}
 }
