@@ -114,20 +114,7 @@ if (isset($_GET['ok'])) {
   
   
   
-    <!--div class="form-group">
-    <label for="unit" class="col-sm-2 control-label">Відділ</label>
-        <div class="col-sm-10">
-    
-    <select class="form-control input-sm" name="unit" id="unit">
-  <option value="1">Відділ впровадження інформаційних систем</option>
-  <option value="2">Сектор зв'язку</option>
-  <option value="3">Відділ інформаційної безпеки та адміністрування мереж</option>
-  <option value="4">Відділ супроводження користувачів</option>
-  <option value="5">Відділ супроводження інформаційних систем</option>
-</select>
-    
-        </div>
-  </div-->
+
       <div class="form-group">
     <label for="mess" class="col-sm-2 control-label"><?=lang('MAIL_msg');?></label>
         <div class="col-sm-10">
@@ -137,32 +124,61 @@ if (isset($_GET['ok'])) {
         </div>
   </div>
   
-  
-  
-<div class="radio col-sm-4">
+    <div class="form-group">
+  <label for="mess" class="col-sm-2 control-label"><?=lang('USERS_profile_priv');?></label>
+  <div class="col-sm-10">
+<div class="radio col-sm-12">
   <label>
-    <input type="radio" name="optionsRadios" id="optionsRadios3" value="2">
-    <?=lang('USERS_nach1');?>
+    <input type="radio" name="optionsRadios" id="optionsRadios3" value="2" >
+    <strong class="text-warning"><?=lang('USERS_nach1');?></strong>
     <p class="help-block"><small><?=lang('USERS_nach1_desc');?></small></p>
   </label>
 </div>
-<div class="radio col-sm-4">
+
+<div class="radio col-sm-12">
   <label>
     <input type="radio" name="optionsRadios" id="optionsRadios1" value="0" >
-    <?=lang('USERS_nach');?>
+    <strong class="text-success"><?=lang('USERS_nach');?></strong>
     <p class="help-block"><small><?=lang('USERS_nach_desc');?></small></p>
   </label>
 </div>
-<div class="radio col-sm-4">
+<div class="radio col-sm-12">
   <label>
-    <input type="radio" name="optionsRadios" id="optionsRadios2" value="1" checked>
-    <?=lang('USERS_wo');?>
+    <input type="radio" name="optionsRadios" id="optionsRadios2" value="1" checked="checked">
+    <strong class="text-info"><?=lang('USERS_wo');?></strong>
     <p class="help-block"><small><?=lang('USERS_wo_desc');?></small></p>
   </label>
   
 </div>
+  </div>
+  </div>
+  
+    <div class="form-group">
+  <label for="mess" class="col-sm-2 control-label"><?=lang('USERS_privs');?></label>
+  <div class="col-sm-10">
+  
+  
+  
+	  <div class="col-sm-6">
+	  <div class="checkbox">
+    <label>
+      <input type="checkbox" id="priv_add_client" checked="checked"> <?=lang('TICKET_p_add_client');?>
+    </label>
+  </div>
+	  </div>
+	  
+	  	  <div class="col-sm-6">
+	  <div class="checkbox">
+    <label>
+      <input type="checkbox" id="priv_edit_client" checked="checked"> <?=lang('TICKET_p_edit_client');?>
+    </label>
+  </div>
+	  </div>
+	  
+  </div>
+    </div>
 
-<hr>
+<div class="col-sm-12"><hr></div>
 <div class="col-md-offset-3 col-md-6">
 <center>
     <button type="submit" id="create_user" class="btn btn-success"><?=lang('USERS_make_create');?></button>
@@ -253,7 +269,7 @@ $row = mysql_fetch_assoc($sql);
 
 
 
-	    $stmt = $dbConnection->prepare('SELECT fio, pass, login, status, priv, unit,email,messages,lang from users where id=:usid');
+	    $stmt = $dbConnection->prepare('SELECT fio, pass, login, status, priv, unit,email,messages,lang,priv_add_client,priv_edit_client from users where id=:usid');
 		$stmt->execute(array(':usid'=>$usid));
 		$res1 = $stmt->fetchAll();                 
 		
@@ -262,7 +278,8 @@ $row = mysql_fetch_assoc($sql);
 
 
 
-
+$priv_add_client=$row['priv_add_client'];
+$priv_edit_client=$row['priv_edit_client'];
 $fio=$row['fio'];
 $login=$row['login'];
 $pass=$row['pass'];
@@ -272,6 +289,12 @@ $unit=$row['unit'];
 $email=$row['email'];
 $messages=$row['messages'];
 $langu=$row['lang'];
+
+
+            if ($priv_add_client == "1") {$priv_add_client="checked";} else {$priv_add_client="";}
+            if ($priv_edit_client == "1") {$priv_edit_client="checked";} else {$priv_edit_client="";}
+
+
 
 if ($langu == "en") 	 {$status_lang_en="selected";}
 else if ($langu == "ru") {$status_lang_ru="selected";}
@@ -388,20 +411,7 @@ if ($val== $row['value']) {$opt_sel="selected";}
   </div>
   </div>
   
-    <!--div class="form-group">
-    <label for="unit" class="col-sm-2 control-label">Відділ</label>
-        <div class="col-sm-10">
-    
-    <select class="form-control input-sm" name="unit" id="unit">
-  <option <?=$unit_1;?> value="1">Відділ впровадження інформаційних систем</option>
-  <option <?=$unit_2;?> value="2">Сектор зв'язку</option>
-  <option <?=$unit_3;?> value="3">Відділ інформаційної безпеки та адміністрування мереж</option>
-  <option <?=$unit_4;?> value="4">Відділ супроводження користувачів</option>
-  <option <?=$unit_5;?> value="5">Відділ супроводження інформаційних систем</option>
-</select>
-    
-        </div>
-  </div-->
+
         <div class="form-group">
     <label for="mess" class="col-sm-2 control-label"><?=lang('MAIL_msg');?></label>
         <div class="col-sm-10">
@@ -411,30 +421,67 @@ if ($val== $row['value']) {$opt_sel="selected";}
         </div>
   </div>
   
-<div class="radio col-sm-4">
+  
+  
+  <div class="form-group">
+  <label for="mess" class="col-sm-2 control-label"><?=lang('USERS_profile_priv');?></label>
+  <div class="col-sm-10">
+<div class="radio col-sm-12">
   <label>
     <input type="radio" name="optionsRadios" id="optionsRadios3" value="2" <?=$status_superadmin?>>
-    <?=lang('USERS_nach1');?>
+    <strong class="text-warning"><?=lang('USERS_nach1');?></strong>
     <p class="help-block"><small><?=lang('USERS_nach1_desc');?></small></p>
   </label>
 </div>
 
-<div class="radio col-sm-4">
+<div class="radio col-sm-12">
   <label>
     <input type="radio" name="optionsRadios" id="optionsRadios1" value="0" <?=$status_admin?>>
-    <?=lang('USERS_nach');?>
+    <strong class="text-success"><?=lang('USERS_nach');?></strong>
     <p class="help-block"><small><?=lang('USERS_nach_desc');?></small></p>
   </label>
 </div>
-<div class="radio col-sm-4">
+<div class="radio col-sm-12">
   <label>
     <input type="radio" name="optionsRadios" id="optionsRadios2" value="1" <?=$status_user?>>
-    <?=lang('USERS_wo');?>
+    <strong class="text-info"><?=lang('USERS_wo');?></strong>
     <p class="help-block"><small><?=lang('USERS_wo_desc');?></small></p>
   </label>
   
 </div>
-
+  </div>
+  </div>
+  
+  
+    <div class="form-group">
+  <label for="mess" class="col-sm-2 control-label"><?=lang('USERS_privs');?></label>
+  <div class="col-sm-10">
+  
+  
+  
+	  <div class="col-sm-6">
+	  <div class="checkbox">
+    <label>
+      <input type="checkbox" id="priv_add_client" <?=$priv_add_client?>> <?=lang('TICKET_p_add_client');?>
+    </label>
+  </div>
+	  </div>
+	  
+	  	  <div class="col-sm-6">
+	  <div class="checkbox">
+    <label>
+      <input type="checkbox" id="priv_edit_client" <?=$priv_edit_client?>> <?=lang('TICKET_p_edit_client');?>
+    </label>
+  </div>
+	  </div>
+	  
+  </div>
+    </div>
+  
+  
+  
+  
+  <div class="col-sm-12"><hr></div>
     <div class="form-group">
     <label for="lock" class="col-sm-2 control-label"><?=lang('USERS_acc');?></label>
         <div class="col-sm-10">

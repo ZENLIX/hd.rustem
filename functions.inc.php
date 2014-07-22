@@ -600,7 +600,19 @@ function get_unit_name_return($input) {
 
 
 
+function get_user_val($in) {
+	global $CONF;
+    global $dbConnection;
+    $i=$_SESSION['helpdesk_user_id'];
+    $stmt = $dbConnection->prepare('SELECT '.$in.' FROM users where id=:id');
+    $stmt->execute(array(':id'=>$i));
+    
+    $fior = $stmt->fetch(PDO::FETCH_NUM);
+	
 
+	
+return $fior[0];	
+}
 
 
 
@@ -614,7 +626,7 @@ function get_client_info($id) {
     $fio = $stmt->fetch(PDO::FETCH_ASSOC);
 
 
-
+	$priv_edit_client=get_user_val('priv_edit_client');
     $fio_user=$fio['fio'];
     $loginf=$fio['login'];
     $tel_user=$fio['tel'];
@@ -637,6 +649,11 @@ function get_client_info($id) {
     $lt=$last_ticket['dc'];
     $uid=$_SESSION['helpdesk_user_id'];
     $priv_val=priv_status($uid);
+    //echo $priv_edit_client;
+    if ($priv_edit_client == 1) {$can_edit=true;}
+    else if ($priv_edit_client == 0) {$can_edit=false;}
+    //$can_edit=false;
+    if ($can_edit == true) {
     ?>
 
 
@@ -696,6 +713,73 @@ function get_client_info($id) {
 
 <?php
 }
+
+
+
+ if ($can_edit == false) {
+    ?>
+
+
+
+    <div class="panel-heading">
+        <h4 class="panel-title"><i class="fa fa-user"></i> <?=lang('WORKER_TITLE');?></h4>
+    </div>
+    <div class="panel-body">
+        <h4><center><strong><?php echo $fio_user; ?></strong></center></h4>
+
+        <table class="table  ">
+            <tbody>
+
+            <tr>
+                <td style=" width: 30px; "><small><?=lang('WORKER_login');?>:</small></td>
+                <td><small><?=$loginf?></small></td>
+            </tr>
+            <tr>
+                <td style=" width: 30px; "><small><?=lang('WORKER_posada');?>:</small></td>
+                <td><small><?=$posada?></small></td>
+            </tr>
+            <tr>
+                <td style=" width: 30px; "><small><?=lang('WORKER_unit');?>:</small></td>
+                <td><small><?php echo $pod; ?></small></td>
+            </tr>
+
+            <tr>
+                <td style=" width: 30px; "><small><?=lang('WORKER_tel');?>:</small></td>
+                <td><small><?php echo $tel_user." ".$tel_ext; ?></small></td>
+            </tr>
+            <tr>
+                <td style=" width: 30px; "><small><?=lang('WORKER_room');?>:</small></td>
+                <td><small><?php echo $adr; ?></small></td>
+            </tr>
+            <tr>
+                <td style=" width: 30px; "><small><?=lang('WORKER_mail');?>:</small></td>
+                <td><small><?=$mails?></small></td>
+            </tr>
+            <tr>
+                <td style=" width: 30px; "><small class="text-muted"><?=lang('WORKER_total');?>:</small></td>
+                <td><small class="text-muted">
+                        <?php if ($priv_val <> "1") { ?>
+                        <a target="_blank" href="inc/userinfo.php?user=<?=$id?>"><?php }?><?php echo $tt; ?><?php if ($priv_val <> "1") { ?></a><?php } ?></small></td>
+            </tr>
+
+            <tr>
+                <td style=" width: 30px; "><small class="text-muted"><?=lang('WORKER_last');?>:</small></td>
+                <td><small class="text-muted">
+                        <?php if ($priv_val <> "1") { ?>
+                        <a target="_blank" href="inc/userinfo.php?user=<?=$id?>">
+                            <?php }?><?php echo $lt; ?><?php if ($priv_val <> "1") { ?></a><?php } ?></small></td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+<?php
+}
+
+
+
+}
 function client_unit($input) {
     global $dbConnection;
 
@@ -727,9 +811,9 @@ function priv_status_name($input) {
     $id = $stmt->fetch(PDO::FETCH_ASSOC);
 
 switch($id['priv']) {
-	case '2': 	$r="<p class=\"text-warning\">".lang('USERS_nach1')."</p>";	break;
-	case '0': 	$r="<p class=\"text-success\">".lang('USERS_nach')."</p>";	break;
-	case '1': 	$r="<p class=\"text-info\">".lang('USERS_wo')."</p>";	break;
+	case '2': 	$r="<strong class=\"text-warning\">".lang('USERS_nach1')."</strong>";	break;
+	case '0': 	$r="<strong class=\"text-success\">".lang('USERS_nach')."</strong>";	break;
+	case '1': 	$r="<strong class=\"text-info\">".lang('USERS_wo')."</strong>";	break;
 	default: $r="";
 }	
 
@@ -1390,7 +1474,7 @@ foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
             $paramss=array(':id' => $id,':id2' => $id);
             $res->execute(array_merge($vv,$vv2,$paramss));
             $count = $res->fetch(PDO::FETCH_NUM);
-            $count=0;
+            $count=$count[0];
 
 
 

@@ -105,6 +105,9 @@ function lang ($phrase) {
 ,'TICKET_name' => 'Ticket' 
 
 
+,'TICKET_p_add_client'=>'Add clients',
+'TICKET_p_edit_client'=>'Edit clients'
+,'USERS_profile_priv'=>'Access to view tickets'
 
 ,'WORKER_TITLE' => 'About' 
 ,'WORKER_fio' => 'Name' 
@@ -195,7 +198,8 @@ function lang ($phrase) {
 ,'TICKET_t_a_e_text' => 'in the Ticket has been changed message' 
 ,'TICKET_t_a_e_subj' => 'in the Ticket has been modified theme' 
 ,'TICKET_t_a_com' => 'Ticket was commented' 
-,'TICKET_t_no' => 'No such Ticket' 
+,'TICKET_t_no' => 'No such Ticket',
+'TICKET_error_msg'=>'<strong>Sorry!</strong> You don\'t have access to add client.'
 
 ,'CLIENTS_name' => 'People' 
 ,'CLIENTS_find' => 'Find' 

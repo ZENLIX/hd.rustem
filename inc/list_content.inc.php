@@ -874,7 +874,7 @@ $res1 = $stmt->fetchAll();
 
 
 
-//echo "hello";
+
             $stmt = $dbConnection->prepare('
             SELECT 
 							id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read, lock_by, ok_by, ok_date

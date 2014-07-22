@@ -196,11 +196,14 @@ function lang($phrase){
 'TICKET_t_a_e_subj' => 'в заявці було змінено тему',
 'TICKET_t_a_com' => 'заявку було прокоментовано',
 'TICKET_t_no' => 'Немає такої заявки',
-
+'TICKET_error_msg'=>'<strong>Упс!</strong> У Вас немає прав на додавання нового клієнта.',
 'CLIENTS_name' => 'Користувачі',
 'CLIENTS_find' => 'Знайти',
 'CLIENTS_find_me' => 'Скористайтеся пошуком для редагування інформації...',
+'USERS_profile_priv'=>'Доступ до заявок',
 
+'TICKET_p_add_client'=>'Додавання клієнта',
+'TICKET_p_edit_client'=>'Редагування клієнта',
 
 'NAVBAR_tickets' => 'Заявки',
 'NAVBAR_create_ticket' => 'Створити заявку',
@@ -210,7 +213,7 @@ function lang($phrase){
 'NAVBAR_notes' => 'Блокнот',
 'NAVBAR_admin' => 'Адміністрування',
 'NAVBAR_users' => 'Користувачі системи',
-'NAVBAR_deps' => 'Відділи',
+'NAVBAR_deps' => 'Відділи системи',
 'NAVBAR_approve' => 'Підтвердження',
 'NAVBAR_all_tickets' => 'Всі заявки',
 'NAVBAR_reports' => 'Звіти',

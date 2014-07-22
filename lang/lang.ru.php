@@ -148,6 +148,9 @@ function lang($phrase){
 'empty'=>'пусто',
 't_list_a_top'=>'ТОП 10 результатов поиска',
 
+'TICKET_p_add_client'=>'Добавление клиента',
+'TICKET_p_edit_client'=>'Редактирование клиента',
+
 
 'TICKET_status_arch'=>'заявка в архиве',
 'TICKET_status_ok'=>'заявка выполнена пользователем',
@@ -199,6 +202,7 @@ function lang($phrase){
 'TICKET_t_a_e_subj'=>'в заявке была изменена тема',
 'TICKET_t_a_com'=>'заявка была прокомментирована',
 'TICKET_t_no'=>'Нет такой заявки',
+'TICKET_error_msg'=>'<strong>Упс!</strong> У Вас нет прав на добавление нового клиента.',
 
 'CLIENTS_name'=>'Пользователи',
 'CLIENTS_find'=>'Найти',
@@ -213,13 +217,13 @@ function lang($phrase){
 'NAVBAR_notes'=>'Блокнот',
 'NAVBAR_admin'=>'Администрирование',
 'NAVBAR_users'=>'Пользователи системы',
-'NAVBAR_deps'=>'Отделы',
-'NAVBAR_approve'=>'Подтверждение',
+'NAVBAR_deps'=>'Отделы системы',
+'NAVBAR_approve'=>'Подтверждения',
 'NAVBAR_all_tickets'=>'Все заявки',
 'NAVBAR_reports'=>'Отчеты',
 'NAVBAR_db'=>'Справочники',
 'NAVBAR_posads'=>'Должности',
-'NAVBAR_units'=>'Управление',
+'NAVBAR_units'=>'Управления',
 'NAVBAR_subjs'=>'Темы заявок',
 'NAVBAR_profile'=>'Профиль',
 'NAVBAR_help'=>'Помощь',
@@ -290,7 +294,7 @@ function lang($phrase){
 'USERS_title'=>'Пользователи',
 'USERS_create'=>'Создать пользователя',
 'USERS_list'=>'Пользователи',
-
+'USERS_profile_priv'=>'Видимость заявок',
 'USERS_msg_add'=>'Пользователь успешно добавлен!',
 'USERS_new'=>'Новый пользователь',
 'USERS_fio'=>'ФИО',

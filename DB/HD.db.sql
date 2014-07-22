@@ -302,6 +302,8 @@ CREATE TABLE `users` (
   `email` varchar(128) DEFAULT NULL,
   `messages` varchar(2048) NOT NULL DEFAULT '',
   `lang` varchar(11) NOT NULL DEFAULT 'ru',
+  `priv_add_client` int(11) NOT NULL DEFAULT '1',
+  `priv_edit_client` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 

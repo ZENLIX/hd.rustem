@@ -244,6 +244,48 @@ if ( isset($_POST['mode']) ) {
         }
 
 
+if ($mode == "find_client") {
+	
+	
+	    $term = trim(strip_tags(($_POST['name'])));
+
+        
+            $stmt = $dbConnection->prepare('SELECT id FROM clients WHERE (fio LIKE :term) or (login LIKE :term2) or (tel LIKE :term3) limit 1');
+			$stmt->execute(array(':term' => '%'.$term.'%',':term2' => '%'.$term.'%',':term3' => '%'.$term.'%'));
+			
+    $res1 = $stmt->fetchAll();
+    
+    if (!empty($res1)) {
+    foreach ($res1 as $row) {
+$r['res']=true;
+$r['p']=$row['id'];
+}
+}
+
+
+    if (empty($res1)) {
+    $r['res']=false;
+    
+    //user priv to add client in new ticket
+    $pa=get_user_val('priv_add_client');
+    if ($pa == 1) {$r['priv']=true;}
+    if ($pa == 0) {$r['priv']=false;}
+	
+	$r['msg_error']="<div class=\"alert alert-danger alert-dismissible\" role=\"alert\">
+  <button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>
+  ".lang('TICKET_error_msg')."
+</div>";
+	    
+	    
+    }
+    
+    
+    
+    
+    
+    $row_set[] = $r;
+	echo json_encode($row_set);
+}
 
 
         if ($mode == "get_client_from_new_t") {
@@ -261,6 +303,7 @@ if ( isset($_POST['mode']) ) {
             if (isset($_POST['new_client_info'])) {
                 $fio=($_POST['new_client_info']);
                 $u_l=($_POST['new_client_login']);
+                
                 ?>
 
 
@@ -411,7 +454,7 @@ if ( isset($_POST['mode']) ) {
             $idzz=($_POST['unit']);
 
 
-            $stmt = $dbConnection->prepare('SELECT fio, id, unit FROM users');
+            $stmt = $dbConnection->prepare('SELECT fio, id, unit FROM users where id != 1');
             $stmt->execute();
             $result = $stmt->fetchAll();
 
@@ -1150,7 +1193,10 @@ $lock_st=""; $muclass="";
             $uid=$_SESSION['helpdesk_user_id'];
             $unit_user=unit_of_user($uid);
             $priv_val=priv_status($uid);
-
+			$c=5;
+			//$_POST['v']
+			
+			
 
             $units = explode(",", $unit_user);
             $units = implode("', '", $units);
@@ -1161,8 +1207,8 @@ foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
 
             if ($priv_val == "0") {
 
-                $stmt = $dbConnection->prepare('SELECT id, hash_name, last_update from tickets where (unit_id IN ('.$in_query.') or user_init_id=:uid) order by last_update DESC limit 5');
-                $paramss=array(':uid'=>$uid);
+                $stmt = $dbConnection->prepare('SELECT id, hash_name, last_update from tickets where (unit_id IN ('.$in_query.') or user_init_id=:uid) order by last_update DESC limit :c');
+                $paramss=array(':uid'=>$uid, ':c'=>$c);
                 $stmt->execute(array_merge($vv,$paramss));
                 $res1 = $stmt->fetchAll();
 
@@ -1188,8 +1234,8 @@ foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
 
                 $stmt = $dbConnection->prepare('SELECT id, hash_name, last_update from tickets where (
 	((user_to_id=:uid) or (user_to_id=:n and unit_id IN ('.$in_query.')))
-	or user_init_id=:uid2) order by last_update DESC limit 5');
-                $paramss=array(':uid'=>$uid, ':n'=>'0', ':uid2'=>$uid);
+	or user_init_id=:uid2) order by last_update DESC limit :c');
+                $paramss=array(':uid'=>$uid, ':n'=>'0', ':uid2'=>$uid, ':c'=>$c);
                 $stmt->execute(array_merge($vv,$paramss));
                 $res1 = $stmt->fetchAll();
 
@@ -1218,8 +1264,8 @@ foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
             else if ($priv_val == "2") {
 
 
-                $stmt = $dbConnection->prepare('SELECT id, hash_name, last_update from tickets order by last_update DESC limit 5');
-                $stmt->execute();
+                $stmt = $dbConnection->prepare('SELECT id, hash_name, last_update from tickets order by last_update DESC limit :c');
+                $stmt->execute(array(':c'=>$c));
                 $res1 = $stmt->fetchAll();
 
 
@@ -1267,7 +1313,7 @@ foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
                 <?php
 
                 }
-                ?></table><?php
+                ?></table><small><center><a id="more_news" value="2" class="btn btn-default btn-xs">more</a></center></small><?php
             }
 
         }
@@ -2514,7 +2560,38 @@ values (:unlock, now(), :unow, :tid)');
             <div class="alert alert-success"><?=lang('TICKET_msg_refer');?></div>
         <?php
         }
+if ($mode == "edit_user") {
+            $fio=($_POST['fio']);
+            $login=($_POST['login']);
 
+            $unit=($_POST['unit']);
+            $priv=($_POST['priv']);
+            $status=($_POST['status']);
+            $usid=($_POST['idu']);
+            $mail=($_POST['mail']);
+            $mess=($_POST['mess']);
+            $lang=($_POST['lang']);
+            $priv_add_client=$_POST['priv_add_client'];
+            $priv_edit_client=$_POST['priv_edit_client'];
+            
+            if ($priv_add_client == "true") {$priv_add_client=1;} else {$priv_add_client=0;}
+            if ($priv_edit_client == "true") {$priv_edit_client=1;} else {$priv_edit_client=0;}
+            
+            if (strlen($_POST['pass'])>1) {
+                $p=md5($_POST['pass']);
+                $stmt = $dbConnection->prepare('update users set fio=:fio, login=:login,pass=:pass status=:status, priv=:priv, unit=:unit, email=:mail, messages=:mess, lang=:lang, priv_add_client=:priv_add_client,priv_edit_client=:priv_edit_client  where id=:usid');
+                $stmt->execute(array(':fio'=>$fio, ':login'=>$login, ':status'=>$status, ':priv'=>$priv, ':unit'=>$unit, ':mail'=>$mail, ':mess'=>$mess, ':lang'=>$lang, ':usid'=>$usid, ':pass'=>$pass,':priv_add_client'=>$priv_add_client,':priv_edit_client'=>$priv_edit_client));
+
+            }
+            else { $p="";
+                $stmt = $dbConnection->prepare('update users set fio=:fio, login=:login, status=:status, priv=:priv, unit=:unit, email=:mail, messages=:mess, lang=:lang, priv_add_client=:priv_add_client,priv_edit_client=:priv_edit_client where id=:usid');
+                $stmt->execute(array(':fio'=>$fio, ':login'=>$login, ':status'=>$status, ':priv'=>$priv, ':unit'=>$unit, ':mail'=>$mail, ':mess'=>$mess, ':lang'=>$lang, ':usid'=>$usid,':priv_add_client'=>$priv_add_client,':priv_edit_client'=>$priv_edit_client));
+
+            }
+
+
+
+        }
 
         if ($mode == "add_user") {
             $fio=($_POST['fio']);
@@ -2527,14 +2604,17 @@ values (:unlock, now(), :unow, :tid)');
             $lang=($_POST['lang']);
             $hidden=array();
             $hidden = ($_POST['unit']);
-            print_r($hidden);
+            //print_r($hidden);
             $unit=($_POST['unit']);
+			
+			$priv_add_client=$_POST['priv_add_client'];
+            $priv_edit_client=$_POST['priv_edit_client'];
+			if ($priv_add_client == "true") {$priv_add_client=1;} else {$priv_add_client=0;}
+            if ($priv_edit_client == "true") {$priv_edit_client=1;} else {$priv_edit_client=0;}
 
-
-
-            $stmt = $dbConnection->prepare('INSERT INTO users (fio, login, pass, status, priv, unit, email, messages, lang)
-values (:fio, :login, :pass, :one, :priv, :unit, :mail, :mess, :lang)');
-            $stmt->execute(array(':fio'=>$fio, ':login'=>$login, ':pass'=>$pass, ':one'=>'1', ':priv'=>$priv, ':unit'=>$unit, ':mail'=>$mail, ':mess'=>$mess, ':lang'=>$mess));
+            $stmt = $dbConnection->prepare('INSERT INTO users (fio, login, pass, status, priv, unit, email, messages, lang, priv_add_client, priv_edit_client)
+values (:fio, :login, :pass, :one, :priv, :unit, :mail, :mess, :lang, :priv_add_client, :priv_edit_client)');
+            $stmt->execute(array(':fio'=>$fio, ':login'=>$login, ':pass'=>$pass, ':one'=>'1', ':priv'=>$priv, ':unit'=>$unit, ':mail'=>$mail, ':mess'=>$mess, ':lang'=>$lang,':priv_add_client'=>$priv_add_client,':priv_edit_client'=>$priv_edit_client));
 
 
 
@@ -2621,32 +2701,7 @@ values (:comment, now(), :user_comment, :tid_comment)');
             view_comment($tid_comment);
         }
 
-        if ($mode == "edit_user") {
-            $fio=($_POST['fio']);
-            $login=($_POST['login']);
-
-            $unit=($_POST['unit']);
-            $priv=($_POST['priv']);
-            $status=($_POST['status']);
-            $usid=($_POST['idu']);
-            $mail=($_POST['mail']);
-            $mess=($_POST['mess']);
-            $lang=($_POST['lang']);
-            if (strlen($_POST['pass'])>1) {
-                $p=md5($_POST['pass']);
-                $stmt = $dbConnection->prepare('update users set fio=:fio, login=:login,pass=:pass status=:status, priv=:priv, unit=:unit, email=:mail, messages=:mess, lang=:lang where id=:usid');
-                $stmt->execute(array(':fio'=>$fio, ':login'=>$login, ':status'=>$status, ':priv'=>$priv, ':unit'=>$unit, ':mail'=>$mail, ':mess'=>$mess, ':lang'=>$lang, ':usid'=>$usid, ':pass'=>$pass));
-
-            }
-            else { $p="";
-                $stmt = $dbConnection->prepare('update users set fio=:fio, login=:login, status=:status, priv=:priv, unit=:unit, email=:mail, messages=:mess, lang=:lang where id=:usid');
-                $stmt->execute(array(':fio'=>$fio, ':login'=>$login, ':status'=>$status, ':priv'=>$priv, ':unit'=>$unit, ':mail'=>$mail, ':mess'=>$mess, ':lang'=>$lang, ':usid'=>$usid));
-
-            }
-
-
-
-        }
+        
 
         if ($mode == "upload_file") {
             $name=$_POST['name'];
@@ -2690,7 +2745,24 @@ values (:comment, now(), :user_comment, :tid_comment)');
             if ($client_adr == "пусто") {$client_adr="";}
             if ($client_mail == "пусто") {$client_mail="";}
             if ($client_posada == "пусто") {$client_posada="";}
-
+/*
+На этом месте можно дописывать код, для обработки создания заявки.
+Например SMS-информирование, подключать API и тд и тп
+Доступны переменные:
+$user_init_id	ID-пользователя, который создал заявку
+$user_to_id		ID-пользователя, которому назначена заявку
+$subj			Тема заявки
+$msg			Сообщение
+$unit_id		ID-подразделения, на которое назначена заявка
+$prio			Приоритет заявки
+$client_fio		ФИО клиента
+$client_tel		Тел клиента
+$client_login	Логин клиента
+$unit_desc		Подразделение клиента
+$client_adr		Адрес клиента
+$client_mail	Почта клиента
+$client_posada	Должность клиента
+*/
 
             if ($type == "add") {
 
@@ -2799,14 +2871,19 @@ values (:comment, now(), :user_comment, :tid_comment)');
                 $stmt->execute(array(':create'=>'create', ':unow'=>$unow,':max_id_res_ticket'=>$max_id_res_ticket,':user_to_id'=>$user_to_id,':unit_id'=>$unit_id));
 
 
-
+//echo("dd");
                 if ($user_to_id == "0") {
+                //echo("dd");
                     send_mail_to('new_all',$max_id_res_ticket);
+                    
                 }
 
                 else if ($user_to_id <> "0") {
+                //echo("dd");
                     send_mail_to('new_user',$max_id_res_ticket);
+                    //echo("dd");
                     send_mail_to('new_coord',$max_id_res_ticket);
+                    
                 }
                 echo($hashname);
             }
