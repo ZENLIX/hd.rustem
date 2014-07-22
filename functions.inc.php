@@ -310,22 +310,58 @@ global $dbConnection;
 function view_comment($tid) {
     global $dbConnection;
     ?>
-    <table class="table ">
-        <tbody>
+
+
+
+
+
+
+
+    	<div class="row">
+    
+        <div class="timeline-centered">
         <?php
         $stmt = $dbConnection->prepare('SELECT user_id, comment_text, dt from comments where t_id=:tid');
         $stmt->execute(array(':tid' => $tid));
         while ($rews = $stmt->fetch(PDO::FETCH_ASSOC)) { ?>
-            <tr>
-                <td style="width:200px;"><center><strong><?=nameshort(name_of_user_ret($rews['user_id']));?></strong><br><small class="text-muted"><?=dt_format($rews['dt'])?></small></center></td>
-                <td><?=xss_clean($rews['comment_text'])?></td>
+        
+        <article class="timeline-entry">
 
-            </tr>
+            <div class="timeline-entry-inner">
+
+                <div class="timeline-icon bg-info">
+                    <i class="entypo-feather"></i>
+                </div>
+
+                <div class="timeline-label">
+                                                    <div class="header">
+                                    <strong class="primary-font"><?=nameshort(name_of_user_ret($rews['user_id']));?></strong> <small class="pull-right text-muted">
+                                        <span class="glyphicon glyphicon-time"></span> <?=dt_format($rews['dt'])?></small>
+                                </div><br>
+                    <p><?=xss_clean($rews['comment_text'])?></p>
+                </div>
+            </div>
+
+        </article>
+        
+        
+        
+
+        
+        
+        
+        
+
+                            
+
         <?php } ?>
+                   
+        </div>
+    </div>
 
 
-        </tbody>
-    </table>
+
+
 
 <?php
 
@@ -1265,16 +1301,22 @@ function get_total_tickets_out_and_ok() {
 function get_total_tickets_free() {
     global $dbConnection;
     $uid=$_SESSION['helpdesk_user_id'];
+    
     $unit_user=unit_of_user($uid);
     $priv_val=priv_status($uid);
 
     $units = $unit_user;
     
     
+
+$in_query="";
+$unit_user=unit_of_user($uid);
 $ee=explode(",", $unit_user);
 foreach($ee as $key=>$value) {$in_query = $in_query . ' :val_' . $key . ', '; }
 $in_query = substr($in_query, 0, -2);
 foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
+
+
 
 
     if ($priv_val == "0") {
@@ -1330,9 +1372,16 @@ function get_dashboard_msg(){
 
     $stmt = $dbConnection->prepare('SELECT messages from users where id=:mid');
     $stmt->execute(array(':mid' => $mid));
-    $max = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+    //$max = $stmt->fetch(PDO::FETCH_ASSOC);
+	$res1 = $stmt->fetchAll();
 
-    $max_id=$max[0];
+
+    
+    if (isset($res1['messages'])) {$max_id=$res1['messages'];}
+    else {$max_id="";}
+    
+    
     $length = strlen(utf8_decode($max_id));
     if ($length < 1) {$ress=lang('DASHBOARD_def_msg');} else {$ress=$max_id;}
     return $ress;

@@ -62,10 +62,7 @@ if ($ap == 0) {
             <li <?=echoActiveClassIfRequestMatches("create")?>><a href="<?=$CONF['hostname']?>create"><i class="fa fa-tag"></i> <?=lang('NAVBAR_create_ticket');?></a></li>
             <li <?=echoActiveClassIfRequestMatches("list")?>><a href="<?=$CONF['hostname']?>list"><i class="fa fa-list-alt"></i> <?=lang('NAVBAR_list_ticket');?> <?=$newtickets?></a></li>
                 </ul></li>
-            <!--li <?=echoActiveClassIfRequestMatches("message.php")?>><a href=""><i class="fa fa-comments-o"></i> Повідомлення <span class="badge">2</span></a></li>
-	  <li <?=echoActiveClassIfRequestMatches("reports.php")?>><a href=""><i class="fa fa-bar-chart-o"></i> Звіти</a></li-->
-
-
+            
             <li <?=echoActiveClassIfRequestMatches("clients")?>><a href="<?=$CONF['hostname']?>clients"><i class="fa fa-users"></i> <?=lang('NAVBAR_workers');?></a></li>
             
             <li <?=echoActiveClassIfRequestMatches("helper")?>><a href="<?=$CONF['hostname']?>helper"><i class="fa fa-globe"></i> <?=lang('NAVBAR_helper');?></a></li>

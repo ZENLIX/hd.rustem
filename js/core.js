@@ -1131,7 +1131,10 @@ if (ispath('create') ) {
 
 
     });
-
+    $('body').on('click', 'a#go_back', function(event) {
+        event.preventDefault();
+    history.back(1);
+});
 
 
     $('body').on('click', 'button#action_refer_to', function(event) {
@@ -1150,6 +1153,30 @@ if (ispath('create') ) {
 
 
     });
+
+
+    $('body').on('click', 'button#dashboard_set_ticket', function(event) {
+        event.preventDefault();
+		var p=$(this).text();
+                                        $.ajax({
+                                            type: "POST",
+                                            url: ACTIONPATH,
+                                            data: "mode=dashboard_t"+
+                                            "&p="+p,
+                                            success: function(html){
+												$('#spinner').show();
+                                                $('#dashboard_t').html(html);
+                                                $('#spinner').hide();
+                                                $('[data-toggle="tooltip"]').tooltip('hide');
+                                                $('[data-toggle="tooltip"]').tooltip({container: 'body', html:true});
+                                            }
+                                        });
+                                        });
+                                        
+                                        
+                                        
+
+
 
     $('body').on('click', 'button#save_notes', function(event) {
         event.preventDefault();
@@ -1725,7 +1752,7 @@ if (ispath('create') ) {
                 url: ACTIONPATH,
                 data: "mode=add_comment"+
                     "&user="+usr+
-                    "&textmsg="+$("textarea#msg").val().replace(/\r\n|\r|\n/g,"<br />")+
+                    "&textmsg="+$("textarea#msg").val()+
                     "&tid="+tid,
                 success: function(html) {
 
