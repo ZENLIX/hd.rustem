@@ -31,6 +31,7 @@ $usid=$_SESSION['helpdesk_user_id'];
 	    //$row = mysql_fetch_assoc($sql);
 foreach($res1 as $row) {
 
+$fio=$row['fio'];
 $login=$row['login'];
 $pass=$row['pass'];
 $email=$row['email'];
@@ -60,13 +61,15 @@ else if ($langu == "ua") {$status_lang_ua="selected";}
       <div class="panel panel-default">
       <div class="panel-heading"><i class="fa fa-user"></i> <?=lang('P_main');?></div>
       <div class="panel-body">
-      <div class="col-sm-4"><?=lang('PROFILE_priv');?>:</div>
-      <div class="col-sm-8"><?=priv_status_name($usid);?></div>
-      <div class="col-sm-4"><?=lang('PROFILE_priv_unit');?>:</div>
-      <div class="col-sm-8"><p><?=get_unit_name_return(unit_of_user($_SESSION['helpdesk_user_id']));?></p></div>
-      
-      <br><hr>
-      
+      <div class="col-sm-4 text-right" ><strong ><small><?=lang('WORKER_fio');?>:</small></strong></div>
+      <div class="col-sm-8"><small><?=$fio;?></small></div>
+      <div class="col-sm-4 text-right" ><strong ><small><?=lang('PROFILE_priv');?>:</small></strong></div>
+      <div class="col-sm-8"><small><?=priv_status_name($usid);?></small></div>
+      <div class="col-sm-4 text-right"><strong><small><?=lang('PROFILE_priv_unit');?>:</small></strong></div>
+      <div class="col-sm-8"><p><small><?=get_unit_name_return(unit_of_user($_SESSION['helpdesk_user_id']));?></small></p></div>
+      <div class="col-sm-12">
+      <hr>
+      </div>
       <form class="form-horizontal" role="form">
       <div class="form-group">
     <label for="login" class="col-sm-4 control-label"><?=lang('P_login');?></label>
