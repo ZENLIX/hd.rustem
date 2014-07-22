@@ -462,6 +462,7 @@ To do this, there is a section - Members. Locate the user that you need and chan
 'note_save'=>'Record saved',
 'upload_cancel'=>'Remove',
 'upload_errorsize'=>'is not allowed. Allowed Max size:',
+'last_more'=>'more',
 ''=>''
 );
 return isset($lang[$phrase]) ? $lang[$phrase] : 'undefined';
