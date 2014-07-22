@@ -65,7 +65,7 @@ $mail             = new PHPMailer();
 $mail->CharSet 	  = 'UTF-8';
 $mail->IsSMTP();
 
-$mail->SMTPAuth   = true; 
+$mail->SMTPAuth   = $CONF_MAIL['auth']; 
 $mail->SMTPSecure = "tls"; 
 $mail->Host       = $CONF_MAIL['host']; 
 $mail->Port       = $CONF_MAIL['port'];                  
@@ -152,7 +152,7 @@ EOBODY;
 $mail->CharSet 	  = 'UTF-8';
 $mail->IsSMTP();
 
-$mail->SMTPAuth   = true; 
+$mail->SMTPAuth   = $CONF_MAIL['auth']; 
 $mail->SMTPSecure = "tls"; 
 $mail->Host       = $CONF_MAIL['host']; 
 $mail->Port       = $CONF_MAIL['port'];                  
@@ -348,7 +348,7 @@ $mail             = new PHPMailer();
 $mail->CharSet 	  = 'UTF-8';
 $mail->IsSMTP();
 
-$mail->SMTPAuth   = true; 
+$mail->SMTPAuth   = $CONF_MAIL['auth']; 
 $mail->SMTPSecure = "tls"; 
 $mail->Host       = $CONF_MAIL['host']; 
 $mail->Port       = $CONF_MAIL['port'];                  
@@ -533,7 +533,7 @@ EOBODY;
 $mail->CharSet 	  = 'UTF-8';
 $mail->IsSMTP();
 
-$mail->SMTPAuth   = true; 
+$mail->SMTPAuth   = $CONF_MAIL['auth']; 
 $mail->SMTPSecure = "tls"; 
 $mail->Host       = $CONF_MAIL['host']; 
 $mail->Port       = $CONF_MAIL['port'];                  
@@ -724,7 +724,7 @@ EOBODY;
 $mail->CharSet 	  = 'UTF-8';
 $mail->IsSMTP();
 
-$mail->SMTPAuth   = true; 
+$mail->SMTPAuth   = $CONF_MAIL['auth']; 
 $mail->SMTPSecure = "tls"; 
 $mail->Host       = $CONF_MAIL['host']; 
 $mail->Port       = $CONF_MAIL['port'];                  
