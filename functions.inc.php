@@ -2080,8 +2080,8 @@ function humanTiming ($time)
 
 
             if ($text=='хв') {
-                if (substr($numberOfUnits, -1) == "1") {$text="минута";}
-                if ((substr($numberOfUnits, -1) >= "2") && (substr($numberOfUnits, -1) <= "4")) {$text="минут";}
+                if (substr($numberOfUnits, -1) <= "1") {$text="минута";}
+                if ((substr($numberOfUnits, -1) >= "2") && (substr($numberOfUnits, -1) <= "4")) {$text="минуты";}
                 if (substr($numberOfUnits, -1) > "4") {$text="минут";}
             }
 

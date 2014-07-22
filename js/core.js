@@ -1637,8 +1637,7 @@ if (ispath('create') ) {
             type: "POST",
             url: ACTIONPATH,
             data: "mode=send_zapit_edit_ok"+"&"+
-                $('#form_approve').serialize()
-            ,
+                $('#form_approve').serialize(),
             success: function(html) {
 
                 $("#sze_info").hide().html(html).fadeIn(500);

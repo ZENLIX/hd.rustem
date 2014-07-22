@@ -2236,10 +2236,24 @@ foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
             $adr=($_POST['adr']);
             $mail=($_POST['mail']);
             $id=($_POST['id_client']);
-
+echo "ff";
             $stmt = $dbConnection->prepare('update clients set
-fio=:pib, tel=:tel, login=:login, unit_desc=:pid, adr=:adr, email=:mail, posada=:posada where id = :id');
-            $stmt->execute(array(':pib' => $pib,':tel' => $tel,':login' => $login,':pid' => $pid,':adr' => $adr,':mail' => $mail,':posada' => $posada, ':id'=>$id));
+fio=:pib, 
+tel=:tel, 
+login=:login, 
+unit_desc=:pid, 
+adr=:adr, 
+email=:mail, 
+posada=:posada where id = :id');
+            $stmt->execute(array(
+            ':pib' => $pib,
+            ':tel' => $tel,
+            ':login' => $login,
+            ':pid' => $pid,
+            ':adr' => $adr,
+            ':mail' => $mail,
+            ':posada' => $posada, 
+            ':id'=>$id));
             ?>
             <div class="alert alert-success">
                 <?=lang('PROFILE_msg_ok');?>
@@ -2264,7 +2278,17 @@ fio=:pib, tel=:tel, login=:login, unit_desc=:pid, adr=:adr, email=:mail, posada=
             $stmt = $dbConnection->prepare('insert into approved_info
 (client_id, fio, tel, login, unit_desc, adr, email, posada, user_from, date_app)
 VALUES (:id, :pib, :tel, :login, :pid, :adr, :mail,  :posada, :uf, now())');
-            $stmt->execute(array(':pib' => $pib,':tel' => $tel,':login' => $login,':pid' => $pid,':adr' => $adr,':mail' => $mail,':posada' => $posada, ':uf'=>$uf));
+            
+            $stmt->execute(array(
+            ':id' => $id,
+            ':pib' => $pib,
+            ':tel' => $tel,
+            ':login' => $login,
+            ':pid' => $pid,
+            ':adr' => $adr,
+            ':mail' => $mail,
+            ':posada' => $posada, 
+            ':uf'=>$uf));
 
 
             ?>
