@@ -63,7 +63,14 @@ overflow-y: scroll;"></div>
 
         <div class="col-md-12">
             <div class="panel panel-default">
-                <div class="panel-heading"><a href="list?in"><i class="fa fa-list-alt"></i> <?= lang('DASHBOARD_last_in'); ?></a></div>
+                <div class="panel-heading"><a href="list?in"><i class="fa fa-list-alt"></i> <?= lang('DASHBOARD_last_in'); ?></a><span class="pull-right">
+                <div class="btn-group btn-group-xs">
+  <button id="dashboard_set_ticket" type="button" class="btn btn-default">5</button>
+  <button id="dashboard_set_ticket" type="button" class="btn btn-default">10</button>
+  <button id="dashboard_set_ticket" type="button" class="btn btn-default">15</button>
+</div>
+
+                </span></div>
                 <div class="panel-body">
 
                     <div id="spinner" class="well well-large well-transparent lead">

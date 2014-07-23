@@ -886,6 +886,11 @@ $r['p']=$row['id'];
 
             $page=1;
             $perpage='5';
+            
+            if (isset($_POST['p'])) {
+	            $perpage=$_POST['p'];
+            }
+            
             $start_pos = ($page - 1) * $perpage;
 
             $user_id=id_of_user($_SESSION['helpdesk_user_login']);
@@ -1096,7 +1101,7 @@ if ($row['is_read'] <> "0") { $style=""; }
                     $t_ago=get_date_ok($row['date_create'], $row['id']);
                 }
                 if ($row['status'] == 0) {
-                    $t_ago=humanTiming(strtotime($row['date_create']));
+                    $t_ago=$row['date_create'];
                     if ($lb <> 0) {
 
                         if ($lb == $user_id) {$st=  "<span class=\"label label-warning\"><i class=\"fa fa-gavel\"></i> ".lang('t_list_a_lock_i')."</span>";}
@@ -1156,8 +1161,8 @@ $lock_st=""; $muclass="";
                         <td style=" vertical-align: middle; "><small class="<?=$muclass;?>"><center><?=$prio?></center></small></td>
                         <td style=" vertical-align: middle; "><a class="<?=$muclass;?>" data-toggle="tooltip" data-placement="bottom" title="<?=$row['subj']?>" href="ticket?<?php echo $row['hash_name']; ?>"><?php cutstr($row['subj']); ?></a></td>
                         <td style=" vertical-align: middle; "><small class="<?=$muclass;?>"><?php name_of_client($row['client_id']); ?></small></td>
-                        <td style=" vertical-align: middle; "><small class="<?=$muclass;?>"><center><?php dt_format($row['date_create']); ?></center></small></td>
-                        <td style=" vertical-align: middle; "><small class="<?=$muclass;?>"><center><?=$t_ago;?></center></small></td>
+                        <td style=" vertical-align: middle; "><small class="<?=$muclass;?>"><center><time id="c" datetime="<?=$row['date_create']; ?>"></time></center></small></td>
+                        <td style=" vertical-align: middle; "><small class="<?=$muclass;?>"><center><time id="a" datetime="<?=$t_ago;?>"></time></center></small></td>
 
                         <td style=" vertical-align: middle; "><small class="<?=$muclass;?>"><?php echo nameshort(name_of_user_ret($row['user_init_id'])); ?></small></td>
 
@@ -1222,7 +1227,7 @@ foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
                         'name' => $rews['id'],
                         'at' => $at,
                         'hash' => $rews['hash_name'],
-                        'time' => dt_format_full_r($rews['last_update'])
+                        'time' => $rews['last_update']
                     );
 
 
@@ -1253,7 +1258,7 @@ foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
                         'name' => $rews['id'],
                         'at' => $at,
                         'hash' => $rews['hash_name'],
-                        'time' => dt_format_full_r($rews['last_update'])
+                        'time' => $rews['last_update']
                     );
 
                 }
@@ -1281,7 +1286,7 @@ foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
                         'name' => $rews['id'],
                         'at' => $at,
                         'hash' => $rews['hash_name'],
-                        'time' => dt_format_full_r($rews['last_update'])
+                        'time' => $rews['last_update']
                     );
 
                 }
@@ -1308,8 +1313,8 @@ foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
                 foreach ($results as $arr) {
                     ?>
 
-                    <tr><td style=" width: 100px; vertical-align: inherit;"><small><i class="fa fa-tag"></i> </small><a href="ticket?<?=$arr['hash'];?>"><small><?=lang('TICKET_name');?> #<?=$arr['name'];?></small></a></td><td><small><?=$arr['at'];?></small></td><td style=" width: 110px; vertical-align: inherit;"><small style="float:right;" class="text-muted "> <?=$arr['time'];?></small></td></tr>
-                    <tr><td style=" width: 100px; vertical-align: inherit;"><small><i class="fa fa-tag"></i> </small><a href="ticket?<?=$arr['hash'];?>"><small><?=lang('TICKET_name');?> #<?=$arr['name'];?></small></a></td><td><small><?=$arr['at'];?></small></td><td style=" width: 120px; vertical-align: inherit;"><small style="float:right;" class="text-muted "> <?=$arr['time'];?></small></td></tr>
+                    <tr><td style=" width: 100px; vertical-align: inherit;"><small><i class="fa fa-tag"></i> </small><a href="ticket?<?=$arr['hash'];?>"><small><?=lang('TICKET_name');?> #<?=$arr['name'];?></small></a></td><td><small><?=$arr['at'];?></small></td>
+                    <td style=" width: 110px; vertical-align: inherit;"><small style="float:right;" class="text-muted "> <time id="b" datetime="<?=$arr['time'];?>"></time></small></td></tr>
 
                 <?php
 
@@ -1371,7 +1376,7 @@ foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
                             'name' => $rews['id'],
                             'at' => $at,
                             'hash' => $rews['hash_name'],
-                            'time' => dt_format_short($rews['last_update'])
+                            'time' => "<time id=\"b\" datetime=\"".$rews['last_update']."\"></time>"
                         );
                     }
 
@@ -1401,7 +1406,7 @@ foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
                             'name' => $rews['id'],
                             'at' => $at,
                             'hash' => $rews['hash_name'],
-                            'time' => dt_format_short($rews['last_update'])
+                            'time' => "<time id=\"b\" datetime=\"".$rews['last_update']."\"></time>"
                         );
                     }
                 }
@@ -1428,7 +1433,8 @@ foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
                             'name' => $rews['id'],
                             'at' => $at,
                             'hash' => $rews['hash_name'],
-                            'time' => dt_format_short($rews['last_update'])
+                            
+                            'time' => "<time id=\"b\" datetime=\"".$rews['last_update']."\"></time>"
                         );
                     }
                 }

@@ -1,6 +1,41 @@
 $(document).ready(function() {
 
 
+        
+        
+        moment.lang(MyLANG);
+        
+        
+        function makemytime(s){
+        
+        var now = moment();
+	        		
+					
+					
+					
+					$('time#a').each(function(i, e) {
+					var time = moment($(e).attr('datetime'));
+					$(e).html('<span>' + time.from(now,true) + '</span>');
+					
+					});
+					
+					
+					
+					
+					$('time#b').each(function(i, e) {
+					var time = moment($(e).attr('datetime'));
+					$(e).html('<span>' + time.from(now) + '</span>');
+					});
+					
+					$('time#c').each(function(i, e) {
+					var time = moment($(e).attr('datetime'));
+					
+					$(e).html('<span>' + time.format("ddd, Do MMM, H:mm:ss") + '</span>');
+					});
+						
+						
+        }
+        
 
 var ACTIONPATH=MyHOSTNAME+"actions.php";
 
@@ -125,7 +160,7 @@ return zzz;
                     });
                     $('#for_fio').addClass('has-success');
                     $("#status_action").val('edit');
-
+makemytime(true);
                 }
             });
             return false;
@@ -196,7 +231,7 @@ php:
                     });
                     $('#for_fio').addClass('has-success');
                     $("#status_action").val('edit');
-
+makemytime(true);
                 }
             });
                         ///////////
@@ -232,6 +267,7 @@ php:
                             $('#new_tel').editable({inputclass: 'input-sm',emptytext: 'пусто'});
                             $('#new_adr').editable({inputclass: 'input-sm',emptytext: 'пусто'});
                             $('#new_mail').editable({inputclass: 'input-sm', emptytext: 'пусто'});
+                            makemytime(true);
                         }
                     });
 		                        
@@ -241,6 +277,7 @@ php:
 	                        $("#alert_add").hide().html(item.msg_error).fadeIn(500);
 	                        $("#status_action").val('');
 	                        $("#fio").val('');
+	                        makemytime(true);
 	                        }
                         }
                         });
@@ -484,6 +521,8 @@ php:
                         $("#content").hide().html(html).fadeIn(500);
                         $("#spinner").hide();
                         $('[data-toggle="tooltip"]').tooltip({container: 'body', html:true});
+
+makemytime(true);
                     }
                 });
             }
@@ -515,6 +554,7 @@ php:
                         $("#content").hide().html(html).fadeIn(500);
                         $("#spinner").hide();
                         $('[data-toggle="tooltip"]').tooltip({container: 'body', html:true});
+makemytime(true);
                     }
                 });
             }
@@ -546,6 +586,8 @@ php:
                         $("#content").hide().html(html).fadeIn(500);
                         $("#spinner").hide();
                         $('[data-toggle="tooltip"]').tooltip({container: 'body', html:true});
+
+makemytime(true);
                     }
                 });
             }
@@ -651,6 +693,7 @@ if (url.search("inc") >= 0) {
                                         });
                                         $.ionSound.play("button_tiny");
                                         $.titleAlert(item.up);
+                                        makemytime(true);
                                     });
                                 }
                                 $("#main_last_new_ticket").attr('value', new_lu);
@@ -693,7 +736,7 @@ if (url.search("inc") >= 0) {
                                             timeout: false
                                         });
                                         $.ionSound.play("button_tiny");
-
+makemytime(true);
                                         $.ajax({
                                             type: "POST",
                                             url: ACTIONPATH,
@@ -702,6 +745,8 @@ if (url.search("inc") >= 0) {
                                                 $('#last_news').html(html);
                                                 $('[data-toggle="tooltip"]').tooltip('hide');
                                                 $('[data-toggle="tooltip"]').tooltip({container: 'body', html:true});
+                                                makemytime(true);
+makemytime(false);
                                             }
                                         });
                                         $('#spinner').show();
@@ -715,7 +760,7 @@ if (url.search("inc") >= 0) {
                                                 $('#spinner').hide();
                                                 $('[data-toggle="tooltip"]').tooltip('hide');
                                                 $('[data-toggle="tooltip"]').tooltip({container: 'body', html:true});
-                                            }
+                                                makemytime(true);                                            }
                                         });
 
                                         $.ajax({
@@ -729,6 +774,7 @@ if (url.search("inc") >= 0) {
                                                     $('#d_label_2').html(item.b);
                                                     $('#d_label_3').html(item.c);
                                                 });
+                                                makemytime(true);
                                             }
                                         });
 
@@ -772,10 +818,11 @@ if (ispath('notes') ) {
 
 
     }
+    
 if (ispath('ticket')) {
     //if (def_filename == "ticket.php") {
     
-    
+    makemytime(true);
         setInterval(function(){
             var lu=$("#last_update").attr('value');
             var tid=$("#ticket_id").attr('value');
@@ -806,6 +853,7 @@ if (ispath('ticket')) {
                                         $("#comment_content").html(r);
 
                                         $("#last_update").attr('value',item.time);
+                                        makemytime(true);
                                     }
                                 });
 
@@ -876,7 +924,7 @@ if (ispath('notes') ) {
                                                 $('#last_news').html(html);
                                                 $('[data-toggle="tooltip"]').tooltip('hide');
                                                 $('[data-toggle="tooltip"]').tooltip({container: 'body', html:true});
-                                            }
+                                                makemytime(false);                                            }
                                         });
                                         });
                                         
@@ -892,6 +940,12 @@ if (ispath('notes') ) {
             data: "mode=last_news",
             success: function(html){
                 $('#last_news').html(html);
+                
+                
+                //console.log($('#then').html());
+                makemytime(false);
+
+                
 
             }
         });
@@ -904,6 +958,7 @@ if (ispath('notes') ) {
                 $('#dashboard_t').html(html);
                 $('#spinner').hide();
                 $('[data-toggle="tooltip"]').tooltip({container: 'body', html:true});
+makemytime(true);
             }
         });
 
@@ -1074,7 +1129,9 @@ if (ispath('create') ) {
         },5000);
     }
 
-
+makemytime(true);
+						
+						
 
     $("#fio_find").autocomplete({
         max: 10,
@@ -1169,7 +1226,7 @@ if (ispath('create') ) {
                                                 $('#spinner').hide();
                                                 $('[data-toggle="tooltip"]').tooltip('hide');
                                                 $('[data-toggle="tooltip"]').tooltip({container: 'body', html:true});
-                                            }
+                                                makemytime(true);                                            }
                                         });
                                         });
                                         
@@ -1755,10 +1812,10 @@ if (ispath('create') ) {
                     "&textmsg="+$("textarea#msg").val()+
                     "&tid="+tid,
                 success: function(html) {
-
+					
                     $("#comment_content").html(html);
                     $("textarea#msg").val('')
-
+makemytime(true);
                 }
             });
 
@@ -2602,6 +2659,9 @@ if (ispath('create') ) {
         }
 
     });
+
+
+
 
 
 });

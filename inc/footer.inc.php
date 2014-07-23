@@ -15,9 +15,10 @@
         </div>
     </div>
 </div>
+<?php if ($lang == "ua") {$lang = "uk"; }?>
 <script type="text/javascript">
     var MyHOSTNAME = "<?php echo $CONF['hostname']; ?>";
-    
+    var MyLANG = "<?php echo $lang; ?>";
 </script>
 <script src="<?=$CONF['hostname']?>/js/jquery-1.11.0.min.js"></script>
 <script src="<?=$CONF['hostname']?>/js/bootstrap/js/bootstrap.min.js"></script>
@@ -41,6 +42,7 @@
 <script src="<?=$CONF['hostname']?>/js/bootbox.min.js"></script>
 <script src="<?=$CONF['hostname']?>/js/jquery.form.js"></script>
 <script src="<?=$CONF['hostname']?>/js/jquery.uploadfile.min.js"></script>
+<script src="<?=$CONF['hostname']?>/js/moment-with-langs.js"></script>
 <script src="<?=$CONF['hostname']?>/js/core.js"></script>
 
 <?php $current_file_name = basename($_SERVER['REQUEST_URI'], ".php");
@@ -49,5 +51,6 @@ if ( $current_file_name == 'admin' ) { ?>
     <script src="<?=$CONF['hostname']?>/js/core_admin.js"></script>
 
 <?php } ?>
+
 </body>
 </html>

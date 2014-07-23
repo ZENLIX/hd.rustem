@@ -138,7 +138,7 @@ if ($row['is_read'] <> "0") { $style=""; }
                     $t_ago=get_date_ok($row['date_create'], $row['id']);
                 }
                 if ($row['status'] == 0) {
-                    $t_ago=humanTiming(strtotime($row['date_create']));
+                    $t_ago=$row['date_create'];
                     if ($lb <> 0) {
 
                         if ($lb == $user_id) {$st=  "<span class=\"label label-warning\"><i class=\"fa fa-gavel\"></i> ".lang('t_list_a_lock_i')."</span>";}
@@ -164,8 +164,8 @@ if ($row['is_read'] <> "0") { $style=""; }
                         <td style=" vertical-align: middle; "><small><center><?=$prio?></center></small></td>
                         <td style=" vertical-align: middle; "><a href="ticket?<?php echo $row['hash_name']; ?>"><?php cutstr($row['subj']); ?></a></td>
                         <td style=" vertical-align: middle; "><small><?php name_of_client($row['client_id']); ?></small></td>
-                        <td style=" vertical-align: middle; "><small><center><?php dt_format($row['date_create']); ?></center></small></td>
-                        <td style=" vertical-align: middle; "><small><center><?=$t_ago;?></center></small></td>
+                        <td style=" vertical-align: middle; "><small><center><time id="c" datetime="<?=$row['date_create']; ?>"></time></center></small></td>
+                        <td style=" vertical-align: middle; "><small><center><time id="a" datetime="<?=$t_ago;?>"></time></center></small></td>
                         <td style=" vertical-align: middle; "><small><?php get_unit_name($row['unit_id']); ?></small>
                             <small><div  id="" class=" text-muted"><?php name_of_user($row['user_to_id']); ?></div></small></td>
                         <td style=" vertical-align: middle; "><small><center><?=$st;?></center>
@@ -398,7 +398,7 @@ if ($row['is_read'] <> "0") { $style=""; }
                     $t_ago=get_date_ok($row['date_create'], $row['id']);
                 }
                 if ($row['status'] == 0) {
-                    $t_ago=humanTiming(strtotime($row['date_create']));
+                    $t_ago=$row['date_create'];
                     if ($lb <> 0) {
 
                         if ($lb == $user_id) {$st=  "<span class=\"label label-warning\"><i class=\"fa fa-gavel\"></i> ".lang('t_list_a_lock_i')."</span>";}
@@ -457,7 +457,7 @@ $lock_st=""; $muclass="";
                     }
                 }
                 if ($row['status'] == 1) {$t_ago=get_date_ok($row['date_create'], $row['id']);}
-                if ($row['status'] == 0) {$t_ago=humanTiming(strtotime($row['date_create']));}
+                if ($row['status'] == 0) {$t_ago=$row['date_create'];}
 
 
 
@@ -467,8 +467,10 @@ $lock_st=""; $muclass="";
                     <td style=" vertical-align: middle; "><small class="<?=$muclass;?>"><center><?=$prio?></center></small></td>
                     <td style=" vertical-align: middle; "><a class="<?=$muclass;?>" data-toggle="tooltip" data-placement="bottom" title="<?=$row['subj']?>" href="ticket?<?php echo $row['hash_name']; ?>"><?php cutstr($row['subj']); ?></a></td>
                     <td style=" vertical-align: middle; "><small class="<?=$muclass;?>"><?php name_of_client($row['client_id']); ?></small></td>
-                    <td style=" vertical-align: middle; "><small class="<?=$muclass;?>"><center><?php dt_format($row['date_create']); ?></center></small></td>
-                    <td style=" vertical-align: middle; "><small class="<?=$muclass;?>"><center><?=$t_ago;?></center></small></td>
+                    <td style=" vertical-align: middle; "><small class="<?=$muclass;?>"><center><time id="c" datetime="<?=$row['date_create']; ?>"></time></center></small></td>
+                    <td style=" vertical-align: middle; "><small class="<?=$muclass;?>"><center>
+                    <time id="a" datetime="<?=$t_ago;?>"></time>
+                    </center></small></td>
 
                     <td style=" vertical-align: middle; "><small class="<?=$muclass;?>"><?php echo nameshort(name_of_user_ret($row['user_init_id'])); ?></small></td>
 
@@ -718,7 +720,7 @@ if ($row['is_read'] <> "0") { $style=""; }
                     $t_ago=get_date_ok($row['date_create'], $row['id']);
                 }
                 if ($row['status'] == 0) {
-                    $t_ago=humanTiming(strtotime($row['date_create']));
+                    $t_ago=$row['date_create'];
                     if ($lb <> 0) {
 
                         if ($lb == $user_id) {$st=  "<span class=\"label label-warning\"><i class=\"fa fa-gavel\"></i> ".lang('t_list_a_lock_i')."</span>";}
@@ -788,8 +790,8 @@ $lock_st=""; $muclass="";
                     <td style=" vertical-align: middle; "><small class="<?=$muclass;?>"><center><?=$prio?></center></small></td>
                     <td style=" vertical-align: middle; "><a class="<?=$muclass;?>" data-toggle="tooltip" data-placement="bottom" title="<?=$row['subj']?>" href="ticket?<?php echo $row['hash_name']; ?>"><?php cutstr($row['subj']); ?></a></td>
                     <td style=" vertical-align: middle; "><small class="<?=$muclass;?>"><?php name_of_client($row['client_id']); ?></small></td>
-                    <td style=" vertical-align: middle; "><small class="<?=$muclass;?>"><center><?php dt_format($row['date_create']); ?></center></small></td>
-                    <td style=" vertical-align: middle; "><small class="<?=$muclass;?>"><center><?=$t_ago;?></center></small></td>
+                    <td style=" vertical-align: middle; "><small class="<?=$muclass;?>"><center><time id="c" datetime="<?=$row['date_create']; ?>"></time></center></small></td>
+                    <td style=" vertical-align: middle; "><small class="<?=$muclass;?>"><center><time id="a" datetime="<?=$t_ago;?>"></time></center></small></td>
 
                     <td style=" vertical-align: middle; "><small class="<?=$muclass;?>"><?php echo nameshort(name_of_user_ret($row['user_init_id'])); ?></small></td>
 
@@ -978,7 +980,7 @@ $res1 = $stmt->fetchAll();
                         <td style=" vertical-align: middle; "><small><center><?php echo $row['id']; ?></center></small></td>
                         <td style=" vertical-align: middle; "><small><a href="ticket?<?php echo $row['hash_name']; ?>"><?php cutstr($row['subj']); ?></a></small></td>
                         <td style=" vertical-align: middle; "><small><?php name_of_client($row['client_id']); ?></small></td>
-                        <td style=" vertical-align: middle; "><small><center><?php dt_format($row['date_create']); ?></center></small></td>
+                        <td style=" vertical-align: middle; "><small><center><time id="c" datetime="<?=$row['date_create']; ?>"></time></center></small></td>
                         <td style=" vertical-align: middle; "><small><?=nameshort(name_of_user_ret($row['user_init_id'])); ?></small></td>
 
                         <td style=" vertical-align: middle; "><small>
@@ -987,7 +989,9 @@ $res1 = $stmt->fetchAll();
                         <td style=" vertical-align: middle; "><small>
                                 <?=nameshort(name_of_user_ret($row['ok_by'])); ?>
                             </small></td>
-                        <td style=" vertical-align: middle; "><small><center><?php dt_format($row['ok_date']); ?></center></small></td>
+                        <td style=" vertical-align: middle; "><small><center>
+                        <time id="c" datetime="<?=$row['ok_date']; ?>"></time>
+                        </center></small></td>
                     </tr>
                 <?php
                 }

@@ -168,13 +168,13 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
                     <td style="width:50px;"><small><strong><?=lang('TICKET_t_from');?> </strong></small></td>
                     <td><small><?=name_of_user($row['user_init_id'])?> </small></td>
                     <td style="width:150px;"><small><strong> <?=lang('TICKET_t_was_create');?></strong></small></td>
-                    <td style="width:150px;"><small><?=dt_format($row['date_create'])?> </small></td>
+                    <td style="width:150px;"><small><time id="c" datetime="<?=$row['date_create']; ?>"></time> </small></td>
                 </tr>
                 <tr>
                     <td style="width:50px;"><small><strong><?=lang('TICKET_t_to');?> </strong></small></td>
                     <td><small><?=$to_text;?> </small></td>
                     <td style="width:50px;"><small><strong><?=lang('TICKET_t_last_edit');?> </strong></small></td>
-                    <td><small><?php if ($row['last_edit']) { echo dt_format($row['last_edit']); } ?> </small></td>
+                    <td><small><?php if ($row['last_edit']) { ?> <time id="c" datetime="<?=$row['last_edit'];?>"></time> <?php } ?> </small></td>
                 </tr>
                 <tr>
                     <td><small><strong><?=lang('TICKET_t_worker');?></strong></small>
@@ -182,7 +182,7 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
                     <td class=""><small><?=name_of_client($cid)?></small></td>
 
                     <td style="width:50px;"><small><strong><?=lang('TICKET_t_last_up');?> </strong></small></td>
-                    <td><small><?php if ($row['last_update']) { echo dt_format($row['last_update']); } ?> </small></td>
+                    <td><small><?php if ($row['last_update']) { ?> <time id="c" datetime="<?=$row['last_update'];?>"></time> <?php } ?> </small></td>
 
 
                 </tr>
@@ -871,7 +871,7 @@ $lo="yes";
 
 
                     <div class="col-md-12" style="padding-top:20px;" id="msg_e">
-                        <div class="alert alert-success"><i class="fa fa-check-circle"></i> <?=lang('TICKET_t_ok');?> <strong> <?=name_of_user($ok_by)?></strong> <?php dt_format($ok_date); ?>.<br> <?=lang('TICKET_t_ok_1');?></div>
+                        <div class="alert alert-success"><i class="fa fa-check-circle"></i> <?=lang('TICKET_t_ok');?> <strong> <?=name_of_user($ok_by)?></strong> <?=$ok_date;?>.<br> <?=lang('TICKET_t_ok_1');?></div>
                     </div>
 
 

@@ -79,8 +79,8 @@ if ($row['user_to_id'] == 0 ) {
   <div class="panel-heading"><h3 class="panel-title">Заявка #<?=$row['id']?></h3> 
   </div>
   <div class="panel-body">
-<div style="float:right;"><small class="text-muted"><em>Було створено <?=dt_format($row['date_create'])?><br>
-  <?php if ($row['last_edit']) { echo "Останнє редагування "; echo dt_format($row['last_edit']); }?>
+<div style="float:right;"><small class="text-muted"><em>Було створено <?=$row['date_create']?><br>
+  <?php if ($row['last_edit']) { echo "Останнє редагування "; echo $row['last_edit']; }?>
   </em></small></div>
   
   <table class="table ">
@@ -172,7 +172,7 @@ $tid=$row['id'];
 	          
           ?>
           <tr>
-          <td style="width: 100px;"><small><center><?=dt_format($rowd['date_op'])?></center></small></td>
+          <td style="width: 100px;"><small><center><?=$rowd['date_op']?></center></small></td>
               <td style=" width: 200px; "><small><center><?=name_of_user($rowd['init_user_id'])?></center></small></td>
               <td style=" width: 50px; "><small><center><i class="fa fa-long-arrow-right"></i> </center></small></td>
               <td style=" width: 100px; "><small><?=get_unit_name($rowd['to_unit_id'])?></small></td>

@@ -1,4 +1,5 @@
 <?php
+//ob_start();
 session_start();
 
 //include("dbconnect.inc.php");
@@ -15,7 +16,7 @@ if (isset($_GET['logout'])) {
     setcookie('authhash_code', "");
     unset($_COOKIE['authhash_uid']);
     unset($_COOKIE['authhash_code']);
-    //session_regenerate_id();
+    session_regenerate_id();
     header("Location: ".$CONF['hostname']);
     //setcookie('id', '', 0, "/");
     //setcookie('ps', '', 0, "/");
@@ -30,19 +31,15 @@ if (isset($_GET['logout'])) {
 $rq=0;
 if (isset($_POST['login']) && isset($_POST['password']))
 {
+
+
     $rq=1;
     $req_url=$_POST['req_url'];
-    $rm=($_POST['remember_me']);
+    $rm=$_POST['remember_me'];
 //echo $rm;
     $login = ($_POST['login']);
     $password = md5($_POST['password']);
-    /*
-    $query = "	SELECT `id`, `login`, `fio`
-    			FROM `users`
-            	WHERE `login`='{$login}' AND `pass`='{$password}' and `status`='1'
-            	LIMIT 1";
-    $sql = mysql_query($query) or die(mysql_error());
-    */
+
     $stmt = $dbConnection->prepare('SELECT id,login,fio from users where login=:login AND pass=:pass AND status=1');
     $stmt->execute(array(':login' => $login, ':pass' => $password));
     
@@ -51,20 +48,14 @@ if (isset($_POST['login']) && isset($_POST['password']))
     	$row = $stmt->fetch(PDO::FETCH_ASSOC);
 
 
-		session_regenerate_id();
+		//session_regenerate_id();
         $_SESSION['helpdesk_user_id'] = $row['id'];
         $_SESSION['helpdesk_user_login'] = $row['login'];
         $_SESSION['helpdesk_user_fio'] = $row['fio'];
-        /*
-        $_SESSION['helpdesk_sort_prio'] = "none";
-        $_SESSION['helpdesk_sort_id'] = "none";
-        $_SESSION['helpdesk_sort_subj'] = "none";
-        $_SESSION['helpdesk_sort_clientid'] = "none";
-        $_SESSION['helpdesk_sort_userinitid'] = "none";
-        */
 
         $_SESSION['code'] = md5($password);
         if ($rm == "1") {
+        
             setcookie('authhash_uid', $_SESSION['helpdesk_user_id'], time()+60*60*24*7);
             setcookie('authhash_code', $_SESSION['code'], time()+60*60*24*7);
         }
@@ -115,10 +106,10 @@ $url = parse_url($CONF['hostname']);
 	case 'units': 	include('inc/units.php');	break;
 	case 'subj': 	include('inc/subj.php');	break;
 	case 'ticket': 	include('inc/ticket.php');	break;
-		default: include('404.php');
+	default: include('404.php');
 }	
-//include("inc/footer.inc.php");
 		}
+		
 		
 		}
 
@@ -127,4 +118,5 @@ else {
     include("inc/head.inc.php");
     include 'inc/auth.php';
 }
+//ob_end_flush();
 ?>
