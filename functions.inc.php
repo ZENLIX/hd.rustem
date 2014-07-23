@@ -1908,8 +1908,8 @@ function humanTiming_period ($time1, $time_ago)
 
 
             if ($text=='хв') {
-                if (substr($numberOfUnits, -1) == "1") {$text="минута";}
-                if ((substr($numberOfUnits, -1) >= "2") && (substr($numberOfUnits, -1) <= "4")) {$text="минут";} //3,4
+                if (substr($numberOfUnits, -1) <= "1") {$text="минута";}
+                if ((substr($numberOfUnits, -1) >= "2") && (substr($numberOfUnits, -1) <= "4")) {$text="минуты";}//3,4
                 if (substr($numberOfUnits, -1) > "4") {$text="минут";}
             }
 
