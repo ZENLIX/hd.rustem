@@ -854,6 +854,10 @@ if (ispath('ticket')) {
 
                                         $("#last_update").attr('value',item.time);
                                         makemytime(true);
+                                          var scroll    = $('#comment_body');
+  var height = scroll[0].scrollHeight;
+  scroll.scrollTop(height);
+console.log(height);
                                     }
                                 });
 
@@ -1809,13 +1813,21 @@ makemytime(true);
                 url: ACTIONPATH,
                 data: "mode=add_comment"+
                     "&user="+usr+
-                    "&textmsg="+$("textarea#msg").val()+
+                    "&textmsg="+$("textarea#msg").val().replace(/\r\n|\n|\r/g, '<br />')+
                     "&tid="+tid,
                 success: function(html) {
 					
                     $("#comment_content").html(html);
                     $("textarea#msg").val('')
 makemytime(true);
+
+  
+  var scroll    = $('#comment_body');
+  var height = scroll[0].scrollHeight;
+  scroll.scrollTop(height);
+console.log(height);
+
+
                 }
             });
 

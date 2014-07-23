@@ -2707,7 +2707,7 @@ values (:edit_msg, now(), :unow, :pk)');
 
             $user_comment=($_POST['user']);
             $tid_comment=($_POST['tid']);
-            $text_comment=strip_tags(xss_clean(($_POST['textmsg'])));
+            $text_comment=strip_tags(xss_clean(($_POST['textmsg'])),"<b><a><br>");
 
 
 

@@ -241,7 +241,7 @@ global $dbConnection;
 
 
                                 <div class="panel panel-default">
-                                    <div class="panel-body">
+                                    <div class="panel-body" style="max-height: 400px; scroll-behavior: initial; overflow-y: scroll;">
 
                                         <table class="table table-hover">
                                             <thead>
@@ -321,7 +321,7 @@ function view_comment($tid) {
 
 
 
-    	<div class="row">
+    	<div class="row" id="comment_body" style="max-height: 400px; scroll-behavior: initial; overflow-y: scroll;">
     
         <div class="timeline-centered">
         <?php
