@@ -1314,7 +1314,7 @@ foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
                 <?php
 
                 }
-                ?></table><small><center><a id="more_news" value="2" class="btn btn-default btn-xs">more</a></center></small><?php
+                ?></table><small><center><a id="more_news" value="2" class="btn btn-default btn-xs"><?=lang('last_more');?></a></center></small><?php
             }
 
         }

@@ -473,6 +473,7 @@ function lang($phrase){
 'note_save'=>'Запись сохранена',
 'upload_cancel'=>'Удалить',
 'upload_errorsize'=>'не допускается. Максимальный разрешенный размер:',
+'last_more'=>'еще',
 ''=>''
 
             );
