@@ -295,6 +295,7 @@ if ($CONF['fix_subj'] == false) {
     <input type="hidden" id="hashname" value="<?=md5(time());?>">
     <input type="hidden" id="status_action" value="">
     <input type="hidden" id="prio" value="1">
+    <input type="hidden" id="upf" value="false">
     <input type="hidden" value="<?php echo $_SESSION['helpdesk_user_id']; ?>" id="user_init_id">
 
 
