@@ -69,7 +69,7 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
                 $to_text="<div class=''>".name_of_user_ret($row['user_to_id'])."</div>";
             }
             if ($row['user_to_id'] == 0 ) {
-                $to_text="<strong>".lang('t_list_a_all')."</strong> з ".get_unit_name_return($row['unit_id']);
+                $to_text="<strong>".lang('t_list_a_all')."</strong> з ".view_array(get_unit_name_return($row['unit_id']));
             }
 
 

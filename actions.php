@@ -1077,7 +1077,7 @@ if ($row['is_read'] <> "0") { $style=""; }
                     $to_text="<div class=''>".nameshort(name_of_user_ret($row['user_to_id']))."</div>";
                 }
                 if ($row['user_to_id'] == 0 ) {
-                    $to_text="<strong data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".get_unit_name_return($row['unit_id'])."\">".lang('t_list_a_all')."</strong>";
+                    $to_text="<strong data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".view_array(get_unit_name_return($row['unit_id']))."\">".lang('t_list_a_all')."</strong>";
                 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

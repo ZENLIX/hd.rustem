@@ -87,7 +87,10 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
 
             <div class="row">
                 <div class="col-md-3"><h3><i class="fa fa-list-alt"></i> <?= lang('LIST_title'); ?></h3><span
-                        class="text-muted"><small><em><?= $text; ?></em></small></span></div>
+                        class="text-muted">
+                        
+                        
+                        <small><em><span data-toggle="tooltip" data-placement="right" title="<?=view_array($text); ?>"><?=lang('LIST_pin')?>: <?=count($text); ?></span></em></small></span></div>
                 <div class="col-md-3" style="padding-top:20px;">
                     <small class="text-muted"><span class="label label-success">&nbsp;</span>
                         - <?= lang('LIST_ok_t'); ?> </small>

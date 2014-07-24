@@ -239,7 +239,7 @@ global $CONF, $CONF_MAIL, $dbConnection;
             $to_text="".name_of_user_ret($client_id)."";
         }
         else if ($max_id_ticket['user_to_id'] == 0 ) {
-            $to_text=lang('t_list_a_all')." ".get_unit_name_return($unit_id);
+            $to_text=lang('t_list_a_all')." ".view_array(get_unit_name_return($unit_id));
         }
 
                         
@@ -423,7 +423,7 @@ if(!$mail->Send()) {
             $to_text="".name_of_user_ret($client_id)."";
         }
         else if ($max_id_ticket['user_to_id'] == 0 ) {
-            $to_text=lang('t_list_a_all')." ".get_unit_name_return($unit_id);
+            $to_text=lang('t_list_a_all')." ".view_array(get_unit_name_return($unit_id));
         }
 /////////////////////////////////
 /*$qstring = "SELECT email, unit,login FROM users where status='1' and (priv='0' || priv='2');";
@@ -612,7 +612,7 @@ if ($CONF_MAIL['debug'] == true) {
             $to_text="".name_of_user_ret($client_id)."";
         }
         else if ($max_id_ticket['user_to_id'] == 0 ) {
-            $to_text=lang('t_list_a_all')." ".get_unit_name_return($unit_id);
+            $to_text=lang('t_list_a_all')." ".view_array(get_unit_name_return($unit_id));
         }
 
 

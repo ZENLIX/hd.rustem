@@ -1,6 +1,7 @@
 <?php 
 function lang ($phrase) {
 	static $lang = array (
+	'LIST_pin' => 'Units',
 	'DASHBOARD_TITLE' => 'Dashboard',
 	'DASHBOARD_ticket_stats' => 'Statistics Tickets',
 	'DASHBOARD_ticket_in_desc' => 'Incoming free Ticket that you can take',

@@ -266,7 +266,7 @@ global $dbConnection;
 
                                                 if ($t_action == 'refer') {
                                                     $icon_action="fa fa-long-arrow-right";
-                                                    $text_action="".lang('TICKET_t_a_refer')." <br>".get_unit_name_return($row['to_unit_id'])."<br>".name_of_user_ret($row['to_user_id']);
+                                                    $text_action="".lang('TICKET_t_a_refer')." <br>".view_array(get_unit_name_return($row['to_unit_id']))."<br>".name_of_user_ret($row['to_user_id']);
 
                                                 }
                                                 if ($t_action == 'arch') {$icon_action="fa fa-archive"; $text_action=lang('TICKET_t_a_arch');}
@@ -630,20 +630,39 @@ function get_unit_name_return($input) {
     global $dbConnection;
 
     $u=explode(",", $input);
+    $res=array();
     foreach ($u as $val) {
 
         $stmt = $dbConnection->prepare('SELECT name FROM deps where id=:val');
         $stmt->execute(array(':val' => $val));
         $dep = $stmt->fetch(PDO::FETCH_ASSOC);
 
-
-        $res.=$dep['name'];
-        $res.="<br>";
+		
+		array_push($res, $dep['name']);
+        //$res.=$dep['name'];
+        //$res.="<br>";
     }
 
     return $res;
 }
 
+function view_array($in) {
+$end_element = array_pop($in);
+foreach ($in as $value) {
+   // делаем что-либо с каждым элементом
+        $res.=$value;
+        $res.="<br>";
+}
+$res.=$end_element;
+   // делаем что-либо с последним элементом $end_element
+
+
+
+
+
+	
+	return $res;
+}
 
 
 

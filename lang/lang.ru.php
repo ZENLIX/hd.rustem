@@ -290,7 +290,7 @@ function lang($phrase){
 'JS_unlock'=>'Восстановить',
 'JS_lock'=>'Заблокировать',
 
-
+'LIST_pin' => 'Отделов',
 'USERS_title'=>'Пользователи',
 'USERS_create'=>'Создать пользователя',
 'USERS_list'=>'Пользователи',

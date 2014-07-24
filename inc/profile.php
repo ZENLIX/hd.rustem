@@ -66,7 +66,7 @@ else if ($langu == "ua") {$status_lang_ua="selected";}
       <div class="col-sm-4 text-right" ><strong ><small><?=lang('PROFILE_priv');?>:</small></strong></div>
       <div class="col-sm-8"><small><?=priv_status_name($usid);?></small></div>
       <div class="col-sm-4 text-right"><strong><small><?=lang('PROFILE_priv_unit');?>:</small></strong></div>
-      <div class="col-sm-8"><p><small><?=get_unit_name_return(unit_of_user($_SESSION['helpdesk_user_id']));?></small></p></div>
+      <div class="col-sm-8"><p><small><?=view_array(get_unit_name_return(unit_of_user($_SESSION['helpdesk_user_id'])));?></small></p></div>
       <div class="col-sm-12">
       <hr>
       </div>

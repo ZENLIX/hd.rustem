@@ -1,6 +1,7 @@
 <?php
 function lang($phrase){
     static $lang = array(
+    	'LIST_pin' => 'Відділів',
         'DASHBOARD_TITLE' => 'Панель приладів',
         'DASHBOARD_ticket_stats' => 'Статистика заявок',
         'DASHBOARD_ticket_in_desc' => 'Вхідні вільні заявки, які ви можете взяти',

@@ -229,7 +229,7 @@ if ($_POST['menu'] == 'list' ) {
 	
 	
 	
-	$unit=get_unit_name_return($row['unit']);
+	$unit=view_array(get_unit_name_return($row['unit']));
 	$statuss=$row['status'];
 	
 	if ($row['priv'] == "0") {$priv=lang('USERS_p_1');}
