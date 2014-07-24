@@ -30,13 +30,13 @@ if (isset($_GET['ok'])) {
   <div class="form-group">
     <label for="exampleInputEmail1" class="col-sm-2 control-label"><?=lang('USERS_fio');?></label>
     <div class="col-sm-10">
-    <input autocomplete="off" id="fio" name="fio" type="" class="form-control input-sm" id="exampleInputEmail1" placeholder="<?=lang('USERS_fio_full');?>">
+    <input autocomplete="off" id="fio_user" name="fio_user" type="" class="form-control input-sm" id="exampleInputEmail1" placeholder="<?=lang('USERS_fio_full');?>">
     </div>
   </div>
-  <div class="form-group">
+  <div class="form-group" id="login_user_grp">
     <label for="login" class="col-sm-2 control-label"><?=lang('USERS_login');?></label>
         <div class="col-sm-10">
-    <input autocomplete="off" name="login" type="" class="form-control input-sm" id="login" placeholder="<?=lang('USERS_login');?>">
+    <input autocomplete="off" name="login_user" type="" class="form-control input-sm" id="login_user" placeholder="<?=lang('USERS_login');?>">
         </div>
   </div>
   <div class="form-group">
@@ -181,6 +181,7 @@ if (isset($_GET['ok'])) {
 <div class="col-sm-12"><hr></div>
 <div class="col-md-offset-3 col-md-6">
 <center>
+<input type="hidden" id="errors" value="false">
     <button type="submit" id="create_user" class="btn btn-success"><?=lang('USERS_make_create');?></button>
 </center>
 </div>

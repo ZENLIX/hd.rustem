@@ -437,7 +437,7 @@ makemytime(true);
     });
 
 
-
+/*
     $("textarea#msg").blur(function() {
         if($(this).val().length > 1) {
             $("textarea#msg").popover('hide');
@@ -448,8 +448,8 @@ makemytime(true);
             $("#for_msg").addClass('has-error');
         }
     });
-
-    $("textarea#msg").keypress(function() {
+*/
+    $("textarea#msg").keyup(function() {
         if($(this).val().length > 1) {
             $("textarea#msg").popover('hide');
             $("#for_msg").removeClass('has-error').addClass('has-success');
@@ -459,6 +459,9 @@ makemytime(true);
             $("#for_msg").addClass('has-error');
         }
     });
+    
+
+    
 
 
     var options_workers = {
@@ -1022,6 +1025,145 @@ if (ispath('helper') ) {
 
 if (ispath('create') ) {
 //if (def_filename == "new.php") {
+
+
+
+function enter_ticket() {
+	
+        //event.preventDefault();
+        var z=$("#username").text();
+        var s=$("#subj").val();
+        var to=$("select#to").val();
+        var m=$("#msg").val().length;
+
+
+        var error_code=0;
+
+
+        if ($('#fio').val().length == 0){
+            error_code=1;
+
+            $('#fio').popover('show');
+            $('#for_fio').addClass('has-error');
+        }
+
+        if (to == '0') {
+            error_code=1;
+
+            $('#dsd').popover('show');
+            $('#for_to').addClass('has-error');
+
+        }
+
+        if (s == 0) {
+            error_code=1;
+            $("#for_subj").popover('show');
+            $("#for_subj").addClass('has-error');
+
+        }
+        if (m == 0) {
+            error_code=1;
+            $("#msg").popover('show');
+            $("#for_msg").addClass('has-error');
+
+        }
+
+
+
+
+
+
+
+        if (error_code == 0) {
+
+            var status_action=$("#status_action").val();
+            if (status_action == 'edit') {
+
+            }
+            if (status_action =='add') {
+
+                uploadObj.startUpload();
+
+
+
+                $.ajax({
+                    type: "POST",
+                    //async: false,
+                    url: ACTIONPATH,
+                    data: "mode=add_ticket"+
+                        "&type_add=add"+
+                        "&fio="+$("#username").text()+
+                        "&tel="+$("#new_tel").text()+
+                        "&login="+$("#new_login").text()+
+                        "&pod="+$("#new_unit").text()+
+                        "&adr="+$("#new_adr").text()+
+                        "&tel="+$("#new_tel").text()+
+                        "&mail="+$("#new_mail").text()+
+                        "&posada="+$("#new_posada").text()+
+                        "&user_init_id="+$("#user_init_id").val()+
+                        "&user_do="+$("#users_do").val()+
+                        "&subj="+$("#subj").val()+
+                        "&msg="+$("#msg").val().replace(/\r\n|\r|\n/g,"<br />").replace(/'/g, '\'')+
+                        "&unit_id="+$("#to").val()+
+                        "&prio="+$("#prio").val()+
+                        "&hashname="+$("#hashname").val(),
+                    success: function(html) {
+
+
+                        //window.location = "new.php?ok&h="+html;
+						window.location = MyHOSTNAME+"create/?ok&h="+html;
+                    }
+                });
+
+
+
+
+            }
+
+
+            if (status_action =='edit') {
+                uploadObj.startUpload();
+                $.ajax({
+                    type: "POST",
+                    //async: false,
+                    url: ACTIONPATH,
+                    data: "mode=add_ticket"+
+                        "&type_add=edit"+
+                        "&client_id_param="+$("#client_id_param").val()+
+                        "&tel="+$("#edit_tel").text()+
+                        "&login="+$("#edit_login").text()+
+                        "&pod="+$("#edit_unit").text()+
+                        "&adr="+$("#edit_adr").text()+
+                        "&tel="+$("#edit_tel").text()+
+                        "&mail="+$("#edit_mail").text()+
+                        "&posada="+$("#edit_posada").text()+
+                        "&user_init_id="+$("#user_init_id").val()+
+                        "&user_do="+$("#users_do").val()+
+                        "&subj="+$("#subj").val()+
+                        "&msg="+$("#msg").val().replace(/\r\n|\r|\n/g,"<br />").replace(/'/g, '\'')+
+                        "&unit_id="+$("#to").val()+
+                        "&prio="+$("#prio").val()+
+                        "&hashname="+$("#hashname").val(),
+                    success: function(html) {
+
+
+                        //console.log(html);
+						window.location = MyHOSTNAME+"create/?ok&h="+html;
+                    }
+                });
+
+
+
+
+            }
+
+
+        }
+
+    
+}
+
+
     var lang_dd= get_lang_param('TICKET_file_upload_msg');
     var uploadObj = $("#fileuploader").uploadFile({
     	allowedTypes: "jpeg,jpg,png,gif,doc,docx,xls,xlsx,rtf,pdf,zip,bmp",
@@ -1036,7 +1178,11 @@ if (ispath('create') ) {
         abortStr:"abort",
         cancelStr:get_lang_param('upload_cancel'),
         doneStr:"done",
-        sizeErrorStr:get_lang_param('upload_errorsize')
+        sizeErrorStr:get_lang_param('upload_errorsize'),
+        afterUploadAll:function()
+{
+enter_ticket();
+}
 
     });
     }
@@ -1887,17 +2033,31 @@ console.log(height);
     });
 
 
-
+        $("input#login_user").keyup(function() {
+        if($(this).val().length > 1) {
+            
+            $("#login_user_grp").removeClass('has-error').addClass('has-success');
+			$("#errors").val('false');
+        } else {
+            
+            $("#login_user_grp").addClass('has-error');
+            $("#errors").val('true');
+        }
+    });
+    
 
     $('body').on('click', 'button#create_user', function(event) {
         event.preventDefault();
-
+		var er=$("#errors").val();
+		
+		if (er == "false") {
+		
         $.ajax({
             type: "POST",
             url: ACTIONPATH,
             data: "mode=add_user"+
-                "&fio="+$("#fio").val()+
-                "&login="+$("#login").val()+
+                "&fio="+$("#fio_user").val()+
+                "&login="+$("#login_user").val()+
                 "&pass="+$("#exampleInputPassword1").val()+
                 "&unit="+$("#my-select").val()+
                 "&priv="+$("input[type=radio][name=optionsRadios]:checked").val()+
@@ -1912,6 +2072,10 @@ console.log(height);
 
             }
         });
+        }
+        else {
+	        console.log('error');
+        }
     });
 
     $('body').on('click', 'button#edit_helper', function(event) {
@@ -2558,134 +2722,14 @@ console.log(height);
 
     $('body').on('click', 'button#enter_ticket', function(event) {
         event.preventDefault();
-        var z=$("#username").text();
-        var s=$("#subj").val();
-        var to=$("select#to").val();
-        var m=$("#msg").val().length;
+        
 
-
-        var error_code=0;
-
-
-        if ($('#fio').val().length == 0){
-            error_code=1;
-
-            $('#fio').popover('show');
-            $('#for_fio').addClass('has-error');
-        }
-
-        if (to == '0') {
-            error_code=1;
-
-            $('#dsd').popover('show');
-            $('#for_to').addClass('has-error');
-
-        }
-
-        if (s == 0) {
-            error_code=1;
-            $("#for_subj").popover('show');
-            $("#for_subj").addClass('has-error');
-
-        }
-        if (m == 0) {
-            error_code=1;
-            $("#msg").popover('show');
-            $("#for_msg").addClass('has-error');
-
-        }
+uploadObj.startUpload();
 
 
 
 
 
-
-
-        if (error_code == 0) {
-
-            var status_action=$("#status_action").val();
-            if (status_action == 'edit') {
-
-            }
-            if (status_action =='add') {
-
-                uploadObj.startUpload();
-
-
-
-                $.ajax({
-                    type: "POST",
-                    //async: false,
-                    url: ACTIONPATH,
-                    data: "mode=add_ticket"+
-                        "&type_add=add"+
-                        "&fio="+$("#username").text()+
-                        "&tel="+$("#new_tel").text()+
-                        "&login="+$("#new_login").text()+
-                        "&pod="+$("#new_unit").text()+
-                        "&adr="+$("#new_adr").text()+
-                        "&tel="+$("#new_tel").text()+
-                        "&mail="+$("#new_mail").text()+
-                        "&posada="+$("#new_posada").text()+
-                        "&user_init_id="+$("#user_init_id").val()+
-                        "&user_do="+$("#users_do").val()+
-                        "&subj="+$("#subj").val()+
-                        "&msg="+$("#msg").val().replace(/\r\n|\r|\n/g,"<br />").replace(/'/g, '\'')+
-                        "&unit_id="+$("#to").val()+
-                        "&prio="+$("#prio").val()+
-                        "&hashname="+$("#hashname").val(),
-                    success: function(html) {
-
-
-                        //window.location = "new.php?ok&h="+html;
-						window.location = MyHOSTNAME+"create/?ok&h="+html;
-                    }
-                });
-
-
-
-
-            }
-
-
-            if (status_action =='edit') {
-                uploadObj.startUpload();
-                $.ajax({
-                    type: "POST",
-                    //async: false,
-                    url: ACTIONPATH,
-                    data: "mode=add_ticket"+
-                        "&type_add=edit"+
-                        "&client_id_param="+$("#client_id_param").val()+
-                        "&tel="+$("#edit_tel").text()+
-                        "&login="+$("#edit_login").text()+
-                        "&pod="+$("#edit_unit").text()+
-                        "&adr="+$("#edit_adr").text()+
-                        "&tel="+$("#edit_tel").text()+
-                        "&mail="+$("#edit_mail").text()+
-                        "&posada="+$("#edit_posada").text()+
-                        "&user_init_id="+$("#user_init_id").val()+
-                        "&user_do="+$("#users_do").val()+
-                        "&subj="+$("#subj").val()+
-                        "&msg="+$("#msg").val().replace(/\r\n|\r|\n/g,"<br />").replace(/'/g, '\'')+
-                        "&unit_id="+$("#to").val()+
-                        "&prio="+$("#prio").val()+
-                        "&hashname="+$("#hashname").val(),
-                    success: function(html) {
-
-
-                        //console.log(html);
-						window.location = MyHOSTNAME+"create/?ok&h="+html;
-                    }
-                });
-
-
-
-
-            }
-
-
-        }
 
     });
 
