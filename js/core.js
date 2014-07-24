@@ -1134,7 +1134,24 @@ if (ispath('create') ) {
     }
 
 makemytime(true);
-						
+	    $('body').on('click', 'button#list_set_ticket', function(event) {
+        event.preventDefault();
+        var pt=$("#page_type").attr('value');
+        var z=$(this).text();
+                    $.ajax({
+                type: "POST",
+                url: ACTIONPATH,
+                data: "mode=set_list_count"+
+                    "&pt="+pt+
+                    "&v="+z,
+                success: function() {
+
+                    window.location = MyHOSTNAME+"list?"+pt;
+
+
+                }
+            });
+        });					
 						
 
     $("#fio_find").autocomplete({

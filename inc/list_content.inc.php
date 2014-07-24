@@ -15,6 +15,9 @@ if (isset($_POST['menu'])) {
 
         $page=($_POST['page']);
         $perpage='10';
+                if (isset($_SESSION['hd.rustem_list_out'])) {
+	      $perpage=  $_SESSION['hd.rustem_list_out'];
+        }
         $start_pos = ($page - 1) * $perpage;
         $user_id=id_of_user($_SESSION['helpdesk_user_login']);
 		$ps=priv_status($user_id);
@@ -502,7 +505,12 @@ $lock_st=""; $muclass="";
     if ($_POST['menu'] == 'in' ) {
 
         $page=($_POST['page']);
+        
         $perpage='10';
+        if (isset($_SESSION['hd.rustem_list_in'])) {
+	      $perpage=  $_SESSION['hd.rustem_list_in'];
+        }
+        
         $start_pos = ($page - 1) * $perpage;
 
         $user_id=id_of_user($_SESSION['helpdesk_user_login']);
@@ -829,6 +837,9 @@ $lock_st=""; $muclass="";
 
         $page=($_POST['page']);
         $perpage='10';
+                if (isset($_SESSION['hd.rustem_list_arch'])) {
+	      $perpage=  $_SESSION['hd.rustem_list_arch'];
+        }
         $start_pos = ($page - 1) * $perpage;
 
 

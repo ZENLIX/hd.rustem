@@ -199,26 +199,92 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
             ?>
 
             <?php if (isset($_GET['in'])) {
-                $r = "in"; ?>
-                <div class="">
+                $r = "in"; 
+                
+        if (isset($_SESSION['hd.rustem_list_in'])) {
+	      
+	      
+	      switch($_SESSION['hd.rustem_list_in']) {
+	case '10': 	$ac['10']="active";		break;
+	case '15': 	$ac['15']="active";		break;
+	case '20': 	$ac['20']="active";		break;
+	default: $ac['10']="active";
+}	
+        }
+                ?>
+                
+                
                     <div class="text-center">
                         <ul id="example_in" class="pagination pagination-sm"></ul>
+                        <?php $aha=get_total_pages('out', $user_id); if ($aha > 1) { ?>
+                        <div class="pull-right">
+	                        
+	                        <div class="btn-group btn-group-xs">
+  <button id="list_set_ticket" type="button" class="btn btn-default <?=$ac['10'];?>">10</button>
+  <button id="list_set_ticket" type="button" class="btn btn-default <?=$ac['15'];?>">15</button>
+  <button id="list_set_ticket" type="button" class="btn btn-default <?=$ac['20'];?>">20</button>
+</div>
+	                        
+                        </div><?php } ?>
                     </div>
-                </div>
+                
             <?php } ?>
             <?php if (isset($_GET['out'])) {
-                $r = "out"; ?>
+                $r = "out"; 
+                
+                        if (isset($_SESSION['hd.rustem_list_out'])) {
+	      
+	      
+	      switch($_SESSION['hd.rustem_list_out']) {
+	case '10': 	$ac['10']="active";		break;
+	case '15': 	$ac['15']="active";		break;
+	case '20': 	$ac['20']="active";		break;
+	default: $ac['10']="active";
+}	
+        }
+                
+                ?>
                 <div class="text-center">
                     <ul id="example_out" class="pagination pagination-sm"></ul>
+                    <?php $aha=get_total_pages('out', $user_id); if ($aha > 1) { ?>
+                                            <div class="pull-right">
+	                        
+	                        <div class="btn-group btn-group-xs">
+  <button id="list_set_ticket" type="button" class="btn btn-default <?=$ac['10'];?>">10</button>
+  <button id="list_set_ticket" type="button" class="btn btn-default <?=$ac['15'];?>">15</button>
+  <button id="list_set_ticket" type="button" class="btn btn-default <?=$ac['20'];?>">20</button>
+</div>
+	                        
+                        </div>
+                        <?php }?>
                 </div>
             <?php } ?>
             <?php if (isset($_GET['arch'])) {
-                $r = "arch"; ?>
+                $r = "arch"; 
+                        if (isset($_SESSION['hd.rustem_list_arch'])) {
+	      
+	      
+	      switch($_SESSION['hd.rustem_list_arch']) {
+	case '10': 	$ac['10']="active";		break;
+	case '15': 	$ac['15']="active";		break;
+	case '20': 	$ac['20']="active";		break;
+	default: $ac['10']="active";
+}	
+        }
+                ?>
                 <div class="text-center">
                     <ul id="example_arch" class="pagination pagination-sm"></ul>
+                    <?php $aha=get_total_pages('arch', $user_id); if ($aha > 1) { ?>
+                                            <div class="pull-right">
+                                            <div class="btn-group btn-group-xs">
+  <button id="list_set_ticket" type="button" class="btn btn-default <?=$ac['10'];?>">10</button>
+  <button id="list_set_ticket" type="button" class="btn btn-default <?=$ac['15'];?>">15</button>
+  <button id="list_set_ticket" type="button" class="btn btn-default <?=$ac['20'];?>">20</button>
+</div></div>
+<?php }?>
+
                 </div>
             <?php } ?>
-
 
 
 

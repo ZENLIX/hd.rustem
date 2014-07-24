@@ -1448,9 +1448,15 @@ function get_total_pages($menu, $id) {
 
     global $dbConnection;
     $perpage='10';
+    
+    
+    
+    
     if ($menu == "in") {
-
-
+$perpage='10';
+if (isset($_SESSION['hd.rustem_list_in'])) {
+	      $perpage=  $_SESSION['hd.rustem_list_in'];
+        }
 
         $unit_user=unit_of_user($id);
         $priv_val=priv_status($id);
@@ -1498,7 +1504,10 @@ foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
 
     }
     if ($menu == "out") {
-
+$perpage='10';
+if (isset($_SESSION['hd.rustem_list_out'])) {
+	      $perpage=  $_SESSION['hd.rustem_list_out'];
+        }
         $res = $dbConnection->prepare("SELECT count(*) from tickets where user_init_id=:id and arch='0'");
         $res->execute(array(':id' => $id));
         $count = $res->fetch(PDO::FETCH_NUM);
@@ -1506,7 +1515,10 @@ foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
 
     }
     if ($menu == "arch") {
-
+$perpage='10';
+if (isset($_SESSION['hd.rustem_list_arch'])) {
+	      $perpage=  $_SESSION['hd.rustem_list_arch'];
+        }
 
 
 

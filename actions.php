@@ -1192,13 +1192,29 @@ $lock_st=""; $muclass="";
 
 
         }
+if ($mode == "set_list_count") {
+$pt=$_POST['pt'];
+$v=$_POST['v'];
+if ($pt == "in") {$_SESSION['hd.rustem_list_in'] =$v;}
+else if ($pt == "out") {$_SESSION['hd.rustem_list_out'] =$v;}
+else if ($pt == "arch") {$_SESSION['hd.rustem_list_arch'] =$v;}
+
+}
+
+
+
 
         if ($mode == "last_news") {
 
             $uid=$_SESSION['helpdesk_user_id'];
             $unit_user=unit_of_user($uid);
             $priv_val=priv_status($uid);
-			$c=5;
+            $c=4;
+            $start=10;
+            
+            if (isset($_POST['v'])) { $c=$_POST['v']; $start=($_POST['v']+5);}
+            
+			
 			//$_POST['v']
 			
 			
@@ -1319,7 +1335,7 @@ foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
                 <?php
 
                 }
-                ?></table><small><center><a id="more_news" value="2" class="btn btn-default btn-xs"><?=lang('last_more');?></a></center></small><?php
+                ?></table><small><center><a id="more_news" value="<?=$start?>" class="btn btn-default btn-xs"><?=lang('last_more');?></a></center></small><?php
             }
 
         }
