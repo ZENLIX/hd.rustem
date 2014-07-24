@@ -2723,11 +2723,31 @@ function uploadfiles() {
 	
 }
 
+var FunctionOne = function () {
+  // create a deferred object
+  var r = $.Deferred();
+uploadObj.startUpload();
+  // do whatever you want (e.g. ajax/animations other asyc tasks)
+r.resolve();
+
+
+  // return the deferred object
+  return r;
+};
+
+// define FunctionTwo as needed
+var FunctionTwo = function () {
+  enter_ticket();
+};
+
+
+
+
     $('body').on('click', 'button#enter_ticket', function(event) {
         event.preventDefault();
 
-
-uploadfiles();
+FunctionOne().done(FunctionTwo);
+//uploadfiles();
 
 
 
