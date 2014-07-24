@@ -2867,7 +2867,7 @@ $client_posada	Должность клиента
                 $stmt->execute(array(':create'=>'create', ':unow'=>$unow,':max_id_res_ticket'=>$max_id_res_ticket,':user_to_id'=>$user_to_id,':unit_id'=>$unit_id));
 
 
-
+if ($CONF_MAIL['active'] == true) {
                 if ($user_to_id == "0") {
                     send_mail_to('new_all',$max_id_res_ticket);
                 }
@@ -2875,6 +2875,7 @@ $client_posada	Должность клиента
                 else if ($user_to_id <> "0") {
                     send_mail_to('new_user',$max_id_res_ticket);
                     send_mail_to('new_coord',$max_id_res_ticket);
+                }
                 }
 
 
@@ -2919,6 +2920,7 @@ $client_posada	Должность клиента
 
 
 //echo("dd");
+if ($CONF_MAIL['active'] == true) {
                 if ($user_to_id == "0") {
                 //echo("dd");
                     send_mail_to('new_all',$max_id_res_ticket);
@@ -2931,6 +2933,7 @@ $client_posada	Должность клиента
                     //echo("dd");
                     send_mail_to('new_coord',$max_id_res_ticket);
                     
+                }
                 }
                 echo($hashname);
             }

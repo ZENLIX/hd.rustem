@@ -26,6 +26,7 @@ $CONF = array (
 );
 
 $CONF_MAIL = array (
+	'active'	=> true,
 	'host'		=> 'smtp.gmail.com',
 	'port'		=> 587,
 	'auth'		=> true,
