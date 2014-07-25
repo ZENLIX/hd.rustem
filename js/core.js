@@ -2613,7 +2613,7 @@ function enter_ticket() {
             }
             if (status_action =='add') {
 
-                uploadObj.startUpload();
+                //uploadObj.startUpload();
 
 
 
@@ -2653,7 +2653,7 @@ function enter_ticket() {
 
 
             if (status_action =='edit') {
-                uploadObj.startUpload();
+                //uploadObj.startUpload();
                 $.ajax({
                     type: "POST",
                     //async: false,
