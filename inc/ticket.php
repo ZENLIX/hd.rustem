@@ -157,7 +157,18 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
             }
             ?>
             <div class="panel panel-default" id="ticket_body">
-            <div class="panel-heading"><h3 class="panel-title"><i class="fa fa-ticket"></i> <?=lang('TICKET_name');?> <strong>#<?=$row['id']?></strong></h3> </div>
+	    <div class="panel-heading">
+   		<table>
+    		<tr>
+   		<td style="width:1000px;">
+            <h3 class="panel-title"style="display:inline;"><i class="fa fa-ticket"></i> <?=lang('TICKET_name');?> <strong>#<?=$row['id']?></strong></h3>
+    		</td>
+    		<td style="width:600px;text-align:right;">
+   	<a href="print_ticket?<?php echo $row['hash_name']; ?>"target="_blank" class="btn btn-primary btn-sm"> <?=lang('TICKET_print');?></a>
+   		</td>
+    		</tr>
+   		</table>
+    		</div>
             <div class="panel-body">
 
 
