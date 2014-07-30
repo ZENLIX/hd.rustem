@@ -44,8 +44,9 @@ $h=($_GET['h']);
 	<p><?=$fio['message']?></p>
 	<hr>
 	
-	<p class="text-right"><small class="text-muted"><?=lang('HELPER_pub');?>: <?=nameshort(name_of_user_ret($fio['user_init_id']));?></small><br><small class="text-muted"><?=lang('HELPER_date');?>: <?=$fio['dt'];?></small></p>
-	
+	<p class="text-right"><small class="text-muted"><?=lang('HELPER_pub');?>: <?=nameshort(name_of_user_ret($fio['user_init_id']));?></small><br><small class="text-muted"><?=lang('HELPER_date');?>: <?=$fio['dt'];?></small>
+	<br><a id="print_t" class="btn btn-primary btn-sm"> <?=lang('HELPER_print');?></a>
+    	</p>
   </div>
 </div>
 </div>
