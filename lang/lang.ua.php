@@ -243,6 +243,7 @@ function lang($phrase){
 
 'HELPER_title' => 'Центр знань',
 'HELPER_back' => 'назад',
+'HELPER_print'=>'роздрукувати',
 'HELPER_pub' => 'Опублікував',
 'HELPER_date' => 'Дата',
 'HELPER_find' => 'Знайти',
