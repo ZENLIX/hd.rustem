@@ -3,24 +3,17 @@
 {
     display: none;
     }
-.col-md-1
+.col-md-1,.col-md-12
 {
     display: none;
     }
-.col-md-8
+.credit
     {
     display: none;
     }
-.btn.
-    {
-    display: none;
-    }
-.btn-primary.
-    {
-    display: none;
-    }
-.btn-sm
+.btn,.btn-primary,.btn-sm
     {
     display: none;
     }
 }
+
