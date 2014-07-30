@@ -1197,7 +1197,9 @@ makemytime(true);
         event.preventDefault();
     history.back(1);
 });
-
+$('body').on('click', 'a#print_t', function() {
+		window.print();
+});
 
     $('body').on('click', 'button#action_refer_to', function(event) {
         event.preventDefault();
