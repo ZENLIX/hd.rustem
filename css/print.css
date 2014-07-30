@@ -1,0 +1,26 @@
+@media print {
+.page-header
+{
+    display: none;
+    }
+.col-md-1
+{
+    display: none;
+    }
+.col-md-8
+    {
+    display: none;
+    }
+.btn.
+    {
+    display: none;
+    }
+.btn-primary.
+    {
+    display: none;
+    }
+.btn-sm
+    {
+    display: none;
+    }
+}
