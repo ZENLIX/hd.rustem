@@ -29,6 +29,7 @@
 <link rel="stylesheet" href="<?=$CONF['hostname']?>/css/summernote-bs3.css">
 <link rel="stylesheet" href="<?=$CONF['hostname']?>/css/summernote.css">
 <link rel="stylesheet" href="<?=$CONF['hostname']?>/css/uploadfile.css">
+<link rel="stylesheet"type="text/css" media="print" href="<?=$CONF['hostname']?>/css/print.css">
 <body>
   
          
