@@ -2712,44 +2712,26 @@ function enter_ticket() {
         abortStr:"abort",
         cancelStr:get_lang_param('upload_cancel'),
         doneStr:"done",
-        sizeErrorStr:get_lang_param('upload_errorsize')
-
+        sizeErrorStr:get_lang_param('upload_errorsize'),
+        onSuccess:function(files,data,xhr)
+        {
+    	enter_ticket();
+	}
     }
     );
     }
 
 function uploadfiles() {
 	
-	uploadObj.startUpload(); 
-	enter_ticket();
+	if ($(".ajax-file-upload-filename").size() > 0 ) {uploadObj.startUpload();}
+	else { enter_ticket();  }
 	
 }
-
-var FunctionOne = function () {
-  // create a deferred object
-  var r = $.Deferred();
-uploadObj.startUpload();
-  // do whatever you want (e.g. ajax/animations other asyc tasks)
-r.resolve();
-
-
-  // return the deferred object
-  return r;
-};
-
-// define FunctionTwo as needed
-var FunctionTwo = function () {
-  enter_ticket();
-};
-
-
-
 
     $('body').on('click', 'button#enter_ticket', function(event) {
         event.preventDefault();
 
-FunctionOne().done(FunctionTwo);
-//uploadfiles();
+	uploadfiles();
 
 
 
