@@ -242,7 +242,8 @@ function lang ($phrase) {
 
 
 ,'HELPER_title' => 'Knowledge Centre' 
-,'HELPER_back' => 'back' 
+,'HELPER_back' => 'back'
+,'HELPER_print'=>'print'
 ,'HELPER_pub' => 'Published' 
 ,'HELPER_date' => 'Date' 
 ,'HELPER_find' => 'Find' 
