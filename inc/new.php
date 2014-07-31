@@ -27,8 +27,6 @@ if ($_SESSION['helpdesk_user_id']) {
 <div class="row" style="padding-bottom:20px;">
 
 
-
-<div class=""></div>
 <div class="col-md-8" id="div_new">
 <?php
 if (isset($_GET['ok'])) {
@@ -324,13 +322,13 @@ if ($CONF['fix_subj'] == false) {
 <?php } ?>
 
 <div class="col-md-2"></div>
-<div class="col-md-10">
+<div class="col-md-10" id="processing">
     <div class="btn-group btn-group-justified">
         <div class="btn-group">
             <button id="enter_ticket" class="btn btn-success" type="button"><i class="fa fa-check-circle-o"></i> <?=lang('NEW_button_create');?></button>
         </div>
         <div class="btn-group">
-            <a id="reset_ticket" class="btn btn-default" type="submit" href="create"><i class="fa fa-eraser"></i> <?=lang('NEW_button_reset');?></a>
+            <button id="reset_ticket" class="btn btn-default" type="submit" href="create"><i class="fa fa-eraser"></i> <?=lang('NEW_button_reset');?></button>
         </div>
     </div>
 	<input type="hidden" id="file_array" value="">

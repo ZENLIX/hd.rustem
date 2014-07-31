@@ -2609,7 +2609,8 @@ function enter_ticket() {
             if (status_action =='add') {
 
                 //uploadObj.startUpload();
-
+$('#enter_ticket').html('<i class="fa fa-spinner fa-spin"></i>').prop('disabled', true);
+$('#reset_ticket').prop('disabled', true);
 
 
                 $.ajax({
@@ -2649,6 +2650,8 @@ function enter_ticket() {
 
             if (status_action =='edit') {
                 //uploadObj.startUpload();
+                $('#enter_ticket').html('<i class="fa fa-spinner fa-spin"></i>').prop('disabled', true);
+				$('#reset_ticket').prop('disabled', true);
                 $.ajax({
                     type: "POST",
                     //async: false,
@@ -2777,7 +2780,6 @@ $(this).removeClass('fileupload-processing');
 
     $('body').on('click', 'button#enter_ticket', function(event) {
         event.preventDefault();
-
 
 
 
