@@ -463,8 +463,8 @@ To do this, there is a section - Members. Locate the user that you need and chan
 'SYSTEM_lang'=>'Language',
 'summernote_lang'=> 'en-US',
 'note_save'=>'Record saved',
-'upload_cancel'=>'Remove',
-'upload_errorsize'=>'is not allowed. Allowed Max size:',
+'upload_errortypes'=>'File type not allowed',
+'upload_errorsize'=>'File is too large',
 'last_more'=>'more',
 ''=>''
 );
