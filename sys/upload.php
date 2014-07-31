@@ -7,7 +7,7 @@ $maxsize    = 30097152;
 
 
 
-$file_tid=get_ticket_id_by_hash($hn);
+
 
 if(isset($_FILES["myfile"]))
 {
@@ -31,6 +31,8 @@ if ((!in_array($_FILES["myfile"]["type"], $acceptable)) && (!empty($_FILES["myfi
 }
  	 	
  	 	if($flag == false) {
+ 	 	
+ 	 	
  	 	$fhash=randomhash();
  	 	$ext = pathinfo($fileName, PATHINFO_EXTENSION);
  	 	$fileName_norm = $fhash.".".$ext;

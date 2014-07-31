@@ -46,7 +46,7 @@ if (isset($_GET['ok'])) {
 <div class="panel panel-success" style="padding:20px;">
 <div class="panel-body">
 
-<form class="form-horizontal" id="main_form" novalidate="" action="" method="post">
+<div class="form-horizontal" id="main_form" novalidate="" action="" method="post">
 
 
 <div class="control-group">
@@ -69,7 +69,7 @@ if (isset($_GET['ok'])) {
         </div></div>
 
     <hr>
-    <div class="form-group" id="for_to" data-toggle="popover" data-html="true" data-trigger="manual" data-placement="right" data-content="<small>Вкажіть відділ призначення або працівника</small>">
+    <div class="form-group" id="for_to" data-toggle="popover" data-html="true" data-trigger="manual" data-placement="right">
         <label for="to" class="col-md-2 control-label" data-toggle="tooltip" data-placement="top" title="<?=lang('NEW_to_desc');?>"><small><?=lang('NEW_to');?>: </small></label>
         <div class="col-md-6">
             <select data-placeholder="<?=lang('NEW_to_unit');?>" class="chosen-select form-control" id="to" name="unit_id">
@@ -266,7 +266,49 @@ if ($CONF['fix_subj'] == false) {
 
 
 <?php if ($CONF['file_uploads'] == true) { ?>
+
 <div class="control-group">
+    <div class="controls">
+    <div class="form-group">
+    
+    <label for="" class="col-sm-2 control-label"><small><?=lang('TICKET_file_add');?>:</small></label>
+
+    <div class="col-sm-10">
+
+ <form id="fileupload" action="" method="POST" enctype="multipart/form-data">
+        <div class="fileupload-buttonbar" style=" padding-top: 18px; ">
+            <div class="">
+                <!-- The fileinput-button span is used to style the file input field as button -->
+                <span class="btn btn-success fileinput-button btn-xs">
+                    <i class="glyphicon glyphicon-plus"></i>
+                    <span><?=lang('TICKET_file_upload')?></span>
+                    <input id="filer" type="file" name="files[]" multiple>
+                </span>
+                <button type="submit" class="btn btn-primary start btn-xs" id="start_upload" style="display:none;">
+                    <i class="glyphicon glyphicon-upload"></i>
+                    <span>Start upload</span>
+                </button>
+                <button type="reset" class="btn btn-warning cancel btn-xs">
+                    <i class="glyphicon glyphicon-ban-circle"></i>
+                    <span><?=lang('TICKET_file_notupload')?></span>
+                </button>
+               <small class="text-muted"><?=lang('TICKET_file_upload_msg');?></small>
+                <!-- The global file processing state -->
+                <span class="fileupload-process"></span>
+            </div>
+
+        </div>
+        <!-- The table listing the files available for upload/download -->
+        <table role="presentation" class="table table-striped"><tbody class="files"></tbody></table>
+    </form>
+
+</div>
+    </div>
+    </div>
+</div>
+
+
+<!--div class="control-group">
     <div class="controls">
     <div class="form-group">
     
@@ -277,7 +319,7 @@ if ($CONF['fix_subj'] == false) {
     </div>
     </div>
 </div>
-</div>
+</div-->
 <?php } ?>
 
 <div class="col-md-2"></div>
@@ -295,7 +337,6 @@ if ($CONF['fix_subj'] == false) {
     <input type="hidden" id="hashname" value="<?=md5(time());?>">
     <input type="hidden" id="status_action" value="">
     <input type="hidden" id="prio" value="1">
-    <input type="hidden" id="upf" value="false">
     <input type="hidden" value="<?php echo $_SESSION['helpdesk_user_id']; ?>" id="user_init_id">
 
 
@@ -307,10 +348,12 @@ if ($CONF['fix_subj'] == false) {
 </div>
 
 
-</form>
 </div>
 </div>
-<br>
+</div>
+
+    <br>
+
 </div>
 <div class="col-md-4">
 
@@ -343,6 +386,83 @@ if ($CONF['fix_subj'] == false) {
 <?php
  include("footer.inc.php");
 ?>
+<script id="template-upload" type="text/x-tmpl">
+{% for (var i=0, file; file=o.files[i]; i++) { %}
+    <tr class="template-upload fade" id="up_entry">
+        <td>
+            <span class="preview"></span>
+        </td>
+        <td>
+            <p class="name">
+{%=file.name.substr(0,7) %}...{%=file.name.substr(-5) %}
+
+	            
+            </p>
+            <strong class="error text-danger"></strong>
+        </td>
+        <td>
+            <p class="size">Processing...</p>
+            <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-bar progress-bar-success" style="width:0%;"></div></div>
+        </td>
+        <td>
+            {% if (!i && !o.options.autoUpload) { %}
+                <button class="start" style="display:none;" disabled>
+                </button>
+            {% } %}
+            {% if (!i) { %}
+                <button class="btn btn-warning cancel btn-xs">
+                    <i class="glyphicon glyphicon-ban-circle"></i>
+                    <span><?=lang('TICKET_file_notupload');?></span>
+                </button>
+            {% } %}
+        </td>
+    </tr>
+{% } %}
+</script>
+<!-- The template to display files available for download -->
+<script id="template-download" type="text/x-tmpl">
+{% for (var i=0, file; file=o.files[i]; i++) { %}
+    <tr class="template-download fade">
+        <td>
+            <span class="preview">
+                {% if (file.thumbnailUrl) { %}
+                    <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" data-gallery><img src="{%=file.thumbnailUrl%}"></a>
+                {% } %}
+            </span>
+        </td>
+        <td>
+            <p class="name">
+                {% if (file.url) { %}
+                    <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" {%=file.thumbnailUrl?'data-gallery':''%}>{%=file.name%}</a>
+                {% } else { %}
+                    <span>{%=file.name%}</span>
+                {% } %}
+            </p>
+            {% if (file.error) { %}
+                <div><span class="label label-danger">Error</span> {%=file.error%}</div>
+            {% } %}
+        </td>
+        <td>
+            <span class="size">{%=o.formatFileSize(file.size)%}</span>
+        </td>
+        <td>
+            {% if (file.deleteUrl) { %}
+                <button class="btn btn-danger delete btn-xs" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}"{% if (file.deleteWithCredentials) { %} data-xhr-fields='{"withCredentials":true}'{% } %}>
+                    <i class="glyphicon glyphicon-trash"></i>
+                    <span>Delete</span>
+                </button>
+                <input type="checkbox" name="delete" value="1" class="toggle">
+            {% } else { %}
+                <button class="btn btn-warning cancel btn-xs">
+                    <i class="glyphicon glyphicon-ban-circle"></i>
+                    <span>Cancel</span>
+                </button>
+            {% } %}
+        </td>
+    </tr>
+{% } %}
+</script>
+
 
 
 

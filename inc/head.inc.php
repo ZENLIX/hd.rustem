@@ -28,7 +28,9 @@
 <link rel="stylesheet" href="<?=$CONF['hostname']?>/js/daterangepicker-bs3.css">
 <link rel="stylesheet" href="<?=$CONF['hostname']?>/css/summernote-bs3.css">
 <link rel="stylesheet" href="<?=$CONF['hostname']?>/css/summernote.css">
-<link rel="stylesheet" href="<?=$CONF['hostname']?>/css/uploadfile.css">
+<link rel="stylesheet" href="<?=$CONF['hostname']?>/css/jquery.fileupload.css">
+<link rel="stylesheet" href="<?=$CONF['hostname']?>/css/jquery.fileupload-ui.css">
+
 <body>
   
          

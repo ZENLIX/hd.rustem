@@ -319,16 +319,17 @@ makemytime(true);
 
 
     });
-    $("select#to").blur(function() {
+    $("select#to").on('change', function() {
 
         if ( $('select#to').val() != 0 ){
 
             $('#for_to').popover('hide');
             $('#for_to').removeClass('has-error');
             $('#for_to').addClass('has-success');
+            $('#dsd').popover('hide');
         }
         else {
-
+			$('#dsd').popover('show');
             $('#for_to').popover('show');
             $('#for_to').addClass('has-error');
 
@@ -2558,11 +2559,9 @@ if (ispath('create') ) {
 //if (def_filename == "new.php") {
 
 
-
-function enter_ticket() {
+function check_form_ticket(){
 	
-        //event.preventDefault();
-        var z=$("#username").text();
+	 var z=$("#username").text();
         var s=$("#subj").val();
         var to=$("select#to").val();
         var m=$("#msg").val().length;
@@ -2598,19 +2597,13 @@ function enter_ticket() {
             $("#for_msg").addClass('has-error');
 
         }
+	return error_code;
+}
 
 
+function enter_ticket() {
+			var status_action=$("#status_action").val();
 
-
-
-
-
-        if (error_code == 0) {
-
-            var status_action=$("#status_action").val();
-            if (status_action == 'edit') {
-
-            }
             if (status_action =='add') {
 
                 //uploadObj.startUpload();
@@ -2689,12 +2682,12 @@ function enter_ticket() {
             }
 
 
-        }
+        
 
     
 }
 
-	
+	/*
     var lang_dd= get_lang_param('TICKET_file_upload_msg');
     
     var uploadObj = $("#fileuploader").uploadFile({
@@ -2714,41 +2707,115 @@ function enter_ticket() {
 
     }
     );
+    */
+    
+    
+    
+
+
+    
+    
+    
+        // Initialize the jQuery File Upload widget:
+    $('#fileupload').fileupload({
+        // Uncomment the following to send cross-domain cookies:
+        //xhrFields: {withCredentials: true},
+        url: MyHOSTNAME+'sys/index.php',
+        autoUpload: false,
+        acceptFileTypes: /(\.|\/)(gif|jpe?g|png|doс|xls|rtf|pdf|zip|rar|bmp|docx|xlsx)$/i,
+        maxFileSize: 5000000,
+        formData: {hashname: $('input#hashname').val()}
+
+    }).on('fileuploadprocessalways', function (e, data) {
+    
+$(this).removeClass('fileupload-processing');
+    
+    
+    
+    }).on('fileuploaddone', function (e, data) {
+
+
+        $.each(data.result.files, function (index, file) {
+            if (file.url) {
+                var link = $('<a>')
+                    .attr('target', '_blank')
+                    .prop('href', file.url);
+                $(data.context.children()[index])
+                    .wrap(link);
+            } else if (file.error) {
+                var error = $('<span class="text-danger"/>').text(file.error);
+                $(data.context.children()[index])
+                    .append('<br>')
+                    .append(error);
+            }
+        });
+
+
+
+    }).on('fileuploadstop', function(e, data) {
+
+
+        	if (check_form_ticket() == 0 ) {
+     enter_ticket();
+     }
+     
+     
+     
+	    //enter_ticket();
+    }).on('fileuploadadd', function (e, data) {/* ... */
+}).on('fileuploadsubmit', function (e, data) { 
+		console.log(data);
+		})
+		;
     }
 
-function uploadfiles() {
-	
-	uploadObj.startUpload(); 
-	enter_ticket();
-	
-}
-
-var FunctionOne = function () {
-  // create a deferred object
-  var r = $.Deferred();
-uploadObj.startUpload();
-  // do whatever you want (e.g. ajax/animations other asyc tasks)
-r.resolve();
-
-
-  // return the deferred object
-  return r;
-};
-
-// define FunctionTwo as needed
-var FunctionTwo = function () {
-  enter_ticket();
-};
-
+//$('.start').hide();
 
 
 
     $('body').on('click', 'button#enter_ticket', function(event) {
         event.preventDefault();
 
-FunctionOne().done(FunctionTwo);
-//uploadfiles();
 
+
+
+
+    
+    
+    
+
+
+
+
+
+
+if( $('tr#up_entry').length )         // use this if you are using id to check
+{
+
+     $('#fileupload').fileupload('disable');
+     if (check_form_ticket() == 0 ) {
+     $('#fileupload').fileupload('enable');
+
+$('#start_upload').click();
+
+     }
+     
+}
+
+
+
+
+
+
+
+
+
+if( !$('tr#up_entry').length )         // use this if you are using id to check
+{
+	if (check_form_ticket() == 0 ) {
+     enter_ticket();
+     }
+}
 
 
 
@@ -2756,10 +2823,7 @@ FunctionOne().done(FunctionTwo);
 });
 
 
-
-    
-
-
+           
 
 
 

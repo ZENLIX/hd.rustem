@@ -40,17 +40,28 @@
 <script src="<?=$CONF['hostname']?>/js/jquery.titlealert.js"></script>
 <script src="<?=$CONF['hostname']?>/js/highcharts.js"></script>
 <script src="<?=$CONF['hostname']?>/js/bootbox.min.js"></script>
-<script src="<?=$CONF['hostname']?>/js/jquery.form.js"></script>
-<script src="<?=$CONF['hostname']?>/js/jquery.uploadfile.min.js"></script>
+
+
+
+
 <script src="<?=$CONF['hostname']?>/js/moment-with-langs.js"></script>
+
+
+<!-- FOR UPLOADER -->
+<script src="<?=$CONF['hostname']?>/js/tmpl.min.js"></script>
+<script src="<?=$CONF['hostname']?>js/vendor/jquery.ui.widget.js"></script>
+<script src="<?=$CONF['hostname']?>js/load-image.min.js"></script>
+<script src="<?=$CONF['hostname']?>js/canvas-to-blob.min.js"></script>
+<script src="<?=$CONF['hostname']?>js/jquery.fileupload.js"></script>
+<script src="<?=$CONF['hostname']?>js/jquery.fileupload-ui.js"></script>
+<script src="<?=$CONF['hostname']?>js/jquery.fileupload-process.js"></script>
+<script src="<?=$CONF['hostname']?>js/jquery.fileupload-image.js"></script>
+<script src="<?=$CONF['hostname']?>js/jquery.fileupload-validate.js"></script>
+<!-- FOR UPLOADER -->
+
 <script src="<?=$CONF['hostname']?>/js/core.js"></script>
 
-<?php $current_file_name = basename($_SERVER['REQUEST_URI'], ".php");
-if ( $current_file_name == 'admin' ) { ?>
 
-    <script src="<?=$CONF['hostname']?>/js/core_admin.js"></script>
-
-<?php } ?>
 
 </body>
 </html>
