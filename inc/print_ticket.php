@@ -10,7 +10,7 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
     include("head.inc.php");
     
     $hn=$rkeys[1];
-    $stmt = $dbConnection->prepare('SELECT.
+    $stmt = $dbConnection->prepare('SELECT
                            id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, comment, last_edit, is_read, lock_by, ok_by, arch, ok_date, prio, last_update
                             from tickets
                             where hash_name=:hn');

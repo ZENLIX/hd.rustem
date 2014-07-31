@@ -2559,7 +2559,10 @@ console.log(height);
 
 if (ispath('create') ) {
 //if (def_filename == "new.php") {
-
+$('body').on('click', 'button#reset_ticket', function(event) {
+        event.preventDefault();
+        window.location = MyHOSTNAME+"create";
+        });
 
 function check_form_ticket(){
 	
