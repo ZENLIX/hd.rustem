@@ -2724,7 +2724,7 @@ function enter_ticket() {
         //xhrFields: {withCredentials: true},
         url: MyHOSTNAME+'sys/index.php',
         autoUpload: false,
-        acceptFileTypes: /(\.|\/)(gif|jpe?g|png|doс|xls|rtf|pdf|zip|rar|bmp|docx|xlsx)$/i,
+        acceptFileTypes: /(\.|\/)(gif|jpe?g|png|doc|xls|rtf|pdf|zip|rar|bmp|docx|xlsx)$/i,
         maxFileSize: 5000000,
         formData: {hashname: $('input#hashname').val()}
 
