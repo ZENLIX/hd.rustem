@@ -411,7 +411,7 @@ if ($CONF['fix_subj'] == false) {
             {% if (!i) { %}
                 <button class="btn btn-warning cancel btn-xs">
                     <i class="glyphicon glyphicon-ban-circle"></i>
-                    <span><?=lang('TICKET_file_notupload');?></span>
+                    <span><?=lang('TICKET_file_notupload_one');?></span>
                 </button>
             {% } %}
         </td>
