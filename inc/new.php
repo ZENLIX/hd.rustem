@@ -328,7 +328,7 @@ if ($CONF['fix_subj'] == false) {
             <button id="enter_ticket" class="btn btn-success" type="button"><i class="fa fa-check-circle-o"></i> <?=lang('NEW_button_create');?></button>
         </div>
         <div class="btn-group">
-            <button id="reset_ticket" class="btn btn-default" type="submit" href="create"><i class="fa fa-eraser"></i> <?=lang('NEW_button_reset');?></button>
+            <button id="reset_ticket" class="btn btn-default" type="submit"><i class="fa fa-eraser"></i> <?=lang('NEW_button_reset');?></button>
         </div>
     </div>
 	<input type="hidden" id="file_array" value="">
