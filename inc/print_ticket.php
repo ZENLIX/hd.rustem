@@ -23,7 +23,7 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
 
             ?>
       <script>
-    window.print();
+    //window.print();
     </script>
 
    <div style="padding-top:100px;margin-right:50px;text-align:right;">

@@ -2555,7 +2555,12 @@ console.log(height);
 
     });
 
-
+$('body').on('click', 'button#print_now', function(event) {
+        event.preventDefault();
+        
+       window.print(); 
+        
+        });
 
 if (ispath('create') ) {
 //if (def_filename == "new.php") {

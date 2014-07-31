@@ -164,7 +164,7 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
             <h3 class="panel-title"style="display:inline;"><i class="fa fa-ticket"></i> <?=lang('TICKET_name');?> <strong>#<?=$row['id']?></strong></h3>
     		</td>
     		<td style="width:600px;text-align:right;">
-   	<a href="print_ticket?<?php echo $row['hash_name']; ?>"target="_blank" class="btn btn-primary btn-sm"> <?=lang('TICKET_print');?></a>
+   	<button id="print_now" href="print_ticket?<?php echo $row['hash_name']; ?>"target="_blank" class="btn btn-default btn-xs"><i class="fa fa-print"></i> <?=lang('HELPER_print');?></button>
    		</td>
     		</tr>
    		</table>
@@ -943,7 +943,7 @@ $lo="yes";
 
 
 
-            <div  class="tabbable">
+            <div  class="tabbable hidden-print">
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#home" data-toggle="tab"><i class="fa fa-comments-o"></i> <?=lang('TICKET_t_comment');?></a></li>
                     <li><a href="#profile" data-toggle="tab"><i class="fa fa-list"></i> <?=lang('TICKET_t_history');?></a></li>
