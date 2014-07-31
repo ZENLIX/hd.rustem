@@ -2259,7 +2259,7 @@ foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
             $adr=($_POST['adr']);
             $mail=($_POST['mail']);
             $id=($_POST['id_client']);
-echo "ff";
+//echo "ff";
             $stmt = $dbConnection->prepare('update clients set
 fio=:pib, 
 tel=:tel, 

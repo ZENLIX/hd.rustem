@@ -245,6 +245,7 @@ function lang($phrase){
 
 'HELPER_title'=>'Центр знаний',
 'HELPER_back'=>'назад',
+'HELPER_print'=>'распечатать',
 'HELPER_pub'=>'Опубликовал',
 'HELPER_date'=>'Дата',
 'HELPER_find'=>'Найти',

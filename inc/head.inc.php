@@ -31,6 +31,8 @@
 <link rel="stylesheet" href="<?=$CONF['hostname']?>/css/jquery.fileupload.css">
 <link rel="stylesheet" href="<?=$CONF['hostname']?>/css/jquery.fileupload-ui.css">
 
+<link rel="stylesheet" href="<?=$CONF['hostname']?>/css/uploadfile.css">
+<link rel="stylesheet"type="text/css" media="print" href="<?=$CONF['hostname']?>/css/print.css">
 <body>
   
          
