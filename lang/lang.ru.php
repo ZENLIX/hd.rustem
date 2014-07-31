@@ -475,8 +475,8 @@ function lang($phrase){
 'SYSTEM_lang'=>'Язык',
 'summernote_lang'=> 'ru-RU',
 'note_save'=>'Запись сохранена',
-'upload_cancel'=>'Удалить',
-'upload_errorsize'=>'не допускается. Максимальный разрешенный размер:',
+'upload_errortypes'=>'Тип файла не допускается',
+'upload_errorsize'=>'Слишком большой файл',
 'last_more'=>'еще',
 ''=>''
 
