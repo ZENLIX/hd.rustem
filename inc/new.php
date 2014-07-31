@@ -37,7 +37,8 @@ if (isset($_GET['ok'])) {
     ?>
     <div class="alert alert-success alert-dismissable">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-        <strong><i class="fa fa-check"></i> <?=lang('NEW_ok');?></strong> <?=lang('NEW_ok_1');?> <a class="alert-link" href="<?=$CONF['hostname']?>ticket?<?=$h;?>"><?=lang('NEW_ok_2');?></a> <?=lang('NEW_ok_3');?>.
+        <strong><i class="fa fa-check"></i> <?=lang('NEW_ok');?></strong> <?=lang('NEW_ok_1');?> <a class="alert-link" href="<?=$CONF['hostname']?>ticket?<?=$h;?>"><?=lang('NEW_ok_2');?></a> <?=lang('NEW_ok_3');?>
+        <a class="alert-link" href="<?=$CONF['hostname']?>print_ticket?<?=$h;?>"target="_blank"> <?=lang('NEW_ok_4');?></a>.
     </div>
 <?php
 
