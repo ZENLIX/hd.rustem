@@ -1167,7 +1167,7 @@ $lock_st=""; $muclass="";
                         <td style=" vertical-align: middle; "><small class="<?=$muclass;?>"><?php echo nameshort(name_of_user_ret($row['user_init_id'])); ?></small></td>
 
                         <td style=" vertical-align: middle; "><small class="<?=$muclass;?>">
-                                <?=make_html($to_text)?>
+                                <?=make_html($to_text, 'no')?>
                             </small></td>
                         <td style=" vertical-align: middle; "><small><center>
                                     <?=$st;?> </center>
