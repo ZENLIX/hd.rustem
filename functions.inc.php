@@ -3,7 +3,8 @@
 
 include_once('conf.php');
 include_once('sys/class.phpmailer.php');
-
+include_once('sys/Parsedown.php');
+require 'library/HTMLPurifier.auto.php';
 date_default_timezone_set('Europe/Kiev');
 $dbConnection = new PDO(
     'mysql:host='.$CONF_DB['host'].';dbname='.$CONF_DB['db_name'],
@@ -311,8 +312,37 @@ global $dbConnection;
                         <?php }
 }
 
+function make_html($in, $type) {
+
+
+
+	$Parsedown = new Parsedown();
+	$text=$Parsedown->text($in);
+
+$config = HTMLPurifier_Config::createDefault();
+$config->set('Core.Encoding', 'UTF-8');
+$config->set('HTML.Doctype', 'XHTML 1.0 Transitional');
+$config->set('Cache.DefinitionImpl', null);
+$config->set('AutoFormat.RemoveEmpty',true);
+$config->set('AutoFormat.AutoParagraph',true);
+
+if ($type  == "no") {
+$config->set('HTML.ForbiddenElements', array( 'p' ) );
+}
+
+$purifier = new HTMLPurifier($config);
+
+// here, the javascript command is stripped off
+$content = $purifier->purify($text);
+
+return $content;
+	
+}
+
 function view_comment($tid) {
     global $dbConnection;
+    
+
     ?>
 
 
@@ -344,7 +374,7 @@ function view_comment($tid) {
                                         <time id="b" datetime="<?=$rews['dt'];?>"></time> <time id="c" datetime="<?=$rews['dt'];?>"></time></small>
                                         
                                 </div><br>
-                    <p><?=xss_clean($rews['comment_text'])?></p>
+                    <p><?=make_html($rews['comment_text'], true); ?></p>
                 </div>
             </div>
 

@@ -12,7 +12,7 @@
 
             <div class="alert alert-info alert-dismissable">
 
-                <?= get_myname() . get_dashboard_msg(); ?>
+                <?= make_html(get_myname() . get_dashboard_msg()); ?>
 
             </div>
 

@@ -994,13 +994,13 @@ foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
                 <table class="table table-bordered table-hover " style=" font-size: 14px; ">
                 <thead>
                 <tr>
-                    <th><center><div id="sort_id" action="<?=$_SESSION['helpdesk_sort_id'];?>">#<?=$id_icon;?></div></center></th>
-                    <th><center><div id="sort_prio" action="<?=$_SESSION['helpdesk_sort_prio'];?>"><i class="fa fa-info-circle" data-toggle="tooltip" data-placement="bottom" title="<?=lang('t_LIST_prio');?>"></i><?=$prio_icon;?></div></center></th>
-                    <th><center><div id="sort_subj" action="<?=$_SESSION['helpdesk_sort_subj'];?>"><?=lang('t_LIST_subj');?><?=$subj_icon;?></div></center></th>
-                    <th><center><div id="sort_cli" action="<?=$_SESSION['helpdesk_sort_clientid'];?>"><?=lang('t_LIST_worker');?><?=$cli_icon;?></div></center></th>
+                    <th><center><div id="sort_id" >#<?=$id_icon;?></div></center></th>
+                    <th><center><div id="sort_prio"><i class="fa fa-info-circle" data-toggle="tooltip" data-placement="bottom" title="<?=lang('t_LIST_prio');?>"></i><?=$prio_icon;?></div></center></th>
+                    <th><center><div id="sort_subj"><?=lang('t_LIST_subj');?><?=$subj_icon;?></div></center></th>
+                    <th><center><div id="sort_cli"><?=lang('t_LIST_worker');?><?=$cli_icon;?></div></center></th>
                     <th><center><?=lang('t_LIST_create');?></center></th>
                     <th><center><?=lang('t_LIST_ago');?></center></th>
-                    <th><center><div id="sort_init" action="<?=$_SESSION['helpdesk_sort_userinitid'];?>"><?=lang('t_LIST_init');?><?=$init_icon;?></div></center></th>
+                    <th><center><div id="sort_init"><?=lang('t_LIST_init');?><?=$init_icon;?></div></center></th>
                     <th><center><?=lang('t_LIST_to');?></center></th>
                     <th><center><?=lang('t_LIST_status');?></center></th>
 
@@ -1159,7 +1159,7 @@ $lock_st=""; $muclass="";
                     <tr id="tr_<?php echo $row['id']; ?>" class="<?=$style?>">
                         <td style=" vertical-align: middle; "><small class="<?=$muclass;?>"><center><?php echo $row['id']; ?></center></small></td>
                         <td style=" vertical-align: middle; "><small class="<?=$muclass;?>"><center><?=$prio?></center></small></td>
-                        <td style=" vertical-align: middle; "><a class="<?=$muclass;?>" data-toggle="tooltip" data-placement="bottom" title="<?=$row['subj']?>" href="ticket?<?php echo $row['hash_name']; ?>"><?php cutstr($row['subj']); ?></a></td>
+                        <td style=" vertical-align: middle; "><a class="<?=$muclass;?>" data-toggle="tooltip" data-placement="bottom" title="<?=make_html($row['subj'], 'no')?>" href="ticket?<?php echo $row['hash_name']; ?>"><?php cutstr(make_html($row['subj'], 'no')); ?></a></td>
                         <td style=" vertical-align: middle; "><small class="<?=$muclass;?>"><?php name_of_client($row['client_id']); ?></small></td>
                         <td style=" vertical-align: middle; "><small class="<?=$muclass;?>"><center><time id="c" datetime="<?=$row['date_create']; ?>"></time></center></small></td>
                         <td style=" vertical-align: middle; "><small class="<?=$muclass;?>"><center><time id="a" datetime="<?=$t_ago;?>"></time></center></small></td>
@@ -1167,7 +1167,7 @@ $lock_st=""; $muclass="";
                         <td style=" vertical-align: middle; "><small class="<?=$muclass;?>"><?php echo nameshort(name_of_user_ret($row['user_init_id'])); ?></small></td>
 
                         <td style=" vertical-align: middle; "><small class="<?=$muclass;?>">
-                                <?=$to_text?>
+                                <?=make_html($to_text)?>
                             </small></td>
                         <td style=" vertical-align: middle; "><small><center>
                                     <?=$st;?> </center>
@@ -2723,8 +2723,8 @@ values (:edit_msg, now(), :unow, :pk)');
 
             $user_comment=($_POST['user']);
             $tid_comment=($_POST['tid']);
-            $text_comment=strip_tags(xss_clean(($_POST['textmsg'])),"<b><a><br>");
-
+            //$text_comment=strip_tags(xss_clean(($_POST['textmsg'])),"<b><a><br>");
+			$text_comment=$_POST['textmsg'];
 
 
 

@@ -40,12 +40,12 @@ $h=($_GET['h']);
 
 <div class="panel panel-default">
   <div class="panel-body">
-	<h3 style=" margin-top: 0px; "><?=$fio['title']?></h3>
-	<p><?=$fio['message']?></p>
+	<h3 style=" margin-top: 0px; "><?=make_html($fio['title'])?></h3>
+	<p><?=make_html($fio['message'])?></p>
 	<hr>
 	
 	<p class="text-right"><small class="text-muted"><?=lang('HELPER_pub');?>: <?=nameshort(name_of_user_ret($fio['user_init_id']));?></small><br><small class="text-muted"><?=lang('HELPER_date');?>: <?=$fio['dt'];?></small>
-	<br><a id="print_t" class="btn btn-primary btn-sm"> <?=lang('HELPER_print');?></a>
+	<br><a id="print_t" class="btn btn-default btn-xs"> <i class="fa fa-print"></i> <?=lang('HELPER_print');?></a>
     	</p>
   </div>
 </div>

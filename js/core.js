@@ -54,7 +54,7 @@ if (url.search("inc") >= 0) {
             type: "POST",
             url: ACTIONPATH,
             data: "mode=get_lang_param"+
-                "&param="+par,
+                "&param="+encodeURIComponent(par),
             async: false,
             success: function(html){
 
@@ -187,7 +187,7 @@ php:
                         type: "POST",
                         dataType: "json",
                         url: ACTIONPATH,
-                        data: "mode=find_client&name="+$("#fio").val(),
+                        data: "mode=find_client&name="+encodeURIComponent($("#fio").val()),
                         success: function(html) {
                         $.each(html, function(i, item) {
                         if (item.res == true) {
@@ -202,7 +202,7 @@ php:
             $.ajax({
                 type: "POST",
                 url: ACTIONPATH,
-                data: "mode=get_client_from_new_t&get_client_info=" + item.p,
+                data: "mode=get_client_from_new_t&get_client_info=" + encodeURIComponent(item.p),
                 success: function(html) {
                     $("#user_info").hide().html(html).fadeIn(500);
                     $('#edit_login').editable({
@@ -256,7 +256,7 @@ makemytime(true);
 		                                            $.ajax({
                         type: "POST",
                         url: ACTIONPATH,
-                        data: "mode=get_client_from_new_t&new_client_info="+$("#fio").val(),
+                        data: "mode=get_client_from_new_t&new_client_info="+encodeURIComponent($("#fio").val()),
                         success: function(html) {
                             $("#alert_add").hide().html(html).fadeIn(500);
                             
@@ -344,7 +344,7 @@ makemytime(true);
             type: "POST",
             url: ACTIONPATH,
             data: "mode=get_users_list"+
-                "&unit="+unit_id,
+                "&unit="+encodeURIComponent(unit_id),
             dataType: "json",
             success: function(html){
                 $('select#users_do').empty();
@@ -483,7 +483,7 @@ makemytime(true);
                 $.ajax({
                     type: "POST",
                     url: MyHOSTNAME+"inc/workers.inc.php",
-                    data: "page="+page+
+                    data: "page="+encodeURIComponent(page)+
                         "&menu=list",
                     success: function(html){
                         $("#content_worker").hide().html(html).fadeIn(500);
@@ -520,7 +520,7 @@ makemytime(true);
                     type: "POST",
                     url: MyHOSTNAME+"inc/list_content.inc.php",
                     data: "menu=in"+
-                        "&page="+page,
+                        "&page="+encodeURIComponent(page),
                     success: function(html){
                         $("#content").hide().html(html).fadeIn(500);
                         $("#spinner").hide();
@@ -553,7 +553,7 @@ makemytime(true);
                     type: "POST",
                     url: MyHOSTNAME+"inc/list_content.inc.php",
                     data: "menu=out"+
-                        "&page="+page,
+                        "&page="+encodeURIComponent(page),
                     success: function(html){
                         $("#content").hide().html(html).fadeIn(500);
                         $("#spinner").hide();
@@ -585,7 +585,7 @@ makemytime(true);
                     type: "POST",
                     url: MyHOSTNAME+"inc/list_content.inc.php",
                     data: "menu=arch"+
-                        "&page="+page,
+                        "&page="+encodeURIComponent(page),
                     success: function(html){
                         $("#content").hide().html(html).fadeIn(500);
                         $("#spinner").hide();
@@ -674,7 +674,7 @@ if (url.search("inc") >= 0) {
                 url: ACTIONPATH,
                 data: "mode=check_update"+
                     "&type=all"+
-                    "&last_update="+ee,
+                    "&last_update="+encodeURIComponent(ee),
                 success: function(html){
                     if (html == "no") {
                     }
@@ -684,7 +684,7 @@ if (url.search("inc") >= 0) {
                             type: "POST",
                             url: ACTIONPATH,
                             data: "mode=list_ticket_update"+
-                                "&last_update="+ee,
+                                "&last_update="+encodeURIComponent(ee),
                             dataType: "json",
                             success: function(html){
                                 if (html) {
@@ -718,7 +718,7 @@ if (url.search("inc") >= 0) {
                 url: ACTIONPATH,
                 data: "mode=check_update"+
                     "&type=all"+
-                    "&last_update="+ee,
+                    "&last_update="+encodeURIComponent(ee),
                 success: function(html){
                     if (html == "no") {
                     }
@@ -728,7 +728,7 @@ if (url.search("inc") >= 0) {
                             type: "POST",
                             url: ACTIONPATH,
                             data: "mode=list_ticket_update"+
-                                "&last_update="+ee,
+                                "&last_update="+encodeURIComponent(ee),
                             dataType: "json",
                             success: function(html){
                                 if (html) {
@@ -851,7 +851,7 @@ if (ispath('ticket')) {
                                     type: "POST",
                                     url: ACTIONPATH,
                                     data: "mode=view_comment"+
-                                        "&tid="+tid,
+                                        "&tid="+encodeURIComponent(tid),
                                     success: function(r) {
 
                                         $("#comment_content").html(r);
@@ -927,7 +927,7 @@ if (ispath('notes') ) {
                                             type: "POST",
                                             url: ACTIONPATH,
                                             data: "mode=last_news"+
-                                            "&v="+$(this).attr('value'),
+                                            "&v="+encodeURIComponent($(this).attr('value')),
                                             success: function(html){
                                                 $('#last_news').html(html);
                                                 $('[data-toggle="tooltip"]').tooltip('hide');
@@ -1053,8 +1053,8 @@ if (ispath('helper') ) {
                 type: "POST",
                 url: ACTIONPATH,
                 data: "mode=check_update"+
-                    "&type="+pt+
-                    "&last_update="+lt,
+                    "&type="+encodeURIComponent(pt)+
+                    "&last_update="+encodeURIComponent(lt),
                 success: function(html){
                     if (html == "no") {
                     }
@@ -1069,8 +1069,8 @@ if (ispath('helper') ) {
                         $.ajax({
                             type: "POST",
                             url: MyHOSTNAME+"inc/list_content.inc.php",
-                            data: "menu="+pt+
-                                "&page="+oo,
+                            data: "menu="+encodeURIComponent(pt)+
+                                "&page="+encodeURIComponent(oo),
                             success: function(html){
                                 $('[data-toggle="tooltip"]').tooltip('hide');
                                 $("#content").html(html);
@@ -1127,8 +1127,8 @@ makemytime(true);
                 type: "POST",
                 url: ACTIONPATH,
                 data: "mode=set_list_count"+
-                    "&pt="+pt+
-                    "&v="+z,
+                    "&pt="+encodeURIComponent(pt)+
+                    "&v="+encodeURIComponent(z),
                 success: function() {
 
                     window.location = MyHOSTNAME+"list?"+pt;
@@ -1152,7 +1152,7 @@ makemytime(true);
                 type: "POST",
                 url: ACTIONPATH,
                 data: "mode=find_worker"+
-                    "&fio="+$("input#fio_find").val(),
+                    "&fio="+encodeURIComponent($("input#fio_find").val()),
                 success: function(html) {
 
                     $("#content_worker").hide().html(html).fadeIn(500);
@@ -1227,7 +1227,7 @@ $('body').on('click', 'a#print_t', function() {
                                             type: "POST",
                                             url: ACTIONPATH,
                                             data: "mode=dashboard_t"+
-                                            "&p="+p,
+                                            "&p="+encodeURIComponent(p),
                                             success: function(html){
 												$('#spinner').show();
                                                 $('#dashboard_t').html(html);
@@ -1247,7 +1247,7 @@ $('body').on('click', 'a#print_t', function() {
         event.preventDefault();
         var u=$(this).attr('value');
         var sHTML = $('#summernote').code();
-        var data = { 'mode' : 'save_notes', 'hn' : u, 'msg' : sHTML };
+        var data = { 'mode' : 'save_notes', 'hn' : encodeURIComponent(u), 'msg' : sHTML };
 
         $.ajax({
             type: "POST",
@@ -1293,7 +1293,7 @@ $('body').on('click', 'a#print_t', function() {
             type: "POST",
             url: ACTIONPATH,
             data: "mode=get_notes"+
-                "&hn="+u,
+                "&hn="+encodeURIComponent(u),
             success: function(html){
                 $('#summernote').destroy();
 
@@ -1357,7 +1357,7 @@ $('body').on('click', 'a#print_t', function() {
                     type: "POST",
                     url: ACTIONPATH,
                     data: "mode=del_notes"+
-                        "&nid="+n_id,
+                        "&nid="+encodeURIComponent(n_id),
                     success: function(html){
                         //alert(html);
                         $.ajax({
@@ -1398,7 +1398,7 @@ $('body').on('click', 'a#print_t', function() {
                     type: "POST",
                     url: ACTIONPATH,
                     data: "mode=get_notes"+
-                        "&hn="+u,
+                        "&hn="+encodeURIComponent(u),
                     success: function(html){
                         $('#summernote').destroy();
 
@@ -1464,7 +1464,7 @@ $('body').on('click', 'a#print_t', function() {
             type: "POST",
             url: ACTIONPATH,
             data: "mode=units_del"+
-                "&id="+$(this).attr('value'),
+                "&id="+encodeURIComponent($(this).attr('value')),
             success: function(html) {
                 $("#content_units").html(html);
 
@@ -1502,7 +1502,7 @@ $('body').on('click', 'a#print_t', function() {
             type: "POST",
             url: ACTIONPATH,
             data: "mode=units_add"+
-                "&text="+$("#units_text").val(),
+                "&text="+encodeURIComponent($("#units_text").val()),
             success: function(html) {
                 $("#content_units").html(html);
                 $("#units_text").val('');
@@ -1519,7 +1519,7 @@ $('body').on('click', 'a#print_t', function() {
             type: "POST",
             url: ACTIONPATH,
             data: "mode=subj_del"+
-                "&id="+$(this).attr('value'),
+                "&id="+encodeURIComponent($(this).attr('value')),
             success: function(html) {
                 $("#content_subj").html(html);
 
@@ -1536,7 +1536,7 @@ $('body').on('click', 'a#print_t', function() {
             type: "POST",
             url: ACTIONPATH,
             data: "mode=subj_add"+
-                "&text="+$("#subj_text").val(),
+                "&text="+encodeURIComponent($("#subj_text").val()),
             success: function(html) {
                 $("#content_subj").html(html);
                 $("#subj_text").val('');
@@ -1569,7 +1569,7 @@ $('body').on('click', 'a#print_t', function() {
             type: "POST",
             url: ACTIONPATH,
             data: "mode=deps_add"+
-                "&text="+$("#deps_text").val(),
+                "&text="+encodeURIComponent($("#deps_text").val()),
             success: function(html) {
                 $("#content_deps").html(html);
                 $("#deps_text").val('');
@@ -1586,7 +1586,7 @@ $('body').on('click', 'a#print_t', function() {
             type: "POST",
             url: ACTIONPATH,
             data: "mode=posada_add"+
-                "&text="+$("#posada_text").val(),
+                "&text="+encodeURIComponent($("#posada_text").val()),
             success: function(html) {
                 $("#content_posada").html(html);
                 $("#posada_text").val('');
@@ -1601,7 +1601,7 @@ $('body').on('click', 'a#print_t', function() {
             type: "POST",
             url: ACTIONPATH,
             data: "mode=posada_del"+
-                "&id="+$(this).attr('value'),
+                "&id="+encodeURIComponent($(this).attr('value')),
             success: function(html) {
                 $("#content_posada").html(html);
 
@@ -1628,7 +1628,7 @@ $('body').on('click', 'a#print_t', function() {
             type: "POST",
             url: ACTIONPATH,
             data: "mode=aprove_yes"+
-                "&id="+table_id,
+                "&id="+encodeURIComponent(table_id),
             success: function() {
                 $(elem).fadeOut(500);
             }
@@ -1645,7 +1645,7 @@ $('body').on('click', 'a#print_t', function() {
             type: "POST",
             url: ACTIONPATH,
             data: "mode=aprove_no"+
-                "&id="+table_id,
+                "&id="+encodeURIComponent(table_id),
             success: function() {
                 $(elem).fadeOut(500);
             }
@@ -1664,10 +1664,10 @@ $('body').on('click', 'a#print_t', function() {
             type: "POST",
             url: ACTIONPATH,
             data: "mode=edit_profile_main"+
-                "&login="+$("#login").val()+
-                "&mail="+$("#mail").val()+
-                "&lang="+$("select#lang").val()+
-                "&id="+$("#edit_profile_main").attr('value'),
+                "&login="+encodeURIComponent($("#login").val())+
+                "&mail="+encodeURIComponent($("#mail").val())+
+                "&lang="+encodeURIComponent($("select#lang").val())+
+                "&id="+encodeURIComponent($("#edit_profile_main").attr('value')),
             success: function(html) {
 
                 $("#m_info").hide().html(html).fadeIn(500);
@@ -1686,10 +1686,10 @@ $('body').on('click', 'a#print_t', function() {
             type: "POST",
             url: ACTIONPATH,
             data: "mode=edit_profile_pass"+
-                "&old_pass="+$("#old_pass").val()+
-                "&new_pass="+$("#new_pass").val()+
-                "&new_pass2="+$("#new_pass2").val()+
-                "&id="+$("#edit_profile_main").attr('value'),
+                "&old_pass="+encodeURIComponent($("#old_pass").val())+
+                "&new_pass="+encodeURIComponent($("#new_pass").val())+
+                "&new_pass2="+encodeURIComponent($("#new_pass2").val())+
+                "&id="+encodeURIComponent($("#edit_profile_main").attr('value')),
             success: function(html) {
                 $("#p_info").hide().html(html).fadeIn(500);
 
@@ -1776,7 +1776,7 @@ $('body').on('click', 'a#print_t', function() {
             type: "POST",
             url: ACTIONPATH,
             data: "mode=find_worker"+
-                "&fio="+$("input#fio_find").val(),
+                "&fio="+encodeURIComponent($("input#fio_find").val()),
             success: function(html) {
 
                 $("#content_worker").hide().html(html).fadeIn(500);
@@ -1785,7 +1785,6 @@ $('body').on('click', 'a#print_t', function() {
             }
         });
     });
-
 
 
 
@@ -1816,8 +1815,8 @@ $('body').on('click', 'a#print_t', function() {
                 type: "POST",
                 url: ACTIONPATH,
                 data: "mode=add_comment"+
-                    "&user="+usr+
-                    "&textmsg="+$("textarea#msg").val().replace(/\r\n|\n|\r/g, '<br />')+
+                    "&user="+encodeURIComponent(usr)+
+                    "&textmsg="+encodeURIComponent(($("textarea#msg").val()))+
                     "&tid="+tid,
                 success: function(html) {
 					
@@ -1897,16 +1896,16 @@ console.log(height);
             type: "POST",
             url: ACTIONPATH,
             data: "mode=add_user"+
-                "&fio="+$("#fio_user").val()+
-                "&login="+$("#login_user").val()+
-                "&pass="+$("#exampleInputPassword1").val()+
-                "&unit="+$("#my-select").val()+
-                "&priv="+$("input[type=radio][name=optionsRadios]:checked").val()+
-                "&mess="+$("textarea#mess").val()+
-                "&lang="+$('select#lang').val()+
-                "&priv_add_client="+$("#priv_add_client").prop('checked')+
-                "&priv_edit_client="+$("#priv_edit_client").prop('checked')+
-                "&mail="+$("#mail").val(),
+                "&fio="+encodeURIComponent($("#fio_user").val())+
+                "&login="+encodeURIComponent($("#login_user").val())+
+                "&pass="+encodeURIComponent($("#exampleInputPassword1").val())+
+                "&unit="+encodeURIComponent($("#my-select").val())+
+                "&priv="+encodeURIComponent($("input[type=radio][name=optionsRadios]:checked").val())+
+                "&mess="+encodeURIComponent($("textarea#mess").val())+
+                "&lang="+encodeURIComponent($('select#lang').val())+
+                "&priv_add_client="+encodeURIComponent($("#priv_add_client").prop('checked'))+
+                "&priv_edit_client="+encodeURIComponent($("#priv_edit_client").prop('checked'))+
+                "&mail="+encodeURIComponent($("#mail").val()),
             success: function(html) {
 
                 window.location = MyHOSTNAME+"users?create&ok";
@@ -1927,7 +1926,7 @@ console.log(height);
             type: "POST",
             url: ACTIONPATH,
             data: "mode=edit_helper"+
-                "&hn="+hn,
+                "&hn="+encodeURIComponent(hn),
             success: function(html) {
                 $("#help_content").html(html);
                 var settingsShow = function() {
@@ -1990,7 +1989,7 @@ console.log(height);
         var lang_unit= get_lang_param('JS_unit');
         var lang_probl= get_lang_param('JS_probl');
         var t=$("#t").val();
-        var data = { 'mode' : 'do_save_help', 'u' : u, 't' : t, 'msg' : sHTML, 'hn': hn };
+        var data = { 'mode' : 'do_save_help', 'u' : u, 't' : encodeURIComponent(t), 'msg' : sHTML, 'hn': hn };
 
         var error_code=0;
         if (u == null) {
@@ -2039,7 +2038,7 @@ console.log(height);
         var lang_probl= get_lang_param('JS_probl');
 
         var t=$("#t").val();
-        var data = { 'mode' : 'do_create_help', 'u' : u, 't' : t, 'msg' : sHTML };
+        var data = { 'mode' : 'do_create_help', 'u' : u, 't' : encodeURIComponent(t), 'msg' : sHTML };
 
         var error_code=0;
 
@@ -2137,18 +2136,18 @@ console.log(height);
             type: "POST",
             url: ACTIONPATH,
             data: "mode=edit_user"+
-                "&fio="+$("#fio").val()+
-                "&login="+$("#login").val()+
-                "&pass="+$("#exampleInputPassword1").val()+
-                "&unit="+$("#my-select").val()+
-                "&priv="+$("input[type=radio][name=optionsRadios]:checked").val()+
-                "&status="+$("#lock").val()+
-                "&mess="+$("textarea#mess").val()+
-                "&lang="+$('select#lang').val()+
-                "&mail="+$("#mail").val()+
-                "&priv_add_client="+$("#priv_add_client").prop('checked')+
-                "&priv_edit_client="+$("#priv_edit_client").prop('checked')+
-                "&idu="+usid,
+                "&fio="+encodeURIComponent($("#fio").val())+
+                "&login="+encodeURIComponent($("#login").val())+
+                "&pass="+encodeURIComponent($("#exampleInputPassword1").val())+
+                "&unit="+encodeURIComponent($("#my-select").val())+
+                "&priv="+encodeURIComponent($("input[type=radio][name=optionsRadios]:checked").val())+
+                "&status="+encodeURIComponent($("#lock").val())+
+                "&mess="+encodeURIComponent($("textarea#mess").val())+
+                "&lang="+encodeURIComponent($('select#lang').val())+
+                "&mail="+encodeURIComponent($("#mail").val())+
+                "&priv_add_client="+encodeURIComponent($("#priv_add_client").prop('checked'))+
+                "&priv_edit_client="+encodeURIComponent($("#priv_edit_client").prop('checked'))+
+                "&idu="+encodeURIComponent(usid),
             success: function(html) {
                 //alert(html);
                 window.location = MyHOSTNAME+"users?edit="+usid+"&ok";
@@ -2188,7 +2187,7 @@ console.log(height);
                 url: ACTIONPATH,
                 data: "mode=status_no_ok"+
                     "&tid="+tr_id+
-                    "&user="+us,
+                    "&user="+encodeURIComponent(us),
                 success: function(){
 
                     $(elem).removeClass().addClass('success', 1000);
@@ -2206,7 +2205,7 @@ console.log(height);
                 url: ACTIONPATH,
                 data: "mode=status_ok"+
                     "&tid="+tr_id+
-                    "&user="+us,
+                    "&user="+encodeURIComponent(us),
                 success: function(){
 
                     $(elem).removeClass('success', 1000);
@@ -2258,7 +2257,7 @@ console.log(height);
                 url: ACTIONPATH,
                 data: "mode=lock"+
                     "&tid="+tr_id+
-                    "&user="+us,
+                    "&user="+encodeURIComponent(us),
                 success: function(){
                     $(elem).removeClass().addClass('warning', 1000);
 
@@ -2320,7 +2319,7 @@ console.log(height);
                 url: ACTIONPATH,
                 data: "mode=status_ok"+
                     "&tid="+ok_val_tid+
-                    "&user="+ok_val,
+                    "&user="+encodeURIComponent(ok_val),
                 success: function(html){
 
 
@@ -2341,7 +2340,7 @@ console.log(height);
                 url: ACTIONPATH,
                 data: "mode=status_no_ok"+
                     "&tid="+ok_val_tid+
-                    "&user="+ok_val,
+                    "&user="+encodeURIComponent(ok_val),
                 success: function(html){
 
 
@@ -2374,7 +2373,7 @@ console.log(height);
                 url: ACTIONPATH,
                 data: "mode=lock"+
                     "&tid="+lock_val_tid+
-                    "&user="+lock_val,
+                    "&user="+encodeURIComponent(lock_val),
                 success: function(html){
 
 
@@ -2438,9 +2437,9 @@ console.log(height);
                 url: ACTIONPATH,
                 data: "mode=update_to"+
                     "&ticket_id="+pp+
-                    "&to="+to+
-                    "&tou="+tou+
-                    "&tom="+tom,
+                    "&to="+encodeURIComponent(to)+
+                    "&tou="+encodeURIComponent(tou)+
+                    "&tom="+encodeURIComponent(tom),
                 success: function(html){
                     $("#ccc").hide().html(html).fadeIn(500);
                     window.location = MyHOSTNAME+"list?in";
@@ -2627,21 +2626,21 @@ $('#reset_ticket').prop('disabled', true);
                     url: ACTIONPATH,
                     data: "mode=add_ticket"+
                         "&type_add=add"+
-                        "&fio="+$("#username").text()+
-                        "&tel="+$("#new_tel").text()+
-                        "&login="+$("#new_login").text()+
-                        "&pod="+$("#new_unit").text()+
-                        "&adr="+$("#new_adr").text()+
-                        "&tel="+$("#new_tel").text()+
-                        "&mail="+$("#new_mail").text()+
-                        "&posada="+$("#new_posada").text()+
-                        "&user_init_id="+$("#user_init_id").val()+
-                        "&user_do="+$("#users_do").val()+
-                        "&subj="+$("#subj").val()+
-                        "&msg="+$("#msg").val().replace(/\r\n|\r|\n/g,"<br />").replace(/'/g, '\'')+
-                        "&unit_id="+$("#to").val()+
-                        "&prio="+$("#prio").val()+
-                        "&hashname="+$("#hashname").val(),
+                        "&fio="+encodeURIComponent($("#username").text())+
+                        "&tel="+encodeURIComponent($("#new_tel").text())+
+                        "&login="+encodeURIComponent($("#new_login").text())+
+                        "&pod="+encodeURIComponent($("#new_unit").text())+
+                        "&adr="+encodeURIComponent($("#new_adr").text())+
+                        "&tel="+encodeURIComponent($("#new_tel").text())+
+                        "&mail="+encodeURIComponent($("#new_mail").text())+
+                        "&posada="+encodeURIComponent($("#new_posada").text())+
+                        "&user_init_id="+encodeURIComponent($("#user_init_id").val())+
+                        "&user_do="+encodeURIComponent($("#users_do").val())+
+                        "&subj="+encodeURIComponent($("#subj").val())+
+                        "&msg="+encodeURIComponent($("#msg").val())+
+                        "&unit_id="+encodeURIComponent($("#to").val())+
+                        "&prio="+encodeURIComponent($("#prio").val())+
+                        "&hashname="+encodeURIComponent($("#hashname").val()),
                     success: function(html) {
 
 
@@ -2666,21 +2665,21 @@ $('#reset_ticket').prop('disabled', true);
                     url: ACTIONPATH,
                     data: "mode=add_ticket"+
                         "&type_add=edit"+
-                        "&client_id_param="+$("#client_id_param").val()+
-                        "&tel="+$("#edit_tel").text()+
-                        "&login="+$("#edit_login").text()+
-                        "&pod="+$("#edit_unit").text()+
-                        "&adr="+$("#edit_adr").text()+
-                        "&tel="+$("#edit_tel").text()+
-                        "&mail="+$("#edit_mail").text()+
-                        "&posada="+$("#edit_posada").text()+
-                        "&user_init_id="+$("#user_init_id").val()+
-                        "&user_do="+$("#users_do").val()+
-                        "&subj="+$("#subj").val()+
-                        "&msg="+$("#msg").val().replace(/\r\n|\r|\n/g,"<br />").replace(/'/g, '\'')+
-                        "&unit_id="+$("#to").val()+
-                        "&prio="+$("#prio").val()+
-                        "&hashname="+$("#hashname").val(),
+                        "&client_id_param="+encodeURIComponent($("#client_id_param").val())+
+                        "&tel="+encodeURIComponent($("#edit_tel").text())+
+                        "&login="+encodeURIComponent($("#edit_login").text())+
+                        "&pod="+encodeURIComponent($("#edit_unit").text())+
+                        "&adr="+encodeURIComponent($("#edit_adr").text())+
+                        "&tel="+encodeURIComponent($("#edit_tel").text())+
+                        "&mail="+encodeURIComponent($("#edit_mail").text())+
+                        "&posada="+encodeURIComponent($("#edit_posada").text())+
+                        "&user_init_id="+encodeURIComponent($("#user_init_id").val())+
+                        "&user_do="+encodeURIComponent($("#users_do").val())+
+                        "&subj="+encodeURIComponent($("#subj").val())+
+                        "&msg="+encodeURIComponent($("#msg").val())+
+                        "&unit_id="+encodeURIComponent($("#to").val())+
+                        "&prio="+encodeURIComponent($("#prio").val())+
+                        "&hashname="+encodeURIComponent($("#hashname").val()),
                     success: function(html) {
 
 

@@ -165,7 +165,7 @@ if ($row['is_read'] <> "0") { $style=""; }
                     <tr id="tr_<?php echo $row['id']; ?>" class="<?=$style?>">
                         <td style=" vertical-align: middle; "><small><center><?php echo $row['id']; ?></center></small></td>
                         <td style=" vertical-align: middle; "><small><center><?=$prio?></center></small></td>
-                        <td style=" vertical-align: middle; "><a href="ticket?<?php echo $row['hash_name']; ?>"><?php cutstr($row['subj']); ?></a></td>
+                        <td style=" vertical-align: middle; "><a href="ticket?<?php echo $row['hash_name']; ?>"><?php cutstr(make_html($row['subj'], 'no')); ?></a></td>
                         <td style=" vertical-align: middle; "><small><?php name_of_client($row['client_id']); ?></small></td>
                         <td style=" vertical-align: middle; "><small><center><time id="c" datetime="<?=$row['date_create']; ?>"></time></center></small></td>
                         <td style=" vertical-align: middle; "><small><center><time id="a" datetime="<?=$t_ago;?>"></time></center></small></td>
@@ -468,7 +468,7 @@ $lock_st=""; $muclass="";
                 <tr id="tr_<?php echo $row['id']; ?>" class="<?=$style?>">
                     <td style=" vertical-align: middle; "><small class="<?=$muclass;?>"><center><?php echo $row['id']; ?></center></small></td>
                     <td style=" vertical-align: middle; "><small class="<?=$muclass;?>"><center><?=$prio?></center></small></td>
-                    <td style=" vertical-align: middle; "><a class="<?=$muclass;?>" data-toggle="tooltip" data-placement="bottom" title="<?=$row['subj']?>" href="ticket?<?php echo $row['hash_name']; ?>"><?php cutstr($row['subj']); ?></a></td>
+                    <td style=" vertical-align: middle; "><a class="<?=$muclass;?>" data-toggle="tooltip" data-placement="bottom" title="<?=make_html($row['subj'], 'no')?>" href="ticket?<?php echo $row['hash_name']; ?>"><?php cutstr(make_html($row['subj'], 'no')); ?></a></td>
                     <td style=" vertical-align: middle; "><small class="<?=$muclass;?>"><?php name_of_client($row['client_id']); ?></small></td>
                     <td style=" vertical-align: middle; "><small class="<?=$muclass;?>"><center><time id="c" datetime="<?=$row['date_create']; ?>"></time></center></small></td>
                     <td style=" vertical-align: middle; "><small class="<?=$muclass;?>"><center>
@@ -796,7 +796,7 @@ $lock_st=""; $muclass="";
                 <tr id="tr_<?php echo $row['id']; ?>" class="<?=$style?>">
                     <td style=" vertical-align: middle; "><small class="<?=$muclass;?>"><center><?php echo $row['id']; ?></center></small></td>
                     <td style=" vertical-align: middle; "><small class="<?=$muclass;?>"><center><?=$prio?></center></small></td>
-                    <td style=" vertical-align: middle; "><a class="<?=$muclass;?>" data-toggle="tooltip" data-placement="bottom" title="<?=$row['subj']?>" href="ticket?<?php echo $row['hash_name']; ?>"><?php cutstr($row['subj']); ?></a></td>
+                    <td style=" vertical-align: middle; "><a class="<?=$muclass;?>" data-toggle="tooltip" data-placement="bottom" title="<?=make_html($row['subj'], 'no')?>" href="ticket?<?php echo $row['hash_name']; ?>"><?php cutstr(make_html($row['subj'], 'no')); ?></a></td>
                     <td style=" vertical-align: middle; "><small class="<?=$muclass;?>"><?php name_of_client($row['client_id']); ?></small></td>
                     <td style=" vertical-align: middle; "><small class="<?=$muclass;?>"><center><time id="c" datetime="<?=$row['date_create']; ?>"></time></center></small></td>
                     <td style=" vertical-align: middle; "><small class="<?=$muclass;?>"><center><time id="a" datetime="<?=$t_ago;?>"></time></center></small></td>
@@ -989,7 +989,7 @@ $res1 = $stmt->fetchAll();
                     ?>
                     <tr >
                         <td style=" vertical-align: middle; "><small><center><?php echo $row['id']; ?></center></small></td>
-                        <td style=" vertical-align: middle; "><small><a href="ticket?<?php echo $row['hash_name']; ?>"><?php cutstr($row['subj']); ?></a></small></td>
+                        <td style=" vertical-align: middle; "><small><a href="ticket?<?php echo $row['hash_name']; ?>"><?php cutstr(make_html($row['subj'], 'no')); ?></a></small></td>
                         <td style=" vertical-align: middle; "><small><?php name_of_client($row['client_id']); ?></small></td>
                         <td style=" vertical-align: middle; "><small><center><time id="c" datetime="<?=$row['date_create']; ?>"></time></center></small></td>
                         <td style=" vertical-align: middle; "><small><?=nameshort(name_of_user_ret($row['user_init_id'])); ?></small></td>
