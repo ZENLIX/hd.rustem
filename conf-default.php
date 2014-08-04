@@ -10,7 +10,7 @@ $CONF_DB = array (
 	'host' 		=> 'localhost', 
 	'username'	=> 'root',
 	'password'	=> '',
-	'db_name'	=> 'hd_prod'
+	'db_name'	=> 'hd.rustem'
 );
 
 //System configuration variables and some options
@@ -26,7 +26,7 @@ $CONF = array (
 );
 
 $CONF_MAIL = array (
-	'active'	=> true,
+	'active'	=> false,
 	'host'		=> 'smtp.gmail.com',
 	'port'		=> 587,
 	'auth'		=> true,
@@ -36,23 +36,5 @@ $CONF_MAIL = array (
 	'from'		=> 'helpdesk',
 	'debug'		=> false 
 );
-
-//List of good file types to upload
-$acceptable = array(
-        'application/pdf',
-        'application/msword',
-        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-        'application/msword',
-        'application/excel',
-        'application/vnd.ms-excel',
-        'application/x-excel',
-        'application/x-msexcel',
-        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-        'image/jpeg',
-        'image/jpg',
-        'image/gif',
-        'image/png'
-
-    );
 
 ?>
