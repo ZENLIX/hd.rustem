@@ -17,7 +17,7 @@ if ( isset($_POST['mode']) ) {
     }
 
 
-    if ($mode == "activate_login") {
+    if (($mode == "activate_login")&&($CONF['ad_auth'] == true)) {
         $mailadr=($_POST['mailadress']);
         
         
