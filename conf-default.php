@@ -22,6 +22,7 @@ $CONF = array (
 	'name_of_firm'	=> 'IT корпорация',
 	'fix_subj'		=> true,
 	'file_uploads'	=> true,
+	'ad_auth'	=> false,
 	'debug_mode'	=> false
 );
 
