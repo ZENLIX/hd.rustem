@@ -414,6 +414,7 @@ function lang($phrase){
 'MAIL_text' => 'Текст',
 'REFER_comment_add'=>'доповнив',
 'TICKET_file_upload'=>'обрати файли',
+'TICKET_file_startupload'=>'завантажити',
 'TICKET_file_upload_msg'=>'Вы можете перенести файли на сторінку',
 'TICKET_file_add'=>'Додати файл',
 'TICKET_file_list'=>'Додатковi файли',

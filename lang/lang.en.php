@@ -227,7 +227,7 @@ function lang ($phrase) {
 ,'NAVBAR_profile' => 'Profile' 
 ,'NAVBAR_help' => 'Help' 
 ,'NAVBAR_logout' => 'Exit' 
-
+,'TICKET_file_startupload'=>'start upload'
 
 
 ,'TICKET_ACTION_refer' => 'redirect the user' 

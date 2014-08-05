@@ -467,6 +467,7 @@ function lang($phrase){
                                 </p>',
 'REFER_comment_add'=>'дополнил',
 'TICKET_file_upload'=>'выбрать файлы',
+'TICKET_file_startupload'=>'загрузить',
 'TICKET_file_notupload'=>'отменить загрузку',
 'TICKET_file_notupload_one'=>'отменить',
 'TICKET_file_upload_msg'=>'Вы можете перенести файлы на страницу',
