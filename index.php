@@ -106,6 +106,7 @@ $url = parse_url($CONF['hostname']);
 	case 'units': 	include('inc/units.php');	break;
 	case 'subj': 	include('inc/subj.php');	break;
 	case 'ticket': 	include('inc/ticket.php');	break;
+	case 'userinfo':include('inc/userinfo.php');break;
 	case 'print_ticket': include('inc/print_ticket.php');	break;
 	default: include('404.php');
 }	

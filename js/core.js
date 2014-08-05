@@ -886,6 +886,12 @@ console.log(height);
 
 
     }
+    
+    
+    if (ispath('userinfo') ) {
+    makemytime(true);
+    }
+    
     if (ispath('clients') ) {
     //if (def_filename == "clients.php") {
         setInterval(function(){

@@ -637,7 +637,7 @@ function get_client_info_ticket($id) {
                 <td style=" width: 30px; "><small class="text-muted"><?=lang('WORKER_total');?>:</small></td>
                 <td><small>
                         <?php if ($priv_val <> "1") { ?>
-                        <a target="_blank" href="inc/userinfo.php?user=<?=$id?>">
+                        <a target="_blank" href="userinfo?user=<?=$id?>">
                             <?php }?>
                             <?php echo $tt; ?>
                             <?php if ($priv_val <> "1") { ?>
@@ -648,7 +648,7 @@ function get_client_info_ticket($id) {
 
             <tr>
                 <td style=" width: 30px; "><small class="text-muted"><?=lang('WORKER_last');?>:</small></td>
-                <td><small><?php if ($priv_val <> "1") { ?><a target="_blank" href="inc/userinfo.php?user=<?=$id?>"><?php } ?>
+                <td><small><?php if ($priv_val <> "1") { ?><a target="_blank" href="userinfo?user=<?=$id?>"><?php } ?>
                 
                 <time id="b" datetime="<?=$lt;?>"></time>
                 <time id="c" datetime="<?=$lt;?>"></time>
@@ -817,14 +817,14 @@ function get_client_info($id) {
                 <td style=" width: 30px; "><small class="text-muted"><?=lang('WORKER_total');?>:</small></td>
                 <td><small class="text-muted">
                         <?php if ($priv_val <> "1") { ?>
-                        <a target="_blank" href="inc/userinfo.php?user=<?=$id?>"><?php }?><?php echo $tt; ?><?php if ($priv_val <> "1") { ?></a><?php } ?></small></td>
+                        <a target="_blank" href="userinfo?user=<?=$id?>"><?php }?><?php echo $tt; ?><?php if ($priv_val <> "1") { ?></a><?php } ?></small></td>
             </tr>
 
             <tr>
                 <td style=" width: 30px; "><small class="text-muted"><?=lang('WORKER_last');?>:</small></td>
                 <td><small class="text-muted">
                         <?php if ($priv_val <> "1") { ?>
-                        <a target="_blank" href="inc/userinfo.php?user=<?=$id?>">
+                        <a target="_blank" href="userinfo?user=<?=$id?>">
                             <?php }?>
                 <time id="b" datetime="<?=$lt;?>"></time>
                 <time id="c" datetime="<?=$lt;?>"></time>
@@ -884,14 +884,14 @@ function get_client_info($id) {
                 <td style=" width: 30px; "><small class="text-muted"><?=lang('WORKER_total');?>:</small></td>
                 <td><small class="text-muted">
                         <?php if ($priv_val <> "1") { ?>
-                        <a target="_blank" href="inc/userinfo.php?user=<?=$id?>"><?php }?><?php echo $tt; ?><?php if ($priv_val <> "1") { ?></a><?php } ?></small></td>
+                        <a target="_blank" href="userinfo?user=<?=$id?>"><?php }?><?php echo $tt; ?><?php if ($priv_val <> "1") { ?></a><?php } ?></small></td>
             </tr>
 
             <tr>
                 <td style=" width: 30px; "><small class="text-muted"><?=lang('WORKER_last');?>:</small></td>
                 <td><small class="text-muted">
                         <?php if ($priv_val <> "1") { ?>
-                        <a target="_blank" href="inc/userinfo.php?user=<?=$id?>">
+                        <a target="_blank" href="userinfo?user=<?=$id?>">
                             <?php }?><?php echo $lt; ?><?php if ($priv_val <> "1") { ?></a><?php } ?></small></td>
             </tr>
             </tbody>
