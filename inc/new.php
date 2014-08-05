@@ -8,6 +8,7 @@ if ($_SESSION['helpdesk_user_id']) {
    include("navbar.inc.php");
    
   
+//check_unlinked_file();
 
 ?>
 
@@ -275,7 +276,7 @@ if ($CONF['fix_subj'] == false) {
     <div class="col-sm-10">
 
  <form id="fileupload" action="" method="POST" enctype="multipart/form-data">
-        <div class="fileupload-buttonbar" style=" padding-top: 18px; ">
+        <div class="fileupload-buttonbar">
             <div class="">
                 <!-- The fileinput-button span is used to style the file input field as button -->
                 <span class="btn btn-success fileinput-button btn-xs">
@@ -283,14 +284,14 @@ if ($CONF['fix_subj'] == false) {
                     <span><?=lang('TICKET_file_upload')?></span>
                     <input id="filer" type="file" name="files[]" multiple>
                 </span>
-                <button type="submit" class="btn btn-primary start btn-xs" id="start_upload" style="display:none;">
+                <button type="submit" class="btn btn-primary start btn-xs" id="start_upload">
                     <i class="glyphicon glyphicon-upload"></i>
-                    <span>Start upload</span>
+                    <span><?=lang('TICKET_file_startupload');?></span>
                 </button>
                 <button type="reset" class="btn btn-warning cancel btn-xs">
                     <i class="glyphicon glyphicon-ban-circle"></i>
                     <span><?=lang('TICKET_file_notupload')?></span>
-                </button>
+                </button><br>
                <small class="text-muted"><?=lang('TICKET_file_upload_msg');?></small>
                 <!-- The global file processing state -->
                 <span class="fileupload-process"></span>
@@ -405,7 +406,7 @@ if ($CONF['fix_subj'] == false) {
         </td>
         <td>
             {% if (!i && !o.options.autoUpload) { %}
-                <button class="start" style="display:none;" disabled>
+                <button class="btn btn-primary start btn-xs" disabled><i class="glyphicon glyphicon-upload"></i> <?=lang('TICKET_file_startupload');?>
                 </button>
             {% } %}
             {% if (!i) { %}
@@ -420,7 +421,30 @@ if ($CONF['fix_subj'] == false) {
 </script>
 <!-- The template to display files available for download -->
 
-
+<script id="template-download" type="text/x-tmpl">
+{% for (var i=0, file; file=o.files[i]; i++) { %}
+    <tr class="template-download fade">
+        <td>
+            <span class="preview">
+                {% if (file.thumbnailUrl) { %}
+                    <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" data-gallery><img src="{%=file.thumbnailUrl%}"></a>
+                {% } %}
+            </span>
+        </td>
+        <td>
+            <p class="name">
+<span class="label label-success"><i class="fa fa-check"></i> ok</span>
+            </p>
+            {% if (file.error) { %}
+                <div><span class="label label-danger">Error</span> {%=file.error%}</div>
+            {% } %}
+        </td>
+        <td>
+            <span class="size">{%=o.formatFileSize(file.size)%}</span>
+        </td>
+            </tr>
+{% } %}
+</script>
 
 
 <?php

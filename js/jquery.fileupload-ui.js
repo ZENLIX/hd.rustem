@@ -52,7 +52,7 @@
             // The ID of the upload template:
             uploadTemplateId: 'template-upload',
             // The ID of the download template:
-            downloadTemplateId: '',
+            downloadTemplateId: 'template-download',
             // The container for the list of files. If undefined, it is set to
             // an element with class "files" inside of the widget element:
             filesContainer: undefined,

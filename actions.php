@@ -2811,6 +2811,9 @@ $client_mail	Почта клиента
 $client_posada	Должность клиента
 */
 
+
+
+
             if ($type == "add") {
 
 
@@ -2938,7 +2941,7 @@ if ($CONF_MAIL['active'] == true) {
                 echo($hashname);
             }
 
-
+check_unlinked_file();
 
 
 

@@ -1247,7 +1247,7 @@ $('body').on('click', 'a#print_t', function() {
         event.preventDefault();
         var u=$(this).attr('value');
         var sHTML = $('#summernote').code();
-        var data = { 'mode' : 'save_notes', 'hn' : encodeURIComponent(u), 'msg' : sHTML };
+        var data = { 'mode' : 'save_notes', 'hn' : u, 'msg' : sHTML };
 
         $.ajax({
             type: "POST",
@@ -1989,7 +1989,7 @@ console.log(height);
         var lang_unit= get_lang_param('JS_unit');
         var lang_probl= get_lang_param('JS_probl');
         var t=$("#t").val();
-        var data = { 'mode' : 'do_save_help', 'u' : u, 't' : encodeURIComponent(t), 'msg' : sHTML, 'hn': hn };
+        var data = { 'mode' : 'do_save_help', 'u' : u, 't' : t, 'msg' : sHTML, 'hn': hn };
 
         var error_code=0;
         if (u == null) {
@@ -2038,7 +2038,7 @@ console.log(height);
         var lang_probl= get_lang_param('JS_probl');
 
         var t=$("#t").val();
-        var data = { 'mode' : 'do_create_help', 'u' : u, 't' : encodeURIComponent(t), 'msg' : sHTML };
+        var data = { 'mode' : 'do_create_help', 'u' : u, 't' : t, 'msg' : sHTML };
 
         var error_code=0;
 
@@ -2734,6 +2734,7 @@ $('#reset_ticket').prop('disabled', true);
         //xhrFields: {withCredentials: true},
         url: MyHOSTNAME+'sys/index.php',
         autoUpload: false,
+        disableValidation: false,
         acceptFileTypes: /(\.|\/)(gif|jpe?g|png|doc|xls|rtf|pdf|zip|rar|bmp|docx|xlsx)$/i,
         maxFileSize: 5000000,
         formData: {hashname: $('input#hashname').val()}
@@ -2755,7 +2756,8 @@ $(this).removeClass('fileupload-processing');
                 $(data.context.children()[index])
                     .wrap(link);
             } else if (file.error) {
-                var error = $('<span class="text-danger"/>').text(file.error);
+                var error = $('<span class="text-danger"/>').text(file.error).html('fhfhhfhf');
+                
                 $(data.context.children()[index])
                     .append('<br>')
                     .append(error);
@@ -2767,14 +2769,21 @@ $(this).removeClass('fileupload-processing');
     }).on('fileuploadstop', function(e, data) {
 
 
-        	if (check_form_ticket() == 0 ) {
+        	/*if (check_form_ticket() == 0 ) {
      enter_ticket();
      }
      
-     
+     */
      
 	    //enter_ticket();
-    }).on('fileuploadadd', function (e, data) {/* ... */
+    }).on('fileuploadadd', function (e, data) {/* ... 
+    $("#uploadBtn").on('click',function () {
+                data.submit();
+                console.log('hello');
+            });
+            */
+    
+    
 }).on('fileuploadsubmit', function (e, data) { 
 		console.log(data);
 		})
@@ -2799,7 +2808,7 @@ $(this).removeClass('fileupload-processing');
 
 
 
-
+/*
 if( $('tr#up_entry').length )         // use this if you are using id to check
 {
 
@@ -2813,6 +2822,7 @@ $('#start_upload').click();
      
 }
 
+*/
 
 
 
@@ -2820,13 +2830,11 @@ $('#start_upload').click();
 
 
 
-
-if( !$('tr#up_entry').length )         // use this if you are using id to check
-{
+//if( !$('tr#up_entry').length )  {
 	if (check_form_ticket() == 0 ) {
      enter_ticket();
      }
-}
+//}
 
 
 

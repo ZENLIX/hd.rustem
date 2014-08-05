@@ -403,6 +403,31 @@ function view_comment($tid) {
 
 }
 
+function check_unlinked_file() {
+	global $dbConnection;
+	
+	$stmt = $dbConnection->prepare('SELECT original_name, ticket_hash, file_hash, file_ext FROM files
+									LEFT JOIN tickets ON tickets.hash_name = files.ticket_hash
+									WHERE tickets.hash_name IS NULL');
+    $stmt->execute();
+	$result = $stmt->fetchAll();
+        if (!empty($result)) {
+        
+        
+        
+        
+foreach ($result as $row) {
+        
+                $stmt = $dbConnection->prepare("delete FROM files where ticket_hash=:id");
+                $stmt->execute(array(':id'=> $row['ticket_hash']));
+				unlink(realpath(dirname(__FILE__))."/upload_files/".$row['file_hash'].".".$row['file_ext']);
+
+
+}}
+
+	
+}
+
 
 function validate_user($user_id, $input) {
 
