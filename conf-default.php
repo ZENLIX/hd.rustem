@@ -21,6 +21,7 @@ $CONF = array (
 	'days2arch'		=> 3,
 	'name_of_firm'	=> 'IT корпорация',
 	'fix_subj'		=> true,
+	'first_login'	=> false,
 	'file_uploads'	=> true,
 	'debug_mode'	=> false
 );

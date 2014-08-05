@@ -88,11 +88,12 @@ include_once("head.inc.php");
         <button class="btn btn-lg btn-primary btn-block"> <i class="fa fa-sign-in"></i>  <?=lang('log_in');?></button>
 
         <!hr style=" margin: 10px; ">
+        <?php if ($CONF['first_login'] == true) { ?>
         <small>
             <center style=" margin-bottom: -20px; "><br><a href="#" id="show_activate_form"><?=lang('first_in_auth');?>.</a>
             </center>
         </small>
-
+		<?php } ?>
     </form>
 
 
