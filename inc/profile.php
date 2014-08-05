@@ -61,18 +61,22 @@ else if ($langu == "ua") {$status_lang_ua="selected";}
       <div class="panel panel-default">
       <div class="panel-heading"><i class="fa fa-user"></i> <?=lang('P_main');?></div>
       <div class="panel-body">
-      <div class="row">
+      <form class="form-horizontal" role="form">
+      <div class="form-group">
       <div class="col-sm-4 text-right" ><strong ><small><?=lang('WORKER_fio');?>:</small></strong></div>
       <div class="col-sm-8"><small><?=$fio;?></small></div>
+      </div>
+      <div class="form-group">
       <div class="col-sm-4 text-right" ><strong ><small><?=lang('PROFILE_priv');?>:</small></strong></div>
       <div class="col-sm-8"><small><?=priv_status_name($usid);?></small></div>
+      </div>
+      <div class="form-group">
       <div class="col-sm-4 text-right"><strong><small><?=lang('PROFILE_priv_unit');?>:</small></strong></div>
       <div class="col-sm-8"><p><small><?=view_array(get_unit_name_return(unit_of_user($_SESSION['helpdesk_user_id'])));?></small></p></div>
       <div class="col-sm-12">
       <hr>
       </div>
       </div>
-      <form class="form-horizontal" role="form">
       <div class="form-group">
     <label for="login" class="col-sm-4 control-label"><?=lang('P_login');?></label>
         <div class="col-sm-8">
