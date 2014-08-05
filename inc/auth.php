@@ -70,6 +70,27 @@ include_once("head.inc.php");
 <div class="container" id='main_login'>
     <?php //echo $_SERVER['REQUEST_URI']; ?>
     <form class="form-signin" action="<?=$CONF['hostname']?>index.php" method="POST" autocomplete="off">
+    <?php if ($CONF['ad_auth'] == false) {?>
+        <center><img src="<?=$CONF['hostname']?>img/help-desk-icon.png" width="128"><h2 class="text-muted"><?=lang('MAIN_TITLE');?></h2><small class="text-muted"><?=lang('AUTH_USER');?></small></center><br>
+        <input type="text" name="login" autocomplete="off" class="form-control" placeholder="<?=lang('login');?>">
+        <input type="password" name="password" class="form-control" placeholder="<?=lang('pass');?>">
+        <div style="padding-left:75px;">
+            <div class="checkbox">
+                <label>
+                    <input id="mc" name="remember_me" value="1" type="checkbox"> <?=lang('remember_me');?>
+                </label>
+            </div>
+        </div>
+        <?php if ($va == 'error') { ?>
+            <div class="alert alert-danger">
+                <center><?=lang('error_auth');?></center>
+            </div> <?php } ?>
+        <input type="hidden" name="req_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>">
+        <button class="btn btn-lg btn-primary btn-block"> <i class="fa fa-sign-in"></i>  <?=lang('log_in');?></button>
+    <?php
+    }
+    else if($CONF['ad_auth'] == true) {
+    ?>
         <center><img src="<?=$CONF['hostname']?>img/help-desk-icon.png" width="128"><h2 class="text-muted"><?=lang('MAIN_TITLE');?></h2><small class="text-muted"><?=lang('AUTH_USER');?></small></center><br>
         <input type="text" name="login" autocomplete="off" class="form-control" placeholder="<?=lang('login');?>">
         <input type="password" name="password" class="form-control" placeholder="<?=lang('pass');?>">
@@ -92,6 +113,9 @@ include_once("head.inc.php");
             <center style=" margin-bottom: -20px; "><br><a href="#" id="show_activate_form"><?=lang('first_in_auth');?>.</a>
             </center>
         </small>
+        <?php
+        }
+        ?>
 
     </form>
 
