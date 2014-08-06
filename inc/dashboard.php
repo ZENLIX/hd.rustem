@@ -6,9 +6,11 @@
     <div class="page-header" style="margin-top: -15px;">
         <h3><i class="fa fa-tachometer"></i> <?= lang('DASHBOARD_TITLE'); ?></h3>
     </div>
-    <div class="row" style="">
-
-        <div class="col-md-6">
+    
+    
+    <div class="row">
+<div class="col-md-12">
+		<div class="col-md-6">
 
             <div class="alert alert-info alert-dismissable">
 
@@ -17,7 +19,7 @@
             </div>
 
         </div>
-        <div class="col-md-6">
+		<div class="col-md-6">
             <div class="panel panel-default">
                 <div class="panel-heading"><a href="stats"><i class="fa fa-bar-chart-o"></i> <?= lang('DASHBOARD_ticket_stats'); ?></a></div>
                 <div class="panel-body">
@@ -35,9 +37,18 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
+    	
+    	
+</div>
+
+
+<div class="col-md-12">
+    
+    
+    
+    
+    <div class="col-md-6">
+			
             <div class="panel panel-default">
                 <div class="panel-heading"><i class="fa fa-bullhorn"></i> <?= lang('DASHBOARD_last_news'); ?></div>
                 <div class="panel-body">
@@ -53,13 +64,26 @@ overflow-y: scroll;"></div>
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
+    <div class="col-md-6">
             <div class="panel panel-default">
-                <div class="panel-heading"><a href="helper"><i class="fa fa-globe"></i> <?= lang('DASHBOARD_last_help'); ?></a></div>
+                <div class="panel-heading">
+                	<a href="helper"><i class="fa fa-globe"></i> <?= lang('DASHBOARD_last_help'); ?></a>
+                </div>
                 <div class="panel-body">
-                    <?php get_helper(); ?>                </div>
+                    <?php get_helper(); ?>                
+                </div>
             </div>
         </div>
+   
+</div>
+    </div>
+    
+    
+
+    
+    
+    
+    
 
         <div class="col-md-12">
             <div class="panel panel-default">
@@ -83,7 +107,7 @@ overflow-y: scroll;"></div>
                 </div>
             </div>
         </div>
-    </div>
+
 </div>
         
 
