@@ -478,6 +478,7 @@ function lang($phrase){
 'note_save'=>'Запись сохранена',
 'upload_errortypes'=>'Тип файла не допускается',
 'upload_errorsize'=>'Слишком большой файл',
+'upload_not_u' => 'Вы забыли загрузить файлы',
 'last_more'=>'еще',
 ''=>''
 

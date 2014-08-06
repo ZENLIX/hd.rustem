@@ -284,7 +284,7 @@ if ($CONF['fix_subj'] == false) {
                     <span><?=lang('TICKET_file_upload')?></span>
                     <input id="filer" type="file" name="files[]" multiple>
                 </span>
-                <button type="submit" class="btn btn-primary start btn-xs" id="start_upload">
+                <button data-toggle="popover" data-html="true" data-trigger="manual" data-placement="top" data-content="<small><?=lang('upload_not_u')?></small>" type="submit" class="btn btn-primary start btn-xs" id="start_upload">
                     <i class="glyphicon glyphicon-upload"></i>
                     <span><?=lang('TICKET_file_startupload');?></span>
                 </button>
@@ -406,7 +406,7 @@ if ($CONF['fix_subj'] == false) {
         </td>
         <td>
             {% if (!i && !o.options.autoUpload) { %}
-                <button class="btn btn-primary start btn-xs" disabled><i class="glyphicon glyphicon-upload"></i> <?=lang('TICKET_file_startupload');?>
+                <button id="s_start" class="btn btn-primary start btn-xs" disabled><i class="glyphicon glyphicon-upload"></i> <?=lang('TICKET_file_startupload');?>
                 </button>
             {% } %}
             {% if (!i) { %}

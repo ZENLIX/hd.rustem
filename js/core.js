@@ -2583,8 +2583,34 @@ function check_form_ticket(){
 
 
         var error_code=0;
+        
+        
+if ($('#s_start').length) {
+
+    
+	 	//if ($(this).)
+	    	$('button#start_upload').popover('show');
+    	
+	    
+	    error_code=1;
+
+}
+if (!$('#s_start').length) {
+
+    
+	 	//if ($(this).)
+	    	$('button#start_upload').popover('hide');
+    	
+	    
+	    error_code=0;
+
+}
 
 
+    
+    
+    
+    
         if ($('#fio').val().length == 0){
             error_code=1;
 
@@ -2806,8 +2832,6 @@ $(this).removeClass('fileupload-processing');
 
 
 
-    
-    
     
 
 

@@ -426,6 +426,7 @@ function lang($phrase){
 'last_more'=>'ще',
 'TICKET_file_notupload'=>'відмінити',
 'TICKET_file_notupload_one'=>'відмінити',
+'upload_not_u' => 'Вы забули завантажити файли',
 '' => '',
 '' => '',
 '' => '',

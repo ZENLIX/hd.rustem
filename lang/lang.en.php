@@ -228,7 +228,7 @@ function lang ($phrase) {
 ,'NAVBAR_help' => 'Help' 
 ,'NAVBAR_logout' => 'Exit' 
 ,'TICKET_file_startupload'=>'start upload'
-
+,'upload_not_u' => 'You are not upload some files'
 
 ,'TICKET_ACTION_refer' => 'redirect the user' 
 ,'TICKET_ACTION_refer_to' => 'on' 
