@@ -427,6 +427,7 @@ function lang($phrase){
 'TICKET_file_notupload'=>'відмінити',
 'TICKET_file_notupload_one'=>'відмінити',
 'upload_not_u' => 'Вы забули завантажити файли',
+'userinfo_ticket'=>'Заявки пользователя',
 '' => '',
 '' => '',
 '' => '',
