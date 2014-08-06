@@ -553,7 +553,7 @@ $r['p']=$row['id'];
                             <div class="col-sm-10">
 
 
-                                <input  type="text" name="fio" class="form-control input-sm" id="t" placeholder="Опис проблеми" value="<?=$fio['title'];?>">
+                                <input  type="text" name="fio" class="form-control input-sm" id="t" placeholder="<?=lang('HELP_desc');?>" value="<?=$fio['title'];?>">
 
 
 
