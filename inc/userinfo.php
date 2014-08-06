@@ -18,7 +18,7 @@ if (($priv_val=="2") || ($priv_val=="0")) {
 ?>
 <div class="container">
 <div class="page-header" style="margin-top: -15px;">
-          <h3 >Заявки користувача <?=name_of_client($user_id);?></h3>
+          <h3 ><?=lang('userinfo_ticket');?> <?=name_of_client($user_id);?></h3>
  </div>
  
  
