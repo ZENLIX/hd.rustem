@@ -23,6 +23,7 @@ $CONF = array (
 	'fix_subj'		=> true,
 	'first_login'	=> false,
 	'file_uploads'	=> true,
+	'ad_auth'	=> false,
 	'debug_mode'	=> false
 );
 
