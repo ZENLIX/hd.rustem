@@ -479,6 +479,7 @@ function lang($phrase){
 'upload_errortypes'=>'Тип файла не допускается',
 'upload_errorsize'=>'Слишком большой файл',
 'upload_not_u' => 'Вы забыли загрузить файлы',
+'userinfo_ticket'=>'Заявки пользователя',
 'last_more'=>'еще',
 ''=>''
 
