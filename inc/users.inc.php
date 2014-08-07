@@ -28,9 +28,9 @@ if (isset($_GET['ok'])) {
 
 
   <div class="form-group">
-    <label for="exampleInputEmail1" class="col-sm-2 control-label"><?=lang('USERS_fio');?></label>
+    <label for="fio" class="col-sm-2 control-label"><?=lang('USERS_fio');?></label>
     <div class="col-sm-10">
-    <input autocomplete="off" id="fio_user" name="fio_user" type="" class="form-control input-sm" id="exampleInputEmail1" placeholder="<?=lang('USERS_fio_full');?>">
+    <input autocomplete="off" id="fio_user" name="fio_user" type="" class="form-control input-sm" placeholder="<?=lang('USERS_fio_full');?>">
     </div>
   </div>
   <div class="form-group" id="login_user_grp">
@@ -331,9 +331,9 @@ if (isset($_GET['ok'])) {
 
 
   <div class="form-group">
-    <label for="exampleInputEmail1" class="col-sm-2 control-label"><?=lang('USERS_fio');?></label>
+    <label for="fio" class="col-sm-2 control-label"><?=lang('USERS_fio');?></label>
     <div class="col-sm-10">
-    <input autocomplete="off" id="fio" name="fio" type="" class="form-control input-sm" id="exampleInputEmail1" placeholder="<?=lang('USERS_fio_full');?>" value="<?=$fio?>">
+    <input autocomplete="off" id="fio_edit" name="fio_edit" type="" class="form-control input-sm" placeholder="<?=lang('USERS_fio_full');?>" value="<?=$fio?>">
     </div>
   </div>
   <div class="form-group">
