@@ -2142,7 +2142,7 @@ console.log(height);
             type: "POST",
             url: ACTIONPATH,
             data: "mode=edit_user"+
-                "&fio="+encodeURIComponent($("#fio").val())+
+                "&fio="+encodeURIComponent($("#fio_edit").val())+
                 "&login="+encodeURIComponent($("#login").val())+
                 "&pass="+encodeURIComponent($("#exampleInputPassword1").val())+
                 "&unit="+encodeURIComponent($("#my-select").val())+
