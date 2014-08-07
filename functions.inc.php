@@ -1077,7 +1077,7 @@ function get_last_action_ticket($ticket_id) {
     if ($r=='create') {$red='<i class=\'fa fa-star-o\'></i> '.lang('TICKET_ACTION_create').' <em>'.$uss.'</em>';}
     if ($r=='edit_msg') {$red='<i class=\'fa fa-pencil-square\'></i> '.lang('TICKET_ACTION_edit').' <em>'.$uss.'</em>';}
     if ($r=='edit_subj') {$red='<i class=\'fa fa-pencil-square\'></i> '.lang('TICKET_ACTION_edit').' <em>'.$uss.'</em>';}
-    if ($r=='comment') {$red='<i class=\'fa fa-comment\'></i> '.lang('TICKET_ACTION_comment').' <em>'.$uss.'</em>';}
+    if ($r=='comment') {$red='<i class=\'fa fa-comment\'></i> '.lang('TICKET_ACTION_comment').'<br>'. '<em>'.$uss.'</em>';}
     if ($r == 'arch') {$red='<i class=\'fa fa-archive\'></i> '.lang('TICKET_ACTION_arch').'';}
     return $red;
 }
