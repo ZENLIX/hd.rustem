@@ -1329,7 +1329,7 @@ foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
                 foreach ($results as $arr) {
                     ?>
 
-                    <tr><td style=" width: 100px; vertical-align: inherit;"><small><i class="fa fa-tag"></i> </small><a href="ticket?<?=$arr['hash'];?>"><small><?=lang('TICKET_name');?> #<?=$arr['name'];?></small></a></td><td><small><nobr><?=$arr['at'];?></nobr></small></td>
+                    <tr><td style=" width: 100px; vertical-align: inherit;"><small><i class="fa fa-tag"></i> </small><a href="ticket?<?=$arr['hash'];?>"><small><?=lang('TICKET_name');?> #<?=$arr['name'];?></small></a></td><td><small><?=$arr['at'];?></small></td>
                     <td style=" width: 110px; vertical-align: inherit;"><small style="float:right;" class="text-muted "> <time id="b" datetime="<?=$arr['time'];?>"></time></small></td></tr>
 
                 <?php
