@@ -209,22 +209,10 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
         <div id="alert-content"></div>
 
         <?php
-        $nn = get_last_ticket($_POST['menu'], $user_id);
         
-        if ($nn == 0) {
-
-
-            ?>
-            <input type="hidden" id="curent_page" value="null">
-            <input type="hidden" id="page_type" value="<?= $_POST['menu'] ?>">
-        <?php
-
-
-        }
-        else if ($nn <> 0) {
-            ?>
-
-            <?php if (isset($_GET['in'])) {
+			
+			
+			if (isset($_GET['in'])) {
                 $r = "in"; 
                 
         if (isset($_SESSION['hd.rustem_list_in'])) {
@@ -259,9 +247,10 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
                     
                                         </div>
                     <div class="text-center">
-                        <ul id="example_in" class="pagination pagination-sm"></ul>
+                        
                     
                         <?php $aha=get_total_pages('in', $user_id); if ($aha > 1) { ?>
+                        <ul id="example_in" class="pagination pagination-sm"></ul>
                         <div class="pull-right">
 	                        
 	                        <div class="btn-group btn-group-xs">
@@ -310,8 +299,8 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
                                         
                                         
                 <div class="text-center">
-                                                        <ul id="example_out" class="pagination pagination-sm"></ul>
-                    <?php $aha=get_total_pages('out', $user_id); if ($aha > 1) { ?>
+                                                        
+                    <?php $aha=get_total_pages('out', $user_id); if ($aha > 1) { ?><ul id="example_out" class="pagination pagination-sm"></ul>
                                             <div class="pull-right">
 	                        
 	                        <div class="btn-group btn-group-xs">
@@ -350,10 +339,22 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
 <?php }?>
 
                 </div>
-            <?php } ?>
+            <?php } 
+
+$nn = get_last_ticket($_POST['menu'], $user_id);
+        
+        if ($nn == 0) {
 
 
+            ?>
+            <input type="hidden" id="curent_page" value="null">
+            <input type="hidden" id="page_type" value="<?= $_POST['menu'] ?>">
+        <?php
 
+
+        }
+        else if ($nn <> 0) {
+?>
 
 
             <input type="hidden" id="page_type" value="<?= $r; ?>">

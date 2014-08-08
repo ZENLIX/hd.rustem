@@ -1149,11 +1149,30 @@ foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
         
         if ($priv_val == "0") {
 
+if (isset($_SESSION['hd.rustem_sort_in'])) {
+	if ($_SESSION['hd.rustem_sort_in'] == "ok"){
+					$stmt = $dbConnection->prepare("SELECT max(last_update) from tickets where unit_id IN (".$in_query.") and arch='0' and status=:s");
+            $paramss=array(':s' => '1');
+            $stmt->execute(array_merge($vv,$paramss));
+	}
+	else if ($_SESSION['hd.rustem_sort_in'] == "ilock"){			$stmt = $dbConnection->prepare("SELECT max(last_update) from tickets where unit_id IN (".$in_query.") and arch='0' and lock_by=:lb");
+            $paramss=array(':lb' => $id);
+            $stmt->execute(array_merge($vv,$paramss));}
+            
+            
+	else if ($_SESSION['hd.rustem_sort_in'] == "lock"){			$stmt = $dbConnection->prepare("SELECT max(last_update) from tickets where unit_id IN (".$in_query.") and arch='0' and (lock_by<>:lb and lock_by<>0) and (status=0)");
+            $paramss=array(':lb' => $id);
+            $stmt->execute(array_merge($vv,$paramss));
+            }
+}
 
-
-            $stmt = $dbConnection->prepare("SELECT max(last_update) from tickets where unit_id IN (".$in_query.") and arch='0'");
+if (!isset($_SESSION['hd.rustem_sort_in'])) {            
+			$stmt = $dbConnection->prepare("SELECT max(last_update) from tickets where unit_id IN (".$in_query.") and arch='0'");
             //$stmt->execute(array(':units' => $units));
 			$stmt->execute($vv);
+			}
+
+
             
             
             $max = $stmt->fetch(PDO::FETCH_NUM);
@@ -1167,31 +1186,75 @@ foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
 
         else if ($priv_val == "1") {
 
+if (isset($_SESSION['hd.rustem_sort_in'])) {
+	if ($_SESSION['hd.rustem_sort_in'] == "ok"){$stmt = $dbConnection->prepare("SELECT max(last_update) from tickets where ((user_to_id=:id and arch='0') or (user_to_id='0' and unit_id IN (".$in_query.") and arch='0')) and status=:s");
+            $paramss=array(':id' => $id, ':s'=>'1');
+            $stmt->execute(array_merge($vv,$paramss));
+			$max = $stmt->fetch(PDO::FETCH_NUM);
+			$max_id=$max[0];
+			
+			
+			}
+			
+			
+			
+	else if ($_SESSION['hd.rustem_sort_in'] == "ilock"){$stmt = $dbConnection->prepare("SELECT max(last_update) from tickets where ((user_to_id=:id and arch='0') or (user_to_id='0' and unit_id IN (".$in_query.") and arch='0')) and lock_by=:lb");
+            $paramss=array(':id' => $id, ':lb'=>$lb);
+            $stmt->execute(array_merge($vv,$paramss));
+			$max = $stmt->fetch(PDO::FETCH_NUM);
+			$max_id=$max[0];}
+			
+			
+			
+			
+	else if ($_SESSION['hd.rustem_sort_in'] == "lock"){$stmt = $dbConnection->prepare("SELECT max(last_update) from tickets where ((user_to_id=:id and arch='0') or (user_to_id='0' and unit_id IN (".$in_query.") and arch='0')) and (lock_by<>:lb and lock_by<>0) and (status=0)");
+            $paramss=array(':id' => $id, ':lb'=>$lb);
+            $stmt->execute(array_merge($vv,$paramss));
+			$max = $stmt->fetch(PDO::FETCH_NUM);
+			$max_id=$max[0];}
+}
 
 
 
-            $stmt = $dbConnection->prepare("SELECT max(last_update) from tickets where ((user_to_id=:id and arch='0') or (user_to_id='0' and unit_id IN (".$in_query.") and arch='0'))");
-            
+if (!isset($_SESSION['hd.rustem_sort_in'])) {            $stmt = $dbConnection->prepare("SELECT max(last_update) from tickets where ((user_to_id=:id and arch='0') or (user_to_id='0' and unit_id IN (".$in_query.") and arch='0'))");
             $paramss=array(':id' => $id);
             $stmt->execute(array_merge($vv,$paramss));
-            
-           
-            $max = $stmt->fetch(PDO::FETCH_NUM);
+			$max = $stmt->fetch(PDO::FETCH_NUM);
+			$max_id=$max[0];
+			}
 
 
-            $max_id=$max[0];
+
 
 
 
         }
         else if ($priv_val == "2") {
 
+if (isset($_SESSION['hd.rustem_sort_in'])) {
+	if ($_SESSION['hd.rustem_sort_in'] == "ok"){			$stmt = $dbConnection->prepare("SELECT max(last_update) from tickets where arch='0' and status=:s");
+            $stmt->execute(array(':s'=>'1'));
+            $max = $stmt->fetch(PDO::FETCH_NUM);
+			$max_id=$max[0];}
+	else if ($_SESSION['hd.rustem_sort_in'] == "ilock"){			$stmt = $dbConnection->prepare("SELECT max(last_update) from tickets where arch='0' and lock_by=:lb");
+            $stmt->execute(array(':lb'=>$id));
+            $max = $stmt->fetch(PDO::FETCH_NUM);
+			$max_id=$max[0];}
+	else if ($_SESSION['hd.rustem_sort_in'] == "lock"){			$stmt = $dbConnection->prepare("SELECT max(last_update) from tickets where arch='0' and (lock_by<>:lb and lock_by<>0) and (status=0)");
+            $stmt->execute(array(':lb'=>$id));
+            $max = $stmt->fetch(PDO::FETCH_NUM);
+			$max_id=$max[0];}
+}
 
-            $stmt = $dbConnection->prepare("SELECT max(last_update) from tickets where arch='0'");
+if (!isset($_SESSION['hd.rustem_sort_in'])) {            
+
+			$stmt = $dbConnection->prepare("SELECT max(last_update) from tickets where arch='0'");
             $stmt->execute();
             $max = $stmt->fetch(PDO::FETCH_NUM);
+			$max_id=$max[0];}
 
-            $max_id=$max[0];
+
+
 
         }
 
@@ -1202,15 +1265,40 @@ foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
     else if ($menu == "out") {
 
 
+if (isset($_SESSION['hd.rustem_sort_out'])) {
+	if ($_SESSION['hd.rustem_sort_out'] == "ok"){
+				$stmt = $dbConnection->prepare("SELECT max(last_update) from tickets where user_init_id=:id and arch='0' and status=:s");
+        $stmt->execute(array(':id' => $id, ':s'=>'1'));
+        $max = $stmt->fetch(PDO::FETCH_NUM);
+		$max_id=$max[0];
+	}
+	else if ($_SESSION['hd.rustem_sort_out'] == "ilock"){
+				$stmt = $dbConnection->prepare("SELECT max(last_update) from tickets where user_init_id=:id and arch='0' and lock_by=:lb");
+        $stmt->execute(array(':id' => $id, ':lb'=>$id));
+        $max = $stmt->fetch(PDO::FETCH_NUM);
+		$max_id=$max[0];
+	}
+	else if ($_SESSION['hd.rustem_sort_out'] == "lock"){
+		$stmt = $dbConnection->prepare("SELECT max(last_update) from tickets where user_init_id=:id and arch='0'  and (lock_by<>:lb and lock_by<>0) and (status=0)");
+        $stmt->execute(array(':id' => $id, ':lb'=>$id));
+        $max = $stmt->fetch(PDO::FETCH_NUM);
+		$max_id=$max[0];
+	}
+}
 
+if (!isset($_SESSION['hd.rustem_sort_out'])) {        
 
-
-        $stmt = $dbConnection->prepare("SELECT max(last_update) from tickets where user_init_id=:id and arch='0'");
+		$stmt = $dbConnection->prepare("SELECT max(last_update) from tickets where user_init_id=:id and arch='0'");
         $stmt->execute(array(':id' => $id));
         $max = $stmt->fetch(PDO::FETCH_NUM);
+		$max_id=$max[0];
+		}
 
 
-        $max_id=$max[0];
+
+
+
+
     }
     else if ($menu == "arch") {
 
