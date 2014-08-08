@@ -43,9 +43,9 @@ function lang($phrase){
  'NEW_button_create'=>'Создать заявку',
  'NEW_button_reset'=>'Очистить поля',
  'LIST_title'=>'Список заявок',
- 'LIST_ok_t'=>'заявка выполнена',
- 'LIST_lock_t_i'=>'заявка, с которой Вы работаете',
- 'LIST_lock_t'=>'заявка, с которой работают',
+ 'LIST_ok_t'=>'выполненые заявки',
+ 'LIST_lock_t_i'=>'заявки, с которымы Вы работаете',
+ 'LIST_lock_t'=>'заявки, с которыми другие работают',
  'LIST_lock_n'=>'номер заявки',
  'LIST_find_ph'=>'Введите # или тему заявки',
  'LIST_find_button'=>'Поиск',
@@ -481,6 +481,10 @@ function lang($phrase){
 'upload_not_u' => 'Вы забыли загрузить файлы',
 'userinfo_ticket'=>'Заявки пользователя',
 'last_more'=>'еще',
+'ticket_sort_def'=>'Показать все',
+'ticket_sort_ok'=>'Выполненные',
+'ticket_sort_ilock'=>'Заблокированные мной',
+'ticket_sort_lock'=>'Заблокированые не мной',
 ''=>''
 
             );

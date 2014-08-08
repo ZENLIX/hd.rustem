@@ -22,9 +22,40 @@ if (isset($_POST['menu'])) {
         $user_id=id_of_user($_SESSION['helpdesk_user_login']);
 		$ps=priv_status($user_id);
 
-        $stmt = $dbConnection->prepare('SELECT id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read,lock_by, ok_by, prio from tickets where user_init_id=:user_id and arch=:n order by id desc limit :start_pos, :perpage');
+if (isset($_SESSION['hd.rustem_sort_out'])) {
+	if ($_SESSION['hd.rustem_sort_out'] == "ok"){
+		$stmt = $dbConnection->prepare('SELECT id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read,lock_by, ok_by, prio from tickets where user_init_id=:user_id and arch=:n and status=:s limit :start_pos, :perpage');
+        $stmt->execute(array(':user_id' => $user_id,':s'=>'1', ':n'=>'0',':start_pos'=>$start_pos,':perpage'=>$perpage));
+	}
+	
+	else if ($_SESSION['hd.rustem_sort_out'] == "ilock"){
+		$stmt = $dbConnection->prepare('SELECT id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read,lock_by, ok_by, prio from tickets where user_init_id=:user_id and arch=:n and lock_by=:lb limit :start_pos, :perpage');
+        $stmt->execute(array(':user_id' => $user_id,':lb'=>$user_id, ':n'=>'0',':start_pos'=>$start_pos,':perpage'=>$perpage));
+	}
+	
+	else if ($_SESSION['hd.rustem_sort_out'] == "lock"){
+		$stmt = $dbConnection->prepare('SELECT id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read,lock_by, ok_by, prio from tickets where user_init_id=:user_id and arch=:n and (lock_by<>:lb and lock_by<>0) and (status=0) limit :start_pos, :perpage');
+        $stmt->execute(array(':user_id' => $user_id,':lb'=>$user_id, ':n'=>'0',':start_pos'=>$start_pos,':perpage'=>$perpage));
+	}
+}
 
+if (!isset($_SESSION['hd.rustem_sort_out'])) {        
+
+		$stmt = $dbConnection->prepare('SELECT id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read,lock_by, ok_by, prio from tickets where user_init_id=:user_id and arch=:n order by id desc limit :start_pos, :perpage');
         $stmt->execute(array(':user_id' => $user_id, ':n'=>'0',':start_pos'=>$start_pos,':perpage'=>$perpage));
+        }
+
+
+
+
+
+
+        
+        
+        
+        
+        
+        
         $res1 = $stmt->fetchAll();
 
 
@@ -535,12 +566,53 @@ foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
 
         if ($priv_val == 0) {
 
+/*
+if (isset($_SESSION['hd.rustem_sort_in'])) {
+	if ($_SESSION['hd.rustem_sort_in'] == "ok"){}
+	else if ($_SESSION['hd.rustem_sort_in'] == "ilock"){}
+	else if ($_SESSION['hd.rustem_sort_in'] == "lock"){}
+}
 
+if (!isset($_SESSION['hd.rustem_sort_in'])) {}
+
+*/
 //нач отдела
 /*
 выбрать все заявки, которые состоят с моих отделах
 */
-            $stmt = $dbConnection->prepare('SELECT 
+
+if (isset($_SESSION['hd.rustem_sort_in'])) {
+
+	if ($_SESSION['hd.rustem_sort_in'] == "ok"){$stmt = $dbConnection->prepare('SELECT 
+							id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read, lock_by, ok_by, prio, last_update
+							from tickets
+							where unit_id IN (' . $in_query . ')  and arch=:n and status=:s
+							limit :start_pos, :perpage');
+            $paramss=array(':n'=>'0',':s'=>'1',':start_pos'=>$start_pos,':perpage'=>$perpage);
+            $stmt->execute(array_merge($vv,$paramss));}
+            
+	else if ($_SESSION['hd.rustem_sort_in'] == "ilock"){$stmt = $dbConnection->prepare('SELECT 
+							id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read, lock_by, ok_by, prio, last_update
+							from tickets
+							where unit_id IN (' . $in_query . ')  and arch=:n and lock_by=:lb
+							limit :start_pos, :perpage');
+            $paramss=array(':n'=>'0',':lb'=>$user_id,':start_pos'=>$start_pos,':perpage'=>$perpage);
+            $stmt->execute(array_merge($vv,$paramss));}
+            
+            
+            
+	else if ($_SESSION['hd.rustem_sort_in'] == "lock"){$stmt = $dbConnection->prepare('SELECT 
+							id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read, lock_by, ok_by, prio, last_update
+							from tickets
+							where unit_id IN (' . $in_query . ')  and arch=:n and (lock_by<>:lb and lock_by<>0) and (status=0)
+							limit :start_pos, :perpage');
+
+            $paramss=array(':n'=>'0',':lb'=>$user_id,':start_pos'=>$start_pos,':perpage'=>$perpage);
+            $stmt->execute(array_merge($vv,$paramss));}
+}
+
+if (!isset($_SESSION['hd.rustem_sort_in'])) {
+	$stmt = $dbConnection->prepare('SELECT 
 							id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read, lock_by, ok_by, prio, last_update
 							from tickets
 							where unit_id IN (' . $in_query . ')  and arch=:n
@@ -549,6 +621,8 @@ foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
 
             $paramss=array(':n'=>'0',':start_pos'=>$start_pos,':perpage'=>$perpage);
             $stmt->execute(array_merge($vv,$paramss));
+}
+            
             $res1 = $stmt->fetchAll();
 
 
@@ -558,8 +632,42 @@ foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
         }
         else if ($priv_val == 1) {
 
+if (isset($_SESSION['hd.rustem_sort_in'])) {
+	if ($_SESSION['hd.rustem_sort_in'] == "ok"){
+		$stmt = $dbConnection->prepare('SELECT 
+							id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read, lock_by, ok_by, prio, last_update
+							from tickets
+							where ((user_to_id=:user_id and arch=:n) or
+							(user_to_id=:n1 and unit_id IN (' . $in_query . ') and arch=:n2)) and status=:s
+							limit :start_pos, :perpage');
+$paramss=array(':user_id'=>$user_id,':s'=>'1', ':n'=>'0',':n1'=>'0',':n2'=>'0',':start_pos'=>$start_pos,':perpage'=>$perpage);
+$stmt->execute(array_merge($vv,$paramss));
+	}
+	else if ($_SESSION['hd.rustem_sort_in'] == "ilock"){
+		$stmt = $dbConnection->prepare('SELECT 
+							id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read, lock_by, ok_by, prio, last_update
+							from tickets
+							where ((user_to_id=:user_id and arch=:n) or
+							(user_to_id=:n1 and unit_id IN (' . $in_query . ') and arch=:n2)) and lock_by=:lb
+							limit :start_pos, :perpage');
+$paramss=array(':user_id'=>$user_id,':lb'=>$user_id, ':n'=>'0',':n1'=>'0',':n2'=>'0',':start_pos'=>$start_pos,':perpage'=>$perpage);
+$stmt->execute(array_merge($vv,$paramss));
+	}
+	else if ($_SESSION['hd.rustem_sort_in'] == "lock"){
+				$stmt = $dbConnection->prepare('SELECT 
+							id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read, lock_by, ok_by, prio, last_update
+							from tickets
+							where ((user_to_id=:user_id and arch=:n) or
+							(user_to_id=:n1 and unit_id IN (' . $in_query . ') and arch=:n2)) and (lock_by<>:lb and lock_by<>0) and (status=0)
+							limit :start_pos, :perpage');
+$paramss=array(':user_id'=>$user_id,':lb'=>$user_id, ':n'=>'0',':n1'=>'0',':n2'=>'0',':start_pos'=>$start_pos,':perpage'=>$perpage);
+$stmt->execute(array_merge($vv,$paramss));
+	}
+}
 
 
+
+if (!isset($_SESSION['hd.rustem_sort_in'])) {
 $stmt = $dbConnection->prepare('SELECT 
 							id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read, lock_by, ok_by, prio, last_update
 							from tickets
@@ -569,7 +677,7 @@ $stmt = $dbConnection->prepare('SELECT
 							limit :start_pos, :perpage');
 $paramss=array(':user_id'=>$user_id, ':n'=>'0',':n1'=>'0',':n2'=>'0',':start_pos'=>$start_pos,':perpage'=>$perpage);
 $stmt->execute(array_merge($vv,$paramss));
-            
+            }
             
             
             
@@ -580,15 +688,51 @@ $stmt->execute(array_merge($vv,$paramss));
         else if ($priv_val == 2) {
 //Главный начальник
 
+        if (isset($_SESSION['hd.rustem_sort_in'])) {
+        
+        	if ($_SESSION['hd.rustem_sort_in'] == "ok"){
+	        	
+	        	$stmt = $dbConnection->prepare('SELECT 
+							id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read, lock_by, ok_by, prio, last_update
+							from tickets
+							where arch=:n
+							and status=:s
+							limit :start_pos, :perpage');
+							$stmt->execute(array(':n'=>'0',':s'=>'1',':start_pos'=>$start_pos,':perpage'=>$perpage));
+	        	
+        	}
+			else if ($_SESSION['hd.rustem_sort_in'] == "ilock"){	      
+			$stmt = $dbConnection->prepare('SELECT 
+							id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read, lock_by, ok_by, prio, last_update
+							from tickets
+							where arch=:n
+							and lock_by=:lb
+							limit :start_pos, :perpage');
+							$stmt->execute(array(':n'=>'0',':lb'=>$user_id,':start_pos'=>$start_pos,':perpage'=>$perpage));}
+			else if ($_SESSION['hd.rustem_sort_in'] == "lock"){
+							$stmt = $dbConnection->prepare('SELECT 
+							id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read, lock_by, ok_by, prio, last_update
+							from tickets
+							where arch=:n
+							and (lock_by<>:lb and lock_by<>0) and (status=0)
+							limit :start_pos, :perpage');
+							$stmt->execute(array(':n'=>'0',':lb'=>$user_id,':start_pos'=>$start_pos,':perpage'=>$perpage));
+			}
+        
 
+        }
+        
+        
+         if (!isset($_SESSION['hd.rustem_sort_in'])) {
             $stmt = $dbConnection->prepare('SELECT 
 							id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read, lock_by, ok_by, prio, last_update
 							from tickets
 							where arch=:n
 							order by ok_by asc, prio desc, id desc
 							limit :start_pos, :perpage');
-
-            $stmt->execute(array(':n'=>'0',':start_pos'=>$start_pos,':perpage'=>$perpage));
+							$stmt->execute(array(':n'=>'0',':start_pos'=>$start_pos,':perpage'=>$perpage));
+}
+            
             $res1 = $stmt->fetchAll();
 
         }

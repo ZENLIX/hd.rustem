@@ -466,6 +466,10 @@ To do this, there is a section - Members. Locate the user that you need and chan
 'upload_errortypes'=>'File type not allowed',
 'upload_errorsize'=>'File is too large',
 'last_more'=>'more',
+'ticket_sort_def'=>'Show all',
+'ticket_sort_ok'=>'Success tickets',
+'ticket_sort_ilock'=>'Lock by me',
+'ticket_sort_lock'=>'Lock not me',
 ''=>''
 );
 return isset($lang[$phrase]) ? $lang[$phrase] : 'undefined';

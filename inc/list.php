@@ -90,13 +90,31 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
                         class="text-muted">
                         
                         
-                        <small><em><span data-toggle="tooltip" data-placement="right" title="<?=view_array($text); ?>"><?=lang('LIST_pin')?>: <?=count($text); ?></span></em></small></span></div>
+                        <small>
+                        	<em>
+								<span data-toggle="tooltip" data-placement="right" title="<?=view_array($text); ?>"><?=lang('LIST_pin')?>: <?=count($text); ?>
+								</span>
+							</em>
+                        </small>
+                        </span></div>
+                        
+                        
                 <div class="col-md-3" style="padding-top:20px;">
-                    <small class="text-muted"><span class="label label-success">&nbsp;</span>
-                        - <?= lang('LIST_ok_t'); ?> </small>
+                   
+                    <small class="text-muted">
+                    <span class="label label-success">&nbsp;</span>
+                        - <?= lang('LIST_ok_t'); ?> 
+                    </small>
+                    
                     <br>
-                    <small class="text-muted"><span class="label label-warning">&nbsp;</span>
-                        - <?= lang('LIST_lock_t_i'); ?> </small>
+                    
+                    <small class="text-muted">
+                    <span class="label label-warning">&nbsp;</span>
+                        - <?= lang('LIST_lock_t_i'); ?> 
+                    </small>
+                        
+                        
+                        
                 </div>
                 <div class="col-md-3" style="padding-top:20px; ">
                     <small class="text-muted"><span class="label label-default">&nbsp;</span>
@@ -105,6 +123,11 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
                     &nbsp;#
                     <small class="text-muted"> - <?= lang('LIST_lock_n'); ?> </small>
                 </div>
+                
+                
+                
+                
+                
 
                 <div class="col-md-3" style="padding-top:20px;">
                     <form action="<?=$CONF['hostname'];?>list" method="get">
@@ -217,9 +240,28 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
                 ?>
                 
                 
+                    <div class="">
+                    <div class="pull-left">
+                    
+<div class="btn-group btn-group-xs">
+  
+  <button id="sort_list" value="main" type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="<?=lang('ticket_sort_def')?>"><i class="fa fa-home"></i> </button>
+    
+  <button id="sort_list" value="ok" data-toggle="tooltip" data-placement="bottom" title="<?=lang('ticket_sort_ok')?>" type="button" class="btn btn-success"><i class="fa fa-check-circle"></i> </button>
+  
+  <button id="sort_list" value="ilock" data-toggle="tooltip" data-placement="bottom" title="<?=lang('ticket_sort_ilock')?>" type="button" class="btn btn-warning"><i class="fa fa-gavel"></i> </button>
+  
+  <button id="sort_list" value="lock" data-toggle="tooltip" data-placement="bottom" title="<?=lang('ticket_sort_lock')?>" type="button" class="btn btn-default"><i class="fa fa-gavel"></i> </button>
+
+</div>
+                    
+                    
+                    
+                                        </div>
                     <div class="text-center">
                         <ul id="example_in" class="pagination pagination-sm"></ul>
-                        <?php $aha=get_total_pages('out', $user_id); if ($aha > 1) { ?>
+                    
+                        <?php $aha=get_total_pages('in', $user_id); if ($aha > 1) { ?>
                         <div class="pull-right">
 	                        
 	                        <div class="btn-group btn-group-xs">
@@ -229,7 +271,7 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
 </div>
 	                        
                         </div><?php } ?>
-                    </div>
+                    </div></div>
                 
             <?php } ?>
             <?php if (isset($_GET['out'])) {
@@ -247,8 +289,28 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
         }
                 
                 ?>
+                
+                    <div class="pull-left">
+                    
+<div class="btn-group btn-group-xs">
+  
+  <button id="sort_list" value="main" type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="<?=lang('ticket_sort_def')?>"><i class="fa fa-home"></i> </button>
+    
+  <button id="sort_list" value="ok" data-toggle="tooltip" data-placement="bottom" title="<?=lang('ticket_sort_ok')?>" type="button" class="btn btn-success"><i class="fa fa-check-circle"></i> </button>
+  
+  <button id="sort_list" value="ilock" data-toggle="tooltip" data-placement="bottom" title="<?=lang('ticket_sort_ilock')?>" type="button" class="btn btn-warning"><i class="fa fa-gavel"></i> </button>
+  
+  <button id="sort_list" value="lock" data-toggle="tooltip" data-placement="bottom" title="<?=lang('ticket_sort_lock')?>" type="button" class="btn btn-default"><i class="fa fa-gavel"></i> </button>
+
+</div>
+                    
+                    
+                    
+                                        </div>
+                                        
+                                        
                 <div class="text-center">
-                    <ul id="example_out" class="pagination pagination-sm"></ul>
+                                                        <ul id="example_out" class="pagination pagination-sm"></ul>
                     <?php $aha=get_total_pages('out', $user_id); if ($aha > 1) { ?>
                                             <div class="pull-right">
 	                        
@@ -275,8 +337,9 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
 }	
         }
                 ?>
+                
                 <div class="text-center">
-                    <ul id="example_arch" class="pagination pagination-sm"></ul>
+                                                        <ul id="example_arch" class="pagination pagination-sm"></ul>
                     <?php $aha=get_total_pages('arch', $user_id); if ($aha > 1) { ?>
                                             <div class="pull-right">
                                             <div class="btn-group btn-group-xs">

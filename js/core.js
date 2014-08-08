@@ -1125,6 +1125,30 @@ if (ispath('helper') ) {
     }
 
 makemytime(true);
+
+	    $('body').on('click', 'button#sort_list', function(event) {
+        event.preventDefault();
+        var pt=$("#page_type").attr('value');
+        var st=$(this).attr('value');
+                    $.ajax({
+                type: "POST",
+                url: ACTIONPATH,
+                data: "mode=sort_list"+
+                    "&pt="+encodeURIComponent(pt)+
+                    "&st="+encodeURIComponent(st),
+                success: function() {
+
+                    window.location = MyHOSTNAME+"list?"+pt;
+
+
+                }
+            });
+        });	
+        
+        
+        
+
+
 	    $('body').on('click', 'button#list_set_ticket', function(event) {
         event.preventDefault();
         var pt=$("#page_type").attr('value');
