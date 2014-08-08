@@ -394,9 +394,13 @@ if ($CONF['fix_subj'] == false) {
         </td>
         <td>
             <p class="name">
-{%=file.name.substr(0,7) %}...{%=file.name.substr(-5) %}
+{% if (file.name.length>20) { %}
+{%=file.name.substr(0,10) %}...{%=file.name.substr(-5) %}
+{% } %}
+{% if (file.name.length<20) { %}
+{%=file.name%}
+{% } %}
 
-	            
             </p>
             <strong class="error text-danger"></strong>
         </td>
@@ -433,7 +437,13 @@ if ($CONF['fix_subj'] == false) {
         </td>
         <td>
             <p class="name">
-<span class="label label-success"><i class="fa fa-check"></i> ok</span>
+{% if (file.name2.length>30) { %}
+	<?=lang('file_info');?>: {%=file.name2.substr(0,30) %}...{%=file.name2.substr(-5) %} - <?=lang('file_info2');?>
+{% } %}
+{% if (file.name2.length<30) { %}
+	<?=lang('file_info');?>: {%=file.name2%} - <?=lang('file_info2');?>
+{% } %}
+
             </p>
         <td>
 		{%=file.name2%}
@@ -445,6 +455,11 @@ if ($CONF['fix_subj'] == false) {
         <td>
             <span class="size">{%=o.formatFileSize(file.size)%}</span>
         </td>
+        <td>
+        	<p class="name">
+	<span class="label label-success"><i class="fa fa-check"></i> ok</span>
+		</p>
+	</td>
             </tr>
 {% } %}
 </script>
