@@ -1044,6 +1044,7 @@ class UploadHandler
     protected function handle_file_upload($uploaded_file, $name, $size, $type, $error,
             $index = null, $content_range = null) {
         $file = new \stdClass();
+        $file->name2 = $this->get_unique_filename($uploaded_file,$name,$size, $type, $error, $index, $content_range);
         $file->name = $this->get_file_name($uploaded_file, $name, $size, $type, $error,
             $index, $content_range);
         $file->size = $this->fix_integer_overflow(intval($size));
