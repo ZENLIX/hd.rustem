@@ -659,6 +659,7 @@ makemytime(true);
 
 
     function check_update() {
+    makemytime(true);
         var ee=$("#main_last_new_ticket").val();
         var url = window.location.href;
 		var zcode="";
@@ -711,6 +712,7 @@ if (url.search("inc") >= 0) {
 
 
     function check_update_index() {
+    makemytime(true);
         var ee=$("#main_last_new_ticket").val();
         if (ee) {
             $.ajax({
@@ -1052,7 +1054,7 @@ if (ispath('helper') ) {
             check_update();
 
 
-
+			
 
 
             $.ajax({
