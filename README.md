@@ -1,9 +1,9 @@
 hd.rustem
 =======
 HELPDESK веб-система, для организации учёта выполнения задач (заявок) между структурными подразделениями и пользователями или клиентами организации.
-<img src="//habrastorage.org/files/c44/cbd/cc6/c44cbdcc63be47f0b640349b2a0b1f8f.png"/>
-<img src="//habrastorage.org/files/58a/d7f/d43/58ad7fd436e940058132b5f131dae603.png"/>
-<img src="//habrastorage.org/files/ad9/ff2/2e7/ad9ff22e756d4a17a5e152f23e19791d.png"/>
+<img src="http://habrastorage.org/files/c44/cbd/cc6/c44cbdcc63be47f0b640349b2a0b1f8f.png"/>
+<img src="http://habrastorage.org/files/58a/d7f/d43/58ad7fd436e940058132b5f131dae603.png"/>
+<img src="http://habrastorage.org/files/ad9/ff2/2e7/ad9ff22e756d4a17a5e152f23e19791d.png"/>
 
 <h4>Функционал</h4>
 <ul>
