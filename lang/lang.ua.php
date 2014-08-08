@@ -432,6 +432,8 @@ function lang($phrase){
 'ticket_sort_ok'=>'Виконані',
 'ticket_sort_ilock'=>'Заблоковані мною',
 'ticket_sort_lock'=>'Заблоковані не мною',
+'file_info'=>'Файл',
+'file_info2'=>'завантажений',
 '' => '',
 '' => '',
 '' => '',
