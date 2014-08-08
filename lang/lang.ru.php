@@ -480,6 +480,8 @@ function lang($phrase){
 'upload_errorsize'=>'Слишком большой файл',
 'upload_not_u' => 'Вы забыли загрузить файлы',
 'userinfo_ticket'=>'Заявки пользователя',
+'file_info'=>'Файл',
+'file_info2'=>'загружен',
 'last_more'=>'еще',
 'ticket_sort_def'=>'Показать все',
 'ticket_sort_ok'=>'Выполненные',
