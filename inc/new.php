@@ -445,9 +445,7 @@ if ($CONF['fix_subj'] == false) {
 {% } %}
 
             </p>
-        <td>
-		{%=file.name2%}
-	</td>
+
             {% if (file.error) { %}
                 <div><span class="label label-danger">Error</span> {%=file.error%}</div>
             {% } %}
