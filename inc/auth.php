@@ -96,8 +96,27 @@ include_once("head.inc.php");
 		<?php } ?>
     </form>
 
+<?php if(ini_get('short_open_tag') == false) { ?>
+<div class="alert alert-danger" role="alert">PHP-error: <em>short_open_tag</em> must be enable in your php configuration. <br> Details: <a href="http://php.net//manual/ru/language.basic-syntax.phptags.php">http://php.net//manual/ru/language.basic-syntax.phptags.php</a></div>
+	<?php } ?>
+	
+<?php
+    $modules = apache_get_modules();
+    if (!in_array('mod_rewrite', $modules)) { ?>
+    <div class="alert alert-danger" role="alert">Apache-error: <em>mod_rewrite</em> module is not enable. <br> Details: <a href="http://httpd.apache.org/docs/current/mod/mod_rewrite.html">http://httpd.apache.org/docs/current/mod/mod_rewrite.html</a></div>
+    <?php
+    }
+    // "mod_rewrite module is not enabled";
+?>
 
-
+<?php
+    $filename=realpath(dirname(dirname(__FILE__)))."/upload_files/";
+    if (!is_writable($filename)) { ?>
+    <div class="alert alert-danger" role="alert">Permission-error: <em><?=$filename?></em> is not writable. <br> Add access to write.</a></div>
+    <?php
+    }
+    // "mod_rewrite module is not enabled";
+?>
 </div>
 <script src="<?=$CONF['hostname']?>js/jquery-1.11.0.min.js"></script>
 <script src="<?=$CONF['hostname']?>js/bootstrap/js/bootstrap.min.js"></script>
