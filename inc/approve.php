@@ -42,6 +42,16 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
                 $stmt = $dbConnection->prepare('select id, fio, tel, login, unit_desc, adr, email, posada, user_from, date_app, client_id from approved_info');
                 $stmt->execute();
                 $res1 = $stmt->fetchAll();
+                
+                if (empty($res1)) {
+                ?>
+                            <div id="" class="well well-large well-transparent lead">
+                <center><?=lang('MSG_no_records');?></center>
+            </div>
+                <?php
+            }
+			
+                else if (!empty($res1)) {
                 foreach($res1 as $row) {
 
 
@@ -117,6 +127,7 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
                     </table>
                     <br>
                 <?php
+                }
                 }
                 ?>
 
