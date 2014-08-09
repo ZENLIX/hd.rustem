@@ -167,6 +167,18 @@ if ( isset($_POST['mode']) ) {
             }
         }
 
+
+        if ($mode == "check_login") {
+        
+        $l=$_POST['login'];
+        
+        if (validate_exist_login($l) == true) {$r['check_login_status']=true;}
+        else if (validate_exist_login($l) == false) {$r['check_login_status']=false;}
+		$row_set[] = $r;
+	echo json_encode($row_set);
+        }
+
+
         if ($mode == "save_notes") {
             $noteid=($_POST['hn']);
             $message=($_POST['msg']);

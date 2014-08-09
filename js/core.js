@@ -1910,6 +1910,29 @@ console.log(height);
             
             $("#login_user_grp").removeClass('has-error').addClass('has-success');
 			$("#errors").val('false');
+			
+			$.ajax({
+            type: "POST",
+            dataType: "json",
+            url: ACTIONPATH,
+            data: "mode=check_login"+
+            "&login="+$(this).val(),
+			            success: function(html) {
+									$.each(html, function(i, item) {
+                                        if (item.check_login_status == true) { 
+	                                                    $("#login_user_grp").removeClass('has-error').addClass('has-success');
+														$("#errors").val('false');
+                                        }
+                                        else if (item.check_login_status == false) {
+	                                                  $("#login_user_grp").addClass('has-error');
+													  $("#errors").val('true');
+                                        }
+                                        }
+                                        );
+                //console.log(html);
+}
+            
+        });
         } else {
             
             $("#login_user_grp").addClass('has-error');
@@ -1917,11 +1940,48 @@ console.log(height);
         }
     });
     
-
+        $("input#fio_user").keyup(function() {
+        if($(this).val().length > 3) {
+        	$("#errors").val('false');
+			$("#fio_user_grp").removeClass('has-error').addClass('has-success');
+        }
+               else {
+        	$("#errors").val('true');
+			$("#fio_user_grp").removeClass('has-success').addClass('has-error');
+        }
+        });
+                $("input#exampleInputPassword1").keyup(function() {
+        if($(this).val().length > 3) {
+        	$("#errors").val('false');
+			$("#pass_user_grp").removeClass('has-error').addClass('has-success');
+        }
+               else {
+        	$("#errors").val('true');
+			$("#pass_user_grp").removeClass('has-success').addClass('has-error');
+        }
+        });
+        
+        
     $('body').on('click', 'button#create_user', function(event) {
         event.preventDefault();
-		var er=$("#errors").val();
 		
+		
+		if ($("#fio_user").val().length < 3) {
+			$("#errors").val('true');
+			$("#fio_user_grp").addClass('has-error');
+		}
+		
+		if ($("#exampleInputPassword1").val().length < 3) {
+			$("#errors").val('true');
+			$("#pass_user_grp").addClass('has-error');
+		}
+		
+		if ($("#login_user").val().length < 3) {
+			$("#errors").val('true');
+			$("#login_user_grp").addClass('has-error');
+		}
+		
+		var er=$("#errors").val();
 		if (er == "false") {
 		
         $.ajax({

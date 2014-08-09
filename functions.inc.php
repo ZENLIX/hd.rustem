@@ -75,6 +75,19 @@ function generateRandomString($length = 5) {
     return $randomString;
 }
 
+function validate_exist_login($str) {
+    global $dbConnection;
+    $uid=$_SESSION['helpdesk_user_id'];
+
+    $stmt = $dbConnection->prepare('SELECT count(login) as n from users where login=:str');
+    $stmt->execute(array(':str' => $str));
+	$row = $stmt->fetch(PDO::FETCH_ASSOC);
+    if ($row['n'] > 0) {$r=false;}
+	else if ($row['n'] == 0) {$r=true;}
+
+    return $r;
+}
+
 function validate_exist_mail($str) {
     global $dbConnection;
     $uid=$_SESSION['helpdesk_user_id'];

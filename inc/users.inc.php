@@ -27,7 +27,7 @@ if (isset($_GET['ok'])) {
 <form class="form-horizontal" role="form">
 
 
-  <div class="form-group">
+  <div class="form-group" id="fio_user_grp">
     <label for="fio" class="col-sm-2 control-label"><?=lang('USERS_fio');?></label>
     <div class="col-sm-10">
     <input autocomplete="off" id="fio_user" name="fio_user" type="" class="form-control input-sm" placeholder="<?=lang('USERS_fio_full');?>">
@@ -39,7 +39,7 @@ if (isset($_GET['ok'])) {
     <input autocomplete="off" name="login_user" type="" class="form-control input-sm" id="login_user" placeholder="<?=lang('USERS_login');?>">
         </div>
   </div>
-  <div class="form-group">
+  <div class="form-group" id="pass_user_grp">
     <label for="exampleInputPassword1" class="col-sm-2 control-label"><?=lang('USERS_pass');?></label>
         <div class="col-sm-10">
     <input autocomplete="off" name="password" type="password" class="form-control input-sm" id="exampleInputPassword1" placeholder="<?=lang('USERS_pass');?>">
