@@ -17,11 +17,11 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
 
 
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-offset-1 col-md-10">
                 <div class="panel ">
                     <div class="panel-body">
                         <center>
-                            <img src="img/helpdesk.001.png" class="img-responsive img-thumbnail">
+                            <img src="img/dc766da5c9e883da26471ca989a4245e.jpg" class="img-responsive img-thumbnail">
                         </center>
                     </div>
                 </div>
@@ -53,7 +53,7 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
                             
                             <div class="panel-body">
 
-                                <img src="img/help1.png" class="img-responsive img-thumbnail"><br>
+                                <img src="img/75e07fbdbf9d19760d4f365b9a2fe2b6.gif" class="img-responsive img-thumbnail"><br>
                                 <?=lang('HELP_new_text');?>
 
                             </div>
@@ -70,7 +70,7 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
 
 
 
-                                <img src="" class="img-responsive img-thumbnail">
+                                <img src="img/t.png" class="img-responsive img-thumbnail">
                                 <br>
                                 <?=lang('HELP_review_text');?>
 
