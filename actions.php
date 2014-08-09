@@ -1870,7 +1870,7 @@ foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
                     <tr id="tr_<?=$row['id'];?>">
 
 
-                        <td><small><?=$row['id'];?></small></td>
+                        <td><small><center><?=$row['id'];?></center></small></td>
                         <td><small><?=$row['name'];?></small></td>
                         <td><small><center><button id="subj_del" type="button" class="btn btn-danger btn-xs" value="<?=$row['id'];?>">del</button></center></small></td>
                     </tr>
@@ -1919,7 +1919,7 @@ foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
                     <tr id="tr_<?=$row['id'];?>">
 
 
-                        <td><small><?=$row['id'];?></small></td>
+                        <td><small><center><?=$row['id'];?></center></small></td>
                         <td><small><?=$row['name'];?></small></td>
                         <td><small><center><button id="deps_del" type="button" class="btn btn-danger btn-xs" value="<?=$row['id'];?>">del</button></center></small></td>
                     </tr>
@@ -1964,7 +1964,7 @@ foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
                     <tr id="tr_<?=$row['id'];?>">
 
 
-                        <td><small><?=$row['id'];?></small></td>
+                        <td><small><center><?=$row['id'];?></center></small></td>
                         <td><small><?=$row['name'];?></small></td>
                         <td><small><center><button id="deps_del" type="button" class="btn btn-danger btn-xs" value="<?=$row['id'];?>">del</button></center></small></td>
                     </tr>
@@ -2015,7 +2015,7 @@ foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
                     <tr id="tr_<?=$row['id'];?>">
 
 
-                        <td><small><?=$row['id'];?></small></td>
+                        <td><small><center><?=$row['id'];?></center></small></td>
                         <td><small><?=$row['name'];?></small></td>
                         <td><small><center><button id="subj_del" type="button" class="btn btn-danger btn-xs" value="<?=$row['id'];?>">del</button></center></small></td>
                     </tr>
@@ -2069,7 +2069,7 @@ foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
                     <tr id="tr_<?=$row['id'];?>">
 
 
-                        <td><small><?=$row['id'];?></small></td>
+                        <td><small><center><?=$row['id'];?></center></small></td>
                         <td><small><?=$row['name'];?></small></td>
                         <td><small><center><button id="subj_del" type="button" class="btn btn-danger btn-xs" value="<?=$row['id'];?>">del</button></center></small></td>
                     </tr>
@@ -2118,7 +2118,7 @@ foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
                     <tr id="tr_<?=$row['id'];?>">
 
 
-                        <td><small><?=$row['id'];?></small></td>
+                        <td><small><center><?=$row['id'];?></center></small></td>
                         <td><small><?=$row['name'];?></small></td>
                         <td><small><center><button id="posada_del" type="button" class="btn btn-danger btn-xs" value="<?=$row['id'];?>">del</button></center></small></td>
                     </tr>
@@ -2165,7 +2165,7 @@ foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
                     <tr id="tr_<?=$row['id'];?>">
 
 
-                        <td><small><?=$row['id'];?></small></td>
+                        <td><small><center><?=$row['id'];?></center></small></td>
                         <td><small><?=$row['name'];?></small></td>
                         <td><small><center><button id="posada_del" type="button" class="btn btn-danger btn-xs" value="<?=$row['id'];?>">del</button></center></small></td>
                     </tr>
@@ -2212,7 +2212,7 @@ foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
                     <tr id="tr_<?=$row['id'];?>">
 
 
-                        <td><small><?=$row['id'];?></small></td>
+                        <td><small><center><?=$row['id'];?></center></small></td>
                         <td><small><?=$row['name'];?></small></td>
                         <td><small><center><button id="units_del" type="button" class="btn btn-danger btn-xs" value="<?=$row['id'];?>">del</button></center></small></td>
                     </tr>
@@ -2260,7 +2260,7 @@ foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
                     <tr id="tr_<?=$row['id'];?>">
 
 
-                        <td><small><?=$row['id'];?></small></td>
+                        <td><small><center><?=$row['id'];?></center></small></td>
                         <td><small><?=$row['name'];?></small></td>
                         <td><small><center><button id="units_del" type="button" class="btn btn-danger btn-xs" value="<?=$row['id'];?>">del</button></center></small></td>
                     </tr>

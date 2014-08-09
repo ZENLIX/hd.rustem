@@ -29,10 +29,18 @@ if (validate_admin($_SESSION['helpdesk_user_id'])) {
  </div>
         
 
-<div class="row" id="content_posada">
+<div class="row">
 
       
-      
+      <div class="col-md-3">
+      <div class="alert alert-info" role="alert"><i class="fa fa-info-circle"></i> 
+	      
+<?=lang('POSADA_info');?>
+	      
+      </div>
+      </div>
+
+      <div class="col-md-9" id="content_posada">
       
 <?php 
 	
@@ -78,7 +86,7 @@ if (validate_admin($_SESSION['helpdesk_user_id'])) {
       <?php
       
        ?>
-     
+      </div>
       
       
 </div>
