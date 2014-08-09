@@ -1168,6 +1168,12 @@ if (isset($_SESSION['hd.rustem_sort_in'])) {
             $paramss=array(':s' => '1');
             $stmt->execute(array_merge($vv,$paramss));
 	}
+	
+		else if ($_SESSION['hd.rustem_sort_in'] == "free"){			$stmt = $dbConnection->prepare("SELECT max(last_update) from tickets where unit_id IN (".$in_query.") and arch='0' and status=:s and lock_by=:lb");
+            $paramss=array(':s'=>'0',':lb' => '0');
+            $stmt->execute(array_merge($vv,$paramss));}
+            
+            
 	else if ($_SESSION['hd.rustem_sort_in'] == "ilock"){			$stmt = $dbConnection->prepare("SELECT max(last_update) from tickets where unit_id IN (".$in_query.") and arch='0' and lock_by=:lb");
             $paramss=array(':lb' => $id);
             $stmt->execute(array_merge($vv,$paramss));}
@@ -1209,7 +1215,11 @@ if (isset($_SESSION['hd.rustem_sort_in'])) {
 			
 			}
 			
-			
+				else if ($_SESSION['hd.rustem_sort_in'] == "free"){$stmt = $dbConnection->prepare("SELECT max(last_update) from tickets where ((user_to_id=:id and arch='0') or (user_to_id='0' and unit_id IN (".$in_query.") and arch='0')) and lock_by=:lb and status=:s");
+            $paramss=array(':id' => $id, ':lb'=>'0', ':s'=>'0');
+            $stmt->execute(array_merge($vv,$paramss));
+			$max = $stmt->fetch(PDO::FETCH_NUM);
+			$max_id=$max[0];}
 			
 	else if ($_SESSION['hd.rustem_sort_in'] == "ilock"){$stmt = $dbConnection->prepare("SELECT max(last_update) from tickets where ((user_to_id=:id and arch='0') or (user_to_id='0' and unit_id IN (".$in_query.") and arch='0')) and lock_by=:lb");
             $paramss=array(':id' => $id, ':lb'=>$lb);
@@ -1249,6 +1259,11 @@ if (isset($_SESSION['hd.rustem_sort_in'])) {
             $stmt->execute(array(':s'=>'1'));
             $max = $stmt->fetch(PDO::FETCH_NUM);
 			$max_id=$max[0];}
+			else if ($_SESSION['hd.rustem_sort_in'] == "free"){			$stmt = $dbConnection->prepare("SELECT max(last_update) from tickets where arch='0' and lock_by=:lb and status=:s");
+            $stmt->execute(array(':lb'=>'0',':s'=>'0'));
+            $max = $stmt->fetch(PDO::FETCH_NUM);
+			$max_id=$max[0];}
+			
 	else if ($_SESSION['hd.rustem_sort_in'] == "ilock"){			$stmt = $dbConnection->prepare("SELECT max(last_update) from tickets where arch='0' and lock_by=:lb");
             $stmt->execute(array(':lb'=>$id));
             $max = $stmt->fetch(PDO::FETCH_NUM);
@@ -1285,6 +1300,14 @@ if (isset($_SESSION['hd.rustem_sort_out'])) {
         $max = $stmt->fetch(PDO::FETCH_NUM);
 		$max_id=$max[0];
 	}
+	
+		else if ($_SESSION['hd.rustem_sort_out'] == "free"){
+				$stmt = $dbConnection->prepare("SELECT max(last_update) from tickets where user_init_id=:id and arch='0' and lock_by=:lb and status=:s");
+        $stmt->execute(array(':id' => $id, ':lb'=>'0', ':s'=>'0'));
+        $max = $stmt->fetch(PDO::FETCH_NUM);
+		$max_id=$max[0];
+	}
+	
 	else if ($_SESSION['hd.rustem_sort_out'] == "ilock"){
 				$stmt = $dbConnection->prepare("SELECT max(last_update) from tickets where user_init_id=:id and arch='0' and lock_by=:lb");
         $stmt->execute(array(':id' => $id, ':lb'=>$id));
@@ -1654,6 +1677,16 @@ foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
             $count = $res->fetch(PDO::FETCH_NUM);
             $count=$count[0];}
             
+            
+            	else if ($_SESSION['hd.rustem_sort_in'] == "free"){
+			$res = $dbConnection->prepare("SELECT count(*) from tickets where unit_id IN (".$in_query.") and arch='0' and lock_by=:lb and status=:s");
+			$paramss=array(':lb'=>'0', ':s'=>'0');
+            $res->execute(array_merge($vv,$paramss));
+            $count = $res->fetch(PDO::FETCH_NUM);
+            $count=$count[0];
+	}
+	
+	
 	else if ($_SESSION['hd.rustem_sort_in'] == "ilock"){
 			$res = $dbConnection->prepare("SELECT count(*) from tickets where unit_id IN (".$in_query.") and arch='0' and lock_by=:lb");
 			$paramss=array(':lb'=>$id);
@@ -1695,6 +1728,17 @@ if (!isset($_SESSION['hd.rustem_sort_in'])) {
             $count = $res->fetch(PDO::FETCH_NUM);
             $count=$count[0];
 	        }
+	        
+	        else if ($_SESSION['hd.rustem_sort_in'] == "free"){
+		        $res = $dbConnection->prepare("SELECT count(*) from tickets where ((user_to_id=:id and arch='0') or (user_to_id='0' and unit_id IN (".$in_query.") and arch='0')) and lock_by=:lb and status=:s");
+            
+            $paramss=array(':id' => $id, ':lb'=>'0',':s'=>'0');
+            $res->execute(array_merge($vv,$paramss));
+            $count = $res->fetch(PDO::FETCH_NUM);
+            $count=$count[0];
+	        }
+	        
+	        
 	        else if ($_SESSION['hd.rustem_sort_in'] == "ilock"){
 		        $res = $dbConnection->prepare("SELECT count(*) from tickets where ((user_to_id=:id and arch='0') or (user_to_id='0' and unit_id IN (".$in_query.") and arch='0')) and lock_by=:lb");
             
@@ -1732,6 +1776,12 @@ if (isset($_SESSION['hd.rustem_sort_in'])) {
 if ($_SESSION['hd.rustem_sort_in'] == "ok"){
 		            $res = $dbConnection->prepare("SELECT count(*) from tickets where arch='0' and status=:s");
             $res->execute(array(':s'=>'1'));
+            $count = $res->fetch(PDO::FETCH_NUM);
+            $count=$count[0];
+}
+else if ($_SESSION['hd.rustem_sort_in'] == "free"){
+	            $res = $dbConnection->prepare("SELECT count(*) from tickets where arch='0' and lock_by=:lb and status=:s");
+            $res->execute(array(':lb'=>'0',':s'=>'0'));
             $count = $res->fetch(PDO::FETCH_NUM);
             $count=$count[0];
 }
@@ -1778,6 +1828,14 @@ if (isset($_SESSION['hd.rustem_list_out'])) {
         $count = $res->fetch(PDO::FETCH_NUM);
         $count=$count[0];
 	}
+	
+		else if ($_SESSION['hd.rustem_sort_out'] == "free"){
+		$res = $dbConnection->prepare("SELECT count(*) from tickets where user_init_id=:id and arch='0' and lock_by=:lb and status=:s");
+        $res->execute(array(':id' => $id, ':lb'=>'0', ':s'=>'0'));
+        $count = $res->fetch(PDO::FETCH_NUM);
+        $count=$count[0];
+	}
+	
 	
 	else if ($_SESSION['hd.rustem_sort_out'] == "ilock"){
 		$res = $dbConnection->prepare("SELECT count(*) from tickets where user_init_id=:id and arch='0' and lock_by=:lb");

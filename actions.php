@@ -1222,6 +1222,7 @@ if ($pt == "in") {
 		
 switch($sort_type) {
 	case 'main': 	unset($_SESSION['hd.rustem_sort_in']);	break;
+	case 'free':	$_SESSION['hd.rustem_sort_in']="free";	break;	
 	case 'ok':	 	$_SESSION['hd.rustem_sort_in']="ok";	break;
 	case 'ilock': 	$_SESSION['hd.rustem_sort_in']="ilock";	break;
 	case 'lock': 	$_SESSION['hd.rustem_sort_in']="lock";	break;
@@ -1236,6 +1237,7 @@ switch($sort_type) {
 else if ($pt == "out") {
 	switch($sort_type) {
 	case 'main': 	unset($_SESSION['hd.rustem_sort_out']);	break;
+	case 'free':	$_SESSION['hd.rustem_sort_out']="free";	break;	
 	case 'ok':	 	$_SESSION['hd.rustem_sort_out']="ok";	break;
 	case 'ilock': 	$_SESSION['hd.rustem_sort_out']="ilock";	break;
 	case 'lock': 	$_SESSION['hd.rustem_sort_out']="lock";	break;

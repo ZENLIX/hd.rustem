@@ -231,6 +231,7 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
 	      
 	      switch($_SESSION['hd.rustem_sort_in']) {
 	case 'ok': 		$button_sort_in['ok']="active";		break;
+	case 'free': 	$button_sort_in['free']="active";		break;
 	case 'ilock': 	$button_sort_in['ilock']="active";		break;
 	case 'lock': 	$button_sort_in['lock']="active";		break;
 	default: $button_sort_in['main']="active";
@@ -246,6 +247,8 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
 <div class="btn-group btn-group-xs">
   
   <button  id="sort_list" value="main" type="button" class="btn btn-primary <?=$button_sort_in['main'];?>" data-toggle="tooltip" data-placement="bottom" title="<?=lang('ticket_sort_def')?>"><i class="fa fa-home"></i> </button>
+  
+    <button  id="sort_list" value="free" data-toggle="tooltip" data-placement="bottom" title="<?=lang('STATS_t_free')?>" type="button" class="btn btn-info <?=$button_sort_in['free'];?>"><i class="fa fa-circle-thin"></i> </button>
     
   <button  id="sort_list" value="ok" data-toggle="tooltip" data-placement="bottom" title="<?=lang('ticket_sort_ok')?>" type="button" class="btn btn-success <?=$button_sort_in['ok'];?>"><i class="fa fa-check-circle"></i> </button>
   
@@ -293,6 +296,7 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
 	      
 	      switch($_SESSION['hd.rustem_sort_out']) {
 	case 'ok': 		$button_sort_out['ok']="active";		break;
+	case 'free': 	$button_sort_out['free']="active";		break;
 	case 'ilock': 	$button_sort_out['ilock']="active";		break;
 	case 'lock': 	$button_sort_out['lock']="active";		break;
 	default: $button_sort_out['main']="active";
@@ -305,7 +309,9 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
 <div class="btn-group btn-group-xs">
   
   <button id="sort_list" value="main" type="button" class="btn btn-primary <?=$button_sort_out['main'];?>" data-toggle="tooltip" data-placement="bottom" title="<?=lang('ticket_sort_def')?>"><i class="fa fa-home"></i> </button>
-    
+  
+        <button  id="sort_list" value="free" data-toggle="tooltip" data-placement="bottom" title="<?=lang('STATS_t_free')?>" type="button" class="btn btn-info <?=$button_sort_out['free'];?>"><i class="fa fa-circle-thin"></i> </button>
+        
   <button id="sort_list" value="ok" data-toggle="tooltip" data-placement="bottom" title="<?=lang('ticket_sort_ok')?>" type="button" class="btn btn-success <?=$button_sort_out['ok'];?>"><i class="fa fa-check-circle"></i> </button>
   
   <button id="sort_list" value="ilock" data-toggle="tooltip" data-placement="bottom" title="<?=lang('ticket_sort_ilock')?>" type="button" class="btn btn-warning <?=$button_sort_out['ilock'];?>"><i class="fa fa-gavel"></i> </button>
