@@ -61,7 +61,7 @@ CREATE TABLE `comments` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `t_id` int(11) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
-  `comment_text` varchar(2048) DEFAULT NULL,
+  `comment_text` longtext DEFAULT NULL,
   `dt` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
@@ -223,7 +223,7 @@ DROP TABLE IF EXISTS `ticket_log`;
 CREATE TABLE `ticket_log` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `date_op` datetime DEFAULT NULL,
-  `msg` varchar(512) CHARACTER SET latin1 DEFAULT NULL,
+  `msg` varchar(1024) CHARACTER SET latin1 DEFAULT NULL,
   `init_user_id` int(11) DEFAULT NULL,
   `to_user_id` int(11) DEFAULT NULL,
   `ticket_id` int(11) DEFAULT NULL,
@@ -244,7 +244,7 @@ CREATE TABLE `tickets` (
   `user_to_id` int(11) DEFAULT NULL,
   `date_create` datetime DEFAULT NULL,
   `subj` varchar(512) DEFAULT NULL,
-  `msg` varchar(1024) DEFAULT NULL,
+  `msg` longtext DEFAULT NULL,
   `client_id` int(11) DEFAULT NULL,
   `unit_id` int(11) DEFAULT NULL,
   `status` int(11) DEFAULT '0',
