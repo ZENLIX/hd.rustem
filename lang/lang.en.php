@@ -14,6 +14,7 @@ function lang ($phrase) {
 'DASHBOARD_last_help' => 'Last of the Knowledge Center',
 'DASHBOARD_author' => 'Author',
 'DASHBOARD_last_in' => 'Last inbound claims',
+ 'APPROVED_info' => 'This section contains a query system users to change information about the client (user).',
 'NEW_title' => 'Create a new request',
 'NEW_ok' => 'The Ticket was successfully created!',
 'NEW_ok_1' => 'You can',
