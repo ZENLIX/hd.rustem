@@ -2673,8 +2673,33 @@ if ($mode == "edit_user") {
             
             if (strlen($_POST['pass'])>1) {
                 $p=md5($_POST['pass']);
-                $stmt = $dbConnection->prepare('update users set fio=:fio, login=:login,pass=:pass status=:status, priv=:priv, unit=:unit, email=:mail, messages=:mess, lang=:lang, priv_add_client=:priv_add_client,priv_edit_client=:priv_edit_client  where id=:usid');
-                $stmt->execute(array(':fio'=>$fio, ':login'=>$login, ':status'=>$status, ':priv'=>$priv, ':unit'=>$unit, ':mail'=>$mail, ':mess'=>$mess, ':lang'=>$lang, ':usid'=>$usid, ':pass'=>$pass,':priv_add_client'=>$priv_add_client,':priv_edit_client'=>$priv_edit_client));
+                
+                $stmt = $dbConnection->prepare('update users set 
+                fio=:fio, 
+                login=:login,
+                pass=:pass,
+                status=:status, 
+                priv=:priv, 
+                unit=:unit, 
+                email=:mail, 
+                messages=:mess, 
+                lang=:lang, 
+                priv_add_client=:priv_add_client,
+                priv_edit_client=:priv_edit_client  
+                where id=:usid');
+                $stmt->execute(array(
+                ':fio'=>$fio, 
+                ':login'=>$login, 
+                ':status'=>$status, 
+                ':priv'=>$priv, 
+                ':unit'=>$unit, 
+                ':mail'=>$mail, 
+                ':mess'=>$mess, 
+                ':lang'=>$lang, 
+                ':usid'=>$usid, 
+                ':pass'=>$p,
+                ':priv_add_client'=>$priv_add_client,
+                ':priv_edit_client'=>$priv_edit_client));
 
             }
             else { $p="";
