@@ -2019,7 +2019,7 @@ console.log(height);
             }
         });
         }
-        else if (er == "true") {
+        else {
 	        console.log('error');
 	        $("html, body").animate({ scrollTop: 0 }, "slow");
         }
