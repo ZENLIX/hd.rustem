@@ -63,7 +63,18 @@ switch ($lang) {
 
 include_once 'lang/'.$lang_file;
 
+function get_conf_param($in) {
+    global $dbConnection;
+    $stmt = $dbConnection->prepare('SELECT value FROM perf where param=:in');
+    $stmt->execute(array(':in' => $in));
+    $fio = $stmt->fetch(PDO::FETCH_ASSOC);
 
+return $fio['value'];
+
+}
+
+
+    $fio_user=$fio['fio'];
 
 function generateRandomString($length = 5) {
     $characters = '0123456789';
@@ -1647,14 +1658,15 @@ function get_total_pages($menu, $id) {
     global $dbConnection;
     $perpage='10';
     
-    
-    
-    
-    if ($menu == "in") {
+        if ($menu == "dashboard") {
 $perpage='10';
+
+
 if (isset($_SESSION['hd.rustem_list_in'])) {
 	      $perpage=  $_SESSION['hd.rustem_list_in'];
         }
+
+
 
         $unit_user=unit_of_user($id);
         $priv_val=priv_status($id);
@@ -1669,7 +1681,79 @@ foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
 
         if ($priv_val == "0") {
         
-        if (isset($_SESSION['hd.rustem_sort_in'])) {
+
+
+           
+
+			$res = $dbConnection->prepare("SELECT count(*) from tickets where unit_id IN (".$in_query.") and arch='0'");
+            $res->execute($vv);
+            $count = $res->fetch(PDO::FETCH_NUM);
+            $count=$count[0];
+
+
+
+
+
+
+        }
+
+
+        else if ($priv_val == "1") {
+
+
+            $res = $dbConnection->prepare("SELECT count(*) from tickets where ((user_to_id=:id and arch='0') or (user_to_id='0' and unit_id IN (".$in_query.") and arch='0'))");
+            
+            $paramss=array(':id' => $id);
+            $res->execute(array_merge($vv,$paramss));
+            $count = $res->fetch(PDO::FETCH_NUM);
+            $count=$count[0];
+
+
+
+
+        }
+        else if ($priv_val == "2") {
+
+
+            $res = $dbConnection->prepare("SELECT count(*) from tickets where arch='0'");
+            $res->execute();
+            $count = $res->fetch(PDO::FETCH_NUM);
+            $count=$count[0];
+
+
+
+
+        }
+
+
+
+    }
+    
+    
+    if ($menu == "in") {
+$perpage='10';
+
+
+if (isset($_SESSION['hd.rustem_list_in'])) {
+	      $perpage=  $_SESSION['hd.rustem_list_in'];
+        }
+
+
+
+        $unit_user=unit_of_user($id);
+        $priv_val=priv_status($id);
+        $units = explode(",", $unit_user);
+        $units = implode("', '", $units);
+
+
+$ee=explode(",", $unit_user);
+foreach($ee as $key=>$value) {$in_query = $in_query . ' :val_' . $key . ', '; }
+$in_query = substr($in_query, 0, -2);
+foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
+
+        if ($priv_val == "0") {
+        
+        if (isset($_SESSION['hd.rustem_sort_in']) ) {
 	if ($_SESSION['hd.rustem_sort_in'] == "ok"){			
 			$res = $dbConnection->prepare("SELECT count(*) from tickets where unit_id IN (".$in_query.") and arch='0' and status=:s");
 			$paramss=array(':s'=>'1');
@@ -1703,7 +1787,7 @@ foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
 	}
 }
 
-if (!isset($_SESSION['hd.rustem_sort_in'])) {            
+		if (!isset($_SESSION['hd.rustem_sort_in'])) {            
 
 			$res = $dbConnection->prepare("SELECT count(*) from tickets where unit_id IN (".$in_query.") and arch='0'");
             $res->execute($vv);

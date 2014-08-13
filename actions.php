@@ -977,7 +977,7 @@ foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
 
 
 
-            $aha=get_total_pages('in', $user_id);
+            $aha=get_total_pages('dashboard', $user_id);
             if ($aha == "0") {
 
                 ?>
