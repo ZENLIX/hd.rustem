@@ -1979,28 +1979,7 @@ console.log(height);
 		if ($("#login_user").val().length < 3) {
 			$("#errors").val('true');
 			$("#login_user_grp").addClass('has-error');
-						$.ajax({
-            type: "POST",
-            dataType: "json",
-            url: ACTIONPATH,
-            data: "mode=check_login"+
-            "&login="+$(this).val(),
-			            success: function(html) {
-									$.each(html, function(i, item) {
-                                        if (item.check_login_status == true) { 
-	                                                    $("#login_user_grp").removeClass('has-error').addClass('has-success');
-														$("#errors").val('false');
-                                        }
-                                        else if (item.check_login_status == false) {
-	                                                  $("#login_user_grp").addClass('has-error');
-													  $("#errors").val('true');
-                                        }
-                                        }
-                                        );
-                //console.log(html);
-}
-            
-        });
+
 		}
 		
 		var er=$("#errors").val();
@@ -2027,8 +2006,9 @@ console.log(height);
             }
         });
         }
-        else {
+        else if (er == "true") {
 	        console.log('error');
+	        $("html, body").animate({ scrollTop: 0 }, "slow");
         }
     });
 
