@@ -33,10 +33,12 @@ if (validate_admin($_SESSION['helpdesk_user_id'])) {
 
       
       <div class="col-md-3">
-      <div class="alert alert-info" role="alert"><i class="fa fa-info-circle"></i> 
+      <div class="alert alert-info" role="alert">
+      <small>
+      <i class="fa fa-info-circle"></i> 
 	      
 <?=lang('POSADA_info');?>
-	      
+      </small>
       </div>
       </div>
 

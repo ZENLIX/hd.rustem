@@ -68,9 +68,16 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
             if ($o == true) {
                 ?>
 
+<div class="col-md-3">
+      <div class="alert alert-info" role="alert">
+	     <small> <i class="fa fa-info-circle"></i> 
+<?=lang('WORKERS_info');?>
+	     </small>
+      </div>
+      </div>
 
 
-                <div class="col-md-12" id="content_worker">
+                <div class="col-md-9" id="content_worker">
 
                     <?php
                     $user_id=$_SESSION['helpdesk_user_id'];

@@ -15,6 +15,7 @@ function lang ($phrase) {
 'DASHBOARD_author' => 'Author',
 'DASHBOARD_last_in' => 'Last inbound claims',
  'APPROVED_info' => 'This section contains a query system users to change information about the client (user).',
+  'WORKERS_info' => 'This section contains information about the users (clients), you can find and send the request to change the information. If you have sufficient rights, you can change the information immediately, without asking.',
 'NEW_title' => 'Create a new request',
 'NEW_ok' => 'The Ticket was successfully created!',
 'NEW_ok_1' => 'You can',
