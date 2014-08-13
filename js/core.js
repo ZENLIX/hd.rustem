@@ -1,3 +1,4 @@
+var my_errors = {fio: false, login: false, pass: false};
 $(document).ready(function() {
 
 
@@ -1906,10 +1907,11 @@ console.log(height);
 
 
         $("input#login_user").keyup(function() {
-        if($(this).val().length > 1) {
+        if($(this).val().length > 3) {
             
             $("#login_user_grp").removeClass('has-error').addClass('has-success');
-			$("#errors").val('false');
+			//$("#errors").val('false');
+			my_errors.login = false;
 			
 			$.ajax({
             type: "POST",
@@ -1921,11 +1923,13 @@ console.log(height);
 									$.each(html, function(i, item) {
                                         if (item.check_login_status == true) { 
 	                                                    $("#login_user_grp").removeClass('has-error').addClass('has-success');
-														$("#errors").val('false');
+														//$("#errors").val('false');
+														my_errors.login = false;
                                         }
                                         else if (item.check_login_status == false) {
 	                                                  $("#login_user_grp").addClass('has-error');
-													  $("#errors").val('true');
+													  //$("#errors").val('true');
+													  my_errors.login = true;
                                         }
                                         }
                                         );
@@ -1936,27 +1940,32 @@ console.log(height);
         } else {
             
             $("#login_user_grp").addClass('has-error');
-            $("#errors").val('true');
+            //$("#errors").val('true');
+            my_errors.login = true;
         }
     });
     
         $("input#fio_user").keyup(function() {
         if($(this).val().length > 3) {
-        	$("#errors").val('false');
+        	//$("#errors").val('false');
+        	my_errors.fio = false;
 			$("#fio_user_grp").removeClass('has-error').addClass('has-success');
         }
                else {
-        	$("#errors").val('true');
+        	//$("#errors").val('true');
+        	my_errors.fio = true;
 			$("#fio_user_grp").removeClass('has-success').addClass('has-error');
         }
         });
                 $("input#exampleInputPassword1").keyup(function() {
         if($(this).val().length > 3) {
-        	$("#errors").val('false');
+        	$//("#errors").val('false');
+        	my_errors.pass = false;
 			$("#pass_user_grp").removeClass('has-error').addClass('has-success');
         }
                else {
-        	$("#errors").val('true');
+        	//$("#errors").val('true');
+        	my_errors.pass = true;
 			$("#pass_user_grp").removeClass('has-success').addClass('has-error');
         }
         });
@@ -1967,22 +1976,26 @@ console.log(height);
 		
 		
 		if ($("#fio_user").val().length < 3) {
-			$("#errors").val('true');
+			//$("#errors").val('true');
+			my_errors.fio = true;
 			$("#fio_user_grp").addClass('has-error');
 		}
 		
 		if ($("#exampleInputPassword1").val().length < 3) {
-			$("#errors").val('true');
+			//$("#errors").val('true');
+			my_errors.pass = true;
 			$("#pass_user_grp").addClass('has-error');
 		}
 		
 		if ($("#login_user").val().length < 3) {
-			$("#errors").val('true');
+			//$("#errors").val('true');
+			my_errors.login = true;
 			$("#login_user_grp").addClass('has-error');
 
 		}
 		
-		var er=$("#errors").val();
+		//var er=$("#errors").val();
+		var er = my_errors.login || my_errors.fio || my_errors.pass;
 		if (er == "false") {
 		
         $.ajax({
