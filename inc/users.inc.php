@@ -181,7 +181,6 @@ if (isset($_GET['ok'])) {
 <div class="col-sm-12"><hr></div>
 <div class="col-md-offset-3 col-md-6">
 <center>
-<input type="hidden" id="errors" value="false">
     <button type="submit" id="create_user" class="btn btn-success"><?=lang('USERS_make_create');?></button>
 </center>
 </div>
