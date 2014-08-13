@@ -108,7 +108,14 @@ include_once("head.inc.php");
     }
     // "mod_rewrite module is not enabled";
 ?>
-
+<?php
+    $filename=realpath(dirname(dirname(__FILE__)))."/.htaccess";
+    if (!file_exists($filename)) { ?>
+    <div class="alert alert-danger" role="alert">.htaccess error: <em><?=$filename?></em> file not exist</div>
+    <?php
+    }
+    // "mod_rewrite module is not enabled";
+?>
 <?php
     $filename=realpath(dirname(dirname(__FILE__)))."/upload_files/";
     if (!is_writable($filename)) { ?>
