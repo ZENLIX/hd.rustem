@@ -1048,7 +1048,7 @@ class Parsedown
                 'position' => $matches[0][1],
                 'element' => array(
                     'name' => 'a',
-                    'text' => $url,
+                    'text' => substr($url, 0, 32)."...",
                     'attributes' => array(
                         'href' => $url,
                     ),
