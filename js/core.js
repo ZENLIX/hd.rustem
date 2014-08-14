@@ -338,7 +338,7 @@ makemytime(true);
 
     });
 
-    function createuserslist(unit_id) {
+    function createuserslist(unit_id, target_id) {
 
 
         $.ajax({
@@ -348,17 +348,17 @@ makemytime(true);
                 "&unit="+encodeURIComponent(unit_id),
             dataType: "json",
             success: function(html){
-                $('select#users_do').empty();
+                $('select#'+target_id).empty();
                 if (html) {
                     $.each(html, function(i, item) {
-                        $('select#users_do')
+                        $('select#'+target_id)
                             .append($("<option></option>")
                                 .attr("value",item.co)
                                 .text(item.name));
 
                     });
                 }
-                $('select#users_do').trigger('chosen:updated');
+                $('select#'+target_id).trigger('chosen:updated');
             }
 
         });
@@ -377,7 +377,7 @@ makemytime(true);
             $('#for_to').removeClass('has-error');
             $('#for_to').addClass('has-success');
 
-            createuserslist(i);
+            createuserslist(i, 'users_do');
 
         }
         else {
@@ -2702,12 +2702,13 @@ console.log(height);
 
 
     $("select#t_to").change(function() {
-
+var i=$('select#t_to').val();
         if ( $('select#t_to').val() != 0 ){
 
             $('#t_for_to').popover('hide');
             $('#t_for_to').removeClass('has-error');
             $('#t_for_to').addClass('has-success');
+            createuserslist(i, 't_users_do');
         }
         else {
 
