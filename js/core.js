@@ -2053,7 +2053,7 @@ console.log(height);
 		
 		//var er=$("#errors").val();
 		var er = my_errors.login || my_errors.fio || my_errors.pass;
-		if (er == "false") {
+		if (er == false) {
 		
         $.ajax({
             type: "POST",
