@@ -1843,8 +1843,7 @@ $('body').on('click', 'button#conf_edit_mail', function(event) {
                 "&username="+encodeURIComponent($("#username").val())+
                 "&password="+encodeURIComponent($("#password").val())+
                 "&from="+encodeURIComponent($("#from").val())+
-                "&debug="+encodeURIComponent($("#debug").val())
-                ,
+                "&debug="+encodeURIComponent($("#debug").val()),
             success: function(html) {
 
                 $("#conf_edit_mail_res").hide().html(html).fadeIn(500);
