@@ -43,7 +43,7 @@
 
 
 <!-- FOR UPLOADER -->
-<?php if ($CONF['file_uploads'] == true) { ?>
+<?php if ($CONF['file_uploads'] == "true") { ?>
 <script src="<?=$CONF['hostname']?>js/tmpl.min.js"></script>
 <script src="<?=$CONF['hostname']?>js/load-image.min.js"></script>
 <script src="<?=$CONF['hostname']?>js/canvas-to-blob.min.js"></script>

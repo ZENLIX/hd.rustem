@@ -190,7 +190,7 @@ if (isset($_GET['ok'])) {
 */
 
 
-if ($CONF['fix_subj'] == false) {
+if ($CONF['fix_subj'] == "false") {
 ?>
 
 <div class="control-group" id="for_subj">
@@ -202,7 +202,7 @@ if ($CONF['fix_subj'] == false) {
     </div>
   </div></div></div>
 <?php } 
-	else if ($CONF['fix_subj'] == true) {
+	else if ($CONF['fix_subj'] == "true") {
 ?>
 
 
@@ -265,7 +265,7 @@ if ($CONF['fix_subj'] == false) {
         <div class="help-block"></div></div></div>
 
 
-<?php if ($CONF['file_uploads'] == true) { ?>
+<?php if ($CONF['file_uploads'] == "true") { ?>
 
 <div class="control-group">
     <div class="controls">
