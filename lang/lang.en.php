@@ -1,6 +1,44 @@
 <?php 
 function lang ($phrase) {
 	static $lang = array (
+	
+'CONF_title' => 'System Settings',
+'CONF_mains' => 'General Settings',
+'CONF_name' => 'Name of Organization',
+'CONF_title_org' => 'Title of the system',
+'CONF_url' => 'URL of the system',
+'CONF_2arch' => 'How many days a request to the archive',
+'CONF_2arch_info' => 'For automatic migration of applications to the archive, add a cron-scheduler line:',
+'CONF_f_login' => 'The first input and activation',
+'CONF_f_login_opt_true' => 'Available link',
+'CONF_false' => 'Inactive',
+'CONF_f_login_info' => 'If you already have a user base (or rather their email), each new users will enter email, and if it already is in the database, then it will be sent a password. This eliminates the administrator create a password and activation uchёtok. ',
+'CONF_subj' => 'Topics applications',
+'CONF_fix_list' => 'fixity list',
+'CONF_subj_text' => 'Input field',
+'CONF_subj_info' => 'When creating applications, you can define the fixity of themes or text box that fits the topic name of the application.',
+'CONF_fup' => 'Upload files to the application',
+'CONF_true' => 'active',
+'CONF_fup_info' => 'The ability to attach files to the application.',
+'CONF_act_edit' => 'Edit',
+
+'CONF_mail_name' => 'Mail Settings',
+'CONF_mail_status' => 'Email notifications',
+'CONF_mail_host' => 'Address SMTP-server',
+'CONF_mail_port' => 'Port SMTP-server',
+'CONF_mail_auth' => 'Authorization',
+'CONF_mail_type' => 'Authentication type',
+'CONF_mail_login' => 'Username',
+'CONF_mail_pass' => 'Password',
+'CONF_mail_from' => 'Opravitel',
+'CONF_mail_debug' => 'Debug mode',
+	
+	
+	
+	
+	
+	
+	
 	'LIST_pin' => 'Units',
 	'DASHBOARD_TITLE' => 'Dashboard',
 	'DASHBOARD_ticket_stats' => 'Statistics Tickets',

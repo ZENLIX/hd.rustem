@@ -2,6 +2,18 @@
 //ob_start();
 session_start();
 
+
+include_once("conf.php");
+
+
+if (isset($CONF_DB)) {
+    
+
+
+    
+    
+    
+    
 //include("dbconnect.inc.php");
 include("functions.inc.php");
 
@@ -107,6 +119,7 @@ $url = parse_url($CONF['hostname']);
 	case 'subj': 	include('inc/subj.php');	break;
 	case 'ticket': 	include('inc/ticket.php');	break;
 	case 'userinfo':include('inc/userinfo.php');break;
+	case 'conf':	include('inc/perf.php');	break;
 	case 'print_ticket': include('inc/print_ticket.php');	break;
 	default: include('404.php');
 }	
@@ -119,6 +132,9 @@ $url = parse_url($CONF['hostname']);
 else {
     include("inc/head.inc.php");
     include 'inc/auth.php';
+}
+} else {
+    include "sys/install.php";
 }
 //ob_end_flush();
 ?>

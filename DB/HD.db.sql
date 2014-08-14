@@ -286,6 +286,41 @@ VALUES
 UNLOCK TABLES;
 
 
+DROP TABLE IF EXISTS `perf`;
+
+CREATE TABLE `perf` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `param` varchar(512) NOT NULL DEFAULT '',
+  `value` varchar(512) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+LOCK TABLES `perf` WRITE;
+INSERT INTO `perf` (`id`, `param`, `value`)
+VALUES
+	(1, 'title_header', ' IT корпорация'),
+	(2, 'hostname', 'http://localhost/web/HD.rustem/'),
+	(3, 'mail', 'hd@hd.local'),
+	(4, 'days2arch', '3'),
+	(5, 'name_of_firm', ' IT корпорация'),
+	(6, 'fix_subj', 'true'),
+	(7, 'first_login', 'false'),
+	(8, 'file_uploads', 'true'),
+	(9, 'debug_mode', 'false'),
+	(10, 'mail_active', 'false'),
+	(11, 'mail_host', 'smtp.gmail.com'),
+	(12, 'mail_port', '587'),
+	(13, 'mail_auth', 'true'),
+	(14, 'mail_auth_type', 'ssl'),
+	(15, 'mail_username', 'your_login@gmail.com'),
+	(16, 'mail_password', 'your_pass'),
+	(17, 'mail_from', 'helpdesk'),
+	(18, 'mail_debug', 'false');
+
+UNLOCK TABLES;
+
+
+
+
 # Дамп таблицы users
 # ------------------------------------------------------------
 

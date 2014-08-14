@@ -1595,11 +1595,13 @@ foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
                                     <td style=" width: 30px; "><small class="text-muted"><?=lang('WORKER_total');?>:</small></td>
                                     <td><small class="text-muted"><?php echo $tt; ?></small></td>
                                 </tr>
-
+ <?php if ($tt <> 0) { ?>
                                 <tr>
+                               
                                     <td style=" width: 30px; "><small class="text-muted"><?=lang('WORKER_last');?>:</small></td>
                                     <td><small class="text-muted"><?php echo $lt; ?></small></td>
                                 </tr>
+                                <?php } ?>
                                 </tbody>
                             </table>
                         </div>
@@ -1734,6 +1736,53 @@ foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
         }
 
 
+        if ($mode == "conf_edit_mail") {
+        
+        update_val_by_key("mail_active", $_POST['mail_active']);
+        update_val_by_key("mail_host", $_POST['host']);
+        update_val_by_key("mail_port", $_POST['port']);
+        update_val_by_key("mail_auth", $_POST['auth']);
+        update_val_by_key("mail_auth_type", $_POST['auth_type']);
+        update_val_by_key("mail_username", $_POST['username']);
+		update_val_by_key("mail_password", $_POST['password']);
+		update_val_by_key("mail_from", $_POST['from']);
+		update_val_by_key("mail_debug", $_POST['debug']);
+
+        
+        
+        
+        ?>
+                <div class="alert alert-success">
+                    <?=lang('PROFILE_msg_ok');?>
+                </div>
+        <?php
+        
+        }
+
+
+        if ($mode == "conf_edit_main") {
+        
+        update_val_by_key("name_of_firm", $_POST['name_of_firm']);
+        update_val_by_key("title_header", $_POST['title_header']);
+        update_val_by_key("hostname", $_POST['hostname']);
+        update_val_by_key("days2arch", $_POST['days2arch']);
+        update_val_by_key("first_login", $_POST['first_login']);
+        update_val_by_key("fix_subj", $_POST['fix_subj']);
+        update_val_by_key("file_uploads", $_POST['file_uploads']);
+        
+        
+        
+        ?>
+                <div class="alert alert-success">
+                    <?=lang('PROFILE_msg_ok');?>
+                </div>
+        <?php
+        
+        }
+        
+        
+        
+        
         if ($mode == "edit_profile_main") {
             $l=($_POST['login']);
             $m=($_POST['mail']);

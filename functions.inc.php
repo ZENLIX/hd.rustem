@@ -14,10 +14,43 @@ $dbConnection = new PDO(
 );
 $dbConnection->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 $dbConnection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-if ($CONF['debug_mode'] == false) {
+
+
+
+$CONF = array (
+	'title_header'	=> get_conf_param('title_header'),
+	'hostname'		=> get_conf_param('hostname'),
+	'mail'			=> get_conf_param('mail'),
+	'days2arch'		=> get_conf_param('days2arch'),
+	'name_of_firm'	=> get_conf_param('name_of_firm'),
+	'fix_subj'		=> get_conf_param('fix_subj'),
+	'first_login'	=> get_conf_param('first_login'),
+	'file_uploads'	=> get_conf_param('file_uploads')
+	);
+$CONF_MAIL = array (
+	'active'	=> get_conf_param('mail_active'),
+	'host'		=> get_conf_param('mail_host'),
+	'port'		=> get_conf_param('mail_port'),
+	'auth'		=> get_conf_param('mail_auth'),
+	'auth_type' => get_conf_param('mail_auth_type'),
+	'username'	=> get_conf_param('mail_username'),
+	'password'	=> get_conf_param('mail_password'),
+	'from'		=> get_conf_param('mail_from'),
+	'debug'		=> get_conf_param('mail_debug')
+);
+
+
+if ($CONF_HD['debug_mode'] == false) {
 error_reporting(E_ALL ^ E_NOTICE);
 error_reporting(0);
 }
+
+
+
+
+
+
+
 include_once('inc/mail.inc.php');
 
 
@@ -122,8 +155,12 @@ function validate_alphanumeric_underscore($str)
     return preg_match('/^[a-zA-Z0-9_\.-]+$/',$str);
 }
 
-function update_val_by_key($key, $val) {
+function update_val_by_key($key,$val) {
+    global $dbConnection;
+$stmt = $dbConnection->prepare('update perf set value=:value where param=:param');
+$stmt->execute(array(':value' => $val,':param' => $key));
 
+return true;
 }
 
 function randomPassword() {
@@ -669,7 +706,7 @@ function get_client_info_ticket($id) {
                     <?php }?>
                     </small></td>
             </tr>
-
+<?php if ( $tt <> 0) { ?>
             <tr>
                 <td style=" width: 30px; "><small class="text-muted"><?=lang('WORKER_last');?>:</small></td>
                 <td><small><?php if ($priv_val <> "1") { ?><a target="_blank" href="userinfo?user=<?=$id?>"><?php } ?>
@@ -679,6 +716,7 @@ function get_client_info_ticket($id) {
                 
                 <?php if ($priv_val <> "1") { ?></a><?php } ?></small></td>
             </tr>
+            <?php } ?>
             </tbody>
         </table>
 
@@ -843,7 +881,7 @@ function get_client_info($id) {
                         <?php if ($priv_val <> "1") { ?>
                         <a target="_blank" href="userinfo?user=<?=$id?>"><?php }?><?php echo $tt; ?><?php if ($priv_val <> "1") { ?></a><?php } ?></small></td>
             </tr>
-
+<?php if ( $tt <> 0) { ?>
             <tr>
                 <td style=" width: 30px; "><small class="text-muted"><?=lang('WORKER_last');?>:</small></td>
                 <td><small class="text-muted">
@@ -855,6 +893,7 @@ function get_client_info($id) {
                             
                             <?php if ($priv_val <> "1") { ?></a><?php } ?></small></td>
             </tr>
+            <?php } ?>
             </tbody>
         </table>
 

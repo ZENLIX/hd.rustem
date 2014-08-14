@@ -1801,6 +1801,64 @@ $('body').on('click', 'a#print_t', function() {
         });
     });
 
+//conf_edit_main
+$('body').on('click', 'button#conf_edit_main', function(event) {
+        event.preventDefault();
+
+        $.ajax({
+            type: "POST",
+            url: ACTIONPATH,
+            data: "mode=conf_edit_main"+
+                "&name_of_firm="+encodeURIComponent($("input#name_of_firm").val())+
+                "&title_header="+encodeURIComponent($("input#title_header").val())+
+                "&hostname="+encodeURIComponent($("input#hostname").val())+
+                "&days2arch="+encodeURIComponent($("input#days2arch").val())+
+                "&first_login="+encodeURIComponent($("#first_login").val())+
+                "&fix_subj="+encodeURIComponent($("#fix_subj").val())+
+                "&file_uploads="+encodeURIComponent($("#file_uploads").val()),
+            success: function(html) {
+
+                $("#conf_edit_main_res").hide().html(html).fadeIn(500);
+				setTimeout(function() {$('#conf_edit_main_res').children('.alert').fadeOut(500);}, 3000);
+
+            }
+        });
+    });
+
+
+
+//conf_edit_mail
+$('body').on('click', 'button#conf_edit_mail', function(event) {
+        event.preventDefault();
+
+        $.ajax({
+            type: "POST",
+            url: ACTIONPATH,
+            data: "mode=conf_edit_mail"+
+                "&mail_active="+encodeURIComponent($("#mail_active").val())+
+                "&host="+encodeURIComponent($("#host").val())+
+                "&port="+encodeURIComponent($("#port").val())+
+                "&auth="+encodeURIComponent($("#auth").val())+
+                "&auth_type="+encodeURIComponent($("#auth_type").val())+
+                "&username="+encodeURIComponent($("#username").val())+
+                "&password="+encodeURIComponent($("#password").val())+
+                "&from="+encodeURIComponent($("#from").val())+
+                "&debug="+encodeURIComponent($("#debug").val())
+                ,
+            success: function(html) {
+
+                $("#conf_edit_mail_res").hide().html(html).fadeIn(500);
+				setTimeout(function() {$('#conf_edit_mail_res').children('.alert').fadeOut(500);}, 3000);
+
+            }
+        });
+    });
+
+
+
+
+
+
 
     $('body').on('click', 'button#do_find', function(event) {
         event.preventDefault();
