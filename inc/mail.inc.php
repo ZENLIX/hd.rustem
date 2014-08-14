@@ -358,13 +358,14 @@ $mail->SetFrom($CONF_MAIL['from'], $CONF['name_of_firm']);
 $mail->AddReplyTo($CONF_MAIL['from'], $CONF['name_of_firm']);
 $mail->Subject    = $subject;
 $mail->AltBody    = "To view the message, please use an HTML compatible email viewer!"; 
-if ($CONF_MAIL['debug'] == true) {$mail->SMTPDebug  = 1;}
+
+if ($CONF_MAIL['debug'] == "true") {$mail->SMTPDebug  = 1;}
 $mail->MsgHTML($message);
 $mail->AddAddress($to, "");
 
 $mail->Send();
 
-if ($CONF_MAIL['debug'] == true) {
+if ($CONF_MAIL['debug'] == "true") {
 if(!$mail->Send()) {
   echo "Mailer Error: " . $mail->ErrorInfo;
 } else {
@@ -548,9 +549,9 @@ $mail->AltBody    = "To view the message, please use an HTML compatible email vi
 
 $mail->MsgHTML($message);
 $mail->AddAddress($to, "");
-if ($CONF_MAIL['debug'] == true) {$mail->SMTPDebug  = 1;}
+if ($CONF_MAIL['debug'] == "true") {$mail->SMTPDebug  = 1;}
 $mail->Send();
-if ($CONF_MAIL['debug'] == true) {
+if ($CONF_MAIL['debug'] == "true") {
                 if(!$mail->Send()) {
   echo "Mailer Error: " . $mail->ErrorInfo;
 } else {
@@ -741,10 +742,10 @@ $mail->AltBody    = "To view the message, please use an HTML compatible email vi
 
 $mail->MsgHTML($message);
 $mail->AddAddress($to, "");
-if ($CONF_MAIL['debug'] == true) {$mail->SMTPDebug  = 1;}
+if ($CONF_MAIL['debug'] == "true") {$mail->SMTPDebug  = 1;}
 $mail->Send();
 
-if ($CONF_MAIL['debug'] == true) {
+if ($CONF_MAIL['debug'] == "true") {
 if(!$mail->Send()) {
   echo "Mailer Error: " . $mail->ErrorInfo;
 } else {
