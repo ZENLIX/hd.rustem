@@ -1,6 +1,23 @@
 <?php
 $base = dirname(dirname(__FILE__)); 
-include($base ."/functions.inc.php");
+include($base ."/conf.php");
+date_default_timezone_set('Europe/Kiev');
+function humanTiming_old ($time)
+{
+
+    $time = time() - $time;
+
+    return floor($time/86400);
+}
+$dbConnection = new PDO(
+    'mysql:host='.$CONF_DB['host'].';dbname='.$CONF_DB['db_name'],
+    $CONF_DB['username'],
+    $CONF_DB['password'],
+    array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8")
+);
+$dbConnection->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+$dbConnection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
 /*   
 5 0 * * * /usr/bin/php5 -f /var/www/hd_prod/sys/4cron.php > /var/www/hd_prod/4cron.log 2>&1
 */
