@@ -2788,16 +2788,22 @@ values (:fio, :login, :pass, :one, :priv, :unit, :mail, :mess, :lang, :priv_add_
 
 
         }
-
-
-        if ($mode == "edit_ticket_subj") {
-            $v=($_POST['value']);
-            $pk=($_POST['pk']);
+if ($mode == "save_edit_ticket") {
 
 
 
-            $stmt = $dbConnection->prepare('update tickets set subj=:v, last_edit=now(), last_update=now() where id=:pk');
-            $stmt->execute(array(':v'=>$v, ':pk'=>$pk));
+$t_hash=$_POST['t_hash'];
+$subj=$_POST['subj'];
+$msg=$_POST['msg'];
+
+
+$stmt = $dbConnection->prepare('SELECT id, subj, msg FROM tickets where hash_name=:hn');
+    $stmt->execute(array(':hn' => $t_hash));
+    $fio = $stmt->fetch(PDO::FETCH_ASSOC);
+	$pk = $fio['id'];
+if ($subj != $fio['subj']) {
+	            $stmt = $dbConnection->prepare('update tickets set subj=:v, last_edit=now(), last_update=now() where hash_name=:pk');
+            $stmt->execute(array(':v'=>$subj, ':pk'=>$t_hash));
 
 
             $unow=$_SESSION['helpdesk_user_id'];
@@ -2807,29 +2813,29 @@ values (:fio, :login, :pass, :one, :priv, :unit, :mail, :mess, :lang, :priv_add_
             $stmt = $dbConnection->prepare('INSERT INTO ticket_log (msg, date_op, init_user_id, ticket_id)
 values (:edit_subj, now(), :unow, :pk)');
             $stmt->execute(array(':edit_subj'=>'edit_subj', ':pk'=>$pk,':unow'=>$unow));
-
-        }
-
-        if ($mode == "edit_ticket_msg") {
-            $v=($_POST['value']);
-            $pk=($_POST['pk']);
+}
 
 
 
+if ($msg != $fio['msg']) {
 
-            $stmt = $dbConnection->prepare('update tickets set msg=:v, last_edit=now(), last_update=now() where id=:pk');
-            $stmt->execute(array(':v'=>$v, ':pk'=>$pk));
+ 			$stmt = $dbConnection->prepare('update tickets set msg=:v, last_edit=now(), last_update=now() where hash_name=:pk');
+            $stmt->execute(array(':v'=>$msg, ':pk'=>$t_hash));
 
             $unow=$_SESSION['helpdesk_user_id'];
-
-
 
             $stmt = $dbConnection->prepare('INSERT INTO ticket_log (msg, date_op, init_user_id, ticket_id)
 values (:edit_msg, now(), :unow, :pk)');
             $stmt->execute(array(':edit_msg'=>'edit_msg', ':pk'=>$pk,':unow'=>$unow));
+            
+
+}
+
+}
 
 
-        }
+
+
 
         if ($mode == "view_comment") {
 

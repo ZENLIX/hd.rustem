@@ -386,7 +386,7 @@ $config->set('HTML.Doctype', 'XHTML 1.0 Transitional');
 $config->set('Cache.DefinitionImpl', null);
 $config->set('AutoFormat.RemoveEmpty',true);
 $config->set('AutoFormat.AutoParagraph',true);
-
+//$config->set('URI.DisableExternal', true);
 if ($type  == "no") {
 $config->set('HTML.ForbiddenElements', array( 'p' ) );
 }

@@ -144,6 +144,7 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
             <input type="hidden" id="main_last_new_ticket" value="<?=get_last_ticket_new($_SESSION['helpdesk_user_id']);?>">
             <input type="hidden" id="last_update" value="<?=$row['last_update'];?>">
             <input type="hidden" id="ticket_id" value="<?=$row['id'];?>">
+            <input type="hidden" id="ticket_hash" value="<?=$row['hash_name'];?>">
             <div class="container">
 
             <div class="row">
@@ -219,8 +220,110 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
 <link rel="stylesheet" href="<?=$CONF['hostname']?>/css/ticket_style.css">
 
 
+<?php if (($inituserid_flag == 1) && ($arch == 0)) { ?>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title"><?=lang('P_title');?></h4>
+      </div>
+      <div class="modal-body">
+        
+        
+       <form class="form-horizontal" role="form">
+       
+
+<?php
+
+if ($CONF['fix_subj'] == "false") {
+?>
+
+<div class="control-group" id="for_s">
+    	<div class="controls">
+          <div class="form-group">
+    <label for="subj" class="col-sm-2 control-label"><small><?=lang('NEW_subj');?>: </small></label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control input-sm" name="subj" id="subj" placeholder="<?=lang('NEW_subj');?>">
+    </div>
+  </div></div></div>
+<?php } 
+	else if ($CONF['fix_subj'] == "true") {
+?>
 
 
+
+<div class="control-group" id="for_subj" >
+    <div class="controls">
+        <div class="form-group">
+            <label for="subj" class="col-sm-2 control-label"><small><?=lang('NEW_subj');?>: </small></label>
+            <div class="col-sm-10" style="">
+                <select data-placeholder="<?=lang('NEW_subj_det');?>" class="form-control input-sm" id="subj" name="subj">
+                    <option value="0"></option>
+                    <?php
+
+					
+					
+		$stmts = $dbConnection->prepare('SELECT name FROM subj order by name COLLATE utf8_unicode_ci ASC');
+		$stmts->execute();
+		$res11 = $stmts->fetchAll();                 
+        foreach($res11 as $rows) {
+					$sel_flag="";
+					if ($rows['name'] == $row['subj']) {$sel_flag="selected";}
+                        ?>
+
+                        <option <?=$sel_flag;?> value="<?=$rows['name']?>"><?=$rows['name']?></option>
+
+                    <?php
+
+
+                    }
+
+                    ?>
+
+                </select>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<?php } ?>
+
+
+
+
+
+
+
+  <div class="control-group">
+    <div class="controls">
+        <div class="form-group" id="for_msg">
+            <label for="msg" class="col-sm-2 control-label"><small><?=lang('NEW_MSG');?>:</small></label>
+            <div class="col-sm-10">
+                <textarea data-toggle="popover" data-html="true" data-trigger="manual" data-placement="right" data-content="<small><?=lang('NEW_MSG_msg');?></small>" placeholder="<?=lang('NEW_MSG_ph');?>" class="form-control input-sm animated" name="msg" id="msg" rows="3" required="" data-validation-required-message="Укажите сообщение" aria-invalid="false"><?=$row['msg'];?></textarea>
+            </div>
+        </div>
+        <div class="help-block"></div></div></div>
+       
+       
+       
+       
+       
+       
+       </form> 
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal"><?=lang('TICKET_file_notupload_one');?></button>
+        <button type="button" id="save_edit_ticket" class="btn btn-primary"><?=lang('JS_save');?></button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<?php } ?>
 
             <div class="panel panel-default">
 
@@ -228,16 +331,49 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
                     <tbody>
                     <tr>
                         <td style="width:50px;padding: 8px;border-right: 0px;"><small><strong><?=lang('TICKET_t_subj');?>: </strong></small></td>
-                        <td style="padding: 8px; border-left: 0px;"><?php if (($inituserid_flag == 1) && ($arch == 0)) {?>
+                        <td style="padding: 8px; border-left: 0px; border-right: 0px;"><?php if (($inituserid_flag == 1) && ($arch == 0)) {?>
 
-                            <a href="#" data-pk="<?=$tid?>" data-url="actions.php" id="edit_subj_ticket" data-type="text">
-                                <?php } ?>
+<?php
+if ($CONF['fix_subj'] == "false") {?>
+                            <!--a href="#" data-pk="<?=$tid?>" data-url="actions.php" id="edit_subj_ticket" data-type="text"-->
+                            <?php }
+	                            if ($CONF['fix_subj'] == "true") {
+	                            
+                            ?>
+                            
+                                <?php } } ?>
                                 <?=make_html($row['subj'])?>
-                                <?php if (($inituserid_flag == 1) && ($arch == 0)) {?></a><?php }?> </td>
+                                <?php if (($inituserid_flag == 1) && ($arch == 0)) {?><!--/a--><?php }?> 
+                                
+                               
+                                
+                                
+                                </td>
+                                <td style="width:50px; padding: 8px; border: 0px;">
+                                <!-- Button trigger modal -->
+                           <?php     if (($inituserid_flag == 1) && ($arch == 0)) { ?>
+<button class="btn btn-default btn-xs pull-right" data-toggle="modal" data-target="#myModal">
+  <i class="fa fa-pencil-square-o"></i> <?=lang('P_edit');?>
+</button>
+<?php } ?>
+                                </td>
+                                
+                                
+                                
 
                     </tr>
                     <tr>
-                        <td style=" padding: 20px; " colspan="2"><?php if (($inituserid_flag == 1) && ($arch == 0)) {?><a href="#" data-pk="<?=$tid?>" data-url="actions.php" id="edit_msg_ticket" data-type="textarea"><?php } ?><?=make_html($row['msg'])?><?php if (($inituserid_flag == 1) && ($arch == 0)) {?></a><?php }?> </td>
+                        <td style=" padding: 20px; " colspan="3">
+                        
+                        
+                        <!--p href="#" data-pk="<?=$tid?>" data-url="actions.php" id="edit_msg_ticket" data-type="textarea"-->
+                        
+                        <?=make_html($row['msg'])?>
+                        
+                        
+                        <!--/p-->
+                        
+                         </td>
                     </tr>
                     </tbody>
                 </table>

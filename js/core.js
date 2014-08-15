@@ -2355,21 +2355,32 @@ console.log(height);
         });
     });
 
+    $('body').on('click', 'button#save_edit_ticket', function(event) {
+        event.preventDefault();
+        var s=$('#subj').val(),
+        	m=$('#msg').val(),
+        	t_hash=$('#ticket_hash').val();
+         $.ajax({
+                type: "POST",
+                url: ACTIONPATH,
+                data: "mode=save_edit_ticket"+
+                    "&t_hash="+t_hash+
+                    "&subj="+encodeURIComponent(s)+
+                    "&msg="+encodeURIComponent(m),
+                success: function(html){
+//console.log(html);
+$('#myModal').modal('hide');
+                    //$(elem).removeClass().addClass('success', 1000);
 
 
-    $('#edit_subj_ticket').editable({
-        inputclass: 'input-sm',
-        emptytext: 'пусто',
-        params: {
-            mode: 'edit_ticket_subj'
-        }
-    });
-    $('#edit_msg_ticket').editable({
-        inputclass: 'input-sm',
-        emptytext: 'пусто',
-        params: {
-            mode: 'edit_ticket_msg'}
-    });
+
+                }
+            });
+        
+        
+        });
+
+
 
     $('body').on('click', 'button#action_list_ok', function(event) {
         event.preventDefault();
