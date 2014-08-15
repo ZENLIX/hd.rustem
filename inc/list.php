@@ -264,7 +264,7 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
                     <div class="text-center">
                         
                     
-                        <?php $aha=get_total_pages('in', $user_id); if ($aha > 1) { ?>
+                        
                         <ul id="example_in" class="pagination pagination-sm"></ul>
                         <div class="pull-right">
 	                        
@@ -274,7 +274,7 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
   <button id="list_set_ticket" type="button" class="btn btn-default <?=$ac['20'];?>">20</button>
 </div>
 	                        
-                        </div><?php } ?>
+                        </div>
                     </div></div>
                 
             <?php } ?>
@@ -327,7 +327,7 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
                                         
                 <div class="text-center">
                                                         
-                    <?php $aha=get_total_pages('out', $user_id); if ($aha > 1) { ?><ul id="example_out" class="pagination pagination-sm"></ul>
+                    <ul id="example_out" class="pagination pagination-sm"></ul>
                                             <div class="pull-right">
 	                        
 	                        <div class="btn-group btn-group-xs">
@@ -337,7 +337,7 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
 </div>
 	                        
                         </div>
-                        <?php }?>
+                        
                 </div>
             <?php } ?>
             <?php if (isset($_GET['arch'])) {
@@ -356,14 +356,14 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
                 
                 <div class="text-center">
                                                         <ul id="example_arch" class="pagination pagination-sm"></ul>
-                    <?php $aha=get_total_pages('arch', $user_id); if ($aha > 1) { ?>
+                    
                                             <div class="pull-right">
                                             <div class="btn-group btn-group-xs">
   <button id="list_set_ticket" type="button" class="btn btn-default <?=$ac['10'];?>">10</button>
   <button id="list_set_ticket" type="button" class="btn btn-default <?=$ac['15'];?>">15</button>
   <button id="list_set_ticket" type="button" class="btn btn-default <?=$ac['20'];?>">20</button>
 </div></div>
-<?php }?>
+
 
                 </div>
             <?php } 
