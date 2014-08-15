@@ -4,12 +4,12 @@ function mailtoactivate($login, $mails, $pass) {
 global $CONF, $CONF_MAIL, $dbConnection;
 //global $CONF['hostname'];
     $mfrom_name=lang('MAIL_name');
-    $mfrom_mail=$CONF['mail'];
+    $mfrom_mail=$CONF_MAIL['from'];
     $headers  = 'MIME-Version: 1.0' . "\r\n";
     $headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
     $headers .= "From: =?utf-8?B?".base64_encode($mfrom_name) ."?= <$mfrom_mail>\n";
 
-    'Reply-To: '.$CONF['mail'] . "\r\n" .
+    'Reply-To: '.$CONF_MAIL['from'] . "\r\n" .
     'X-Mailer: PHP/' . phpversion();
     $to      = $mails;
     $subject = lang('MAIL_active');
@@ -99,11 +99,11 @@ global $CONF, $CONF_MAIL, $dbConnection;
     $MAIL_login=lang('login');
     $MAIL_pass=lang('pass');
     $mfrom_name=lang('MAIL_name');
-    $mfrom_mail=$CONF['mail'];
+    $mfrom_mail=$CONF_MAIL['from'];
     $headers  = 'MIME-Version: 1.0' . "\r\n";
     $headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
     $headers .= "From: =?utf-8?B?".base64_encode($mfrom_name) ."?= <$mfrom_mail>\n";
-    'Reply-To: '.$CONF['mail'] . "\r\n" .
+    'Reply-To: '.$CONF_MAIL['from'] . "\r\n" .
     'X-Mailer: PHP/' . phpversion();
     $to      = $CONF['mail'];
     $subject = lang('MAIL_active');
@@ -188,12 +188,12 @@ global $CONF, $CONF_MAIL, $dbConnection;
 	$MAIL_text=lang('MAIL_text');
 	
     $mfrom_name=lang('MAIL_name');
-    $mfrom_mail=$CONF['mail'];
+    $mfrom_mail=$CONF_MAIL['from'];
     $headers  = 'MIME-Version: 1.0' . "\r\n";
     $headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
     $headers .= "From: =?utf-8?B?".base64_encode($mfrom_name) ."?= <$mfrom_mail>\n";
 
-    'Reply-To: '.$CONF['mail'] . "\r\n" .
+    'Reply-To: '.$CONF_MAIL['from'] . "\r\n" .
     'X-Mailer: PHP/' . phpversion();
 
 
