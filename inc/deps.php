@@ -73,7 +73,7 @@ if (validate_admin($_SESSION['helpdesk_user_id'])) {
 		
 		
 		<td><small><center><?=$row['id'];?></center></small></td>
-		<td><small><?=$row['name'];?></small></td>
+		<td><small><a href="#" data-pk="<?=$row['id']?>" data-url="actions.php" id="edit_deps" data-type="text"><?=$row['name'];?></a></small></td>
 <td><small><center><button id="deps_del" type="button" class="btn btn-danger btn-xs" value="<?=$row['id'];?>">del</button></center></small></td>
 		</tr>
 				<?php } ?>

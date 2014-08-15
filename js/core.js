@@ -1604,7 +1604,17 @@ bootbox.confirm(get_lang_param('JS_del'), function(result) {
                 "&id="+ids,
             success: function(html) {
                 $("#content_deps").html(html);
-
+                $('a#edit_deps').each(function(i, e) {
+					
+					$(e).editable({
+        inputclass: 'input-sm',
+        emptytext: 'пусто',
+        params: {
+            mode: 'edit_deps'
+        }
+    });
+					
+					});
             }
         });
             }
@@ -1637,6 +1647,17 @@ bootbox.confirm(get_lang_param('JS_del'), function(result) {
             success: function(html) {
                 $("#content_deps").html(html);
                 $("#deps_text").val('');
+                $('a#edit_deps').each(function(i, e) {
+					
+					$(e).editable({
+        inputclass: 'input-sm',
+        emptytext: 'пусто',
+        params: {
+            mode: 'edit_deps'
+        }
+    });
+					
+					});
             }
         });
 
@@ -2379,8 +2400,26 @@ $('#myModal').modal('hide');
         
         
         });
+$('a#edit_deps').each(function(i, e) {
+					
+					$(e).editable({
+        inputclass: 'input-sm',
+        emptytext: 'пусто',
+        params: {
+            mode: 'edit_deps'
+        }
+    });
+					
+					});
+					
+					
+					
+					
+					
 
+					
 
+    
 
     $('body').on('click', 'button#action_list_ok', function(event) {
         event.preventDefault();

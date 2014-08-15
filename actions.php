@@ -1969,7 +1969,7 @@ foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
 
 
                         <td><small><center><?=$row['id'];?></center></small></td>
-                        <td><small><?=$row['name'];?></small></td>
+                        <td><small><a href="#" data-pk="<?=$row['id']?>" data-url="actions.php" id="edit_deps" data-type="text"><?=$row['name'];?></a></small></td>
                         <td><small><center><button id="deps_del" type="button" class="btn btn-danger btn-xs" value="<?=$row['id'];?>">del</button></center></small></td>
                     </tr>
                 <?php } ?>
@@ -2014,7 +2014,7 @@ foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
 
 
                         <td><small><center><?=$row['id'];?></center></small></td>
-                        <td><small><?=$row['name'];?></small></td>
+                        <td><small><a href="#" data-pk="<?=$row['id']?>" data-url="actions.php" id="edit_deps" data-type="text"><?=$row['name'];?></a></small></td>
                         <td><small><center><button id="deps_del" type="button" class="btn btn-danger btn-xs" value="<?=$row['id'];?>">del</button></center></small></td>
                     </tr>
                 <?php } ?>
@@ -2835,7 +2835,19 @@ values (:edit_msg, now(), :unow, :pk)');
 
 
 
+        if ($mode == "edit_deps") {
+            $v=($_POST['value']);
+            $pk=($_POST['pk']);
 
+
+
+
+            $stmt = $dbConnection->prepare('update deps set name=:v where id=:pk');
+            $stmt->execute(array(':v'=>$v, ':pk'=>$pk));
+
+
+
+        }
 
         if ($mode == "view_comment") {
 
