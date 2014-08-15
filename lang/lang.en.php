@@ -1,7 +1,7 @@
 <?php 
 function lang ($phrase) {
 	static $lang = array (
-	
+	    'CONF_info'=>'This section contains the basic system configuration.',
 'CONF_title' => 'System Settings',
 'CONF_mains' => 'General Settings',
 'CONF_name' => 'Name of Organization',
@@ -34,7 +34,7 @@ function lang ($phrase) {
 'CONF_mail_debug' => 'Debug mode',
  'CONF_mail'=>'E-mail of admin',
 	
-	
+	 'HELPER_info'=>'This section can contain instructions and documentation for solutions to common problems.',
 	
 	
 	

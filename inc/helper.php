@@ -80,10 +80,23 @@ else if (!isset($_GET['h'])) {
 	</div>
 	</div>
      </div>
+     
+     
+     
+     
+     
      <div class="row" id="content_notes" style="padding-bottom: 25px;">
 
-
-<div class="col-md-12" id="help_content">
+<div class="col-md-3">
+      <div class="alert alert-info" role="alert">
+      <small>
+      <i class="fa fa-info-circle"></i> 
+	      
+<?=lang('HELPER_info');?>
+      </small>
+      </div>
+      </div>
+<div class="col-md-9" id="help_content">
 	
 	
 </div>

@@ -1,6 +1,7 @@
 <?php
 function lang($phrase){
     static $lang = array(
+ 'CONF_info'=>'В данном разделе содержатся основные настройки системы.',
  'CONF_mail'=>'E-mail администратора',
  'CONF_title'=>'Настройки системы',   
  'CONF_mains'=>'Общие настройки',   
@@ -33,7 +34,7 @@ function lang($phrase){
  'CONF_mail_from'=>'Оправитель',     
  'CONF_mail_debug'=>'Режим отладки',      
   
- 
+ 'HELPER_info'=>'В данном разделе могут содержаться инструкции и документация для решения типичных проблем.',
  'NAVBAR_conf'=>'Настройки системы',  
  'DASHBOARD_TITLE'=>'Панель приборов',
  'DASHBOARD_ticket_stats'=>'Статистика заявок',
