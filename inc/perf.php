@@ -50,6 +50,14 @@ if (validate_admin($_SESSION['helpdesk_user_id'])) {
     </div>
   </div>  
   
+    <div class="form-group">
+    <label for="mail" class="col-sm-4 control-label"><small><?=lang('CONF_mail');?></small></label>
+    <div class="col-sm-8">
+      <input type="text" class="form-control input-sm" id="mail" placeholder="<?=lang('CONF_mail');?>" value="<?=get_conf_param('mail');?>">
+    </div>
+  </div>
+  
+  
   
   <div class="form-group">
     <label for="title_header" class="col-sm-4 control-label"><small><?=lang('CONF_title_org');?></small></label>

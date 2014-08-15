@@ -1,7 +1,7 @@
 <?php
 function lang($phrase){
     static $lang = array(
-    
+ 'CONF_mail'=>'E-mail администратора',
  'CONF_title'=>'Настройки системы',   
  'CONF_mains'=>'Общие настройки',   
  'CONF_name'=>'Название организации',     

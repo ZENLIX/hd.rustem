@@ -1846,6 +1846,7 @@ $('body').on('click', 'button#conf_edit_main', function(event) {
                 "&name_of_firm="+encodeURIComponent($("input#name_of_firm").val())+
                 "&title_header="+encodeURIComponent($("input#title_header").val())+
                 "&hostname="+encodeURIComponent($("input#hostname").val())+
+                "&mail="+encodeURIComponent($("input#mail").val())+
                 "&days2arch="+encodeURIComponent($("input#days2arch").val())+
                 "&first_login="+encodeURIComponent($("#first_login").val())+
                 "&fix_subj="+encodeURIComponent($("#fix_subj").val())+

@@ -2,7 +2,7 @@
 function lang($phrase){
     static $lang = array(
     
-    
+     'CONF_mail'=>'E-mail адміністратора',
 'CONF_title' => 'Налаштування системи',
 'CONF_mains' => 'Загальні настройки',
 'CONF_name' => 'Назва організації',

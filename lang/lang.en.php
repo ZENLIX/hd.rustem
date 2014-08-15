@@ -32,7 +32,7 @@ function lang ($phrase) {
 'CONF_mail_pass' => 'Password',
 'CONF_mail_from' => 'Opravitel',
 'CONF_mail_debug' => 'Debug mode',
-	
+ 'CONF_mail'=>'E-mail of admin',
 	
 	
 	
