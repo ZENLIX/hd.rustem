@@ -244,7 +244,7 @@ if ($CONF['fix_subj'] == "false") {
           <div class="form-group">
     <label for="subj" class="col-sm-2 control-label"><small><?=lang('NEW_subj');?>: </small></label>
     <div class="col-sm-10">
-      <input type="text" class="form-control input-sm" name="subj" id="subj" placeholder="<?=lang('NEW_subj');?>">
+      <input type="text" class="form-control input-sm" name="subj" id="subj" placeholder="<?=lang('NEW_subj');?>" value="<?=$row['subj'];?>">
     </div>
   </div></div></div>
 <?php } 
