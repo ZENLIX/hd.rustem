@@ -416,7 +416,7 @@ function view_comment($tid) {
     
         <div class="timeline-centered">
         <?php
-        $stmt = $dbConnection->prepare('SELECT user_id, comment_text, dt from comments where t_id=:tid order by id ASC');
+        $stmt = $dbConnection->prepare('SELECT user_id, comment_text, dt from comments where t_id=:tid order by dt ASC');
         $stmt->execute(array(':tid' => $tid));
         while ($rews = $stmt->fetch(PDO::FETCH_ASSOC)) { ?>
         
