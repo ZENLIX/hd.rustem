@@ -1,6 +1,9 @@
 <?php 
 function lang ($phrase) {
 	static $lang = array (
+	 'DEPS_off'=>'Currently disabled fixed list of those applications. To enable it,  <a href="./config">go here </a> applications and select the theme "fixity" list.', 
+	 
+	 
 	    'CONF_info'=>'This section contains the basic system configuration.',
 'CONF_title' => 'System Settings',
 'CONF_mains' => 'General Settings',
