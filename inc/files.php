@@ -84,8 +84,8 @@ if (validate_admin($_SESSION['helpdesk_user_id'])) {
 		<td><small><a href="./ticket?<?=$row['ticket_hash']?>">#<?=get_ticket_id_by_hash($row['ticket_hash']);?></a></small></td>
 		<td><small><?=round(($row['file_size']/(1024*1024)),2);?> Mb</small></td>
 <td><small><center>
-<button id="files_del" type="button" class="btn btn-danger btn-xs" value="<?=$row['file_hash'];?>"><i class="fa fa-trash-o"></i> </button>
-<a href="<?=$CONF['hostname'];?>sys/download.php?<?=$row['file_hash'];?>" class="btn btn-success btn-xs"><i class="fa fa-download"></i> </a>
+<button id="files_del" type="button" class="btn btn-danger btn-xs" value="<?=$row['file_hash'];?>" title="<?=lang('FILES_del');?>"><i class="fa fa-trash-o"></i> </button>
+<a href="<?=$CONF['hostname'];?>sys/download.php?<?=$row['file_hash'];?>" class="btn btn-success btn-xs" title="<?=lang('FILES_down');?>"><i class="fa fa-download"></i> </a>
 </center></small></td>
 
 
