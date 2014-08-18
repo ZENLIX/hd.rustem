@@ -56,7 +56,7 @@ if (validate_admin($_SESSION['helpdesk_user_id'])) {
 		
 	
 	
-			$stmt = $dbConnection->prepare('select id, name from deps where id!=:n');
+			$stmt = $dbConnection->prepare('select id, name, status from deps where id!=:n');
 			$stmt->execute(array(':n' => '0'));
 			$res1 = $stmt->fetchAll();
 	
@@ -77,13 +77,25 @@ if (validate_admin($_SESSION['helpdesk_user_id'])) {
 		<?php 
 		
 			foreach($res1 as $row) {
+			
+			$cl="";
+			if ($row['status'] == "0") {$id_action="deps_show"; $icon="<i class=\"fa fa-eye-slash\"></i>"; $cl="active";}
+			if ($row['status'] == "1") {$id_action="deps_hide"; $icon="<i class=\"fa fa-eye\"></i>"; $cl="";}
+			
+			
 		?>
-		<tr id="tr_<?=$row['id'];?>">
+		<tr id="tr_<?=$row['id'];?>" class="<?=$cl;?>">
 		
 		
 		<td><small><center><?=$row['id'];?></center></small></td>
 		<td><small><a href="#" data-pk="<?=$row['id']?>" data-url="actions.php" id="edit_deps" data-type="text"><?=$row['name'];?></a></small></td>
-<td><small><center><button id="deps_del" type="button" class="btn btn-danger btn-xs" value="<?=$row['id'];?>">del</button></center></small></td>
+<td>
+
+<small><center><button id="deps_del" type="button" class="btn btn-danger btn-xs" value="<?=$row['id'];?>">del</button> 
+
+<button id="<?=$id_action;?>" type="button" class="btn btn-default btn-xs" value="<?=$row['id'];?>"><?=$icon;?></button></center></small>
+
+</td>
 		</tr>
 				<?php } ?>
 		

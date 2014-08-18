@@ -80,8 +80,8 @@ if (isset($_GET['ok'])) {
                         while ($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
                         */
                         
-        $stmt = $dbConnection->prepare('SELECT name as label, id as value FROM deps where id !=:n');
-		$stmt->execute(array(':n'=>'0'));
+        $stmt = $dbConnection->prepare('SELECT name as label, id as value FROM deps where id !=:n AND status=:s');
+		$stmt->execute(array(':n'=>'0',':s'=>'1'));
 		$res1 = $stmt->fetchAll();                 
         foreach($res1 as $row) { 
                         
@@ -307,19 +307,6 @@ if ($CONF['fix_subj'] == "false") {
     </div>
 </div>
 
-
-<!--div class="control-group">
-    <div class="controls">
-    <div class="form-group">
-    
-    <label for="" class="col-sm-2 control-label"><small><?=lang('TICKET_file_add');?>:</small></label>
-
-    <div class="col-sm-10">
-        <div id="fileuploader"><?=lang('TICKET_file_upload');?></div>
-    </div>
-    </div>
-</div>
-</div-->
 <?php } ?>
 
 <div class="col-md-2"></div>

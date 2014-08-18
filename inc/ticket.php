@@ -574,8 +574,8 @@ $lo="yes";
                             <?php
 
 
-                            $stmt = $dbConnection->prepare('SELECT name as label, id as value FROM deps where id !=:n');
-                            $stmt->execute(array(':n'=>'0'));
+                            $stmt = $dbConnection->prepare('SELECT name as label, id as value FROM deps where id !=:n AND status=:s');
+                            $stmt->execute(array(':n'=>'0',':s'=>'1'));
                             $res1 = $stmt->fetchAll();
                             foreach($res1 as $row) {
 

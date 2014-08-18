@@ -1197,6 +1197,36 @@ makemytime(true);
         }
     });
 
+    $('body').on('click', 'button#deps_show', function(event) {
+        event.preventDefault();
+        var u=$(this).attr('value');
+        $.ajax({
+            type: "POST",
+            url: ACTIONPATH,
+            data: "mode=deps_show"+
+            "&id="+u,
+            success: function(html) {
+	            window.location = MyHOSTNAME+"deps";
+            }
+            });
+        });
+        
+    $('body').on('click', 'button#deps_hide', function(event) {
+        event.preventDefault();
+                var u=$(this).attr('value');
+                $.ajax({
+            type: "POST",
+            url: ACTIONPATH,
+            data: "mode=deps_hide"+
+            "&id="+u,
+            success: function(html) {
+	            window.location = MyHOSTNAME+"deps";
+            }
+            });
+        });
+        
+        
+
     $('body').on('click', 'button#create_new_help', function(event) {
         event.preventDefault();
 

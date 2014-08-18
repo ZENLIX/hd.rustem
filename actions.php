@@ -622,8 +622,8 @@ $r['p']=$row['id'];
                             <option value="0"><?=lang('HELP_all');?></option>
                             <?php
 
-                            $stmt = $dbConnection->prepare('SELECT name as label, id as value FROM deps where id !=:n');
-                            $stmt->execute(array(':n' => '0'));
+                            $stmt = $dbConnection->prepare('SELECT name as label, id as value FROM deps where id !=:n AND status=:s');
+                            $stmt->execute(array(':n' => '0',':s' => '1'));
                             $result = $stmt->fetchAll();
                             foreach($result as $row) {
 
@@ -1944,7 +1944,7 @@ foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
 
 
 
-            $stmt = $dbConnection->prepare('select id, name from deps where id!=:n');
+            $stmt = $dbConnection->prepare('select id, name, status from deps where id!=:n');
             $stmt->execute(array(':n' => '0'));
             $res1 = $stmt->fetchAll();
             ?>
@@ -1963,14 +1963,20 @@ foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
                 <?php
                 //while ($row = mysql_fetch_assoc($results)) {
                 foreach($res1 as $row) {
-
+$cl="";
+			if ($row['status'] == "0") {$id_action="deps_show"; $icon="<i class=\"fa fa-eye-slash\"></i>"; $cl="active";}
+			if ($row['status'] == "1") {$id_action="deps_hide"; $icon="<i class=\"fa fa-eye\"></i>"; $cl="";}
                     ?>
-                    <tr id="tr_<?=$row['id'];?>">
+                    <tr id="tr_<?=$row['id'];?>" class="<?=$cl;?>">
 
 
                         <td><small><center><?=$row['id'];?></center></small></td>
                         <td><small><a href="#" data-pk="<?=$row['id']?>" data-url="actions.php" id="edit_deps" data-type="text"><?=$row['name'];?></a></small></td>
-                        <td><small><center><button id="deps_del" type="button" class="btn btn-danger btn-xs" value="<?=$row['id'];?>">del</button></center></small></td>
+                        <td><small><center>
+                        <button id="deps_del" type="button" class="btn btn-danger btn-xs" value="<?=$row['id'];?>">del</button>
+                        <button id="<?=$id_action;?>" type="button" class="btn btn-default btn-xs" value="<?=$row['id'];?>"><?=$icon;?></button>
+                        
+                        </center></small></td>
                     </tr>
                 <?php } ?>
 
@@ -2006,7 +2012,7 @@ foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
             $stmt->execute(array(':id' => $id));
 
 
-            $stmt = $dbConnection->prepare('select id, name from deps where id!=:n');
+            $stmt = $dbConnection->prepare('select id, name, status from deps where id!=:n');
             $stmt->execute(array(':n' => '0'));
             $res1 = $stmt->fetchAll();
             ?>
@@ -2025,13 +2031,17 @@ foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
                 <?php
 
                 foreach($res1 as $row) {
+                $cl="";
+			if ($row['status'] == "0") {$id_action="deps_show"; $icon="<i class=\"fa fa-eye-slash\"></i>"; $cl="active";}
+			if ($row['status'] == "1") {$id_action="deps_hide"; $icon="<i class=\"fa fa-eye\"></i>"; $cl="";}
+
                     ?>
-                    <tr id="tr_<?=$row['id'];?>">
+                    <tr id="tr_<?=$row['id'];?>" class="<?=$cl;?>">
 
 
                         <td><small><center><?=$row['id'];?></center></small></td>
                         <td><small><a href="#" data-pk="<?=$row['id']?>" data-url="actions.php" id="edit_deps" data-type="text"><?=$row['name'];?></a></small></td>
-                        <td><small><center><button id="deps_del" type="button" class="btn btn-danger btn-xs" value="<?=$row['id'];?>">del</button></center></small></td>
+                        <td><small><center><button id="deps_del" type="button" class="btn btn-danger btn-xs" value="<?=$row['id'];?>">del</button> <button id="<?=$id_action;?>" type="button" class="btn btn-default btn-xs" value="<?=$row['id'];?>"><?=$icon;?></button></center></small></center></small></td>
                     </tr>
                 <?php } ?>
 
@@ -2863,7 +2873,16 @@ values (:edit_msg, now(), :unow, :pk)');
 
 }
 
-
+        if ($mode == "deps_hide") {
+        $id=($_POST['id']);
+			$stmt = $dbConnection->prepare('update deps set status=:v where id=:id');
+            $stmt->execute(array(':v'=>'0', ':id'=>$id));
+        }
+                if ($mode == "deps_show") {
+        $id=($_POST['id']);
+			$stmt = $dbConnection->prepare('update deps set status=:v where id=:id');
+            $stmt->execute(array(':v'=>'1', ':id'=>$id));
+        }
 
         if ($mode == "edit_deps") {
             $v=($_POST['value']);
