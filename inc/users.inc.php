@@ -245,7 +245,7 @@ if ($_POST['menu'] == 'list' ) {
             <td><small><a value="<?php echo $row['id']; ?>" href="<?php echo $CONF['hostname']; ?>users?edit=<?=$row['id'];?>"><?php echo $row['fio']; ?></a></small></td>
             <td><small><?php echo $row['login']; ?></small></td>
             <td><small><?php echo $priv; ?></small></td>
-            <td><small><span data-toggle="tooltip" data-placement="right" title="<?=$unit;?>"><?=lang('LIST_pin')?><?=count(get_unit_name_return($row['unit'])); ?> </span></small></td>
+            <td><small><span data-toggle="tooltip" data-placement="right" title="<?=$unit;?>"><?=lang('LIST_pin')?> <?=count(get_unit_name_return($row['unit'])); ?> </span></small></td>
           </tr>
         <?php } ?>
        </tbody>
