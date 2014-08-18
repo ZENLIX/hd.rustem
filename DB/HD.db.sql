@@ -76,6 +76,7 @@ DROP TABLE IF EXISTS `deps`;
 CREATE TABLE `deps` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(1024) DEFAULT NULL,
+  `status` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
