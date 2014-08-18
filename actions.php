@@ -1993,7 +1993,7 @@ foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
 			$max = $stmt2->fetch(PDO::FETCH_NUM);
 			$ext=$max[0];
 
-	        unlink("upload_files/".$id.".".$ext);
+	        unlink(realpath(dirname(__FILE__))."/upload_files/".$id.".".$ext);
 	        $stmt = $dbConnection->prepare('delete from files where file_hash=:id');
             $stmt->execute(array(':id' => $id));
         }
