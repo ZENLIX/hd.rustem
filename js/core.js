@@ -1602,7 +1602,7 @@ if (result == true) {
             data: "mode=files_del"+
                 "&id="+ids,
             success: function(html) {
-            
+           
             window.location = MyHOSTNAME+"files";
             
             }

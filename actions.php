@@ -1987,9 +1987,15 @@ foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
         
         if ($mode == "files_del") {
 	        $id=($_POST['id']);
+
+			$stmt2 = $dbConnection->prepare('SELECT file_ext from files where file_hash=:id');
+			$stmt2->execute(array(':id' => $id));
+			$max = $stmt2->fetch(PDO::FETCH_NUM);
+			$ext=$max[0];
+
+	        unlink("upload_files/".$id.".".$ext);
 	        $stmt = $dbConnection->prepare('delete from files where file_hash=:id');
             $stmt->execute(array(':id' => $id));
-	        
         }
         
         
