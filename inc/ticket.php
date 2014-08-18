@@ -389,7 +389,7 @@ if ($CONF['fix_subj'] == "false") {?>
 
                     </tr>
                     <tr>
-                        <td style=" padding: 20px; " colspan="2">
+                        <td style=" padding: 20px; border-top: 1px solid #DDD " colspan="2">
                         
                         
                         <!--p href="#" data-pk="<?=$tid?>" data-url="actions.php" id="edit_msg_ticket" data-type="textarea"-->
