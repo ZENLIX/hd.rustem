@@ -1591,6 +1591,29 @@ bootbox.confirm(get_lang_param('JS_del'), function(result) {
     });
 
 
+    $('body').on('click', 'button#files_del', function(event) {
+        event.preventDefault();
+        var ids=$(this).attr('value');
+bootbox.confirm(get_lang_param('JS_del'), function(result) {
+if (result == true) {
+             $.ajax({
+            type: "POST",
+            url: ACTIONPATH,
+            data: "mode=files_del"+
+                "&id="+ids,
+            success: function(html) {
+            
+            window.location = MyHOSTNAME+"files";
+            
+            }
+            });
+            }
+
+
+});
+
+});
+
 
     $('body').on('click', 'button#deps_del', function(event) {
         event.preventDefault();

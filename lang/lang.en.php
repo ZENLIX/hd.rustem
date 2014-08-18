@@ -1,8 +1,22 @@
 <?php 
 function lang ($phrase) {
 	static $lang = array (
+	
+	'NAVBAR_files'=>'Ticket\' files',  
+
+'FILES_title' => 'Files of applications',
+'FILES_off' => 'Currently disabled downloading files to applications. To activate,  <a href="./config">go here </a> and activate downloading files to the application. ',
+'FILES_info' => 'In this section you can view all the attachments to the applications, as well as remove them.',
+'FILES_name' => 'filename',
+'FILES_ticket' => 'Application',
+'FILES_size' => 'Size',
+
+	
+	
 	 'DEPS_off'=>'Currently disabled fixed list of those applications. To enable it,  <a href="./config">go here </a> applications and select the theme "fixity" list.', 
 	 
+
+
 	 
 	    'CONF_info'=>'This section contains the basic system configuration.',
 'CONF_title' => 'System Settings',
