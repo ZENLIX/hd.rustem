@@ -2403,6 +2403,7 @@ console.log(height);
         event.preventDefault();
         var s=$('#subj').val(),
         	m=$('#msg').val(),
+        	p=$('#prio').val(),
         	t_hash=$('#ticket_hash').val();
          $.ajax({
                 type: "POST",
@@ -2410,6 +2411,7 @@ console.log(height);
                 data: "mode=save_edit_ticket"+
                     "&t_hash="+t_hash+
                     "&subj="+encodeURIComponent(s)+
+                    "&prio="+encodeURIComponent(p)+
                     "&msg="+encodeURIComponent(m),
                 success: function(html){
 //console.log(html);

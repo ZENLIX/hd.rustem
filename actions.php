@@ -2811,12 +2811,26 @@ if ($mode == "save_edit_ticket") {
 $t_hash=$_POST['t_hash'];
 $subj=$_POST['subj'];
 $msg=$_POST['msg'];
+$prio=$_POST['prio'];
 
-
-$stmt = $dbConnection->prepare('SELECT id, subj, msg FROM tickets where hash_name=:hn');
+$stmt = $dbConnection->prepare('SELECT id, subj, msg, prio FROM tickets where hash_name=:hn');
     $stmt->execute(array(':hn' => $t_hash));
     $fio = $stmt->fetch(PDO::FETCH_ASSOC);
 	$pk = $fio['id'];
+	
+if ($prio != $fio['prio']) {
+	            $stmt = $dbConnection->prepare('update tickets set prio=:v, last_edit=now(), last_update=now() where hash_name=:pk');
+            $stmt->execute(array(':v'=>$prio, ':pk'=>$t_hash));
+            $unow=$_SESSION['helpdesk_user_id'];
+             $stmt = $dbConnection->prepare('INSERT INTO ticket_log (msg, date_op, init_user_id, ticket_id)
+values (:edit_subj, now(), :unow, :pk)');
+            $stmt->execute(array(':edit_subj'=>'edit_subj', ':pk'=>$pk,':unow'=>$unow));
+            
+            
+
+}	
+	
+	
 if ($subj != $fio['subj']) {
 	            $stmt = $dbConnection->prepare('update tickets set subj=:v, last_edit=now(), last_update=now() where hash_name=:pk');
             $stmt->execute(array(':v'=>$subj, ':pk'=>$t_hash));

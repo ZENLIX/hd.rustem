@@ -3,7 +3,7 @@ function lang ($phrase) {
 	static $lang = array (
 	
 	'NAVBAR_files'=>'Ticket\' files',  
-
+'T_from'=>'from',
 'FILES_title' => 'Files of applications',
 'FILES_off' => 'Currently disabled downloading files to applications. To activate,  <a href="./config">go here </a> and activate downloading files to the application. ',
 'FILES_info' => 'In this section you can view all the attachments to the applications, as well as remove them.',

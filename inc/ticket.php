@@ -69,7 +69,7 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
                 $to_text="<div class=''>".name_of_user_ret($row['user_to_id'])."</div>";
             }
             if ($row['user_to_id'] == 0 ) {
-                $to_text="<strong>".lang('t_list_a_all')."</strong> з ".view_array(get_unit_name_return($row['unit_id']));
+                $to_text="<strong>".lang('t_list_a_all')."</strong> ".lang('T_from')." ".view_array(get_unit_name_return($row['unit_id']));
             }
 
 
@@ -131,16 +131,18 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
 
 
             $prio="<span class=\"label label-info\"><i class=\"fa fa-minus\"></i> ".lang('t_list_a_p_norm')."</span>";
+            if ($row['prio'] == "1") {
+            $prio_style['normal']="active";}
 
-            if ($row['prio'] == "0") {$prio= "<span class=\"label label-primary\"><i class=\"fa fa-arrow-down\"></i> ".lang('t_list_a_p_low')."</span>"; }
+            else if ($row['prio'] == "0") {$prio= "<span class=\"label label-primary\"><i class=\"fa fa-arrow-down\"></i> ".lang('t_list_a_p_low')."</span>"; $prio_style['low']="active";}
 
-            if ($row['prio'] == "2") {$prio= "<span class=\"label label-danger\"><i class=\"fa fa-arrow-up\"></i> ".lang('t_list_a_p_high')."</span>"; }
+            else if ($row['prio'] == "2") {$prio= "<span class=\"label label-danger\"><i class=\"fa fa-arrow-up\"></i> ".lang('t_list_a_p_high')."</span>"; $prio_style['high']="active";}
 
 
 
 
             ?>
-
+<input type="hidden" id="prio" value="<?=$row['prio'];?>">
             <input type="hidden" id="main_last_new_ticket" value="<?=get_last_ticket_new($_SESSION['helpdesk_user_id']);?>">
             <input type="hidden" id="last_update" value="<?=$row['last_update'];?>">
             <input type="hidden" id="ticket_id" value="<?=$row['id'];?>">
@@ -166,6 +168,13 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
     		</td>
     		<td style="width:600px;text-align:right;">
    	<button id="print_now" href="print_ticket?<?php echo $row['hash_name']; ?>"target="_blank" class="btn btn-default btn-xs"><i class="fa fa-print"></i> <?=lang('HELPER_print');?></button>
+   	<?php     if (($inituserid_flag == 1) && ($arch == 0)) { ?>
+<button class="btn btn-default btn-xs pull-right" data-toggle="modal" data-target="#myModal">
+  <i class="fa fa-pencil-square-o"></i> <?=lang('P_edit');?>
+</button>
+<?php } ?>
+
+
    		</td>
     		</tr>
    		</table>
@@ -215,8 +224,6 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
 
 
 
-
-
 <link rel="stylesheet" href="<?=$CONF['hostname']?>/css/ticket_style.css">
 
 
@@ -233,6 +240,32 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
         
        <form class="form-horizontal" role="form">
        
+
+
+
+<div class="control-group" id="for_prio">
+    <div class="controls">
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label"><small><?=lang('NEW_prio');?>: </small></label>
+            <div class="col-sm-10" style=" padding-top: 5px; ">
+
+                <div class="btn-group btn-group-justified">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary btn-xs <?=$prio_style['low'];?>" id="prio_low"><i id="lprio_low" class=""></i><?=lang('NEW_prio_low');?></button>
+                    </div>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-info btn-xs <?=$prio_style['normal'];?>" id="prio_normal"><i id="lprio_norm" class=""></i> <?=lang('NEW_prio_norm');?></button>
+                    </div>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-danger btn-xs <?=$prio_style['high'];?>" data-toggle="tooltip" data-placement="top" title="<?=lang('NEW_prio_high_desc');?>" id="prio_high"><i id="lprio_high" class=""></i><?=lang('NEW_prio_high');?></button>
+                    </div>
+                </div>
+            </div></div></div></div>
+            
+            
+
+
+
 
 <?php
 
@@ -349,21 +382,14 @@ if ($CONF['fix_subj'] == "false") {?>
                                 
                                 
                                 </td>
-                                <td style="width:50px; padding: 8px; border: 0px;">
-                                <!-- Button trigger modal -->
-                           <?php     if (($inituserid_flag == 1) && ($arch == 0)) { ?>
-<button class="btn btn-default btn-xs pull-right" data-toggle="modal" data-target="#myModal">
-  <i class="fa fa-pencil-square-o"></i> <?=lang('P_edit');?>
-</button>
-<?php } ?>
-                                </td>
+
                                 
                                 
                                 
 
                     </tr>
                     <tr>
-                        <td style=" padding: 20px; " colspan="3">
+                        <td style=" padding: 20px; " colspan="2">
                         
                         
                         <!--p href="#" data-pk="<?=$tid?>" data-url="actions.php" id="edit_msg_ticket" data-type="textarea"-->
@@ -506,7 +532,7 @@ $lo="yes";
 
 
             ?>
-            <hr>
+            
 
 
             <div class="col-md-12">
