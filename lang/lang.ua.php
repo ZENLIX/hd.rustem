@@ -9,6 +9,8 @@ function lang($phrase){
 'FILES_name' => 'Файл', 
 'FILES_ticket' => 'Заявка', 
 'FILES_size' => 'Розмір',
+'FILES_del'=>'Видалити',
+'FILES_down'=>'Завантажити',
 
 
     
