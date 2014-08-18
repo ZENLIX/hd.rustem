@@ -202,7 +202,7 @@ if ($_POST['menu'] == 'list' ) {
 <div class="panel panel-default">
   <div class="panel-heading"><?=lang('USERS_list');?></div>
   <div class="panel-body">
-  <table class="table table-striped table-bordered">
+  <table class="table table-bordered">
         <thead>
           <tr>
             <th><center><small><?=lang('USERS_uid');?>			</small></center></th>
@@ -236,16 +236,16 @@ if ($_POST['menu'] == 'list' ) {
 	else if ($row['priv'] == "1") {$priv=lang('USERS_p_2');}
 	else if ($row['priv'] == "2") {$priv=lang('USERS_p_3');}
 	
-	if ($statuss == "1") {$r="success";}
+	if ($statuss == "1") {$r="";}
 	if ($statuss != "1") {$r="active";}
 	
 	?>
           <tr class="<?=$r;?>">
-            <td><small><?php echo $row['id']; ?></small></td>
+            <td><small><center><?php echo $row['id']; ?></center></small></td>
             <td><small><a value="<?php echo $row['id']; ?>" href="<?php echo $CONF['hostname']; ?>users?edit=<?=$row['id'];?>"><?php echo $row['fio']; ?></a></small></td>
             <td><small><?php echo $row['login']; ?></small></td>
             <td><small><?php echo $priv; ?></small></td>
-            <td><small><?=$unit?></small></td>
+            <td><small><span data-toggle="tooltip" data-placement="right" title="<?=$unit;?>"><?=lang('LIST_pin')?><?=count(get_unit_name_return($row['unit'])); ?> </span></small></td>
           </tr>
         <?php } ?>
        </tbody>
