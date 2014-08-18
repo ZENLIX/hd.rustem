@@ -32,6 +32,39 @@ if (validate_admin($_SESSION['helpdesk_user_id'])) {
 <?=lang('CONF_info');?>
       </small>
       </div>
+      
+      <div class="alert alert-warning" role="alert">
+      <small>
+      Coding by
+      Y.Snisar (c) 2014<br>
+      <a class="alert-link" href="https://github.com/rustem-art/hd.rustem"><i class="fa fa-github"></i> Rustem-Art on github</a><br>
+      <i class="fa fa-skype"></i> rustem_ck (only for $)
+      <hr>
+      Thanks to
+      <ul>
+      <li>jquery</li>
+      <li>bootstrap</li>
+      <li>jquery-ui</li>
+      <li>jquery.ui.autocomplete</li>
+      <li>bootstrap-editable</li>
+      <li>chosen.jquery</li>
+	  <li>bootstrap-paginator</li>
+	  <li>jquery.autosize</li>
+	  <li>jquery.noty.packaged</li>
+	  <li>ion.sound</li>
+	  <li>jquery.multi-select</li>
+	  <li>moment</li>
+	  <li>daterangepicker</li>
+	  <li>summernote</li>
+	  <li>jquery.titlealert</li>
+	  <li>highcharts</li>
+	  <li>bootbox</li>
+	  <li>jquery.fileupload</li>
+      </ul>
+      </small>
+      </div>
+      
+      
       </div>
 
       <div class="col-md-9" id="content_info">
