@@ -335,7 +335,7 @@ if ($CONF['fix_subj'] == "false") {
         <div class="form-group" id="for_msg">
             <label for="msg" class="col-sm-2 control-label"><small><?=lang('NEW_MSG');?>:</small></label>
             <div class="col-sm-10">
-                <textarea data-toggle="popover" data-html="true" data-trigger="manual" data-placement="right" data-content="<small><?=lang('NEW_MSG_msg');?></small>" placeholder="<?=lang('NEW_MSG_ph');?>" class="form-control input-sm animated" name="msg" id="msg" rows="3" required="" data-validation-required-message="Укажите сообщение" aria-invalid="false"><?=$row['msg'];?></textarea>
+                <textarea data-toggle="popover" data-html="true" data-trigger="manual" data-placement="right" data-content="<small><?=lang('NEW_MSG_msg');?></small>" placeholder="<?=lang('NEW_MSG_ph');?>" class="form-control input-sm animated" name="msg" id="msg_up" rows="3" required="" data-validation-required-message="Укажите сообщение" aria-invalid="false"><?=$row['msg'];?></textarea>
             </div>
         </div>
         <div class="help-block"></div></div></div>

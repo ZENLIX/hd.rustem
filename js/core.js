@@ -2432,7 +2432,7 @@ console.log(height);
     $('body').on('click', 'button#save_edit_ticket', function(event) {
         event.preventDefault();
         var s=$('#subj').val(),
-        	m=$('#msg').val(),
+        	m=$('#msg_up').val(),
         	p=$('#prio').val(),
         	t_hash=$('#ticket_hash').val();
          $.ajax({
