@@ -527,7 +527,10 @@ function validate_user($user_id, $input) {
         $_SESSION['helpdesk_user_login'] = $row['login'];
         $_SESSION['helpdesk_user_fio'] = $row['fio'];
         //$_SESSION['helpdesk_sort_prio'] == "none";
-        if ($dbpass == $input) { return true;}
+        if ($dbpass == $input) { 
+        $stmt = $dbConnection->prepare('UPDATE users SET last_login=NOW(), live=:live WHERE id=:user_id');.
+        $stmt->execute(array(':user_id'=> $user_id,':live'=> 1));
+        	return true;}
         else { return false;}
     }
 }
