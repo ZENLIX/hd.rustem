@@ -21,6 +21,8 @@ include("functions.inc.php");
 
 
 if (isset($_GET['logout'])) {
+	$stmt = $dbConnection->prepare('UPDATE users SET live=:live WHERE id=:user_id');
+        $stmt->execute(array(':user_id'=> $_SESSION['helpdesk_user_id'],':live'=> 0));
     session_destroy();
     unset($_SESSION);
     session_unset();
@@ -121,6 +123,7 @@ $url = parse_url($CONF['hostname']);
 	case 'userinfo':include('inc/userinfo.php');break;
 	case 'config':	include('inc/perf.php');	break;
 	case 'files':	include('inc/files.php');	break;
+	case 'userlive': include('inc/userlive.php'); break;
 	case 'print_ticket': include('inc/print_ticket.php');	break;
 	default: include('404.php');
 }	
