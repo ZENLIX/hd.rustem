@@ -78,6 +78,7 @@ if ($ap == 0) {
                     <!--li <?=echoActiveClassIfRequestMatches("clients.php")?> ><a href="clients.php"><i class="fa fa-users"></i> Клієнти</a></li-->
                     <li <?=echoActiveClassIfRequestMatches("config")?>><a href="<?=$CONF['hostname']?>config"><i class="fa fa-cog"></i> <?=lang('NAVBAR_conf');?></a></li>
                     <li <?=echoActiveClassIfRequestMatches("users")?>><a href="<?=$CONF['hostname']?>users"><i class="fa fa-users"></i> <?=lang('NAVBAR_users');?></a></li>
+                    <li <?=echoActiveClassIfRequestMatches("ueserlive")?>><a href="<?=$CONF['hostname']?>userlive"><i class="fa fa-history"></i> <?=lang('NAVBAR_live');?></a></li>
                     <li <?=echoActiveClassIfRequestMatches("deps")?>><a href="<?=$CONF['hostname']?>deps"><i class="fa fa-sitemap"></i> <?=lang('NAVBAR_deps');?></a></li>
                     
                     <li <?=echoActiveClassIfRequestMatches("files")?>><a href="<?=$CONF['hostname']?>files"><i class="fa fa-files-o"></i>  <?=lang('NAVBAR_files');?></a></li>
