@@ -7,9 +7,12 @@ function lang ($phrase) {
 'FILES_title' => 'Files of applications',
 'FILES_off' => 'Currently disabled downloading files to applications. To activate,  <a href="./config">go here </a> and activate downloading files to the application. ',
 'FILES_info' => 'In this section you can view all the attachments to the applications, as well as remove them.',
-'FILES_name' => 'filename',
+'FILES_name' => 'Filename',
 'FILES_ticket' => 'Application',
 'FILES_size' => 'Size',
+'FILES_del'=>'Delete',
+'FILES_down'=>'Download',
+
 
 	
 	
