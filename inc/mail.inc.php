@@ -1,5 +1,57 @@
 <?php
 include_once('sys/class.phpmailer.php');
+
+
+function send_mail($to,$subj,$msg) {
+	global $CONF, $CONF_MAIL, $dbConnection;
+	
+	
+	if (get_conf_param('mail_type') == "sendmail") {
+	
+	$mail = new PHPMailer(true);
+	$mail->CharSet 	  = 'UTF-8';
+	$mail->IsSendmail();
+
+  $mail->AddReplyTo($CONF_MAIL['from'], $CONF['name_of_firm']);
+  $mail->AddAddress($to, $to);
+  $mail->SetFrom($CONF_MAIL['from'], $CONF['name_of_firm']);
+  $mail->Subject = $subj;
+  $mail->AltBody = 'To view the message, please use an HTML compatible email viewer!'; 
+  $mail->MsgHTML($msg);
+  $mail->Send();
+
+}
+else if (get_conf_param('mail_type') == "SMTP") {
+	
+	
+	$mail = new PHPMailer(true);
+	$mail->CharSet 	  = 'UTF-8';
+	$mail->IsSMTP();
+  $mail->SMTPAuth   = $CONF_MAIL['auth'];                  // enable SMTP authentication
+if (get_conf_param('mail_auth_type') != "none") 
+	{	
+		$mail->SMTPSecure = $CONF_MAIL['auth_type'];
+	}
+$mail->Host       = $CONF_MAIL['host']; 
+$mail->Port       = $CONF_MAIL['port'];                  
+$mail->Username   = $CONF_MAIL['username'];
+$mail->Password   = $CONF_MAIL['password'];   $mail->AddReplyTo('info@rustem.com.ua', 'First Last');
+  $mail->AddReplyTo($CONF_MAIL['from'], $CONF['name_of_firm']);
+  $mail->AddAddress($to, $to);
+  $mail->SetFrom($CONF_MAIL['from'], $CONF['name_of_firm']);
+  $mail->Subject = $subj;
+  $mail->AltBody = 'To view the message, please use an HTML compatible email viewer!'; // optional - MsgHTML will create an alternate automatically
+  $mail->MsgHTML($msg);
+  $mail->Send();
+
+
+	
+	
+}
+}
+
+
+
 function mailtoactivate($login, $mails, $pass) {
 global $CONF, $CONF_MAIL, $dbConnection;
 //global $CONF['hostname'];
@@ -60,26 +112,9 @@ EOBODY;
 
 
 
-    //mail($to, "=?utf-8?B?".base64_encode($subject)."?=", $message, $headers);
-$mail             = new PHPMailer();
-$mail->CharSet 	  = 'UTF-8';
-$mail->IsSMTP();
 
-$mail->SMTPAuth   = $CONF_MAIL['auth']; 
-$mail->SMTPSecure = $CONF_MAIL['auth_type'];
-$mail->Host       = $CONF_MAIL['host']; 
-$mail->Port       = $CONF_MAIL['port'];                  
-$mail->Username   = $CONF_MAIL['username'];
-$mail->Password   = $CONF_MAIL['password']; 
-$mail->SetFrom($CONF_MAIL['from'], $CONF['name_of_firm']);
-$mail->AddReplyTo($CONF_MAIL['from'], $CONF['name_of_firm']);
-$mail->Subject    = $subject;
-$mail->AltBody    = "To view the message, please use an HTML compatible email viewer!"; 
 
-$mail->MsgHTML($message);
-$mail->AddAddress($to, "");
-
-$mail->Send();
+send_mail($to,$subject,$message);
 
 
 }
@@ -147,26 +182,12 @@ EOBODY;
 
 
 
-    //mail($to, "=?utf-8?B?".base64_encode($subject)."?=", $message, $headers);
-    $mail             = new PHPMailer();
-$mail->CharSet 	  = 'UTF-8';
-$mail->IsSMTP();
 
-$mail->SMTPAuth   = $CONF_MAIL['auth']; 
-$mail->SMTPSecure = $CONF_MAIL['auth_type'];
-$mail->Host       = $CONF_MAIL['host']; 
-$mail->Port       = $CONF_MAIL['port'];                  
-$mail->Username   = $CONF_MAIL['username'];
-$mail->Password   = $CONF_MAIL['password']; 
-$mail->SetFrom($CONF_MAIL['from'], $CONF['name_of_firm']);
-$mail->AddReplyTo($CONF_MAIL['from'], $CONF['name_of_firm']);
-$mail->Subject    = $subject;
-$mail->AltBody    = "To view the message, please use an HTML compatible email viewer!"; 
 
-$mail->MsgHTML($message);
-$mail->AddAddress($to, "");
 
-$mail->Send();
+send_mail($to,$subject,$message);
+
+
 
 }
 function send_mail_to($type,$tid) {
@@ -344,34 +365,13 @@ EOBODY;
 
 
 
-$mail             = new PHPMailer();
-$mail->CharSet 	  = 'UTF-8';
-$mail->IsSMTP();
 
-$mail->SMTPAuth   = $CONF_MAIL['auth']; 
-$mail->SMTPSecure = $CONF_MAIL['auth_type']; 
-$mail->Host       = $CONF_MAIL['host']; 
-$mail->Port       = $CONF_MAIL['port'];                  
-$mail->Username   = $CONF_MAIL['username'];
-$mail->Password   = $CONF_MAIL['password']; 
-$mail->SetFrom($CONF_MAIL['from'], $CONF['name_of_firm']);
-$mail->AddReplyTo($CONF_MAIL['from'], $CONF['name_of_firm']);
-$mail->Subject    = $subject;
-$mail->AltBody    = "To view the message, please use an HTML compatible email viewer!"; 
 
-if ($CONF_MAIL['debug'] == "true") {$mail->SMTPDebug  = 1;}
-$mail->MsgHTML($message);
-$mail->AddAddress($to, "");
 
-$mail->Send();
 
-if ($CONF_MAIL['debug'] == "true") {
-if(!$mail->Send()) {
-  echo "Mailer Error: " . $mail->ErrorInfo;
-} else {
-  echo "Message sent!";
-}
-}
+
+
+send_mail($to,$subject,$message);
 
 
                 
@@ -532,32 +532,15 @@ EOBODY;
 
 
 
-                $mail             = new PHPMailer();
-$mail->CharSet 	  = 'UTF-8';
-$mail->IsSMTP();
 
-$mail->SMTPAuth   = $CONF_MAIL['auth']; 
-$mail->SMTPSecure = $CONF_MAIL['auth_type']; 
-$mail->Host       = $CONF_MAIL['host']; 
-$mail->Port       = $CONF_MAIL['port'];                  
-$mail->Username   = $CONF_MAIL['username'];
-$mail->Password   = $CONF_MAIL['password']; 
-$mail->SetFrom($CONF_MAIL['from'], $CONF['name_of_firm']);
-$mail->AddReplyTo($CONF_MAIL['from'], $CONF['name_of_firm']);
-$mail->Subject    = $subject;
-$mail->AltBody    = "To view the message, please use an HTML compatible email viewer!"; 
 
-$mail->MsgHTML($message);
-$mail->AddAddress($to, "");
-if ($CONF_MAIL['debug'] == "true") {$mail->SMTPDebug  = 1;}
-$mail->Send();
-if ($CONF_MAIL['debug'] == "true") {
-                if(!$mail->Send()) {
-  echo "Mailer Error: " . $mail->ErrorInfo;
-} else {
-  echo "Message sent!";
-}
-}
+
+
+
+
+
+
+send_mail($to,$subject,$message);
             }
 
 							}
@@ -725,33 +708,11 @@ EOBODY;
 
 
 
-                $mail             = new PHPMailer();
-$mail->CharSet 	  = 'UTF-8';
-$mail->IsSMTP();
+    
 
-$mail->SMTPAuth   = $CONF_MAIL['auth']; 
-$mail->SMTPSecure = $CONF_MAIL['auth_type']; 
-$mail->Host       = $CONF_MAIL['host']; 
-$mail->Port       = $CONF_MAIL['port'];                  
-$mail->Username   = $CONF_MAIL['username'];
-$mail->Password   = $CONF_MAIL['password']; 
-$mail->SetFrom($CONF_MAIL['from'], $CONF['name_of_firm']);
-$mail->AddReplyTo($CONF_MAIL['from'], $CONF['name_of_firm']);
-$mail->Subject    = $subject;
-$mail->AltBody    = "To view the message, please use an HTML compatible email viewer!"; 
+send_mail($to,$subject,$message);
 
-$mail->MsgHTML($message);
-$mail->AddAddress($to, "");
-if ($CONF_MAIL['debug'] == "true") {$mail->SMTPDebug  = 1;}
-$mail->Send();
-
-if ($CONF_MAIL['debug'] == "true") {
-if(!$mail->Send()) {
-  echo "Mailer Error: " . $mail->ErrorInfo;
-} else {
-  echo "Message sent!";
-}
-}            }
+        }
         }
 
 

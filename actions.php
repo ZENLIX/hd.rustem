@@ -1737,7 +1737,7 @@ foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
 
 
         if ($mode == "conf_edit_mail") {
-        
+        update_val_by_key("mail_type", $_POST['type']);
         update_val_by_key("mail_active", $_POST['mail_active']);
         update_val_by_key("mail_host", $_POST['host']);
         update_val_by_key("mail_port", $_POST['port']);
@@ -1746,7 +1746,7 @@ foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
         update_val_by_key("mail_username", $_POST['username']);
 		update_val_by_key("mail_password", $_POST['password']);
 		update_val_by_key("mail_from", $_POST['from']);
-		update_val_by_key("mail_debug", $_POST['debug']);
+		//update_val_by_key("mail_debug", $_POST['debug']);
 
         
         
@@ -2950,7 +2950,80 @@ values (:comment, now(), :user_comment, :tid_comment)');
 
 
         }
+        if ($mode == "conf_test_mail") {
+			
+			
+/*
 
+if (get_conf_param('mail_auth_type') != "none") 
+	{	
+		$mail->SMTPSecure = $CONF_MAIL['auth_type'];
+	}
+
+
+sendmail?
+SMTP?
+
+*/			
+if (get_conf_param('mail_type') == "sendmail") {
+	$mail = new PHPMailer(true);
+	$mail->IsSendmail(); // telling the class to use SendMail transport
+
+try {
+  $mail->AddReplyTo($CONF_MAIL['from'], $CONF['name_of_firm']);
+  $mail->AddAddress($CONF['mail'], 'admin helpdesk');
+  $mail->SetFrom($CONF_MAIL['from'], $CONF['name_of_firm']);
+  $mail->Subject = 'test message';
+  $mail->AltBody = 'To view the message, please use an HTML compatible email viewer!'; // optional - MsgHTML will create an alternate automatically
+  $mail->MsgHTML('Test message via sendmail');
+  $mail->Send();
+  echo "Message Sent OK<p></p>\n";
+} catch (phpmailerException $e) {
+  echo $e->errorMessage(); //Pretty error messages from PHPMailer
+} catch (Exception $e) {
+  echo $e->getMessage(); //Boring error messages from anything else!
+}
+}
+else if (get_conf_param('mail_type') == "SMTP") {
+	
+	
+	$mail = new PHPMailer(true); // the true param means it will throw exceptions on errors, which we need to catch
+
+$mail->IsSMTP(); // telling the class to use SMTP
+
+try {
+  $mail->SMTPDebug  = 2;                     // enables SMTP debug information (for testing)
+  $mail->SMTPAuth   = $CONF_MAIL['auth'];                  // enable SMTP authentication
+if (get_conf_param('mail_auth_type') != "none") 
+	{	
+		$mail->SMTPSecure = $CONF_MAIL['auth_type'];
+	}
+$mail->Host       = $CONF_MAIL['host']; 
+$mail->Port       = $CONF_MAIL['port'];                  
+$mail->Username   = $CONF_MAIL['username'];
+$mail->Password   = $CONF_MAIL['password'];   $mail->AddReplyTo('info@rustem.com.ua', 'First Last');
+  $mail->AddReplyTo($CONF_MAIL['from'], $CONF['name_of_firm']);
+  $mail->AddAddress($CONF['mail'], 'admin helpdesk');
+  $mail->SetFrom($CONF_MAIL['from'], $CONF['name_of_firm']);
+  $mail->Subject = 'test message via smtp';
+  $mail->AltBody = 'To view the message, please use an HTML compatible email viewer!'; // optional - MsgHTML will create an alternate automatically
+  $mail->MsgHTML("test message");
+  $mail->Send();
+  echo "Message Sent OK<p></p>\n";
+} catch (phpmailerException $e) {
+  echo $e->errorMessage(); //Pretty error messages from PHPMailer
+} catch (Exception $e) {
+  echo $e->getMessage(); //Boring error messages from anything else!
+}
+
+	
+	
+}			
+			
+
+
+        
+        }
         if ($mode == "add_ticket") {
             $type=($_POST['type_add']);
 

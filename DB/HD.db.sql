@@ -315,7 +315,8 @@ VALUES
 	(15, 'mail_username', 'your_login@gmail.com'),
 	(16, 'mail_password', 'your_pass'),
 	(17, 'mail_from', 'helpdesk'),
-	(18, 'mail_debug', 'false');
+	(18, 'mail_debug', 'false'),
+	(19, 'mail_type', 'sendmail');
 
 UNLOCK TABLES;
 

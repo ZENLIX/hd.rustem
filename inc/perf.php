@@ -168,6 +168,23 @@ if (validate_admin($_SESSION['helpdesk_user_id'])) {
   <option value="false" <?php if (get_conf_param('mail_active') == "false") {echo "selected";} ?>><?=lang('CONF_false');?></option>
 </select>    </div>
   </div>
+  
+  <div class="form-group">
+    <label for="from" class="col-sm-4 control-label"><small><?=lang('CONF_mail_from');?></small></label>
+    <div class="col-sm-8">
+      <input type="text" class="form-control input-sm" id="from" placeholder="<?=lang('CONF_mail_from');?>" value="<?=get_conf_param('mail_from')?>">
+    </div>
+  </div>
+      <div class="form-group">
+    <label for="mail_type" class="col-sm-4 control-label"><small><?=lang('CONF_mail_type');?></small></label>
+    <div class="col-sm-8">
+  <select class="form-control input-sm" id="mail_type">
+  <option value="sendmail" <?php if (get_conf_param('mail_type') == "sendmail") {echo "selected";} ?>>sendmail</option>
+  <option value="SMTP" <?php if (get_conf_param('mail_type') == "SMTP") {echo "selected";} ?>>SMTP</option>
+</select>    </div>
+  </div>
+  
+  <div id="smtp_div">
 
     <div class="form-group">
     <label for="host" class="col-sm-4 control-label"><small><?=lang('CONF_mail_host');?></small></label>
@@ -196,6 +213,7 @@ if (validate_admin($_SESSION['helpdesk_user_id'])) {
     <label for="auth_type" class="col-sm-4 control-label"><small><?=lang('CONF_mail_type');?></small></label>
     <div class="col-sm-8">
   <select class="form-control input-sm" id="auth_type">
+  <option value="none" <?php if (get_conf_param('mail_auth_type') == "none") {echo "selected";} ?>>no</option>
   <option value="ssl" <?php if (get_conf_param('mail_auth_type') == "ssl") {echo "selected";} ?>>SSL</option>
   <option value="tls" <?php if (get_conf_param('mail_auth_type') == "tls") {echo "selected";} ?>>TLS</option>
 </select>    </div>
@@ -215,28 +233,19 @@ if (validate_admin($_SESSION['helpdesk_user_id'])) {
     </div>
   </div>
   
-      <div class="form-group">
-    <label for="from" class="col-sm-4 control-label"><small><?=lang('CONF_mail_from');?></small></label>
-    <div class="col-sm-8">
-      <input type="text" class="form-control input-sm" id="from" placeholder="<?=lang('CONF_mail_from');?>" value="<?=get_conf_param('mail_from')?>">
-    </div>
   </div>
   
-    <div class="form-group">
-    <label for="debug" class="col-sm-4 control-label"><small><?=lang('CONF_mail_debug');?></small></label>
-    <div class="col-sm-8">
-  <select class="form-control input-sm" id="debug">
-  <option value="true" <?php if (get_conf_param('mail_debug') == "true") {echo "selected";} ?>><?=lang('CONF_true');?></option>
-  <option value="false" <?php if (get_conf_param('mail_debug') == "false") {echo "selected";} ?>><?=lang('CONF_false');?></option>
-</select>    </div>
-  </div>
+
     <div class="col-md-offset-3 col-md-6">
 <center>
     <button type="submit" id="conf_edit_mail" class="btn btn-success"><i class="fa fa-pencil"></i> <?=lang('CONF_act_edit');?></button>
+
 </center>
 </div>
     </form>
+    <button type="submit" id="conf_test_mail" class="btn btn-default btn-sm pull-right"> test</button>
       <div class="col-md-12" id="conf_edit_mail_res"></div>
+      <div class="col-md-12" id="conf_test_mail_res"></div>
   </div>
 </div>
 

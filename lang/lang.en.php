@@ -50,7 +50,7 @@ function lang ($phrase) {
 'CONF_mail_from' => 'Opravitel',
 'CONF_mail_debug' => 'Debug mode',
  'CONF_mail'=>'E-mail of admin',
-	
+	'CONF_mail_type'=>'Type',
 	 'HELPER_info'=>'This section can contain instructions and documentation for solutions to common problems.',
 	
 	

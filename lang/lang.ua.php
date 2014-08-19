@@ -48,6 +48,7 @@ function lang($phrase){
 'CONF_mail_pass' => 'Пароль',
 'CONF_mail_from' => 'Оправітель',
 'CONF_mail_debug' => 'Режим налагодження',
+'CONF_mail_type'=>'Тип',
 'LIST_pin' => 'Відділів',
         'DASHBOARD_TITLE' => 'Панель приладів',
         'DASHBOARD_ticket_stats' => 'Статистика заявок',

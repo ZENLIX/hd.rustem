@@ -36,7 +36,7 @@ $CONF_MAIL = array (
 	'username'	=> get_conf_param('mail_username'),
 	'password'	=> get_conf_param('mail_password'),
 	'from'		=> get_conf_param('mail_from'),
-	'debug'		=> get_conf_param('mail_debug')
+	'debug'		=> 'false'
 );
 
 

@@ -46,6 +46,7 @@ function lang($phrase){
  'CONF_mail_pass'=>'Пароль',     
  'CONF_mail_from'=>'Оправитель',     
  'CONF_mail_debug'=>'Режим отладки',      
+ 'CONF_mail_type'=>'Тип',
   
  'HELPER_info'=>'В данном разделе могут содержаться инструкции и документация для решения типичных проблем.',
  'NAVBAR_conf'=>'Настройки системы',  
