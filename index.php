@@ -121,6 +121,7 @@ $url = parse_url($CONF['hostname']);
 	case 'userinfo':include('inc/userinfo.php');break;
 	case 'config':	include('inc/perf.php');	break;
 	case 'files':	include('inc/files.php');	break;
+	case 'userlive': include('inc/userlive.php'); break;
 	case 'print_ticket': include('inc/print_ticket.php');	break;
 	default: include('404.php');
 }	
