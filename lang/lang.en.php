@@ -2,7 +2,8 @@
 function lang ($phrase) {
 	static $lang = array (
 	
-	'NAVBAR_files'=>'Ticket\' files',  
+	'NAVBAR_files'=>'Ticket\' files', 
+	'NAVBAR_live'=>'Active users',
 'T_from'=>'from',
 'FILES_title' => 'Files of applications',
 'FILES_off' => 'Currently disabled downloading files to applications. To activate,  <a href="./config">go here </a> and activate downloading files to the application. ',
@@ -10,6 +11,13 @@ function lang ($phrase) {
 'FILES_name' => 'filename',
 'FILES_ticket' => 'Application',
 'FILES_size' => 'Size',
+
+'Live_title'=>'Active users',
+'Live_name'=>'Name',
+'Live_status'=>'Status',
+'Live_status_on'=>'On-line',
+'Live_status_off'=>'Off-line',
+'Live_info'=>'In this section, you can view the status of all system users.',
 
 	
 	
