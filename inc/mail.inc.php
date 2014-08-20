@@ -35,7 +35,9 @@ if (get_conf_param('mail_auth_type') != "none")
 $mail->Host       = $CONF_MAIL['host']; 
 $mail->Port       = $CONF_MAIL['port'];                  
 $mail->Username   = $CONF_MAIL['username'];
-$mail->Password   = $CONF_MAIL['password'];   $mail->AddReplyTo('info@rustem.com.ua', 'First Last');
+$mail->Password   = $CONF_MAIL['password'];   
+
+
   $mail->AddReplyTo($CONF_MAIL['from'], $CONF['name_of_firm']);
   $mail->AddAddress($to, $to);
   $mail->SetFrom($CONF_MAIL['from'], $CONF['name_of_firm']);
