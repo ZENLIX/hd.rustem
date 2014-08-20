@@ -3134,7 +3134,7 @@ $('#reset_ticket').prop('disabled', true);
         url: MyHOSTNAME+'sys/index.php',
         autoUpload: true,
         disableValidation: false,
-        acceptFileTypes: p,
+        acceptFileTypes: /(\.|\/)p$/i,
         maxFileSize: $('input#file_size').val(),
         formData: {hashname: $('input#hashname').val()}
 
