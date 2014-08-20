@@ -44,6 +44,7 @@ class UploadHandler
     protected $image_objects = array();
 
     function __construct($options = null, $initialize = true, $error_messages = null) {
+    global $CONF;
         $this->options = array(
             'script_url' => $this->get_full_url().'/',
             'upload_dir' => dirname(dirname($this->get_server_var('SCRIPT_FILENAME'))).'/upload_files/',
@@ -83,10 +84,10 @@ class UploadHandler
             // Defines which files can be displayed inline when downloaded:
             'inline_file_types' => '/\.(gif|jpe?g|png)$/i',
             // Defines which files (based on their names) are accepted for upload:
-            'accept_file_types' => '/.+$/i',
+            'accept_file_types' => '/(\.|\/)'.$CONF['file_types'].'$/i',
             // The php.ini settings upload_max_filesize and post_max_size
             // take precedence over the following max_file_size setting:
-            'max_file_size' => null,
+            'max_file_size' => $CONF['file_size'],
             'min_file_size' => 1,
             // The maximum number of files for the upload directory:
             'max_number_of_files' => null,

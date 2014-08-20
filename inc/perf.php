@@ -138,6 +138,28 @@ if (validate_admin($_SESSION['helpdesk_user_id'])) {
 </small></p>
 </div>
   </div>
+  
+  
+  
+  <div class="form-group">
+    <label for="file_types" class="col-sm-4 control-label"><small><?=lang('CONF_file_types');?></small></label>
+    <div class="col-sm-8">
+      <input type="text" class="form-control input-sm" id="file_types" placeholder="gif|jpe?g|png|doc|xls|rtf|pdf|zip|rar|bmp|docx|xlsx" value="<?=get_conf_param('file_types');?>">
+
+    </div>
+  </div>
+  
+    <div class="form-group">
+    <label for="file_size" class="col-sm-4 control-label"><small><?=lang('CONF_file_size');?></small></label>
+    <div class="col-sm-8">
+    <div class="input-group">
+      <input type="text" class="form-control input-sm" id="file_size" placeholder="5" value="<?=round(get_conf_param('file_size')/1024/1024);?>">
+<span class="input-group-addon">Mb</span>
+    </div>
+    </div>
+  </div>
+  
+  
   <div class="col-md-offset-3 col-md-6">
 <center>
     <button type="submit" id="conf_edit_main" class="btn btn-success"><i class="fa fa-pencil"></i> <?=lang('CONF_act_edit');?></button>

@@ -316,7 +316,9 @@ VALUES
 	(16, 'mail_password', 'your_pass'),
 	(17, 'mail_from', 'helpdesk'),
 	(18, 'mail_debug', 'false'),
-	(19, 'mail_type', 'sendmail');
+	(19, 'mail_type', 'sendmail'),
+	(20, 'file_types', 'gif|jpe?g|png|doc|xls|rtf|pdf|zip|rar|bmp|docx|xlsx'),
+	(21, 'file_size', '5000000');
 
 UNLOCK TABLES;
 

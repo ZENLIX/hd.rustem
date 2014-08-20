@@ -81,9 +81,14 @@ if (url.search("inc") >= 0) {
         var showPanel = $(".chosen-select").find('option:selected').attr('id');
 
     }
+    
     $(".chosen-select").chosen({
         no_results_text: "Не знайдено...",
-        allow_single_deselect: true,
+        allow_single_deselect: true
+        
+      
+      
+        
     });
     $(".chosen-select").chosen().change(settingsShow);
     $.fn.editable.defaults.mode = 'inline';
@@ -1949,7 +1954,9 @@ $('body').on('click', 'button#conf_edit_main', function(event) {
                 "&days2arch="+encodeURIComponent($("input#days2arch").val())+
                 "&first_login="+encodeURIComponent($("#first_login").val())+
                 "&fix_subj="+encodeURIComponent($("#fix_subj").val())+
-                "&file_uploads="+encodeURIComponent($("#file_uploads").val()),
+                "&file_uploads="+encodeURIComponent($("#file_uploads").val())+
+                "&file_types="+encodeURIComponent($("#file_types").val())+
+                "&file_size="+encodeURIComponent($("#file_size").val()*1024*1024),
             success: function(html) {
 
                 $("#conf_edit_main_res").hide().html(html).fadeIn(500);
@@ -3119,17 +3126,16 @@ $('#reset_ticket').prop('disabled', true);
 
 
     
-    
-    
+    var p=new RegExp($('input#file_types').val());
         // Initialize the jQuery File Upload widget:
     $('#fileupload').fileupload({
         // Uncomment the following to send cross-domain cookies:
         //xhrFields: {withCredentials: true},
         url: MyHOSTNAME+'sys/index.php',
-        autoUpload: false,
+        autoUpload: true,
         disableValidation: false,
-        acceptFileTypes: /(\.|\/)(gif|jpe?g|png|doc|xls|rtf|pdf|zip|rar|bmp|docx|xlsx)$/i,
-        maxFileSize: 5000000,
+        acceptFileTypes: p,
+        maxFileSize: $('input#file_size').val(),
         formData: {hashname: $('input#hashname').val()}
 
     }).on('fileuploadprocessalways', function (e, data) {

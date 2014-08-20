@@ -13,7 +13,8 @@ function lang ($phrase) {
 'FILES_del'=>'Delete',
 'FILES_down'=>'Download',
 
-
+'CONF_file_types'=>'Permitted file types',
+'CONF_file_size'=>'Maximum file size',
 	
 	
 	 'DEPS_off'=>'Currently disabled fixed list of those applications. To enable it,  <a href="./config">go here </a> applications and select the theme "fixity" list.', 

@@ -25,7 +25,9 @@ $CONF = array (
 	'name_of_firm'	=> get_conf_param('name_of_firm'),
 	'fix_subj'		=> get_conf_param('fix_subj'),
 	'first_login'	=> get_conf_param('first_login'),
-	'file_uploads'	=> get_conf_param('file_uploads')
+	'file_uploads'	=> get_conf_param('file_uploads'),
+	'file_types'	=> '('.get_conf_param('file_types').')',
+	'file_size'		=> get_conf_param('file_size')
 	);
 $CONF_MAIL = array (
 	'active'	=> get_conf_param('mail_active'),

@@ -138,7 +138,7 @@ if (isset($_GET['ok'])) {
 
                     ?>
 
-                    <option value="<?=$row['value']?>"><?=$row['label']?></option>
+                    <option data-type="chocolate" data-user-rating="1.8" value="<?=$row['value']?>"><?=$row['label']?> </option>
 
                 <?php
 
@@ -284,7 +284,8 @@ if ($CONF['fix_subj'] == "false") {
                     <span><?=lang('TICKET_file_upload')?></span>
                     <input id="filer" type="file" name="files[]" multiple>
                 </span>
-                <button data-toggle="popover" data-html="true" data-trigger="manual" data-placement="top" data-content="<small><?=lang('upload_not_u')?></small>" type="submit" class="btn btn-primary start btn-xs" id="start_upload">
+                
+                <!--button data-toggle="popover" data-html="true" data-trigger="manual" data-placement="top" data-content="<small><?=lang('upload_not_u')?></small>" type="submit" class="btn btn-primary start btn-xs" id="start_upload">
                     <i class="glyphicon glyphicon-upload"></i>
                     <span><?=lang('TICKET_file_startupload');?></span>
                 </button>
@@ -292,8 +293,11 @@ if ($CONF['fix_subj'] == "false") {
                     <i class="glyphicon glyphicon-ban-circle"></i>
                     <span><?=lang('TICKET_file_notupload')?></span>
                 </button><br>
-               <small class="text-muted"><?=lang('TICKET_file_upload_msg');?></small>
+               <small class="text-muted"><?=lang('TICKET_file_upload_msg');?></small-->
                 <!-- The global file processing state -->
+                
+                
+                
                 <span class="fileupload-process"></span>
             </div>
 
@@ -326,7 +330,8 @@ if ($CONF['fix_subj'] == "false") {
     <input type="hidden" id="prio" value="1">
     <input type="hidden" value="<?php echo $_SESSION['helpdesk_user_id']; ?>" id="user_init_id">
 
-
+<input type="hidden" id="file_types" value="<?=$CONF['file_types']?>">
+<input type="hidden" id="file_size" value="<?=$CONF['file_size']?>">
 
 
 
