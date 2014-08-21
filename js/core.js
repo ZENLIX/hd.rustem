@@ -7,6 +7,7 @@ $(document).ready(function() {
         moment.lang(MyLANG);
         
         
+        
         function makemytime(s){
         
         var now = moment();
@@ -40,7 +41,23 @@ $(document).ready(function() {
 
 var ACTIONPATH=MyHOSTNAME+"actions.php";
 
-
+        function sendFile(file, editor, welEditable) {
+            data = new FormData();
+            data.append("file", file);
+            $.ajax({
+                data: data,
+                type: "POST",
+                url: MyHOSTNAME+"sys/up_summernote.php",
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(url) {
+                    editor.insertImage(welEditable, url);
+                }
+            });
+        }
+        
+        
     function get_lang_param(par) {
         var result="";
         var zcode="";
@@ -1255,7 +1272,7 @@ makemytime(true);
             });
         });
         
-        
+
 
     $('body').on('click', 'button#create_new_help', function(event) {
         event.preventDefault();
@@ -1278,7 +1295,10 @@ makemytime(true);
                 $('#summernote_help').summernote({
                     height: 300,
                     focus: true,
-                    lang: get_lang_param('summernote_lang')
+                    lang: get_lang_param('summernote_lang'),
+                    onImageUpload: function(files, editor, welEditable) {
+                sendFile(files[0], editor, welEditable);
+            }
                 });
 
             }
@@ -1397,6 +1417,9 @@ $('body').on('click', 'a#print_t', function() {
                     height: 300,
                     focus: true,
                     lang: get_lang_param('summernote_lang'),
+                    onImageUpload: function(files, editor, welEditable) {
+                sendFile(files[0], editor, welEditable);
+            },
                     oninit: function() {
 
                         var openBtn = '<button id="save_notes" value="'+u+'" type="button" class="btn btn-success btn-sm btn-small" title="'+langp+'" data-event="something" tabindex="-1"><i class="fa fa-check-circle"></i></button>';
@@ -1502,6 +1525,9 @@ $('body').on('click', 'a#print_t', function() {
                             height: 300,
                             focus: true,
                             lang: get_lang_param('summernote_lang'),
+                    onImageUpload: function(files, editor, welEditable) {
+                sendFile(files[0], editor, welEditable);
+            },
                             oninit: function() {
 
                                 var openBtn = '<button id="save_notes" value="'+u+'" type="button" class="btn btn-success btn-sm btn-small" title="'+langp+'" data-event="something" tabindex="-1"><i class="fa fa-check-circle"></i></button>';
@@ -2282,7 +2308,10 @@ console.log(height);
                 $('#summernote_help').summernote({
                     height: 300,
                     focus: true,
-                    lang: get_lang_param('summernote_lang')
+                    lang: get_lang_param('summernote_lang'),
+                                        onImageUpload: function(files, editor, welEditable) {
+                sendFile(files[0], editor, welEditable);
+            }
                 });
             }
         });

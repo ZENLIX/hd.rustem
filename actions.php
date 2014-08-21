@@ -522,6 +522,7 @@ $r['p']=$row['id'];
                     <label for="u" class="col-md-2 control-label"><small><?=lang('NEW_to');?>: </small></label>
                     <div class="col-md-6">
                         <select data-placeholder="<?=lang('NEW_to_unit');?>" class="chosen-select form-control" id="u" name="unit_id" multiple>
+                        <option value="0"><?=lang('HELP_all');?></option>
                             <?php
                             $u=explode(",", $u);
                             $stmt = $dbConnection->prepare('SELECT name as label, id as value FROM deps');
