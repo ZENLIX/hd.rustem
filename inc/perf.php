@@ -93,7 +93,7 @@ if (validate_admin($_SESSION['helpdesk_user_id'])) {
       <input type="text" class="form-control input-sm" id="days2arch" placeholder="<?=lang('CONF_2arch');?>" value="<?=get_conf_param('days2arch');?>">
       <p class="help-block"><small><?=lang('CONF_2arch_info');?> <br>
       
-      5 0 * * * /usr/bin/php5 -f <?=realpath(dirname(dirname(__FILE__)))."/sys/4cron.php"?> > <?=realpath(dirname(dirname(__FILE__)))."4cron.log"?> 2>&1</small></p>
+      5 0 * * * /usr/bin/php5 -f <?=realpath(dirname(dirname(__FILE__)))."/sys/4cron.php"?> > <?=realpath(dirname(dirname(__FILE__)))."/4cron.log"?> 2>&1</small></p>
     </div>
   </div>
   
