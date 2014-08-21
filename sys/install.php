@@ -394,6 +394,22 @@ RewriteRule ^([a-zA-Z0-9_-]+)/$ index.php?page=$1  [QSA,L]
     <?php } ?>
                 </td>
             </tr>
+            
+            <tr>
+                <td>File uploads user_content directory</td>
+                <td width="100px;">
+	                <?php
+    $filename=realpath(dirname(dirname(__FILE__)))."/upload_files/user_content";
+    if (!is_writable($filename)) { ?>
+    <span class="label label-danger">Не автивно</span>
+    <div class="alert alert-danger" role="alert">Permission-error: <em><?=$filename?></em> is not writable. <br> Add access to write.</a></div>
+    <?php } if (is_writable($filename)) {?>
+    <span class="label label-success">Success</span>
+    <?php } ?>
+                </td>
+            </tr>
+            
+            
                        
             
 </tbody>
