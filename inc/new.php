@@ -382,9 +382,6 @@ if ($CONF['fix_subj'] == "false") {
 {% for (var i=0, file; file=o.files[i]; i++) { %}
     <tr class="template-upload fade" id="up_entry">
         <td>
-            <span class="preview"></span>
-        </td>
-        <td>
             <p class="name">
 {% if (file.name.length>20) { %}
 {%=file.name.substr(0,10) %}...{%=file.name.substr(-5) %}
