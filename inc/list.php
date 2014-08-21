@@ -92,8 +92,11 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
                         
                         <small>
                         	<em>
+                        	<?php if ($priv_val != "2") { ?>
 								<span data-toggle="tooltip" data-placement="right" title="<?=view_array($text); ?>"><?=lang('LIST_pin')?>: <?=count($text); ?>
 								</span>
+								<?php }
+								else if ($priv_val == "2") { echo $text; } ?>
 							</em>
                         </small>
                         </span></div>
