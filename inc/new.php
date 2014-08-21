@@ -292,8 +292,8 @@ if ($CONF['fix_subj'] == "false") {
                 <button type="reset" class="btn btn-warning cancel btn-xs">
                     <i class="glyphicon glyphicon-ban-circle"></i>
                     <span><?=lang('TICKET_file_notupload')?></span>
-                </button><br>
-               <small class="text-muted"><?=lang('TICKET_file_upload_msg');?></small-->
+                </button--><br>
+               <small class="text-muted"><?=lang('TICKET_file_upload_msg');?></small>
                 <!-- The global file processing state -->
                 
                 
