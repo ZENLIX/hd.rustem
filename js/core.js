@@ -3126,7 +3126,7 @@ $('#reset_ticket').prop('disabled', true);
 
 
     
-    var p=new RegExp($('input#file_types').val());
+    var p=new RegExp('(\.|\/)'+$('input#file_types').val());
         // Initialize the jQuery File Upload widget:
     $('#fileupload').fileupload({
         // Uncomment the following to send cross-domain cookies:
@@ -3134,7 +3134,7 @@ $('#reset_ticket').prop('disabled', true);
         url: MyHOSTNAME+'sys/index.php',
         autoUpload: true,
         disableValidation: false,
-        acceptFileTypes: /(\.|\/)p$/i,
+        acceptFileTypes: p,
         maxFileSize: $('input#file_size').val(),
         formData: {hashname: $('input#hashname').val()}
 

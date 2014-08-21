@@ -144,7 +144,11 @@ if (validate_admin($_SESSION['helpdesk_user_id'])) {
   <div class="form-group">
     <label for="file_types" class="col-sm-4 control-label"><small><?=lang('CONF_file_types');?></small></label>
     <div class="col-sm-8">
-      <input type="text" class="form-control input-sm" id="file_types" placeholder="gif|jpe?g|png|doc|xls|rtf|pdf|zip|rar|bmp|docx|xlsx" value="<?=get_conf_param('file_types');?>">
+      <input type="text" class="form-control input-sm" id="file_types" placeholder="gif,jpe?g,png,doc,xls,rtf,pdf,zip,rar,bmp,docx,xlsx" value="<?php 
+      $bodytag = str_replace("|", ",", get_conf_param('file_types'));
+      echo $bodytag;
+	      
+      ?>">
 
     </div>
   </div>

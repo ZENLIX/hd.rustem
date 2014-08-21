@@ -1769,7 +1769,10 @@ foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
         update_val_by_key("first_login", $_POST['first_login']);
         update_val_by_key("fix_subj", $_POST['fix_subj']);
         update_val_by_key("file_uploads", $_POST['file_uploads']);
-        update_val_by_key("file_types", $_POST['file_types']);
+        
+        $bodytag = str_replace(",", "|", $_POST['file_types']);
+        
+        update_val_by_key("file_types", $bodytag);
         update_val_by_key("file_size", $_POST['file_size']);
         update_val_by_key("mail", $_POST['mail']);
         
