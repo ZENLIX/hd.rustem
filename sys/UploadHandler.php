@@ -495,6 +495,8 @@ class UploadHandler
         //$hn
         //$type
         //$size
+        
+        /*
         $exter = pathinfo($name, PATHINFO_EXTENSION);
         $fhash=randomhash();
          		$stmt = $dbConnection->prepare('insert into files 
@@ -509,8 +511,9 @@ class UploadHandler
 		':file_ext' 	=>$exter
 		));
 		$fileName_norm = $fhash.".".$exter;
-		
-        return $fileName_norm;
+		*/
+        return $name;
+        
     }
 
     protected function get_file_name($file_path, $name, $size, $type, $error,
@@ -1041,13 +1044,22 @@ class UploadHandler
         // Free memory:
         $this->destroy_image_object($file_path);
     }
-
+//////////////////////////////////////////////////////////////////////////////////////
     protected function handle_file_upload($uploaded_file, $name, $size, $type, $error,
             $index = null, $content_range = null) {
+            global $hn,$dbConnection;
         $file = new \stdClass();
         $file->name2 = $this->get_unique_filename($uploaded_file,$name,$size, $type, $error, $index, $content_range);
-        $file->name = $this->get_file_name($uploaded_file, $name, $size, $type, $error,
+        
+        $fn = $this->get_file_name($uploaded_file, $name, $size, $type, $error,
             $index, $content_range);
+        
+        $exter = pathinfo($fn, PATHINFO_EXTENSION);
+        $fhash=randomhash();
+            
+        $file->name= $fhash.".".$exter;
+            
+            
         $file->size = $this->fix_integer_overflow(intval($size));
         $file->type = $type;
         if ($this->validate($uploaded_file, $file, $error, $index)) {
@@ -1092,8 +1104,43 @@ class UploadHandler
                 }
             }
             $this->set_additional_file_properties($file);
+            
+            
+                     		$stmt = $dbConnection->prepare('insert into files 
+ 		(ticket_hash, original_name, file_hash, file_type, file_size, file_ext) values 
+ 		(:ticket_hash, :original_name, :file_hash, :file_type, :file_size, :file_ext)');
+		$stmt->execute(array(
+		':ticket_hash'	=>$hn, 
+		':original_name'=>$file->name2,
+		':file_hash'	=>$fhash,
+		':file_type'	=>$type,
+		':file_size'	=>$size,
+		':file_ext' 	=>$exter
+		));
+            
         }
         return $file;
+        
+        
+        
+        //$exter = pathinfo($file, PATHINFO_EXTENSION);
+        //$fhash=randomhash();
+        /*
+         		$stmt = $dbConnection->prepare('insert into files 
+ 		(ticket_hash, original_name, file_hash, file_type, file_size, file_ext) values 
+ 		(:ticket_hash, :original_name, :file_hash, :file_type, :file_size, :file_ext)');
+		$stmt->execute(array(
+		':ticket_hash'	=>$hn, 
+		':original_name'=>$name,
+		':file_hash'	=>$fhash,
+		':file_type'	=>$type,
+		':file_size'	=>$size,
+		':file_ext' 	=>$exter
+		));
+		*/
+//		$fileName_norm = $fhash.".".$exter;
+
+        
     }
 
     protected function readfile($file_path) {

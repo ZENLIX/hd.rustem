@@ -3184,7 +3184,7 @@ $(this).removeClass('fileupload-processing');
                 $(data.context.children()[index])
                     .wrap(link);
             } else if (file.error) {
-                var error = $('<span class="text-danger"/>').text(file.error).html('fhfhhfhf');
+                var error = $('<span class="text-danger"/>').text(file.error);
                 
                 $(data.context.children()[index])
                     .append('<br>')
