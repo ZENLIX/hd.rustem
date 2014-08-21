@@ -19,7 +19,7 @@ function lang ($phrase) {
 	
 	 'DEPS_off'=>'Currently disabled fixed list of those applications. To enable it,  <a href="./config">go here </a> applications and select the theme "fixity" list.', 
 	 
-
+'TICKET_t_a_e_prio'=>'in the application has been changed the priority',
 
 	 
 	    'CONF_info'=>'This section contains the basic system configuration.',

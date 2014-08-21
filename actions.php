@@ -2840,7 +2840,7 @@ if ($prio != $fio['prio']) {
             $unow=$_SESSION['helpdesk_user_id'];
              $stmt = $dbConnection->prepare('INSERT INTO ticket_log (msg, date_op, init_user_id, ticket_id)
 values (:edit_subj, now(), :unow, :pk)');
-            $stmt->execute(array(':edit_subj'=>'edit_subj', ':pk'=>$pk,':unow'=>$unow));
+            $stmt->execute(array(':edit_subj'=>'edit_prio', ':pk'=>$pk,':unow'=>$unow));
             
             
 
