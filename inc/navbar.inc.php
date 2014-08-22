@@ -69,6 +69,12 @@ if ($ap == 0) {
             
                         <li <?=echoActiveClassIfRequestMatches("notes")?>><a href="<?=$CONF['hostname']?>notes"><i class="fa fa-book"></i> <?=lang('NAVBAR_notes');?></a></li>
 
+<?php
+$priv_val = priv_status($_SESSION['helpdesk_user_id']);
+ if ( ($priv_val == "2") || ($priv_val == "0") ) { ?>
+                        <li <?=echoActiveClassIfRequestMatches("main_stats")?>><a href="<?=$CONF['hostname']?>main_stats"><i class="fa fa-bar-chart-o"></i> <?=lang('ALLSTATS_main');?></a></li>
+                        <?php } ?>
+                        
 
 
             <?php  if (validate_admin($_SESSION['helpdesk_user_id'])) { ?>

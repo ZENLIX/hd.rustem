@@ -3,6 +3,21 @@ function lang($phrase){
     static $lang = array(
     
     
+    
+'ALLSTATS_main'=>'Общая статистика',    
+'ALLSTATS_help'=>'В данном разделе содержится статистика всех отделов и их пользователей, на которые Вы имеете права доступа.',
+'ALLSTATS_unit'=>'Информация о заявках Ваших отделов',
+'ALLSTATS_unit_free'=>'Свободных заявок',
+'ALLSTATS_unit_lock'=>'Занятых заявок',
+'ALLSTATS_unit_ok'=>'Выполненных заявок',
+'ALLSTATS_user'=>'Текущая информация о заявках пользователей Ваших отделов',
+'ALLSTATS_user_fio'=>'ФИО',
+'ALLSTATS_user_free'=>'Свободных',
+'ALLSTATS_user_lock'=>'Блокированых',
+'ALLSTATS_user_ok'=>'Выполненных',
+'ALLSTATS_user_out_all'=>'Созданых (всего)',
+'ALLSTATS_user_out_all_not'=>'Созданых (не выполненых)',
+    
 'NAVBAR_files'=>'Файлы заявок',   
 'T_from'=>'с',
 'FILES_title'=>'Файлы заявок',

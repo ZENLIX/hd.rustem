@@ -2,6 +2,23 @@
 function lang ($phrase) {
 	static $lang = array (
 	
+'ALLSTATS_main' => 'General Statistics',
+'ALLSTATS_help' => 'This section contains statistics of all departments and their users for which you have permissions.',
+'ALLSTATS_unit' => 'Information about the applications of your departments',
+'ALLSTATS_unit_free' => 'Free bids',
+'ALLSTATS_unit_lock' => 'Busy applications',
+'ALLSTATS_unit_ok' => 'Executed orders',
+'ALLSTATS_user' => 'Current information on the applications of users of your departments',
+'ALLSTATS_user_fio' => 'Name',
+'ALLSTATS_user_free' => 'Free',
+'ALLSTATS_user_lock' => 'blocking',
+'ALLSTATS_user_ok' => 'Executed',
+'ALLSTATS_user_out_all' => 'Create (of)',
+'ALLSTATS_user_out_all_not' => 'Create (not performance)',
+
+	
+	
+	
 	'NAVBAR_files'=>'Ticket\' files',  
 'T_from'=>'from',
 'FILES_title' => 'Files of applications',

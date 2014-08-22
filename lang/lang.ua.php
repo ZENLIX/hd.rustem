@@ -2,6 +2,23 @@
 function lang($phrase){
     static $lang = array(
     
+    
+    
+'ALLSTATS_main' => 'Загальна статистика ',
+'ALLSTATS_help' => 'У даному розділі міститься статистика всіх відділів та їх користувачів, на які Ви маєте права доступу.',
+'ALLSTATS_unit' => 'Інформація про заявки Ваших відділів',
+'ALLSTATS_unit_free' => 'Вільних заявок ',
+'ALLSTATS_unit_lock' => 'Зайнятих заявок ',
+'ALLSTATS_unit_ok' => 'Виконаних заявок ',
+'ALLSTATS_user' => 'Поточна інформація про заявки користувачів Ваших відділів',
+'ALLSTATS_user_fio' => 'ПІБ',
+'ALLSTATS_user_free' => 'Вільних',
+'ALLSTATS_user_lock' => 'блокування',
+'ALLSTATS_user_ok' => 'Виконаних',
+'ALLSTATS_user_out_all' => 'Створенню (всього)',
+'ALLSTATS_user_out_all_not' => 'Створенню (не виконання)',
+
+    
     'NAVBAR_files'=>'Файли заявок',  
     'FILES_title' => 'Файли заявок', 
 'FILES_off' => 'В даний момент відключено завантаження файлів до заявки. Для включення перейдіть <a href="./config"> сюди </a> і активуйте завантаження файлів до заявки. ', 

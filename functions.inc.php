@@ -1485,12 +1485,36 @@ foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
 
 }
 
+function get_unit_stat_free($in){
+	global $dbConnection;
+	$res = $dbConnection->prepare('SELECT count(*) from tickets where unit_id=:uid AND status=0 and lock_by=0');
+    $res->execute(array(':uid' => $in));
+    $count = $res->fetch(PDO::FETCH_NUM);
+	return $count[0];
+}
+function get_unit_stat_lock($in){
+	global $dbConnection;
+	$res = $dbConnection->prepare('SELECT count(*) from tickets where unit_id=:uid AND status=0 and lock_by!=0');
+    $res->execute(array(':uid' => $in));
+    $count = $res->fetch(PDO::FETCH_NUM);
+	return $count[0];
+}
+function get_unit_stat_ok($in){
+	global $dbConnection;
+		$res = $dbConnection->prepare('SELECT count(*) from tickets where unit_id=:uid AND status=1');
+    $res->execute(array(':uid' => $in));
+    $count = $res->fetch(PDO::FETCH_NUM);
+	return $count[0];
+}
 
 
-function get_total_tickets_out() {
+function get_total_tickets_out($in) {
 
     global $dbConnection;
-    $uid=$_SESSION['helpdesk_user_id'];
+    if (empty($in)) {$uid=$_SESSION['helpdesk_user_id'];}
+    else if (!empty($in)) {$uid=$in;}
+    
+    
     $res = $dbConnection->prepare('SELECT count(*) from tickets where user_init_id=:uid');
     $res->execute(array(':uid' => $uid));
     $count = $res->fetch(PDO::FETCH_NUM);
@@ -1498,9 +1522,10 @@ function get_total_tickets_out() {
 
     return $count[0];
 }
-function get_total_tickets_lock() {
+function get_total_tickets_lock($in) {
     global $dbConnection;
-    $uid=$_SESSION['helpdesk_user_id'];
+        if (empty($in)) {$uid=$_SESSION['helpdesk_user_id'];}
+    else if (!empty($in)) {$uid=$in;}
 
 
     $res = $dbConnection->prepare("SELECT count(*) from tickets where lock_by=:uid and status='0'");
@@ -1508,10 +1533,10 @@ function get_total_tickets_lock() {
     $count = $res->fetch(PDO::FETCH_NUM);
     return $count[0];
 }
-function get_total_tickets_ok() {
+function get_total_tickets_ok($in) {
     global $dbConnection;
-
-    $uid=$_SESSION['helpdesk_user_id'];
+        if (empty($in)) {$uid=$_SESSION['helpdesk_user_id'];}
+    else if (!empty($in)) {$uid=$in;}
     $res = $dbConnection->prepare("SELECT count(*) from tickets where ok_by=:uid");
     $res->execute(array(':uid' => $uid));
     $count = $res->fetch(PDO::FETCH_NUM);
@@ -1520,7 +1545,7 @@ function get_total_tickets_ok() {
 
     return $count[0];
 }
-function get_total_tickets_out_and_success() {
+function get_total_tickets_out_and_success($in) {
 
 
 
@@ -1528,7 +1553,8 @@ function get_total_tickets_out_and_success() {
 
     global $dbConnection;
 
-    $uid=$_SESSION['helpdesk_user_id'];
+        if (empty($in)) {$uid=$_SESSION['helpdesk_user_id'];}
+    else if (!empty($in)) {$uid=$in;}
     $res = $dbConnection->prepare("SELECT count(*) from tickets where user_init_id=:uid and (ok_by='0') and arch='0'");
     $res->execute(array(':uid' => $uid));
     $count = $res->fetch(PDO::FETCH_NUM);
@@ -1564,9 +1590,14 @@ function get_total_tickets_out_and_ok() {
     return $count[0];
 }
 
-function get_total_tickets_free() {
+function get_total_tickets_free($in) {
     global $dbConnection;
-    $uid=$_SESSION['helpdesk_user_id'];
+    
+    if (empty($in)) {$uid=$_SESSION['helpdesk_user_id'];}
+    else if (!empty($in)) {$uid=$in;}
+    
+    
+    //$uid=$_SESSION['helpdesk_user_id'];
     
     $unit_user=unit_of_user($uid);
     $priv_val=priv_status($uid);
