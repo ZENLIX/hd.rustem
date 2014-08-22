@@ -968,6 +968,17 @@ if (ispath('notes') ) {
         },5000);
         
     }
+if (ispath('files')) {
+        setInterval(function(){
+            check_update();
+        },5000);
+    }
+if (ispath('main_stats')) {
+        setInterval(function(){
+            check_update();
+        },5000);
+    }
+
 
 
     if ((def_filename == "index.php") || (window.location == MyHOSTNAME)) {
