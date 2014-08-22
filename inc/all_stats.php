@@ -14,6 +14,7 @@ if ($_SESSION['helpdesk_user_id']) {
 
 
 <div class="container">
+<input type="hidden" id="main_last_new_ticket" value="<?=get_last_ticket_new($_SESSION['helpdesk_user_id']);?>">
 <div class="page-header" style="margin-top: -15px;">
 <div class="row">
          <div class="col-md-6"> <h3><i class="fa fa-bar-chart-o"></i> <?=lang('ALLSTATS_main');?></h3></div>
