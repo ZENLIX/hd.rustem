@@ -3,7 +3,7 @@ session_start();
 include("../functions.inc.php");
 
 if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
-if (validate_admin($_SESSION['helpdesk_user_id'])) {
+if ($_SESSION['helpdesk_user_id']) {
    include("head.inc.php");
    include("navbar.inc.php");
    $priv_val = priv_status($_SESSION['helpdesk_user_id']);
