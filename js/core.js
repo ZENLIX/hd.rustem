@@ -100,7 +100,7 @@ if (url.search("inc") >= 0) {
     }
     
     $(".chosen-select").chosen({
-        no_results_text: "Не знайдено...",
+        no_results_text: get_lang_param('JS_not_found'),
         allow_single_deselect: true
         
       
@@ -1299,7 +1299,7 @@ makemytime(true);
                     var showPanel = $(".chosen-select").find('option:selected').attr('id');
                 }
                 $(".chosen-select").chosen({
-                    no_results_text: "Не знайдено...",
+                    no_results_text: get_lang_param('JS_not_found'),
                     allow_single_deselect: true,
                 });
                 $(".chosen-select").chosen().change(settingsShow);
@@ -2312,7 +2312,7 @@ console.log(height);
                     var showPanel = $(".chosen-select").find('option:selected').attr('id');
                 }
                 $(".chosen-select").chosen({
-                    no_results_text: "Не знайдено...",
+                    no_results_text: get_lang_param('JS_not_found'),
                     allow_single_deselect: true,
                 });
                 $(".chosen-select").chosen().change(settingsShow);
