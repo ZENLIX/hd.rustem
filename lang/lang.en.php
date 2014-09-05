@@ -129,7 +129,7 @@ function lang ($phrase) {
 'LIST_lock_t_i' => 'Ticket with which you are working',
 'LIST_lock_t' => 'Ticket with which the work',
 'LIST_lock_n' => 'Ticket number',
-'LIST_find_ph' => 'Enter # or ticket subject',
+'LIST_find_ph' => 'Enter # or ticket subject or text of the application, or text comment',
 'LIST_find_button' => 'Search',
 'LIST_in' => 'Inbox',
 'LIST_out' => 'Outgoing',
