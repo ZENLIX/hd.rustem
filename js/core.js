@@ -3176,6 +3176,13 @@ $('#reset_ticket').prop('disabled', true);
         disableValidation: false,
         acceptFileTypes: p,
         maxFileSize: $('input#file_size').val(),
+        messages: {
+                maxNumberOfFiles: 'Maximum number of files exceeded',
+                acceptFileTypes: get_lang_param('upload_errortypes'),
+                maxFileSize: get_lang_param('upload_errorsize'),
+                minFileSize: 'File is too small'
+            },
+
         formData: {hashname: $('input#hashname').val()}
 
     }).on('fileuploadprocessalways', function (e, data) {
