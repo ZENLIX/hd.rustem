@@ -10,34 +10,6 @@
  */
 
 /* global define, window */
-var ACTIONPATH=MyHOSTNAME+"actions.php";
-
-
-    function get_lang_param(par) {
-        var result="";
-        var zcode="";
-        var url = window.location.href;
-
-if (url.search("inc") >= 0) {
-    zcode="../";
-}
-
-
-        $.ajax({
-            type: "POST",
-            url: ACTIONPATH,
-            data: "mode=get_lang_param"+
-                "&param="+par,
-            async: false,
-            success: function(html){
-
-                result=html;
-            }
-        });
-        return (result);
-
-    };
-
 (function (factory) {
     'use strict';
     if (typeof define === 'function' && define.amd) {
@@ -90,15 +62,18 @@ if (url.search("inc") >= 0) {
 
             // Function returning the current number of files,
             // has to be overriden for maxNumberOfFiles validation:
-            getNumberOfFiles: $.noop,
+            getNumberOfFiles: $.noop
 
             // Error and info messages:
+            /*
             messages: {
                 maxNumberOfFiles: 'Maximum number of files exceeded',
                 acceptFileTypes: get_lang_param('upload_errortypes'),
                 maxFileSize: get_lang_param('upload_errorsize'),
                 minFileSize: 'File is too small'
             }
+         
+            */
         },
 
         processActions: {
