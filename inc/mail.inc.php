@@ -8,7 +8,7 @@ function send_mail($to,$subj,$msg) {
 	
 	if (get_conf_param('mail_type') == "sendmail") {
 	
-	$mail = new PHPMailer(true);
+	$mail = new PHPMailer();
 	$mail->CharSet 	  = 'UTF-8';
 	$mail->IsSendmail();
 
@@ -24,7 +24,7 @@ function send_mail($to,$subj,$msg) {
 else if (get_conf_param('mail_type') == "SMTP") {
 	
 	
-	$mail = new PHPMailer(true);
+	$mail = new PHPMailer();
 	$mail->CharSet 	  = 'UTF-8';
 	$mail->IsSMTP();
   $mail->SMTPAuth   = $CONF_MAIL['auth'];                  // enable SMTP authentication
