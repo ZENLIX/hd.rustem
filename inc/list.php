@@ -137,8 +137,7 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
                         <div class="input-group">
 
                             <input name="t" type="text" class="form-control  input-sm" id="input_find" data-toggle="tooltip" data-placement="bottom" title="<?= lang('LIST_find_ph'); ?>"
-                                   placeholder="<?= lang('LIST_find_ph'); ?>">
-                            <input name="find" type="hidden">
+                              <input name="find" type="hidden">
       <span class="input-group-btn">
         <button class="btn btn-default  btn-sm" type="submit" title="Нажмите для поиска"
                 id=""><?= lang('LIST_find_button'); ?></button>
