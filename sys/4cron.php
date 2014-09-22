@@ -18,11 +18,6 @@ $dbConnection = new PDO(
 $dbConnection->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 $dbConnection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-$CONF = array (
-'days2arch'   => get_conf_param('days2arch')
-);
-
-
 function get_conf_param($in) {
  global $dbConnection;
  $stmt = $dbConnection->prepare('SELECT value FROM perf where param=:in');
@@ -32,6 +27,13 @@ function get_conf_param($in) {
 return $con['value'];
 
 }
+
+$CONF = array (
+'days2arch'   => get_conf_param('days2arch')
+);
+
+
+
 
 
 /*   
