@@ -126,13 +126,13 @@ if (validate_user($_SESSION['helpdesk_user_id'], $_SESSION['code'])) {
                     &nbsp;#
                     <small class="text-muted"> - <?= lang('LIST_lock_n'); ?> </small>
                 </div>
-                </div>
                 
                 
                 
                 
-		<div class="row">
-                <div class="col-md-6" style="float:right;">
+                
+
+                <div class="col-md-3" style="padding-top:20px;">
                     <form action="<?=$CONF['hostname'];?>list" method="get">
                         <div class="input-group">
 
