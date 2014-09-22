@@ -8,7 +8,7 @@ function send_mail($to,$subj,$msg) {
 	
 	if (get_conf_param('mail_type') == "sendmail") {
 	
-	$mail = new PHPMailer(;
+	$mail = new PHPMailer();
 	$mail->CharSet 	  = 'UTF-8';
 	$mail->IsSendmail();
 
