@@ -261,15 +261,19 @@ foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
         if ($priv_val == 0) {
 
 
-            $stmt = $dbConnection->prepare('SELECT 
-							id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read, lock_by, ok_by, prio, last_update, arch
-							from tickets
-							where ((unit_id IN ('.$in_query.') and arch=:n) or (user_init_id=:user_id)) and (id=:z or subj like :z1) limit 10');
+		$stmt = $dbConnection->prepare('SELECT
+   	a.id, a.user_init_id, a.user_to_id, a.date_create, a.subj, a.msg, a.client_id, a.unit_id, a.status, a.hash_name, 
+   	a.is_read, a.lock_by, a.ok_by, a.prio, a.last_update, a.arch, b.comment_text, b.t_id
+        from tickets as a LEFT JOIN  comments as b ON a.id = b.t_id
+    	where ((a.unit_id IN ('.$in_query.') and a.arch=:n) or (a.user_init_id=:user_id)) and 
+    	(a.id=:z or a.subj like :z1 or a.msg like :z2 or b.comment_text like :z3)group by a.id limit 10');
 
-                        
-            $paramss=array(':n'=>'0',':user_id'=>$user_id,':z'=>$z,':z1'=>$z);
+
+            $paramss=array(':n'=>'0',':user_id'=>$user_id,':z'=>$z,':z1'=>'%'.$z.'%',':z2'=>'%'.$z.'%',':z3'=>'%'.$z.'%');
             $stmt->execute(array_merge($vv,$paramss));
             $res1 = $stmt->fetchAll();
+
+
 
 
 
@@ -278,18 +282,19 @@ foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
         else if ($priv_val == 1) {
 
 
+		$stmt = $dbConnection->prepare('SELECT
+   	a.id, a.user_init_id, a.user_to_id, a.date_create, a.subj, a.msg, a.client_id, a.unit_id, a.status, a.hash_name, 
+   	a.is_read, a.lock_by, a.ok_by, a.prio, a.last_update, a.arch, b.comment_text, b.t_id
+        from tickets as a LEFT JOIN  comments as b ON a.id = b.t_id
+   	where (((a.user_to_id=:user_id) or
+   	(a.user_to_id=:n and a.unit_id IN ('.$in_query.') )) or a.user_init_id=:user_id2) and 
+   	(a.id=:z or a.subj like :z1 or a.msg like :z2 or b.comment_text like :z3) group by a.id limit 10');
 
-            $stmt = $dbConnection->prepare('SELECT 
-							id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read, lock_by, ok_by, prio, last_update, arch
-							from tickets
-							where (((user_to_id=:user_id) or
-							(user_to_id=:n and unit_id IN ('.$in_query.') )) or user_init_id=:user_id2) and (id=:z or subj like :z1)
-							limit 10');
 
-
-            $paramss=array(':n'=>'0',':user_id'=>$user_id,':z'=>$z,':z1'=>$z,':user_id2'=>$user_id);
+            $paramss=array(':n'=>'0',':user_id'=>$user_id,':z'=>$z,':z1'=>'%'.$z.'%',':z2'=>'%'.$z.'%',':z3'=>'%'.$z.'%',':user_id2'=>$user_id);
             $stmt->execute(array_merge($vv,$paramss));
             $res1 = $stmt->fetchAll();
+
 
 
 
@@ -299,14 +304,15 @@ foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
 
         else if ($priv_val == 2) {
 
-            $stmt = $dbConnection->prepare('SELECT 
-							id, user_init_id, user_to_id, date_create, subj, msg, client_id, unit_id, status, hash_name, is_read, lock_by, ok_by, prio, last_update, arch
-							from tickets
-							where id=:z or subj like :z1
-							limit 10');
+$stmt = $dbConnection->prepare('SELECT
+   	a.id, a.user_init_id, a.user_to_id, a.date_create, a.subj, a.msg, a.client_id, a.unit_id, a.status, a.hash_name, 
+   	a.is_read, a.lock_by, a.ok_by, a.prio, a.last_update, a.arch, b.comment_text, b.t_id
+   	from tickets as a LEFT JOIN  comments as b ON a.id = b.t_id
+    	where a.id=:z or a.subj like :z1 or a.msg like :z2 or b.comment_text like :z3 group by a.id limit 10');
 
-            $stmt->execute(array(':z'=>$z,':z1'=>$z));
+            $stmt->execute(array(':z'=>$z,':z1'=>'%'.$z.'%',':z2'=>'%'.$z.'%',':z3'=>'%'.$z.'%'));
             $res1 = $stmt->fetchAll();
+
 
 
 
