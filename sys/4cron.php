@@ -18,6 +18,22 @@ $dbConnection = new PDO(
 $dbConnection->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 $dbConnection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+$CONF = array (
+'days2arch'   => get_conf_param('days2arch')
+);
+
+
+function get_conf_param($in) {
+ global $dbConnection;
+ $stmt = $dbConnection->prepare('SELECT value FROM perf where param=:in');
+ $stmt->execute(array(':in' => $in));
+ $con = $stmt->fetch(PDO::FETCH_ASSOC);
+
+return $con['value'];
+
+}
+
+
 /*   
 5 0 * * * /usr/bin/php5 -f /var/www/hd_prod/sys/4cron.php > /var/www/hd_prod/4cron.log 2>&1
 */
@@ -33,7 +49,7 @@ foreach($res1 as $row) {
 
 
     $m=$row['id'];
-    $td= humanTiming_old(strtotime($row['date_create']))."<br>";
+    $td= humanTiming_old(strtotime($row['ok_date']))."<br>";
 
     if ($td > $CONF['days2arch'] ) {
 
