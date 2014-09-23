@@ -372,8 +372,9 @@ function lang ($phrase) {
 ,'JS_unlock' => 'Restore' 
 ,'JS_lock' => 'Block' 
 
+,'PROFILE_msg_add'=>'User (client) added success'
 
-,'USERS_title' => 'People' 
+,'USERS_title' => 'People of system' 
 ,'USERS_create' => 'Create User' 
 ,'USERS_list' => 'People' 
 

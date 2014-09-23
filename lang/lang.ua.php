@@ -340,7 +340,7 @@ function lang($phrase){
 'P_pass_new_re' => 'Повторіть новий пароль',
 'P_pass_new_re2' => 'Пароль новий (повторно)',
 'P_do_edit_pass' => 'Змінити пароль',
-
+'PROFILE_msg_add'=>'Користувача (клієнта) успішно додано',
 'JS_not_found' => 'Не знайдено...',
 'JS_ticket' => 'Заявку',
 'JS_up' => 'Оновлено!',
@@ -359,7 +359,7 @@ function lang($phrase){
 'JS_lock' => 'Заблокувати',
 
 
-'USERS_title' => 'Користувачі',
+'USERS_title' => 'Користувачі системи',
 'USERS_create' => 'Створити користувача',
 'USERS_list' => 'Список користувачів',
 

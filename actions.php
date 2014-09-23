@@ -2373,7 +2373,7 @@ $cl="";
 
             ?>
             <div class="alert alert-success">
-                <?=lang('PROFILE_msg_send');?>
+                <?=lang('PROFILE_msg_add');?>
             </div>
         <?php
         }
