@@ -1399,7 +1399,10 @@ foreach ($ee as $key=>$value) { $vv[":val_" . $key]=$value;}
 
             if (strtotime($current_ticket_update) > strtotime($lu)) {echo $current_ticket_update;}
             if (strtotime($current_ticket_update) <= strtotime($lu)) {echo "no";}
-
+//update
+ $stmt = $dbConnection->prepare('update users set last_time=now() where id=:cid');
+ $stmt->execute(array(':cid' => $uid));
+            
         }
 
 

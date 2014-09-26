@@ -17,7 +17,7 @@ function lang($phrase){
 'ALLSTATS_user_ok' => 'Виконаних',
 'ALLSTATS_user_out_all' => 'Створенню (всього)',
 'ALLSTATS_user_out_all_not' => 'Створенню (не виконання)',
-
+'stats_last_time'=>'Останній вхід: ',
     
     'NAVBAR_files'=>'Файли заявок',  
     'FILES_title' => 'Файли заявок', 

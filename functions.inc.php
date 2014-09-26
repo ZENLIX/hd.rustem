@@ -534,6 +534,24 @@ function validate_user($user_id, $input) {
     }
 }
 
+function get_user_status($in) {
+	    global $dbConnection;
+
+    $stmt = $dbConnection->prepare('select last_time from users where id=:in');
+    $stmt->execute(array(':in' => $in));
+    $total_ticket = $stmt->fetch(PDO::FETCH_ASSOC);
+	$lt=$total_ticket['last_time'];
+	$d = time()-strtotime($lt);
+	if ($d > 20) {
+	$lt_tooltip="";
+	if ($lt) {$lt_tooltip=lang('stats_last_time')."<br>".$lt;}
+	
+	$res="<span data-toggle=\"tooltip\" data-placement=\"bottom\" class=\"label label-default\" data-original-title=\"".$lt_tooltip."\" data-html=\"true\">offline</span>";}
+	else {$res="<span class=\"label label-success\">online</span>";}
+	
+	return $res;
+}
+
 function get_ticket_id_by_hash($in) {
     global $dbConnection;
 

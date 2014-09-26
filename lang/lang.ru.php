@@ -148,7 +148,7 @@ function lang($phrase){
 't_LIST_to'=>'Исполнитель',
 't_LIST_status'=>'Статус',
 't_LIST_action'=>'Действие',
-
+'stats_last_time'=>'Последний вход: ',
 't_list_a_nook'=>'отметить, как выполненное',
 't_list_a_unlock'=>'разблокировать',
 't_list_a_lock'=>'заблокировать',

@@ -74,6 +74,7 @@ foreach ($ee as $key=>$value) {
                 <tbody>
                 <tr>
                     <td style="width: 200px;">	<strong><small><center><?=lang('ALLSTATS_user_fio');?>					</center></small></strong></td>
+                    <td style="">				<strong><small><center><?=lang('t_LIST_status');?>			</center></small></strong></td>
                     <td style="">				<strong><small><center><?=lang('ALLSTATS_user_free');?>			</center></small></strong></td>
                     <td style="">				<strong><small><center><?=lang('ALLSTATS_user_lock');?>			</center></small></strong></td>
                     <td style="">				<strong><small><center><?=lang('ALLSTATS_user_ok');?>			</center></small></strong></td>
@@ -101,12 +102,13 @@ if($result) {
 
 <tr>
                     <td style="width: 200px;"><small><?=name_of_user_ret($row['id']);?></small></td>
+                    <td style=""><small class="text-danger"><center><?=get_user_status($row['id']);?></center></small></td>
                     <td style=""><small class="text-danger"><center><?=get_total_tickets_free($row['id']);?></center></small></td>
                     <td style=""><small class="text-warning"><center><?=get_total_tickets_lock($row['id']);?></center></small></td>
                     <td style=""><small class="text-success"><center><?=get_total_tickets_ok($row['id']);?></center></small></td>
                     <td style=""><small class=""><center><?=get_total_tickets_out($row['id']);?></center></small></td>
                     <td style=""><small class=""><center><?=get_total_tickets_out_and_success($row['id']);?></center></small></td>
-                </tr>
+</tr>
 
 
 

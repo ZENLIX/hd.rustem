@@ -343,6 +343,7 @@ CREATE TABLE `users` (
   `lang` varchar(11) NOT NULL DEFAULT 'ru',
   `priv_add_client` int(11) NOT NULL DEFAULT '1',
   `priv_edit_client` int(11) NOT NULL DEFAULT '1',
+  `last_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 

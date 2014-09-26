@@ -973,11 +973,7 @@ if (ispath('files')) {
             check_update();
         },5000);
     }
-if (ispath('main_stats')) {
-        setInterval(function(){
-            check_update();
-        },5000);
-    }
+
 
 
 
@@ -3236,30 +3232,6 @@ $(this).removeClass('fileupload-processing');
     $('body').on('click', 'button#enter_ticket', function(event) {
         event.preventDefault();
 
-
-
-
-    
-
-
-
-
-
-/*
-if( $('tr#up_entry').length )         // use this if you are using id to check
-{
-
-     $('#fileupload').fileupload('disable');
-     if (check_form_ticket() == 0 ) {
-     $('#fileupload').fileupload('enable');
-
-$('#start_upload').click();
-
-     }
-     
-}
-
-*/
 
 
 

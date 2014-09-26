@@ -15,7 +15,7 @@ function lang ($phrase) {
 'ALLSTATS_user_ok' => 'Executed',
 'ALLSTATS_user_out_all' => 'Create (of)',
 'ALLSTATS_user_out_all_not' => 'Create (not performance)',
-
+'stats_last_time'=>'Last login: ',
 	
 	
 	
