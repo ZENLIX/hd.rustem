@@ -466,7 +466,7 @@ $r['p']=$row['id'];
             $idzz=($_POST['unit']);
 
 
-            $stmt = $dbConnection->prepare('SELECT fio, id, unit FROM users where id != 1');
+            $stmt = $dbConnection->prepare('SELECT fio, id, unit FROM users where id != 1 and status =1');
             $stmt->execute();
             $result = $stmt->fetchAll();
 
