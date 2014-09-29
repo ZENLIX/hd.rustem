@@ -552,6 +552,24 @@ function get_user_status($in) {
 	return $res;
 }
 
+function get_user_status_text($in) {
+	    global $dbConnection;
+
+    $stmt = $dbConnection->prepare('select last_time from users where id=:in');
+    $stmt->execute(array(':in' => $in));
+    $total_ticket = $stmt->fetch(PDO::FETCH_ASSOC);
+	$lt=$total_ticket['last_time'];
+	$d = time()-strtotime($lt);
+	if ($d > 20) {
+	
+	
+	$res="offline";}
+	else {$res="online";}
+	
+	return $res;
+}
+
+
 function get_ticket_id_by_hash($in) {
     global $dbConnection;
 
@@ -1616,6 +1634,9 @@ function get_total_tickets_free($in) {
     
     
     //$uid=$_SESSION['helpdesk_user_id'];
+    
+    
+    
     
     $unit_user=unit_of_user($uid);
     $priv_val=priv_status($uid);

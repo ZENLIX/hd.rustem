@@ -69,6 +69,7 @@ if (isset($_GET['ok'])) {
         </div></div>
 
     <hr>
+
     <div class="form-group" id="for_to" data-toggle="popover" data-html="true" data-trigger="manual" data-placement="right">
         <label for="to" class="col-md-2 control-label" data-toggle="tooltip" data-placement="top" title="<?=lang('NEW_to_desc');?>"><small><?=lang('NEW_to');?>: </small></label>
         <div class="col-md-6">
@@ -109,10 +110,13 @@ if (isset($_GET['ok'])) {
 
 
         <div class="col-md-4" style="" id="dsd" data-toggle="popover" data-html="true" data-trigger="manual" data-placement="right" data-content="<small><?=lang('NEW_to_unit_desc');?></small>">
+    
+    
+    <select data-placeholder="<?=lang('NEW_to_user');?>"  id="users_do" name="unit_id">
+    	<option></option>
 
-            <select data-placeholder="<?=lang('NEW_to_user');?>" class="chosen-select form-control input-sm" id="users_do" name="unit_id">
-                <option value="0"></option>
-                <?php
+
+<?php
                 
                 
                /* $qstring = "SELECT fio as label, id as value FROM users where status='1' and login !='system' order by fio ASC;";
@@ -135,10 +139,10 @@ if (isset($_GET['ok'])) {
                     $row['label']=$row['label'];
                     $row['value']=(int)$row['value'];
 
-
+if (get_user_status_text($row['value']) == "online") {$s="status-online-icon";}
+else if (get_user_status_text($row['value']) == "offline") {$s="status-offline-icon";}
                     ?>
-
-                    <option data-type="chocolate" data-user-rating="1.8" value="<?=$row['value']?>"><?=$row['label']?> </option>
+                    <option data-foo="<?=$s;?>" value="<?=$row['value']?>"><?=nameshort($row['label'])?> </option>
 
                 <?php
 
@@ -146,9 +150,8 @@ if (isset($_GET['ok'])) {
                 }
 
                 ?>
-
-            </select>
-
+    </select>
+            
 
         </div>
 

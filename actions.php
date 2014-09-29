@@ -471,10 +471,7 @@ $r['p']=$row['id'];
             $result = $stmt->fetchAll();
 
 
-            $results[] = array(
-                'name' => '',
-                'co' => '0'
-            );
+
             foreach($result as $row) {
 
 
@@ -483,8 +480,14 @@ $r['p']=$row['id'];
                 $u=explode(",",$row['unit']);
 
                 if (in_array($idzz, $u)) {
+                
+                
+                if (get_user_status_text($ud) == "online") {$s="status-online-icon";}
+				else if (get_user_status_text($ud) == "offline") {$s="status-offline-icon";}
+                
                     $results[] = array(
-                        'name' => $un,
+                        'name' => nameshort($un),
+                        'stat' =>$s,
                         'co' => $ud
                     );
 
@@ -809,7 +812,14 @@ $r['p']=$row['id'];
             <?php
             }
             else if(!empty($result)) {
-                foreach($result as $row) {
+            
+            
+            
+            
+                foreach($result as $row) 
+                
+                
+                {
                     $unit2id = explode(",", $row['unit_to_id']);
 
                     $diff = array_intersect($units, $unit2id);

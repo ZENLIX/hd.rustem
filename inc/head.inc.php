@@ -21,6 +21,8 @@
 <link rel="stylesheet" href="<?=$CONF['hostname']?>/css/font-awesome.min.css">
 <link rel="stylesheet" href="<?=$CONF['hostname']?>/js/bootstrap3-editable/css/bootstrap-editable.css">
 <link rel="stylesheet" href="<?=$CONF['hostname']?>/css/chosen.min.css">
+<link rel="stylesheet" href="<?=$CONF['hostname']?>/js/s2/select2.css?v2">
+<link rel="stylesheet" href="<?=$CONF['hostname']?>/js/s2/select2-bootstrap.css">
 <style type="text/css" media="all">
     .chosen-rtl .chosen-drop { left: -9000px; }
 </style>

@@ -2,6 +2,17 @@ var my_errors = {fio: false, login: false, pass: false};
 $(document).ready(function() {
 
 
+
+
+function format(state) {
+    var originalOption = state.element;
+ 
+    return "<img class='flag' src='img/" + $(originalOption).data('foo')  + ".png' alt='" + $(originalOption).data('foo') + "' /> " + state.text;
+}
+
+
+
+
         
         
         moment.lang(MyLANG);
@@ -86,7 +97,14 @@ if (url.search("inc") >= 0) {
 
     $('textarea').autosize({append: "\n"});
 
-
+$("#users_do").select2({
+    formatResult: format,
+    formatSelection: format,
+    allowClear: true,
+    width: '100%',
+    formatNoMatches:get_lang_param('JS_not_found'),
+    escapeMarkup: function(m) { return m; }
+});
 
     $('#my-select').multiSelect({
     });
@@ -372,15 +390,21 @@ makemytime(true);
             success: function(html){
                 $('select#'+target_id).empty();
                 if (html) {
+                $('select#'+target_id)
+                            .append($("<option></option>"));
+                                
                     $.each(html, function(i, item) {
                         $('select#'+target_id)
                             .append($("<option></option>")
                                 .attr("value",item.co)
+                                .attr("data-foo",item.stat)
                                 .text(item.name));
 
                     });
                 }
+                $('select#'+target_id).trigger('change');
                 $('select#'+target_id).trigger('chosen:updated');
+                
             }
 
         });

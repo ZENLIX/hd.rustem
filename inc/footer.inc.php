@@ -27,6 +27,7 @@
 <script src="<?=$CONF['hostname']?>js/jquery.ui.autocomplete.js"></script>
 <script src="<?=$CONF['hostname']?>js/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
 <script src="<?=$CONF['hostname']?>js/chosen.jquery.min.js"></script>
+<script src="<?=$CONF['hostname']?>js/s2/select2.min.js"></script>
 <script src="<?=$CONF['hostname']?>js/bootstrap-paginator.js"></script>
 <script src="<?=$CONF['hostname']?>js/jquery.autosize.min.js"></script>
 <script src="<?=$CONF['hostname']?>js/jquery.noty.packaged.min.js"></script>
