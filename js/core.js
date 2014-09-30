@@ -4,11 +4,7 @@ $(document).ready(function() {
 
 
 
-function format(state) {
-    var originalOption = state.element;
- 
-    return "<img class='flag' src='img/" + $(originalOption).data('foo')  + ".png' alt='" + $(originalOption).data('foo') + "' /> " + state.text;
-}
+
 
 
 
@@ -51,7 +47,11 @@ function format(state) {
         
 
 var ACTIONPATH=MyHOSTNAME+"actions.php";
-
+function format(state) {
+    var originalOption = state.element;
+ 
+    return "<img class='flag' src='"+MyHOSTNAME+"img/" + $(originalOption).data('foo')  + ".png' alt='" + $(originalOption).data('foo') + "' /> " + state.text;
+}
         function sendFile(file, editor, welEditable) {
             data = new FormData();
             data.append("file", file);
