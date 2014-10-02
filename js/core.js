@@ -3072,14 +3072,19 @@ if (!$('#s_start').length) {
 
 function enter_ticket() {
 			var status_action=$("#status_action").val();
-
+			var u_do;
             if (status_action =='add') {
 
                 //uploadObj.startUpload();
 $('#enter_ticket').html('<i class="fa fa-spinner fa-spin"></i>').prop('disabled', true);
 $('#reset_ticket').prop('disabled', true);
 
-
+if( $("#users_do").val() === '' ) {
+	u_do='0';
+}
+if( $("#users_do").val() != '' ) {
+	u_do=$("#users_do").val();
+}
                 $.ajax({
                     type: "POST",
                     //async: false,
@@ -3095,7 +3100,7 @@ $('#reset_ticket').prop('disabled', true);
                         "&mail="+encodeURIComponent($("#new_mail").text())+
                         "&posada="+encodeURIComponent($("#new_posada").text())+
                         "&user_init_id="+encodeURIComponent($("#user_init_id").val())+
-                        "&user_do="+encodeURIComponent($("#users_do").val())+
+                        "&user_do="+encodeURIComponent(u_do)+
                         "&subj="+encodeURIComponent($("#subj").val())+
                         "&msg="+encodeURIComponent($("#msg").val())+
                         "&unit_id="+encodeURIComponent($("#to").val())+
@@ -3119,6 +3124,12 @@ $('#reset_ticket').prop('disabled', true);
                 //uploadObj.startUpload();
                 $('#enter_ticket').html('<i class="fa fa-spinner fa-spin"></i>').prop('disabled', true);
 				$('#reset_ticket').prop('disabled', true);
+if( $("#users_do").val() === '' ) {
+	u_do='0';
+}
+if( $("#users_do").val() != '' ) {
+	u_do=$("#users_do").val();
+}
                 $.ajax({
                     type: "POST",
                     //async: false,
@@ -3134,7 +3145,7 @@ $('#reset_ticket').prop('disabled', true);
                         "&mail="+encodeURIComponent($("#edit_mail").text())+
                         "&posada="+encodeURIComponent($("#edit_posada").text())+
                         "&user_init_id="+encodeURIComponent($("#user_init_id").val())+
-                        "&user_do="+encodeURIComponent($("#users_do").val())+
+                        "&user_do="+encodeURIComponent(u_do)+
                         "&subj="+encodeURIComponent($("#subj").val())+
                         "&msg="+encodeURIComponent($("#msg").val())+
                         "&unit_id="+encodeURIComponent($("#to").val())+
@@ -3251,7 +3262,14 @@ $(this).removeClass('fileupload-processing');
 
 //$('.start').hide();
 
-
+    $('body').on('click', 'button#enter_ticket_client', function(event) {
+        event.preventDefault();
+        	if (check_form_ticket_client() == 0 ) {
+     enter_ticket_client();
+     //console.log('ok');
+     }
+        }
+        );
 
     $('body').on('click', 'button#enter_ticket', function(event) {
         event.preventDefault();
@@ -3263,11 +3281,11 @@ $(this).removeClass('fileupload-processing');
 
 
 
-//if( !$('tr#up_entry').length )  {
 	if (check_form_ticket() == 0 ) {
      enter_ticket();
      }
-//}
+
+//console.log($("#users_do").val());
 
 
 

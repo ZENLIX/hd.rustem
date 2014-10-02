@@ -225,11 +225,6 @@ global $CONF, $CONF_MAIL, $dbConnection;
 
     if ($type == "new_all") {
 
-/*
-        $queryid_ticket="SELECT user_init_id,user_to_id,date_create,subj,msg, client_id, unit_id, status, hash_name, prio,last_update FROM tickets where id='$tid'";
-        $res1_ticket = mysql_query($queryid_ticket) or die(mysql_error());
-        $max_id_ticket= mysql_fetch_assoc( $res1_ticket );
-*/
         
         $stmt = $dbConnection->prepare('SELECT user_init_id,user_to_id,date_create,subj,msg, client_id, unit_id, status, hash_name, prio,last_update FROM tickets where id=:tid');
         $stmt->execute(array(':tid' => $tid));
@@ -267,7 +262,7 @@ global $CONF, $CONF_MAIL, $dbConnection;
 
                         
                         
-        $stmt = $dbConnection->prepare('SELECT email, unit FROM users where status=:n');
+        $stmt = $dbConnection->prepare('SELECT email, unit, login FROM users where status=:n');
 		$stmt->execute(array(':n'=>'1'));
 		$res1 = $stmt->fetchAll();                 
         foreach($res1 as $qrow) {                
@@ -284,7 +279,8 @@ global $CONF, $CONF_MAIL, $dbConnection;
 								 if (!is_null($qrow['email'])) {
 								 //echo $qrow['email'];
                 $to      = $qrow['email'];
-                $subject = lang('TICKET_name').' #'.$tid." (".lang('t_list_a_all').")";
+                $tl      = $qrow['login'];
+                $subject = lang('TICKET_name').' #'.$tid." (".lang('t_list_a_all').") ";
                 $message =<<<EOBODY
 <div style="background: #ffffff; border: 1px solid gray; border-radius: 6px; font-family: Arial,Helvetica,sans-serif; font-size: 12px; margin: 9px 17px 13px 17px; padding: 11px;">
 <p style="font-family: Arial, Helvetica, sans-serif; font-size:18px; text-align:center;">{$MAIL_new}!</p>
@@ -391,11 +387,6 @@ send_mail($to,$subject,$message);
     
     if ($type == "new_coord") {
 
-
-        /*$queryid_ticket="SELECT user_init_id,user_to_id,date_create,subj,msg, client_id, unit_id, status, hash_name, prio,last_update FROM tickets where id='$tid'";
-        $res1_ticket = mysql_query($queryid_ticket) or die(mysql_error());
-        $max_id_ticket= mysql_fetch_assoc( $res1_ticket );
-        */
         
 		$stmt = $dbConnection->prepare('SELECT user_init_id,user_to_id,date_create,subj,msg, client_id, unit_id, status, hash_name, prio,last_update FROM tickets where id=:tid');
 	$stmt->execute(array(':tid' => $tid));
@@ -451,6 +442,7 @@ while ($qrow = mysql_fetch_array($qresult,MYSQL_ASSOC)) {
 								 if (!is_null($qrow['email'])) {
 								 //echo $qrow['login'];
                 $to      = $qrow['email'];
+                $tl      = $qrow['login'];
                 $subject = lang('TICKET_name').' #'.$tid." (".lang('t_LIST_worker_to').")";
                 $message =<<<EOBODY
 <div style="background: #ffffff; border: 1px solid gray; border-radius: 6px; font-family: Arial,Helvetica,sans-serif; font-size: 12px; margin: 9px 17px 13px 17px; padding: 11px;">
@@ -612,8 +604,8 @@ send_mail($to,$subject,$message);
         //$results = mysql_query("SELECT email from users where id='$client_id' and status='1';");
         //while ($row = mysql_fetch_assoc($results)) {
             
-        $stmt = $dbConnection->prepare('SELECT email from users where id=:client_id and status=:n');
-		$stmt->execute(array(':n'=>'1',':client_id'=>$client_id));
+        $stmt = $dbConnection->prepare('SELECT email,login from users where id=:client_id and status=:n and priv=:n1');
+		$stmt->execute(array(':n'=>'1',':client_id'=>$client_id,':n1'=>'2'));
 		$res1 = $stmt->fetchAll();                 
         foreach($res1 as $row) {     
             
@@ -627,6 +619,7 @@ send_mail($to,$subject,$message);
             
             
                 $to      = $row['email'];
+                $tl      = $row['login'];
                 $subject = lang('TICKET_name').' #'.$tid." (".lang('t_LIST_person').")";
                 $message =<<<EOBODY
 <div style="background: #ffffff; border: 1px solid gray; border-radius: 6px; font-family: Arial,Helvetica,sans-serif; font-size: 12px; margin: 9px 17px 13px 17px; padding: 11px;">
