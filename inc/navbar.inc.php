@@ -55,14 +55,18 @@ if ($ap == 0) {
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-<li class="dropdown">
+<!--li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-tags"></i> <?=lang('NAVBAR_tickets');?> <?=$newtickets?><b class="caret"></b></a>
                 <ul class="dropdown-menu">
 
             <li <?=echoActiveClassIfRequestMatches("create")?>><a href="<?=$CONF['hostname']?>create"><i class="fa fa-tag"></i> <?=lang('NAVBAR_create_ticket');?></a></li>
             <li <?=echoActiveClassIfRequestMatches("list")?>><a href="<?=$CONF['hostname']?>list"><i class="fa fa-list-alt"></i> <?=lang('NAVBAR_list_ticket');?> <?=$newtickets?></a></li>
-                </ul></li>
-            
+                </ul>
+                
+                
+                </li-->
+            <li <?=echoActiveClassIfRequestMatches("create")?>><a href="<?=$CONF['hostname']?>create"><i class="fa fa-tag"></i> <?=lang('NAVBAR_create_ticket');?></a></li>
+            <li <?=echoActiveClassIfRequestMatches("list")?>><a href="<?=$CONF['hostname']?>list"><i class="fa fa-list-alt"></i> <?=lang('NAVBAR_list_ticket');?> <?=$newtickets?></a></li>
             <li <?=echoActiveClassIfRequestMatches("clients")?>><a href="<?=$CONF['hostname']?>clients"><i class="fa fa-users"></i> <?=lang('NAVBAR_workers');?></a></li>
             
             <li <?=echoActiveClassIfRequestMatches("helper")?>><a href="<?=$CONF['hostname']?>helper"><i class="fa fa-globe"></i> <?=lang('NAVBAR_helper');?></a></li>
