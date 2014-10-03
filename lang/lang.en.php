@@ -345,7 +345,7 @@ function lang ($phrase) {
 ,'P_login' => 'Login' 
 ,'P_mail' => 'E-mail' 
 ,'P_mail_desc' => 'is used exclusively for the notice.' 
-,'P_edit' => 'Edit' 
+,'P_edit' => 'Save' 
 ,'P_passedit' => 'Change Password' 
 ,'P_pass_old' => 'Old password' 
 ,'P_pass_old2' => 'Password old' 
