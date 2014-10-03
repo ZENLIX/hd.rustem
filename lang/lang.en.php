@@ -542,7 +542,14 @@ If you are an head of the department - you can see all your Tickets department (
                                  </ p> ', 
 'HELP_edit_user_text' => '<p> Sometimes you need to add information about the user or change it. 
 To do this, there is a section - Members. Locate the user that you need and change the data. After that, they will be tested by the system administrator and change. 
-                                 </ p> ', 
+                                 </ p> ',
+'TICKET_file_upload'=>'select files',
+'TICKET_file_startupload'=>'upload',
+'TICKET_file_notupload'=>'cancel upload',
+'TICKET_file_notupload_one'=>'cancel',
+'TICKET_file_upload_msg'=>'You can use drag and drop',
+'TICKET_file_add'=>'Add file',
+'TICKET_file_list'=>'Attachments',
 'SYSTEM_lang'=>'Language',
 'summernote_lang'=> 'en-US',
 'note_save'=>'Record saved',
