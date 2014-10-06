@@ -381,12 +381,15 @@ function make_html($in, $type) {
 
 	$Parsedown = new Parsedown();
 	$text=$Parsedown->text($in);
-
+$text=str_replace("\n", "<br />", $text);
 $config = HTMLPurifier_Config::createDefault();
+
+
+
 $config->set('Core.Encoding', 'UTF-8');
 $config->set('HTML.Doctype', 'XHTML 1.0 Transitional');
 $config->set('Cache.DefinitionImpl', null);
-$config->set('AutoFormat.RemoveEmpty',true);
+$config->set('AutoFormat.RemoveEmpty',false);
 $config->set('AutoFormat.AutoParagraph',true);
 //$config->set('URI.DisableExternal', true);
 if ($type  == "no") {
@@ -394,7 +397,9 @@ $config->set('HTML.ForbiddenElements', array( 'p' ) );
 }
 
 $purifier = new HTMLPurifier($config);
-
+$def = $config->getHTMLDefinition(true);
+$def->addElement('ul', 'List', 'Optional: List | li', 'Common', array());
+$def->addElement('ol', 'List', 'Optional: List | li', 'Common', array());
 // here, the javascript command is stripped off
 $content = $purifier->purify($text);
 
