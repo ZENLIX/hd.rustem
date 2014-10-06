@@ -64,7 +64,7 @@ function lang($phrase){
 'CONF_mail_type' => 'Тип авторизації',
 'CONF_mail_login' => 'Логін',
 'CONF_mail_pass' => 'Пароль',
-'CONF_mail_from' => 'Оправітель',
+'CONF_mail_from' => 'Відправник',
 'CONF_mail_debug' => 'Режим налагодження',
 'CONF_mail_type'=>'Тип',
 'LIST_pin' => 'Відділів',
