@@ -1,5 +1,4 @@
 <?php
-//ob_start();
 session_start();
 
 
@@ -138,5 +137,5 @@ else {
 } else {
     include "sys/install.php";
 }
-//ob_end_flush();
+
 ?>
