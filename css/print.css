@@ -1,0 +1,19 @@
+@media print {
+.page-header
+{
+    display: none;
+    }
+.col-md-1,.col-md-12
+{
+    display: none;
+    }
+.credit
+    {
+    display: none;
+    }
+.btn,.btn-primary,.btn-sm
+    {
+    display: none;
+    }
+}
+
