@@ -89,7 +89,7 @@ function lang ($phrase) {
 'DASHBOARD_last_news' => 'Recent changes',
 'DASHBOARD_last_help' => 'Last of the Knowledge Center',
 'DASHBOARD_author' => 'Author',
-'DASHBOARD_last_in' => 'Last inbound claims',
+'DASHBOARD_last_in' => 'Last inbound tickets',
  'APPROVED_info' => 'This section contains a query system users to change information about the client (user).',
   'WORKERS_info' => 'This section contains information about the users (clients), you can find and send the request to change the information. If you have sufficient rights, you can change the information immediately, without asking.',
 'NEW_title' => 'Create a new request',
@@ -107,10 +107,10 @@ function lang ($phrase) {
 'NEW_fio' => 'name or user login',
 'NEW_fio_desc' => 'Please fill this field',
 'NEW_to' => 'To',
-'NEW_to_desc' => 'Artist Tickets - or an entire department, or optionally a specific employee.',
+'NEW_to_desc' => 'Receiver Tickets - or an entire department, or optionally a specific employee.',
 'NEW_to_unit' => 'Department',
 'NEW_to_unit_desc' => 'Specify the destination or department employee',
-'NEW_to_user' => 'Artist',
+'NEW_to_user' => 'Receiver',
 'NEW_prio' => 'Priority',
 'NEW_prio_low' => 'Low',
 'NEW_prio_norm' => 'Average',
@@ -159,7 +159,7 @@ function lang ($phrase) {
 't_LIST_create' => 'Created',
 't_LIST_ago' => 'passed',
 't_LIST_init' => 'Author',
-'t_LIST_to' => 'Artist' 
+'t_LIST_to' => 'Receiver' 
 ,'t_LIST_status' => 'Status' 
 ,'t_LIST_action' => 'Action' 
 ,'t_list_a_nook' => 'mark is formed' 
@@ -246,7 +246,7 @@ function lang ($phrase) {
 
 ,'TICKET_t_from' => 'Author' 
 ,'TICKET_t_was_create' => 'has been created' 
-,'TICKET_t_to' => 'Artist' 
+,'TICKET_t_to' => 'Receiver' 
 ,'TICKET_t_last_edit' => 'Revised' 
 ,'TICKET_t_worker' => 'User' 
 ,'TICKET_t_last_up' => 'Last update' 
@@ -469,7 +469,7 @@ function lang ($phrase) {
 
 
 
-'DASHBOARD_def_msg' => ', welcome to the Ticket system </ strong> </ center> <br> recommend you see <a href=\'help\' class=\'alert-link\'> </ i > Directions </ a> at work system. <br> <a href=\'create\'class=\'alert-link\'> Or create a new Ticket </ a> right now! ',
+'DASHBOARD_def_msg' => ', welcome to the Ticket system </strong> </center> <br> recommend you see <a href=\'help\' class=\'alert-link\'> </i > Directions </a> at work system. <br> <a href=\'create\'class=\'alert-link\'> Or create a new Ticket </a> right now! ',
 
 'msg_creted_new_user' => 'new user will be wound up.'
 
@@ -502,7 +502,7 @@ function lang ($phrase) {
                                  </ p> 
                                  <ol> 
                                      <li> <strong> From </ strong> - You need to start typing part of the surname, first name or username. If such employee is already in the system, then you will automatically be prompted to select from the list. If it is not - it will be created. In the right part of the page, you can optionally specify the contact details for the person. Typically a contact telephone number, e. </ Li> 
-                                     <li> <strong> Who </ strong> - specifies department. Be sure to specify the department, as well as optional artist. If you specify only the department, then the Ticket will see all employees of the department. If you specify more and performer, then the Ticket will only see artist and the head of his department. </ Li> 
+                                     <li> <strong> Who </ strong> - specifies department. Be sure to specify the department, as well as optional receiver. If you specify only the department, then the Ticket will see all employees of the department. If you specify more and performer, then the Ticket will only see receiver and the head of his department. </ Li> 
                                      <li> <strong> Priority </ strong> - specifies the priority of the Ticket. The general list Ticket can be seen by certain marks. </ Li> 
                                      <li> <strong> Subject </ strong> - briefly stated theme of the Ticket. </ li> 
                                      <li> <strong> Message </ strong> - specifies in detail the essence of the Ticket. </ li> 
