@@ -1,6 +1,16 @@
 hd.rustem
 =======
 <h4>HELPDESK веб-система, для организации учёта выполнения задач (заявок) между структурными подразделениями и пользователями или клиентами организации.<h4>
+<html>
+<script async="async" src="https://www.paypalobjects.com/js/external/paypal-button.min.js?merchant=info@rustem.com.ua" 
+    data-button="buynow" 
+    data-name="rustem-art" 
+    data-quantity="1" 
+    data-amount="10" 
+    data-currency="USD"
+></script>
+</html>
+
 =======
 <h3>Наш проект перерос в более продвинутую версию - <a href="http://zenlix.com/">ZENLIX</a>.</h3>
 =======
@@ -67,10 +77,5 @@ hd.rustem
 <ul>
 <li>Skype: rustem_ck</li>
 </ul>
-<script src="paypal-button.min.js?merchant=info@rustem.com.ua"
-    data-button="donate"
-    data-name="My product"
-    data-amount="10.00"
-    async
-></script>
+
 
