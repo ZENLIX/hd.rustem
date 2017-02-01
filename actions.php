@@ -2574,8 +2574,8 @@ values (:ar, now(), :unow, :tid)');
 
 
 
-                    $stmt = $dbConnection->prepare('update tickets set ok_by=:n, status=:n1, last_update=now() where id=:tid');
-                    $stmt->execute(array(':tid' => $tid, ':n'=>'0',':n1'=>'0'));
+                    $stmt = $dbConnection->prepare('update tickets set ok_by=:n, status=:n1, arch=:n2, last_update=now() where id=:tid');
+                    $stmt->execute(array(':tid' => $tid, ':n'=>'0',':n1'=>'0',':n2'=>'0' ));
 
 
 
