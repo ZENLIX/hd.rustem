@@ -10,33 +10,6 @@
  */
 
 /* global define, window */
-var ACTIONPATH=MyHOSTNAME+"actions.php";
-
-
-    function get_lang_param(par) {
-        var result="";
-        var zcode="";
-        var url = window.location.href;
-
-if (url.search("inc") >= 0) {
-    zcode="../";
-}
-
-
-        $.ajax({
-            type: "POST",
-            url: ACTIONPATH,
-            data: "mode=get_lang_param"+
-                "&param="+par,
-            async: false,
-            success: function(html){
-
-                result=html;
-            }
-        });
-        return (result);
-
-    };
 
 (function (factory) {
     'use strict';
@@ -93,12 +66,14 @@ if (url.search("inc") >= 0) {
             getNumberOfFiles: $.noop,
 
             // Error and info messages:
+            /*
             messages: {
                 maxNumberOfFiles: 'Maximum number of files exceeded',
                 acceptFileTypes: get_lang_param('upload_errortypes'),
                 maxFileSize: get_lang_param('upload_errorsize'),
                 minFileSize: 'File is too small'
             }
+            */
         },
 
         processActions: {
