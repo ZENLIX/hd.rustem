@@ -210,6 +210,7 @@ if ($_POST['menu'] == 'list' ) {
             <th><center><small><?=lang('USERS_login');?>		</small></center></th>
             <th><center><small><?=lang('USERS_privs');?>		</small></center></th>
             <th><center><small><?=lang('USERS_unit');?>		</small></center></th>
+            <th><center><small><?=lang('t_LIST_status');?>		</small></center></th>
             
           </tr>
         </thead>
@@ -246,6 +247,7 @@ if ($_POST['menu'] == 'list' ) {
             <td><small><?php echo $row['login']; ?></small></td>
             <td><small><?php echo $priv; ?></small></td>
             <td><small><span data-toggle="tooltip" data-placement="right" title="<?=$unit;?>"><?=lang('LIST_pin')?> <?=count(get_unit_name_return($row['unit'])); ?> </span></small></td>
+            <td><small class="text-danger"><center><?=get_user_status($row['id']);?></center></small></td>
           </tr>
         <?php } ?>
        </tbody>
