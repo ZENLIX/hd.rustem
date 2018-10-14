@@ -1,15 +1,10 @@
 hd.rustem
 =======
 <h4>HELPDESK веб-система, для организации учёта выполнения задач (заявок) между структурными подразделениями и пользователями или клиентами организации.<h4>
-<html>
-<script async="async" src="https://www.paypalobjects.com/js/external/paypal-button.min.js?merchant=info@rustem.com.ua" 
-    data-button="buynow" 
-    data-name="rustem-art" 
-    data-quantity="1" 
-    data-amount="10" 
-    data-currency="USD"
-></script>
-</html>
+
+Доступна бесплатная вторая версия: [ZENLIX v2.x](https://github.com/ZENLIX/ZENLIX-2)
+
+Новая версия доступна тут: [ZENLIX v3.x](https://ru.zenlix.com/)
 
 =======
 <h3>Наш проект перерос в более продвинутую версию - <a href="http://zenlix.com/">ZENLIX</a>.</h3>
